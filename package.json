@@ -15,7 +15,7 @@
   "dependencies": {
     "@angular/animations": "^16.2.12",
     "@angular/cdk": "^15.2.9",
-    "@angular/cli": "^14.2.11",
+    "@angular/cli": "^15.2.11",
     "@angular/common": "^16.2.12",
     "@angular/compiler": "^16.2.12",
     "@angular/compiler-cli": "^16.2.12",
@@ -76,7 +76,7 @@
     "zone.js": "~0.13.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.11",
+    "@angular-devkit/build-angular": "^15.2.11",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "@types/pouchdb-adapter-http": "^6.1.6",
