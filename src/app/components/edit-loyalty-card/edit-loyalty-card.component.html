@@ -1,0 +1,24 @@
+<div class="container-fluid pt-md-3 pb-5">
+
+  <div class="row mb-2 d-none d-md-block">
+
+    <div class="col-md-12">
+      <h2 class="text-center">
+        Edit Loyalty Card <span *ngIf="lc">({{lc.card_title}})</span>
+      </h2>
+    </div>
+
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+
+    <div class="col-md-12 mb-4" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <app-loyalty-card-form class="col-12 col-md-7 col-sm-12 col-lg-5 col-xl-4 p-0" [loyalty_card]="lc" *ngIf="progress === false && lc"></app-loyalty-card-form>
+  </div>
+
+  <app-mobile-header-with-back-button *ngIf="!progress && lc && lc.id" [backUrl]="'/business/loyalty-cards/manage'" [heading]="lc.card_title"></app-mobile-header-with-back-button>
+
+</div>

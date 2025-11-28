@@ -1,0 +1,127 @@
+<mat-card class="shadow" >
+  <mat-card-header class="pb-2 d-flex justify-content-between align-items-center">
+    <mat-card-title class="mb-0">Items Reviewed
+      <ng-container *ngIf="business.reviews && business.reviews.length">
+        - {{business.reviews.length}}
+      </ng-container>
+
+
+    </mat-card-title>
+
+    <button (click)="feedbackForm = true"  class="btn btn-theme-dark">
+      Submit Review
+    </button>
+
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content *ngIf="feedbackForm === true">
+    <app-customer-feedback-form [feedbackFormOpen]="feedbackForm" [listingType]="'business'" [listingId]="business.id"></app-customer-feedback-form>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-content class="p-3">
+
+    <div class="row">
+
+      <div class="col-md-2">
+
+        <div class="feedback-box">
+
+          {{business.overall_rating}}
+
+        </div>
+        <div class="rating">
+
+
+          <ngb-rating [max]="5" [(rate)]="business.overall_rating" [readonly]="true"></ngb-rating>
+
+
+        </div>
+
+
+
+      </div>
+      <div class="col-md-10">
+
+        <div class="row">
+
+          <div class="col-md-6 mb-2">
+
+            <p class="fw-bold text-black-50">Quality ({{business.score_quality_rating}})</p>
+            <mat-progress-bar color="primary" value="100"></mat-progress-bar>
+          </div>
+          <div class="col-md-6 mb-2">
+
+            <p  class="fw-bold text-black-50">Location ({{business.score_location_rating}})</p>
+            <mat-progress-bar color="primary" value="100"></mat-progress-bar>
+          </div>   <div class="col-md-6 mb-2">
+
+          <p  class="fw-bold text-black-50">Price ({{business.score_price_rating}})</p>
+          <mat-progress-bar color="primary" value="100"></mat-progress-bar>
+        </div>   <div class="col-md-6 mb-2">
+
+          <p  class="fw-bold text-black-50">Service ({{business.score_service_rating}})</p>
+          <mat-progress-bar color="primary" value="100"></mat-progress-bar>
+        </div>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+    <div class="row mt-5" *ngFor="let review of business.reviews">
+
+      <div class="col-md-2">
+
+        <img src="../../../../assets/img/slides/res2.jpg" style="width: 50px;height: 50px;border-radius: 50px;">
+
+      </div>
+
+      <div class="col-md-10 pt-2">
+
+        <div class="row">
+
+          <div class="col-md-12">
+            <p *ngIf="review.customer" class="float-start fw-bold">
+              {{review.customer.username}}
+            </p>
+            <div class="customer-feedback d-flex float-end">
+
+              <div class="rating">
+
+                <ngb-rating [max]="5" [(rate)]="review.overall" [readonly]="true"></ngb-rating>
+
+
+
+              </div>
+              <div class="feedback-box-sm">
+                {{review.overall}}
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-md-12 mt-1">
+            <p class="fw-bold text-black-50 lh-base">
+              " {{review.customer_comment}} "
+            </p>
+
+            <p class="mt-5  fw-bold text-black-50">
+              <i class="fa fa-calendar text-info"></i>&nbsp;&nbsp;{{review.created_at | date}}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </mat-card-content>
+
+</mat-card>

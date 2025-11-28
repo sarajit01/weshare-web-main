@@ -1,0 +1,453 @@
+<div class="container-fluid pt-3 pb-5">
+
+
+  <app-mobile-header-with-back-button [backUrl]="'/business/' + business_id + '/users'" *ngIf="registerMethod === 'new_user'" [heading]="'Add New User'"></app-mobile-header-with-back-button>
+  <app-mobile-header-with-back-button [backUrl]="'/business/' + business_id + '/users'" *ngIf="registerMethod === 'send_invite'" [heading]="'Send Invite'"></app-mobile-header-with-back-button>
+
+  <div class="row mb-5">
+
+    <div class="col-md-12 p-0">
+
+      <mat-progress-bar *ngIf="progress.businessLoading === true" mode="indeterminate"></mat-progress-bar>
+      <mat-card *ngIf="business">
+
+        <mat-card-header class="d-none d-md-block">
+
+          <div class="row mb-2">
+
+            <div class="col-md-12">
+              <h2 class="float-start">
+                {{'Add User' | translate}} ( {{business.business_name_prefix}} {{business.business_name}} )
+              </h2>
+              <button class="float-end" [routerLink]="['/business/'+business.id+'/users']" mat-raised-button color="accent">
+
+                <i class="fa fa-angle-left"></i> {{'Back' | translate}}
+
+              </button>&nbsp;&nbsp;
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+
+          <div class="row mt-2">
+
+
+            <div class="col-md-6" *ngIf="registerMethod === 'all' || registerMethod === 'new_user'">
+              <form id="business-mobile-form" [formGroup]="formAddUser" >
+
+                <h4 class="d-none d-md-block">{{'Register New User' | translate}}</h4>
+
+
+                <div class="row mt-1">
+                  <div class="col-md-12 ">
+                    <mat-error *ngIf="formAddUser.controls.business_role.errors">{{formAddUser.controls.business_role.errors[0]}}</mat-error>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'Which is role of this user in this business?' | translate}}</mat-label>
+                      <mat-select formControlName="business_role">
+                        <mat-option value="">{{'Select Business Role' | translate}}</mat-option>
+                        <mat-option value="business_assistant">{{'Business assistant' | translate}}</mat-option>
+                        <mat-option value="appointments">{{'Manage Appointments' | translate}}</mat-option>
+                        <mat-option value="booking">{{'Manage Booking requests' | translate}}</mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-error *ngIf="formAddUser.controls.service_id.errors">{{formAddUser.controls.service_id.errors[0]}}</mat-error>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'Which service will be managed by this user?' | translate}}</mat-label>
+                      <mat-select formControlName="service_id">
+                        <mat-option value="">{{'Select Service' | translate}}</mat-option>
+                        <mat-option value="-1">{{'All services' | translate}}</mat-option>
+                        <mat-option *ngFor="let option of business.services"  [value]="option.id">
+                          {{option.service_name}}
+                        </mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12" *ngIf="respData && respData.errors && respData.errors['username']">
+
+                    <div class="alert alert-danger fw-bold">
+                      {{respData.errors['username']}}
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+
+                    <mat-form-field  appearance="outline">
+                      <mat-label>{{'Username' | translate}}</mat-label>
+                      <input name="username" formControlName="username"   matInput placeholder="{{'Enter Username' | translate}}" >
+                    </mat-form-field>
+
+                  </div>
+
+                </div>
+                <div class="row">
+
+
+                  <div class="col-md-12" *ngIf="respData && respData.errors && respData.errors['first_name']">
+
+                    <div class="alert alert-danger fw-bold">
+                      {{respData.errors['first_name']}}
+                    </div>
+
+                  </div>
+                  <div class="col-md-12" *ngIf="respData && respData.errors && respData.errors['last_name']">
+
+                    <div class="alert alert-danger fw-bold">
+                      {{respData.errors['last_name']}}
+                    </div>
+
+                  </div>
+
+
+                  <div class="col-md-6">
+
+                    <mat-form-field  appearance="outline">
+                      <mat-label>{{'First Name' | translate}}</mat-label>
+
+                      <input name="first_name" formControlName="first_name" matInput placeholder="{{'First Name' | translate}}" >
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <mat-form-field  appearance="outline">
+                      <mat-label>{{'Last Name' | translate}}</mat-label>
+                      <input name="last_name" formControlName="last_name" matInput placeholder="{{'Last Name' | translate}}" >
+                    </mat-form-field>
+
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+
+
+                  <div class="col-md-12" *ngIf="respData && respData.errors && respData.errors['email']">
+
+                    <div class="alert alert-danger fw-bold">
+                      {{respData.errors['email']}}
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <mat-form-field   appearance="outline">
+                      <mat-label>{{'Login Email Address (The user will use this email address to login)' | translate}}</mat-label>
+                      <input name="email" formControlName="email" matInput placeholder="{{'Email Address' | translate}}" >
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-md-12">
+
+                    <mat-error *ngIf="formAddUser.controls.business_email.errors">{{formAddUser.controls.business_email.errors[0]}}</mat-error>
+
+                    <mat-form-field   appearance="outline">
+                      <mat-label>{{'Business Email Address' | translate}}</mat-label>
+                      <input name="business_email" formControlName="business_email" matInput placeholder="{{'Business Email' | translate}} " >
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-md-12">
+                    <mat-error *ngIf="formAddUser.controls.business_phone.errors">{{formAddUser.controls.business_phone.errors[0]}}</mat-error>
+
+                    <mat-form-field   appearance="outline">
+
+                      <mat-label>{{'Business Phone' | translate}}</mat-label>
+                      <input name="business_phone" formControlName="business_phone" matInput placeholder="{{'Business Phone' | translate}} " >
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+                <div class="row">
+
+
+                  <div class="col-md-12" *ngIf="respData && respData.errors && respData.errors['password']">
+
+                    <div class="alert alert-danger fw-bold">
+                      {{respData.errors['password']}}
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <mat-form-field  appearance="outline">
+                      <mat-label>{{'Create Password for login' | translate}}</mat-label>
+                      <input name="password" formControlName="password" matInput type="password" placeholder="{{'Enter Password' | translate}}" >
+                    </mat-form-field>
+
+                  </div>
+
+
+                </div>
+                <div class="row">
+
+
+                  <div class="col-md-12" *ngIf="respData && respData.errors && respData.errors['password_confirm']">
+
+                    <div class="alert alert-danger fw-bold">
+                      {{respData.errors['password_confirm']}}
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+
+                    <mat-form-field  appearance="outline">
+                      <mat-label>{{'Confirm Password' | translate}}</mat-label>
+                      <input name="password_confirm" formControlName="password_confirm" matInput type="password" placeholder="{{'Confirm Password' | translate}}" >
+                    </mat-form-field>
+
+                  </div>
+
+                </div>
+
+                <div class="row mt-2"  *ngIf="respData">
+
+                  <div class="col-md-12">
+
+                    <div class="alert alert-danger fw-bold" *ngIf="respData && respData.error">
+                      {{respData.error}}
+                    </div>
+                    <div class="alert alert-success fw-bold" *ngIf="respData && respData.success">
+                      {{respData.success}}
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="row">
+
+                  <div class="col-md-12 mb-4 ">
+                    <button (click)="addBusinessUser()" class="full-btn btn-theme-dark float-end" mat-raised-button color="primary">
+                      <i class="fa fa-check"></i>&nbsp; {{'Add User' | translate}}
+                    </button>
+                    <div class="text-center d-flex justify-content-center">
+
+                      <mat-spinner mode="indeterminate" diameter="50" *ngIf="progress.user.add === true"></mat-spinner>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </form>
+
+            </div>
+            <div class="col-md-6" *ngIf="registerMethod === 'all' || registerMethod === 'send_invite'">
+
+              <h4 class="d-none d-md-block">{{'Send Invitation' | translate}}</h4>
+
+              <div class="alert alert-success">
+                {{'Do you want to add an user to your business who is already registered in this platform? Send an invitation now . The user will be added to your business as soon as he accepts your invitation' | translate}}
+              </div>
+              <form id="promotion-form-mobile" [formGroup]="formInviteUser">
+
+                <div class="row mt-1">
+                  <div class="col-md-12">
+                    <mat-error *ngIf="formInviteUser.controls.email.errors">{{formInviteUser.controls.email.errors[0]}}</mat-error>
+
+                    <mat-form-field  appearance="outline">
+                      <mat-label>{{'Enter User Login Email Address (Existing account)' | translate}}</mat-label>
+                      <input name="email" formControlName="email" matInput  >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row mt-1">
+                  <div class="col-md-12">
+                    <mat-error *ngIf="formInviteUser.controls.business_role.errors">{{formInviteUser.controls.business_role.errors[0]}}</mat-error>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'Which is role of this user in this business?' | translate}}</mat-label>
+                      <mat-select formControlName="business_role">
+                        <mat-option value="">{{'Select Business Role' | translate}}</mat-option>
+                        <mat-option value="business_assistant">{{'Business assistant' | translate}}</mat-option>
+                        <mat-option value="appointments">{{'Manage Appointments' | translate}}</mat-option>
+                        <mat-option value="booking">{{'Manage Booking requests' | translate}}</mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-error *ngIf="formInviteUser.controls.service_id.errors">{{formInviteUser.controls.service_id.errors[0]}}</mat-error>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'Which service will be managed by this user?' | translate}}</mat-label>
+                      <mat-select formControlName="service_id">
+                        <mat-option value="">{{'Select Service' | translate}}</mat-option>
+
+                        <mat-option value="-1">{{'All services' | translate}}</mat-option>
+                        <mat-option *ngFor="let option of business.services"  [value]="option.id">
+                          {{option.service_name}}
+                        </mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+
+                    <mat-error *ngIf="formInviteUser.controls.business_email.errors">{{formInviteUser.controls.business_email.errors[0]}}</mat-error>
+
+                    <mat-form-field   appearance="outline">
+                      <mat-label>{{'Business Email' | translate}}</mat-label>
+                      <input name="business_email" formControlName="business_email" matInput placeholder="{{'Business Email' | translate}} " >
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-md-12">
+                    <mat-error *ngIf="formInviteUser.controls.business_phone.errors">{{formInviteUser.controls.business_phone.errors[0]}}</mat-error>
+
+                    <mat-form-field   appearance="outline">
+
+                      <mat-label>{{'Business Phone' | translate}}</mat-label>
+                      <input name="business_phone" formControlName="business_phone" matInput placeholder="{{'Business Phone' | translate}} " >
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+
+                <div class="row">
+
+                  <div class="col-md-12 mb-4 ">
+                    <button (click)="sendInvitation()" class="full-btn btn-block btn-theme-dark float-end" mat-raised-button color="primary">
+                      <i class="fa fa-envelope-o"></i>&nbsp; {{'Send Invitation' | translate}}
+                    </button>
+
+
+                  </div>
+
+                </div>
+              </form>
+
+
+            </div>
+
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+</div>

@@ -1,0 +1,22 @@
+  <div class="row" *ngIf="slider && slider.items">
+    <div class="col-4 slide"  *ngFor="let slide of slider.items"
+         style="background:  url('{{slide['img']}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+    </div>
+    <div class="slide-navigator">
+      <div class="float-start justify-content-start align-items-center">
+        <div class="ic-prev" (click)="prevSlide()">
+          <i class="fa fa-angle-left"></i>
+        </div>
+      </div>
+      <div class="float-end justify-content-end align-items-center">
+        <div class="ic-next" (click)="nextSlide()">
+          <i class="fa fa-angle-right"></i>
+        </div>
+      </div>
+    </div>
+
+
+  </div>

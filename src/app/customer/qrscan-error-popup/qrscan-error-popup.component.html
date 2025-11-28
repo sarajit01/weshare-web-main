@@ -1,0 +1,38 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">
+
+    <div   class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+
+        <div  class="h-100 d-flex justify-content-center align-items-center">
+            <h4 class="mb-0">{{"Scan error" | translate}}</h4>
+        </div>
+
+
+        <i (click)="closePopup()" class="fa fa-times cursor-pointer"></i>
+    </div>
+    <mat-divider></mat-divider>
+
+
+    <div class="w-100 pb-5" style="min-height: 40vh !important;">
+
+        <div class="w-100 d-flex justify-content-center align-items-center pt-2 pb-3">
+            <span class="material-symbols-outlined text-danger" style="font-size: 50px !important;">
+cancel
+</span>
+        </div>
+
+        <h4 class="text-center">
+            {{"It looks like you didn't show the QR code to correct business employee to scan" | translate}}
+        </h4>
+
+        <h4 class="text-center">
+            {{"Please reach to business employee of" | translate}}
+            <span class="text-success fw-bold" >{{data.name}}</span>
+            {{" to scan the QR Code" | translate}}
+        </h4>
+
+
+    </div>
+
+
+
+</div>

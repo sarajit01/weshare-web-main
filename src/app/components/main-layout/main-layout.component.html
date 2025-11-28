@@ -1,0 +1,2900 @@
+
+<div class="container-fluid theme-bg-primary theme-surface ">
+  <div *ngIf="headerVisible()" class="row d-flex flex-column fixed-top  " #header id="header">
+    <div class="w-100">
+      <div class="container-fluid ">
+
+          <div class="row shadow-sm d-none d-md-block">
+              <div class="col-12 d-flex align-items-center pt-1">
+                  <div class="" style="width: 32.5%;">
+                      <div class="d-flex gap-2 align-items-center">
+
+                          <div class="d-lg-none sidebar-toggler" >
+                              <span class="material-symbols-outlined cursor-pointer" (click)="toggleMainSidebar()" style="font-size: 36px !important;">
+menu
+</span>
+                          </div>
+
+                          <div>
+
+                                  <img [routerLink]="'/'"  appBrandLogo
+
+                                       class="" [width]="40">
+
+
+                          </div>
+                      </div>
+
+
+                  </div>
+
+                  <div class="" style="width: 35%;">
+                      <div class="top-search-bar px-3 w-100 d-flex gap-2 align-items-center " style="height: 42px;border-radius: 24px;" >
+
+                           <span class="material-symbols-outlined">
+search
+</span>
+
+                          <input type="text" placeholder="Search weshare ...." style="background: transparent !important;border: none !important;outline: none !important;">
+
+                      </div>
+
+                  </div>
+
+
+                  <div class="d-flex justify-content-end align-items-center gap-2" style="width: 32.5%;">
+
+
+                      <ng-container *ngIf="authService.isLoggedIn()">
+
+                          <ng-container *ngIf="getRole() === 'business'">
+                              <a  [routerLink]="'/business/dashboard'">
+                          <span class="material-symbols-outlined">
+tune
+</span>
+                              </a>
+                          </ng-container>
+
+                          <ng-container *ngIf="getRole() === 'customer'">
+                              <a  [routerLink]="'/customer/dashboard'">
+                          <span class="material-symbols-outlined">
+tune
+</span>
+                              </a>
+                          </ng-container>
+
+                          <a  [routerLink]="'/notifications'">
+                          <span class="material-symbols-outlined">
+notifications
+</span>
+                          </a>
+
+                          <a  [routerLink]="'/settings'">
+                          <span class="material-symbols-outlined">
+person
+</span>
+                          </a>
+
+
+                      </ng-container>
+
+                      <a>
+                          <span class="material-symbols-outlined">
+
+</span>
+                      </a>
+
+
+                      <ng-container *ngIf="!authService.isLoggedIn()">
+                          <button [routerLink]="['/sign-in']" class="btn btn-theme-dark my-1" style="border-radius: 20px;text-transform: none !important;">
+                              {{"Get Started" | translate}}
+                          </button>
+                          <!--                 <button [routerLink]="['/register']" class="btn btn-theme-dark mb-2" style="border-radius: 20px; text-transform: none !important;">-->
+                          <!--                   {{"Register" | translate}}-->
+                          <!--                 </button>-->
+                      </ng-container>
+
+
+                      <a>
+
+                          <button (click)="installApp()" class="btn btn-outline-simple my-1 d-flex gap-1 align-items-center" style="border-radius: 20px;text-transform: none !important;">
+                 <span class="material-symbols-outlined">
+download
+</span>  {{"App" | translate}}
+                          </button>
+
+                      </a>
+
+                  </div>
+
+
+              </div>
+
+
+          </div>
+
+         <div class="row shadow-sm d-flex d-md-none flex-column flex-md-row gap-2 gap-md-0">
+           <div class="col-md-3 order-md-0 d-flex align-items-center gap-2 brand-section-desktop">
+             <a [routerLink]="['/']" class="navbar-brand order-0" [style]="headerTextStyle" >
+               <!-- &nbsp;&nbsp;<i class="fa fa-bars" (click)="toggleSidebar()"></i> &nbsp;-->
+<!--               <img *ngIf="theme && theme.logo" src="{{theme.logo}}" style="height: 35px;">-->
+<!--               <span *ngIf="!theme || !theme.logo">{{theme.portal_name}}</span>-->
+
+                 <img [routerLink]="['/']" appBrandLogo [width]="50">
+             </a>
+
+             <a class="navbar-brand-mobile d-md-none" >
+               <!-- &nbsp;&nbsp;<i class="fa fa-bars" (click)="toggleSidebar()"></i> &nbsp;-->
+
+               <span>Logo</span>
+
+             </a>
+
+
+<!--             <app-header-icon class="order-1" (click)="activateMenuBox('search')" img="https://img.icons8.com/ios/50/search&#45;&#45;v1.png"></app-header-icon>-->
+
+
+             <!-- <form class="header-search-form d-flex input-group w-auto">
+                <input
+                  type="search"
+                  class="form-control rounded"
+                  placeholder="{{'Search' | translate}}"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                />
+                <span (click)="activateMenuBox('search')" class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+              </span>
+              </form> -->
+
+             <form [formGroup]="formSearch" (submit)="search()" class="align-items-center d-none" id="section-search" *ngIf="! isMobile()">
+               <div class="input-group ">
+
+                 <div>
+                   <input formControlName="search" type="text" (ngModelChange)="getBusinessListings()" class="form-control" style="border: none;border: 0;background: transparent"
+                          placeholder="{{'Search in Guider' | translate}}"
+                          matInput
+                          [matAutocomplete]="searchBusiness">
+                   <mat-autocomplete #searchBusiness="matAutocomplete" class="mt-1" (optionSelected)="goToBusiness($event.option.value)">
+                     <mat-option *ngFor="let business of searchBar.businesses" [value]="business">
+                       {{business.business_name_prefix}} {{business.business_name}}
+                     </mat-option>
+                   </mat-autocomplete>
+                 </div>
+
+                 <span class="input-group-text" style="border: none;background: transparent" >
+
+                          <i class="fa fa-map-marker"></i>
+
+                        </span>
+                 <div>
+                   <input formControlName="city_search" (ngModelChange)="getCities()" type="text" class="form-control" style="border: none;border: 0;background: transparent"
+                          placeholder="Ciudad"
+                          matInput
+                          [matAutocomplete]="searchCity">
+                   <mat-autocomplete #searchCity="matAutocomplete">
+                     <mat-option  *ngFor="let city of searchBar.cities" [value]="city.city">
+                       {{city.city}}
+                     </mat-option>
+                   </mat-autocomplete>
+                 </div>
+
+                 <div>
+                   <input formControlName="category_search" (ngModelChange)="getCategories()" type="text" class="form-control" style="border: none;border: 0;background: transparent"
+                          placeholder="{{'Categories' | translate}}"
+                          matInput
+                          [matAutocomplete]="auto">
+                   <mat-autocomplete #auto="matAutocomplete"  class="mt-1">
+                     <mat-option  *ngFor="let cat of searchBar.categories" [value]="cat.name">
+                       {{cat.name}}
+                     </mat-option>
+                   </mat-autocomplete>
+                 </div>
+
+                 <button  [style]="headerBtnStyle" style="border: none" class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+
+               </div>
+             </form>
+
+           </div>
+<!--           <div class="col-md-6 order-1 order-md-1 d-flex gap-5 gap-md-5 justify-content-end justify-content-md-center align-items-center header-mid-section">-->
+<!--&lt;!&ndash;             <i [routerLink]="'/'" class="fa fa-home header-lg-icon"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;             <i class="fa fa-users header-lg-icon"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;             <i class="fa fa-chart-bar header-lg-icon"></i>&ndash;&gt;-->
+
+<!--&lt;!&ndash;             <app-header-icon  (click)="activateMenuBoxWithSubmenu('activity', 'create')" class="d-md-none" img="https://img.icons8.com/material/24/000000/plus-math&#45;&#45;v2.png"></app-header-icon>&ndash;&gt;-->
+
+<!--&lt;!&ndash;             <app-header-icon (click)="toggleSidebar()" class="d-md-none" img="https://img.icons8.com/ios/50/menu&#45;&#45;v1.png"></app-header-icon>&ndash;&gt;-->
+
+<!--           </div>-->
+           <div class="px-3 col-md-3 order-0 order-md-2 d-flex align-items-center justify-content-between justify-content-md-end gap-2 py-0" id="header-icons-sec">
+
+<!--             <img [routerLink]="['/']"-->
+<!--                  src="assets/brand/logo_{{theme_mode}}.png"-->
+<!--                  class="brand-logo d-md-none" style="width: 40px;">-->
+
+             <img [routerLink]="['/']" appBrandLogo
+
+                  class="d-md-none" [width]="40">
+
+             <!--                  -->
+
+             <div class="d-flex justify-content-end align-items-center  gap-2">
+
+
+
+               <div class="d-none">
+                 <img class="cursor-pointer" (click)="setLang('es')" src="https://flagsapi.com/ES/flat/32.png">
+               </div>
+               <div class="d-none">
+                 <img class="cursor-pointer" (click)="setLang('en')" src="https://flagsapi.com/US/flat/32.png">
+               </div>
+<!--               *ngIf="! authService.isLoggedIn() || authService.getRole() === 'customer'"-->
+               <span  class="material-symbols-outlined order-0 d-md-none cursor-pointer" [routerLink]="['/search-results']" [queryParams]="{advanced_filter: 1, country: 'HN', city: 'San Pedro Sula'}" >
+search
+</span>
+               <ng-container *ngIf="!authService.isLoggedIn()">
+                 <button [routerLink]="['/sign-in']" class="btn btn-theme-dark my-1" style="border-radius: 20px;text-transform: none !important;">
+                   {{"Get Started" | translate}}
+                 </button>
+<!--                 <button [routerLink]="['/register']" class="btn btn-theme-dark mb-2" style="border-radius: 20px; text-transform: none !important;">-->
+<!--                   {{"Register" | translate}}-->
+<!--                 </button>-->
+               </ng-container>
+
+
+               <button (click)="installApp()" class="btn btn-outline-simple my-1 d-flex gap-1 align-items-center" style="border-radius: 20px;text-transform: none !important;">
+                 <span class="material-symbols-outlined">
+download
+</span>  {{"App" | translate}}
+               </button>
+
+
+               <!--      <app-header-icon class="order-0 d-md-none" (click)="activateMenuBox('search')" img="https://img.icons8.com/ios/50/search&#45;&#45;v1.png"></app-header-icon>-->
+
+               <div class="dropdown order-5 order-md-0 d-flex justify-content-center align-items-center">
+
+                 <a *ngIf="getRole() === 'business' && isMobile()"  [routerLink]="'/business/dashboard'"
+                    class="d-flex justify-content-center align-items-center text-black"
+                    href="#"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                 >
+
+          <span class="material-symbols-outlined">
+tune
+</span>
+                   <!--          <app-header-icon img="https://img.icons8.com/material-outlined/24/circled-menu.png"></app-header-icon>-->
+
+                 </a>
+
+                 <a *ngIf="getRole() === 'business' && !isMobile()" (click)="activateMenuBox('activity')"
+                    class="d-flex justify-content-center align-items-center text-black"
+                    href="#"
+                    id="navbarDropdownMenuTasks"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                 >
+
+          <span class="material-symbols-outlined">
+tune
+</span>
+                   <!--          <app-header-icon img="https://img.icons8.com/material-outlined/24/circled-menu.png"></app-header-icon>-->
+
+                 </a>
+                 <a *ngIf="getRole() === 'customer'"
+                    class="d-flex justify-content-center align-items-center text-black"
+                    [routerLink]="'/customer/dashboard'"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                 >
+          <span class="material-symbols-outlined">
+tune
+</span>
+                   <!--          <app-header-icon img="https://img.icons8.com/material-outlined/24/circled-menu.png"></app-header-icon>-->
+
+                 </a>
+               </div>
+
+
+<!--               <span class="material-symbols-outlined order-2 order-md-1" *ngIf="authService.isLoggedIn() && authService.getRole() === 'customer'"  [routerLink]="['/'+routes.customer.favorites]">-->
+<!--favorite-->
+<!--</span>-->
+
+
+
+
+               <!-- Notifications -->
+               <div (click)="viewNotifications()" *ngIf="authService.isLoggedIn()" class="dropdown order-1 order-md-3 d-flex  justify-content-center align-items-center">
+                 <!--                         [routerLink]="'/customer/notifications'"-->
+
+                 <a
+                         class="d-flex justify-content-center align-items-center text-black"
+
+                 >
+
+<span   class="material-symbols-outlined" [@notifyBell]="notifyBellShouldAnimate" >
+notifications
+</span>
+                  <div class="header-notification-counter" *ngIf="new_notifications > 0"></div>
+                 </a>
+
+               </div>
+
+               <div *ngIf="authService.isLoggedIn()" class="dropdown order-3 order-md-5 d-none d-md-flex justify-content-center align-items-center">
+                 <a (click)="activateMenuBox('profile')"
+                    class="d-flex justify-content-center align-items-center text-black"
+                    href="#"
+                    id="navbarDropdownMenuLink2"
+                    role="button"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                 >
+
+          <span class="material-symbols-outlined">
+person
+</span>
+                   <!--          <app-header-icon img="https://img.icons8.com/cotton/24/gender-neutral-user&#45;&#45;v2.png"></app-header-icon>-->
+
+                 </a>
+               </div>
+
+             </div>
+
+             <!-- Avatar -->
+
+             <!-- <div (click)="toggleSearchBar()" *ngIf="isMobile()" class="top-bar-icon" [style]="headerIconStyle">
+                <i class="fa fa-search"></i>
+              </div>
+              <div  [routerLink]="['/'+routes.customer.notifications]" *ngIf="authService.isLoggedIn() && authService.getRole() && authService.getRole() === 'customer'" class="top-bar-icon" [style]="headerIconStyle">
+                <i class="fa fa-bell-o"></i>
+              </div>
+              <div  [routerLink]="['/'+routes.business.manage_business_notifications]" *ngIf="authService.isLoggedIn() && authService.getRole() && authService.getRole() === 'business'" class="top-bar-icon" [style]="headerIconStyle">
+                <i class="fa fa-bell-o"></i>
+              </div> -->
+
+             <!--<div [routerLink]="['/'+routes.business.business_profile]" class="top-bar-icon " [style]="headerIconStyle" *ngIf="authService.isLoggedIn() && authService.getRole() && authService.getRole() === 'business'">
+               <i class="fa fa-user-o"></i>
+             </div> -->
+
+
+
+           </div>
+
+         </div>
+
+          <div class="row d-none d-lg-block theme-surface" *ngIf="listingUrls.includes(url.toLowerCase())">
+              <div class="w-100 py-2 d-flex justify-content-end">
+                  <div class="categories-lg" style="width: 70% !important;">
+                      <app-categories-bar></app-categories-bar>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="listingUrls.includes(url.toLowerCase())">
+        <div class="d-block d-lg-none mt-2 pb-2 mt-md-3 ms-md-3 ">
+            <app-categories-bar class="my-3 pt-2 pb-1" [domID]="'catBar1'"></app-categories-bar>
+        </div>
+
+    </ng-container>
+
+
+   <!-- <form [formGroup]="formSearch" (submit)="search()" class="align-items-center col-12" id="section-search" *ngIf="isMobile() && searchBar.visibility">
+      <div class="d-flex ">
+
+        <div>
+          <input formControlName="search" type="text" (ngModelChange)="getBusinessListings()" class="form-control" style="border: none;border: 0;background: transparent"
+                 placeholder="{{'Search in Guider' | translate}}"
+                 matInput
+                 [matAutocomplete]="searchBusiness">
+          <mat-autocomplete #searchBusiness="matAutocomplete" class="mt-1" (optionSelected)="goToBusiness($event.option.value)">
+            <mat-option *ngFor="let business of searchBar.businesses" [value]="business">
+              {{business.business_name_prefix}} {{business.business_name}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <span class="input-group-text" style="border: none;background: transparent" >
+
+                          <i class="fa fa-map-marker"></i>
+
+                        </span>
+        <div>
+          <input formControlName="city_search" (ngModelChange)="getCities()" type="text" class="form-control" style="border: none;border: 0;background: transparent"
+                 placeholder="{{'City' | translate}}"
+                 matInput
+                 [matAutocomplete]="searchCity">
+          <mat-autocomplete #searchCity="matAutocomplete">
+            <mat-option  *ngFor="let city of searchBar.cities" [value]="city.city">
+              {{city.city}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <div>
+          <input formControlName="category_search" (ngModelChange)="getCategories()" type="text" class="form-control" style="border: none;border: 0;background: transparent"
+                 placeholder="{{'Categories' | translate}}"
+                 matInput
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete"  class="mt-1">
+            <mat-option  *ngFor="let cat of searchBar.categories" [value]="cat.name">
+              {{cat.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <button  [style]="headerBtnStyle" style="border: none" class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+
+      </div>
+    </form> -->
+
+
+  </div>
+
+
+  <!-- bottom fixed widget for mobile -->
+<!--  -->
+
+  <div *ngIf="listingUrls.includes(url.toLowerCase())" id="bottom-toolbar"  class="theme-bg-primary shadow-lg d-flex flex-row d-md-none justify-content-between align-items-center gap-2 px-3 py-1" style=" position: fixed; bottom: 15px !important;left: 12px !important;right: 12px !important;z-index: 150 !important;
+  /*border-top: 1px solid #eeeeee !important;*/
+  border-radius: 32px !important;">
+
+    <div [routerLink]="'/'"  [ngClass]="{'active-bottom-bar-ic' : url === '/'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined"  [ngClass]="{'active-bottom-bar-ic-icon' : url === '/'}">
+home
+</span>
+<!--      <small class="fw-bold">{{"Home" | translate}}</small>-->
+
+    </div>
+    <div [routerLink]="'/listings/business'"  [ngClass]="{'active-bottom-bar-ic' : url === '/listings/business'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined"  [ngClass]="{'active-bottom-bar-ic-icon' : url === '/listings/business'}" >
+store
+</span><!--      <small class="fw-bold">{{"Business" | translate}}</small>-->
+
+    </div>
+
+<!--    <app-header-icon  (click)="activateMenuBoxWithSubmenu('activity', 'create')"  img="https://img.icons8.com/material/24/000000/plus-math&#45;&#45;v2.png"></app-header-icon>-->
+
+
+    <div [routerLink]="'/listings/promotion'"  [ngClass]="{'active-bottom-bar-ic' : url === '/listings/promotion'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined" [ngClass]="{'active-bottom-bar-ic-icon' : url === '/listings/promotion'}" >
+local_offer
+</span>
+<!--      <small class="fw-bold">{{"Promos" | translate}}</small>-->
+
+    </div>
+
+    <div [routerLink]="'/listings/TCF'" [ngClass]="{'active-bottom-bar-ic' : url === '/listings/TCF'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined" [ngClass]="{'active-bottom-bar-ic-icon' : url === '/listings/TCF'}" >
+credit_card
+</span>
+<!--      <small class="fw-bold">{{"TCF" | translate}}</small>-->
+
+    </div>
+
+    <div [routerLink]="'/'+ getRole() + '/my-referral-network'" [ngClass]="{'active-bottom-bar-ic' : url === '/' + getRole() + '/my-referral-network'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined" [ngClass]="{'active-bottom-bar-ic-icon' : url === '/' + getRole() +  '/my-referral-network'}" >
+diversity_1
+</span>
+      <!--      <small class="fw-bold">{{"TCF" | translate}}</small>-->
+
+    </div>
+
+<!--    <app-header-icon (click)="toggleSidebar()"  img="https://img.icons8.com/ios/50/menu&#45;&#45;v1.png"></app-header-icon>-->
+
+
+  </div>
+
+    <div class="w-100 d-none d-md-flex d-lg-none justify-content-center" style="position: fixed; bottom: 15px !important;z-index: 150 !important;">
+
+
+    <div *ngIf="listingUrls.includes(url.toLowerCase())" id="bottom-lg-toolbar"  class="theme-bg-primary shadow-lg d-none d-md-flex d-lg-none flex-row justify-content-between align-items-center gap-2 px-3 py-1" style="left: 12px !important;right: 12px !important;width: 600px;
+  /*border-top: 1px solid #eeeeee !important;*/
+  border-radius: 32px !important;">
+
+        <div [routerLink]="'/'"  [ngClass]="{'active-bottom-bar-ic' : url === '/'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined"  [ngClass]="{'active-bottom-bar-ic-icon' : url === '/'}">
+home
+</span>
+            <!--      <small class="fw-bold">{{"Home" | translate}}</small>-->
+
+        </div>
+        <div [routerLink]="'/listings/business'"  [ngClass]="{'active-bottom-bar-ic' : url === '/listings/business'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined"  [ngClass]="{'active-bottom-bar-ic-icon' : url === '/listings/business'}" >
+store
+</span><!--      <small class="fw-bold">{{"Business" | translate}}</small>-->
+
+        </div>
+
+        <!--    <app-header-icon  (click)="activateMenuBoxWithSubmenu('activity', 'create')"  img="https://img.icons8.com/material/24/000000/plus-math&#45;&#45;v2.png"></app-header-icon>-->
+
+
+        <div [routerLink]="'/listings/promotion'"  [ngClass]="{'active-bottom-bar-ic' : url === '/listings/promotion'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined" [ngClass]="{'active-bottom-bar-ic-icon' : url === '/listings/promotion'}" >
+local_offer
+</span>
+            <!--      <small class="fw-bold">{{"Promos" | translate}}</small>-->
+
+        </div>
+
+        <div [routerLink]="'/listings/TCF'" [ngClass]="{'active-bottom-bar-ic' : url === '/listings/TCF'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined" [ngClass]="{'active-bottom-bar-ic-icon' : url === '/listings/TCF'}" >
+credit_card
+</span>
+            <!--      <small class="fw-bold">{{"TCF" | translate}}</small>-->
+
+        </div>
+
+        <div [routerLink]="'/'+ getRole() + '/my-referral-network'" [ngClass]="{'active-bottom-bar-ic' : url === '/' + getRole() + '/my-referral-network'}"  class="d-flex flex-column gap-1 align-items-center justify-content-center">
+
+<span class="material-symbols-outlined" [ngClass]="{'active-bottom-bar-ic-icon' : url === '/' + getRole() +  '/my-referral-network'}" >
+diversity_1
+</span>
+            <!--      <small class="fw-bold">{{"TCF" | translate}}</small>-->
+
+        </div>
+
+        <!--    <app-header-icon (click)="toggleSidebar()"  img="https://img.icons8.com/ios/50/menu&#45;&#45;v1.png"></app-header-icon>-->
+
+
+    </div>
+
+    </div>
+
+  <!-- end bottom fixed widget for mobile -->
+
+
+  <!-- menu widgets -->
+
+
+  <div *ngIf="menuBoxActive === 'activity'" class="row shadow-3-strong menu-box p-2" style="position: fixed;top: 50px;right: 20px !important;border-radius: 20px; bottom: 20px;z-index: 100000 !important;width: 700px; background: white !important;">
+
+    <div class="col-12 d-flex justify-content-end back-option">
+      <app-menu-icon (click)="activateMenuBox('')" img="https://img.icons8.com/material-outlined/24/000000/delete-sign.png"></app-menu-icon>
+    </div>
+
+    <ng-container *ngIf="subMenuActive === ''">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="bg-light p-2 border-top border-bottom">Menu</h3>
+            <ul class="list-group list-group-light mb-4">
+              <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
+                       class="rounded-circle" />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">John Doe</p>
+                    <p class="text-muted mb-0">john.doe@gmail.com</p>
+                  </div>
+                </div>
+              </li> -->
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="d-flex align-items-center"  [routerLink]="['/'+routes.business.dashboard]">
+
+                  <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold">{{"Dashboard" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2"  (click)="navigate(routes.business.select_plan)">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/membership-card.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Membership Plan" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2"   [routerLink]="['/'+routes.business.delegate_access]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/close-pane.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Delegate Access" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2"   [routerLink]="['/'+routes.business.invitations]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/invitation.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Invitations" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2"  [routerLink]="['/'+routes.business.messages]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/filled-chat--v1.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Messages" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+
+             <!-- <li class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Customer Feedback" | translate}}</p>
+                  </div>
+                </div>
+              </li> -->
+
+            <!--  <li  [routerLink]="['/'+routes.business.manage_customer_claims]">
+                <a [style]="sidebarTextStyle">
+                  <i class="fa fa-usd"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Claims from Customers' | translate}}</span>
+                </a>
+              </li> -->
+              <li  [routerLink]="['/'+routes.business.manage_customer_claims]" class="list-group-item d-flex justify-content-between align-items-center px-2">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/speech-bubble-with-dots.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Claims from Customers" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+
+
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2" (click)="activateSubMenu('manage_business')">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/admin-settings-male.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Manage Business" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-angle-right"></i>
+                </div>
+              </li>
+
+
+
+
+            </ul>
+            <h3 class="bg-light p-2 border-top border-bottom" *ngIf="! isMobile()" >{{"Appointments" | translate}}</h3>
+            <ul class="list-group list-group-light mb-4" *ngIf="! isMobile()" >
+
+             <!-- <li  [routerLink]="['/'+routes.business.booking_requests]">
+                <a [style]="sidebarTextStyle">
+                  <i class="fa fa-home"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Booking requests' | translate}}</span>
+                </a>
+              </li>
+              <li  [routerLink]="['/'+routes.business.appointments]">
+                <a [style]="sidebarTextStyle">
+                  <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'My Appointments' | translate}}</span>
+                </a>
+              </li> -->
+
+
+              <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf="! isMobile()"  [routerLink]="['/'+routes.business.booking_requests]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p  class="fw-bold mb-1">{{"Appointment Requests" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf="! isMobile"  [routerLink]="['/'+routes.business.appointments]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Appointments Scheduled" | translate}}</p>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+    <div *ngIf="(isMobile() && subMenuActive === 'create') || (!isMobile() && subMenuActive === '') || (!isMobile() && subMenuActive === 'create')" class="col-md-6">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h3 class="bg-light p-2 border-top border-bottom">{{"Create" | translate}}</h3>
+
+          <ul class="list-group list-group-light mb-4">
+            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/'+routes.business.create]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon [img]="'https://img.icons8.com/material-outlined/24/shop.png'"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"Business" | translate}}</p>
+                  <p class="text-muted mb-0">Create a business and get customers</p>
+
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/'+routes.business.create_promotion]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon [img]="'https://img.icons8.com/material-outlined/24/sale-price-tag.png'"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"Promotion" | translate}}</p>
+                  <p class="text-muted mb-0">Gain more customers for your business by creating a promotion</p>
+
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/'+routes.business.create_ad]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon [img]="'https://img.icons8.com/fluency-systems-regular/24/ad-banner.png'"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"Ad" | translate}}</p>
+                  <p class="text-muted mb-0">Post an Ad for your business</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/'+routes.loyalty_card.create]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/ios/50/000000/bank-card-back-side--v1.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"Loyalty Card" | translate}}</p>
+                  <p class="text-muted mb-0">Grow your business by creating a Loyalty Card</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" [routerLink]="['/'+routes.business.create_notification]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/ios/50/speaker_1.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"Notification" | translate}}</p>
+                  <p class="text-muted mb-0">Your customers will see it</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="subMenuActive === 'manage_business'" class="col-md-12">
+
+      <div class="card">
+
+        <div class="card-header">
+          <div class="w-100 d-flex justify-content-start gap-3 align-items-center">
+
+            <i class="fa fa-angle-left cursor-pointer" (click)="activateSubMenu('')" style="font-size: 22px"></i>
+
+            <span class="submenu-box-heading">{{"Manage Business" | translate}}</span>
+
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+
+
+          <ul class="list-group list-group-light">
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/material/24/888888/shop-department.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Business" | translate}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage_promotions]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/material/24/888888/sale-price-tag.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Promotions" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage_ads]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/material/24/888888/web-advertising.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Ads" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.loyalty_card.manage]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/material/24/888888/sale-price-tag.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Loyalty Cards" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage_business_notifications]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/material/24/888888/megaphone--v1.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Notifications" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+
+            <!--  <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="https://mdbootstrap.com/img/new/avatars/15.jpg" class="rounded-circle" alt=""
+                       style="width: 45px; height: 45px" />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">Ayat Black</p>
+                    <p class="text-muted mb-0">ayat.black@gmail.com</p>
+                  </div>
+                </div>
+              </li> -->
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+  <div *ngIf="menuBoxActive === 'search'" class="row px-2 shadow-3-strong menu-box p-2" style="position: fixed;top: 50px;right: 20px !important;border-radius: 20px; bottom: 20px;z-index: 100000 !important;width: 400px; background: white !important;">
+
+    <div class="col-12 d-flex justify-content-end back-option">
+      <app-menu-icon (click)="activateMenuBox('')" img="https://img.icons8.com/material-outlined/24/888888/delete-sign.png"></app-menu-icon>
+    </div>
+
+    <ng-container *ngIf="subMenuActive === ''">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="bg-light p-2 border-top border-bottom">{{"Search Business/Promotions"}}</h3>
+
+            <form class="d-flex input-group w-auto mb-5">
+              <input
+                type="search"
+                class="form-control rounded"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="search-addon"
+              />
+              <span class="input-group-text border-0" id="">
+            <i class="fas fa-search"></i>
+            </span>
+            </form>
+
+            <ul class="list-group list-group-light mb-4">
+              <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
+                       class="rounded-circle" />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">John Doe</p>
+                    <p class="text-muted mb-0">john.doe@gmail.com</p>
+                  </div>
+                </div>
+              </li> -->
+              <ul class="list-group list-group-light">
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                   {{"Business" | translate}}
+                </li>
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                   {{"Promotion" | translate}}
+                </li>
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                  {{"Business Ads" | translate}}
+                </li>
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                  {{"Business Notifications" | translate}}
+                </li>
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                  {{"Loyalty Cards" | translate}}
+                </li>
+                <li class="list-group-item">
+                  <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                   {{"All" | translate}}
+                </li>
+              </ul>
+
+            </ul>
+
+            <div class="w-100 d-flex justify-content-center align-items-center">
+              <button mat-raised-button color="primary">
+                {{"Apply" | translate}}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <div *ngIf="subMenuActive === 'manage_business'" class="col-md-12">
+
+      <div class="card">
+
+        <div class="card-header">
+          <div class="w-100 d-flex justify-content-start gap-3 align-items-center">
+
+            <i class="fa fa-angle-left cursor-pointer" (click)="activateSubMenu('')" style="font-size: 22px"></i>
+
+            <span class="submenu-box-heading">{{"Manage Business" | translate}}</span>
+
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+
+
+          <ul class="list-group list-group-light">
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Business" | translate}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage_promotions]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Promotions" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage_ads]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Ads" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center"  [routerLink]="['/'+routes.business.manage_business_notifications]">
+              <div class="d-flex align-items-center">
+
+                <app-menu-icon img="https://img.icons8.com/ios/50/dashboard.png"></app-menu-icon>
+
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{"My Notifications" | translate}}</p>
+                </div>
+              </div>
+            </li>
+
+
+            <!--  <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="https://mdbootstrap.com/img/new/avatars/15.jpg" class="rounded-circle" alt=""
+                       style="width: 45px; height: 45px" />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">Ayat Black</p>
+                    <p class="text-muted mb-0">ayat.black@gmail.com</p>
+                  </div>
+                </div>
+              </li> -->
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+  <div *ngIf="menuBoxActive === 'profile'" class="row profile-menu-box menu-box p-2" style="position: fixed;top: 50px;right: 20px !important;border-radius: 20px;z-index: 100000 !important;width: 350px; ">
+
+    <ng-container *ngIf="subMenuActive === ''">
+      <div class="col-12 back-option">
+        <app-menu-icon (click)="activateMenuBox('')" img="https://img.icons8.com/material-outlined/24/888888/delete-sign.png"></app-menu-icon>
+      </div>
+      <div class="col-md-12">
+        <div class="card shadow-3-strong bg-white" style="border-radius: 20px">
+          <div class="card-body">
+
+
+            <ul class="list-group list-group-light mt-3 mb-4 px-2">
+                <li class="list-group-item d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center">
+                  <img src="https://img.icons8.com/material/48/888888/user-male-circle--v1.png" alt="" style="width: 45px; height: 45px"
+                       />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{authService.getAuthUserData('first_name')}} {{authService.getAuthUserData('last_name')}}</p>
+                    <p class="text-muted mb-0">{{authService.getAuthUserData('email')}}</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2"   [routerLink]="['/'+routes.business.business_profile]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/edit--v1.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Edit Profile" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-angle-right"></i>
+                </div>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2"  [routerLink]="['/'+routes.reset_password]">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/password--v1.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Change Password" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-angle-right"></i>
+                </div>
+              </li>
+
+              <li (click)="activateSubMenu('theme')" class="list-group-item d-flex justify-content-between align-items-center px-2" >
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/bright-moon.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Theme style (Light/Dark)" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-angle-right"></i>
+                </div>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2" >
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/open-book.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Tutorials" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-angle-right"></i>
+                </div>
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2" (click)="logout()">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/exit.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Log out" | translate}}</p>
+                  </div>
+                </div>
+
+              </li>
+
+              <li class="list-group-item d-flex justify-content-between align-items-center px-2" (click)="accountCloseConfirmation()">
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/material/24/888888/delete-sign--v1.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1"> {{'Deactivate Account' | translate}}</p>
+                  </div>
+                </div>
+
+              </li>
+
+
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="subMenuActive === 'theme'">
+      <div class="col-12 back-option d-none">
+        <app-menu-icon (click)="activateSubMenu('')" img="https://img.icons8.com/ios/50/back--v1.png"></app-menu-icon>
+      </div>
+      <div class="col-md-12">
+        <div class="card shadow-3-strong bg-white" style="border-radius: 20px">
+          <div class="card-body">
+
+
+            <ul class="list-group list-group-light mt-3 mb-4 px-2">
+            <!--  <li class="list-group-item d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center">
+                  <img src="https://img.icons8.com/material/48/888888/user-male-circle--v1.png" alt="" style="width: 45px; height: 45px"
+                  />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{authService.getAuthUserData('first_name')}} {{authService.getAuthUserData('last_name')}}</p>
+                    <p class="text-muted mb-0">{{authService.getAuthUserData('email')}}</p>
+                  </div>
+                </div>
+              </li>  -->
+
+              <li (click)="activateTheme('light')" class="list-group-item d-flex justify-content-between align-items-center px-2" >
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/ios/50/888888/sun--v1.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Activate Light Mode" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-check-circle-o"></i>
+                </div>
+              </li>
+
+              <li (click)="activateTheme('dark')" class="list-group-item d-flex justify-content-between align-items-center px-2" >
+                <div class="d-flex align-items-center">
+
+                  <app-menu-icon img="https://img.icons8.com/ios/50/888888/bright-moon--v1.png"></app-menu-icon>
+
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{"Activate Dark Mode" | translate}}</p>
+                  </div>
+                </div>
+                <div>
+                  <i class="fa fa-check-circle-o"></i>
+                </div>
+              </li>
+
+
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </div>
+
+  <!--
+   *ngIf="router.url === '/' || router.url === 'promotions' || router.url === 'businesses' || router.url === '/business/profile' || router.url === 'sign-in' || router.url === '/sign-up/business' || router.url === '/sign-up/customer' || router.url === 'forgot-password'"
+  -->
+
+
+  <!--  <div class="page-content-container" style="width: 100% !important;display: flex;" [ngStyle]="{height: getDeviceHeight()+'px', marginTop: headerHeight+'px'}">
+    <div class="sidebar position-fixed" *ngIf="sidebar" [style]="sidebarContainerStyle" [ngStyle]="{height: getDeviceHeight()+'px'}">
+
+
+    </div>
+    <div id="section-main" style="padding-top: 10px;" [ngClass]="getMainContentContainerClass()" [ngStyle]="contentStyle" >
+    <div class="row tabs d-flex align-items-center top-tabs mt-2 pl-md-5 pr-md-5">
+        <div class="col tab-item tab-active text-center">
+         <mat-icon>home</mat-icon> <br/>
+          <span class="tab-text-active">Inicio</span>
+        </div>
+        <div class="col tab-item text-center">
+          <mat-icon>local_offer</mat-icon> <br/>
+          <span class="tab-text">Descuentos</span>
+
+
+        </div>
+        <div class="col tab-item text-center">
+          <mat-icon>credit_card</mat-icon> <br/>
+          <span class="tab-text">Cliente Frecuente</span>
+        </div>
+        <div class="col tab-item text-center">
+          <mat-icon>business</mat-icon> <br/>
+          <span class="tab-text">Negocios</span>
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>-->
+    <div id="section-collapse-sidebar" class="pe-4 d-none theme-bg-primary px-3" style="position: fixed;z-index: 100000 !important;left: 0;height: 100vh !important;" >
+        <div class="row mt-2 h-100" >
+            <div class="sidebar-fixed h-100 d-flex flex-column justify-content-between position-relative  ">
+
+                <ng-container *ngIf="url !== '/business/create' && url !== '/business/manage' && url !== '/business/create-promotion' && url !== '/promotions/manage'">
+                    <div class="w-100">
+                        <div class="w-100"></div>
+                        <div class="w-100 mt-2 mb-4 d-flex justify-content-between align-items-center">
+                            <div>
+                                <img appBrandLogo [width]="48" [height]="48">
+                            </div>
+
+                            <div>
+                        <span (click)="toggleMainSidebar()" class="material-symbols-outlined">
+close
+</span>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="2 border-bottom mb-2">
+                                <div class="user-menu">
+                                    <ul>
+
+                                        <li>
+                                            <a [routerLink]="'/'">
+                                                <div class="sidebar-item">
+                          <span class="sidebar-item-icon material-symbols-outlined">
+home
+</span>
+
+                                                    <span class="sidebar-item-label">
+                             {{'Home' | translate}}
+                        </span>
+                                                </div>
+
+                                            </a>
+                                        </li>
+
+                                        <li>
+
+                                            <a [routerLink]="'/listings/business'" >
+                                                <div class="sidebar-item">
+                       <span class="material-symbols-outlined sidebar-item-icon">
+store
+</span>
+                                                    <span class="sidebar-item-label">
+                        {{ 'Business' | translate }}
+                        </span>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+
+                                            <a [routerLink]="'/listings/promotion'" >
+                                                <div class="sidebar-item">
+<span class="material-symbols-outlined sidebar-item-icon">
+sell
+</span>
+                                                    <span class="sidebar-item-label">
+                        {{ 'Promotions and discounts' | translate }}
+                            </span>
+                                                </div>
+                                            </a>
+
+                                        </li>
+                                        <!-- <li>
+                                          <a href=""><mat-icon>credit_card</mat-icon> Tarjetas de Cliente Frecuente</a>
+                                        </li> -->
+
+
+                                        <li>
+                                            <a [routerLink]="'/listings/TCF'">
+                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+credit_card
+</span>
+                                                    <span class="sidebar-item-label">
+                    {{'TCF' | translate}}
+
+                        </span>
+
+                                                </div>
+
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-100 mt-3">
+                            <ng-container *ngIf="authService.isLoggedIn()">
+                                <ng-container *ngIf="getRole() === 'business'">
+                                    <app-contact-list-widget  [title]="'Recently Contacted'"></app-contact-list-widget>
+
+                                </ng-container>
+                                <ng-container *ngIf="getRole() === 'customer'">
+                                    <app-contact-list-widget [title]="'Top Businesses'"></app-contact-list-widget>
+
+                                </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngIf="!authService.isLoggedIn()">
+                                <app-contact-list-widget [title]="'Top Businesses'"></app-contact-list-widget>
+
+                            </ng-container>
+                        </div>
+
+                    </div>
+
+                </ng-container>
+                <ng-container *ngIf="url === '/business/create' || url === '/business/manage' || url === '/business/create-promotion' || url === '/promotions/manage'">
+                    <div class="w-100 h-100 d-flex flex-column  position-relative" style="min-width: 40vw !important;">
+                        <div class="w-100 mt-2 mb-4 d-flex justify-content-between align-items-center">
+                            <div>
+                                <img appBrandLogo [width]="48" [height]="48">
+                            </div>
+
+                            <div>
+                        <span (click)="toggleMainSidebar()" class="material-symbols-outlined">
+close
+</span>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-5">
+                            <div class="">
+                                <div class="2 border-bottom mb-2">
+                                    <div class="user-menu">
+                                        <ul>
+
+                                            <li>
+                                                <a  matRipple
+                                                    [routerLink]="'/business/dashboard'">
+                                                    <div class="sidebar-item">
+                          <span class="sidebar-item-icon material-symbols-outlined">
+home
+</span>
+
+                                                        <span class="sidebar-item-label">
+                             {{ 'Dashboard' | translate }}
+                        </span>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+
+                                                <a
+                                                        matRipple [routerLink]="'/business/manage'">
+                                                    <div class="sidebar-item">
+                       <span class="material-symbols-outlined sidebar-item-icon">
+store
+</span>
+                                                        <span class="sidebar-item-label">
+                        {{ 'My Businesses' | translate }}
+                        </span>
+
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+
+                                                <a
+                                                        matRipple [routerLink]="'/promotions/manage'">
+                                                    <div class="sidebar-item">
+<span class="material-symbols-outlined sidebar-item-icon">
+sell
+</span>
+                                                        <span class="sidebar-item-label">
+                        {{ 'My Promotions' | translate }}
+                            </span>
+                                                    </div>
+                                                </a>
+
+                                            </li>
+                                            <!-- <li>
+                                              <a href=""><mat-icon>credit_card</mat-icon> Tarjetas de Cliente Frecuente</a>
+                                            </li> -->
+
+
+                                            <li>
+                                                <a matRipple
+                                                   [routerLink]="'/business/loyalty-cards/manage'">
+                                                    <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+credit_card
+</span>
+                                                        <span class="sidebar-item-label">
+                    {{ 'My LCs' | translate }}
+
+                        </span>
+
+                                                    </div>
+
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="w-100 mt-3">
+                                <div class="user-menu">
+                                    <ul>
+
+                                        <li>
+                                            <a  matRipple
+                                                [routerLink]="'/business/my-appointments'">
+                                                <div class="sidebar-item">
+                          <span class="sidebar-item-icon material-symbols-outlined">
+calendar_month
+</span>
+
+                                                    <span class="sidebar-item-label">
+                             {{ 'My Appointments' | translate }}
+                        </span>
+                                                </div>
+
+                                            </a>
+                                        </li>
+
+                                        <li>
+
+                                            <a
+                                                    matRipple [routerLink]="'/business/messages'">
+                                                <div class="sidebar-item">
+                       <span class="material-symbols-outlined sidebar-item-icon">
+chat_bubble
+</span>
+                                                    <span class="sidebar-item-label">
+                        {{ 'My Messages' | translate }}
+                        </span>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+
+                                            <a
+                                                    matRipple [routerLink]="'/business/my-referral-network'">
+                                                <div class="sidebar-item">
+<span class="material-symbols-outlined sidebar-item-icon">
+diversity_1
+</span>
+                                                    <span class="sidebar-item-label">
+                        {{ 'My Referral Network' | translate }}
+                            </span>
+                                                </div>
+                                            </a>
+
+                                        </li>
+                                        <!-- <li>
+                                          <a href=""><mat-icon>credit_card</mat-icon> Tarjetas de Cliente Frecuente</a>
+                                        </li> -->
+
+
+                                        <li>
+                                            <a matRipple
+                                               [routerLink]="'/business/payments'">
+                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+payment
+</span>
+                                                    <span class="sidebar-item-label">
+                    {{ 'Transactions' | translate }}
+
+                        </span>
+
+                                                </div>
+
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a matRipple
+                                               [routerLink]="'/business/settings'">
+                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+person
+</span>
+                                                    <span class="sidebar-item-label">
+                    {{ 'My Account' | translate }}
+
+                        </span>
+
+                                                </div>
+
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a matRipple
+                                               [routerLink]="'/business/select-plan'">
+                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+verified_user
+</span>
+                                                    <span class="sidebar-item-label">
+                    {{ 'Subscription' | translate }}
+
+                        </span>
+
+                                                </div>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a matRipple
+                                               (click)="logout()">
+                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+logout
+</span>
+                                                    <span class="sidebar-item-label">
+                    {{ 'Log out' | translate }}
+
+                        </span>
+
+                                                </div>
+
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </ng-container>
+
+                <div class="w-100 d-flex flex-column gap-1  px-3" style="position: absolute;bottom: 16px;left: 0px !important;">
+                    <div>
+                        <span>
+                            <small>Privacy Policy</small> - <small>Terms & Conditions</small> - <small>Cookies</small>
+                        </span>
+                    </div>
+                    <span>
+                        WeShare 2024
+                    </span>
+                </div>
+
+                <!-- app main sidebar -->
+
+
+
+
+                <!--
+                  <div class="" *ngIf="! authService.isLoggedIn()" [style]="sidebarStyle">
+                        <div class="">
+                          {{'For Business Owners' | translate}}
+                  </div>
+
+                  <div class="">
+                    <div class="user-menu">
+                      <ul>
+                        <li>
+                          <p [style]="sidebarTextStyle">
+                            <small>
+                              {{'Login to create your business, promotions and frequent customer cards' | translate}}
+                            </small>
+                          </p>
+
+                          <button [style]="sidebarBtnStyle"  [routerLink]="['/'+routes.login]" class="btn btn-outline-success btn-sm">
+                            <i class="fa fa-user"></i> {{'LOG IN' | translate}}
+                          </button>
+
+                        </li>
+
+                        <li>
+                          <a [style]="sidebarTextStyle" href=""><mat-icon>home</mat-icon> {{'Dashboard' | translate}}</a>
+                        </li>
+
+
+                        <li>
+                          <a [style]="sidebarTextStyle" href=""><mat-icon>menu</mat-icon> {{'Guide planes' | translate}}</a>
+                        </li>
+
+                        <li>
+                          <a [style]="sidebarTextStyle" href=""><mat-icon>settings</mat-icon> {{'My profile' | translate}}</a>
+                        </li>
+                        <li>
+                          <a [style]="sidebarTextStyle" href=""><mat-icon>book</mat-icon> {{'Tutorials' | translate}}</a>
+                        </li>
+
+                      </ul>
+                    </div>
+
+                  </div>
+                </div> -->
+                <!--                            <div class=""  *ngIf="! authService.isLoggedIn()" >-->
+                <!--                                &lt;!&ndash; <div class="">-->
+                <!--                                   {{'For Consumers' | translate}}-->
+                <!--                                 </div> &ndash;&gt;-->
+
+                <!--                                <div class="" style="margin-bottom: 100px !important;">-->
+                <!--                                    <div class="user-menu">-->
+                <!--                                        <ul >-->
+                <!--                                            <li>-->
+                <!--                                                <p>-->
+                <!--                                                    <small>-->
+                <!--                                                        {{'Sign in to enjoy the benefits of promotions and discounts from your favorite businesses.' | translate}}-->
+                <!--                                                    </small>-->
+                <!--                                                </p>-->
+
+                <!--                                                <button [routerLink]="['/'+routes.login]" class="btn btn-outline-success btn-sm">-->
+                <!--                                                    <i class="fa fa-user"></i> {{'LOG IN' | translate}}-->
+                <!--                                                </button>-->
+
+                <!--                                            </li>-->
+
+                <!--                                            <li>-->
+                <!--                                                <a  href=""><mat-icon>menu</mat-icon> {{'Guide planes' | translate}}</a>-->
+                <!--                                            </li>-->
+
+                <!--                                            <li>-->
+                <!--                                                <a href=""><mat-icon>settings</mat-icon> {{'My Profile' | translate}}</a>-->
+                <!--                                            </li>-->
+                <!--                                            <li>-->
+                <!--                                                <a href=""><mat-icon>book</mat-icon> {{'Tutorials' | translate}}-->
+                <!--                                                </a>-->
+                <!--                                            </li>-->
+                <!--                                        </ul>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <div class=""  *ngIf="authService.isLoggedIn() && getRole() === 'customer'">-->
+                <!--                                <div class="">-->
+                <!--                                    {{'For Consumers' | translate}}-->
+                <!--                                </div>-->
+
+                <!--                                <div class="" style="margin-bottom: 100px !important;">-->
+                <!--                                    <div class="user-menu">-->
+                <!--                                        <ul>-->
+                <!--                                            <li>-->
+                <!--                                                <a href=""><mat-icon>menu</mat-icon> {{'Guider Plans' | translate}}</a>-->
+                <!--                                            </li>-->
+
+                <!--                                            <li [routerLink]="['/'+routes.customer.profile]">-->
+                <!--                                                <a>-->
+                <!--                                                    <mat-icon>group</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'My Profile' | translate}} </span>-->
+                <!--                                                </a>-->
+
+                <!--                                            </li>-->
+
+                <!--                                            <li>-->
+                <!--                                                <a>-->
+                <!--                                                    <mat-icon>book</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Tutorials' | translate}}</span>-->
+                <!--                                                </a>-->
+                <!--                                            </li>-->
+
+
+                <!--                                            &lt;!&ndash;  <li [routerLink]="['/'+routes.customer.notifications]">-->
+                <!--                                                <a [style]="sidebarTextStyle" >-->
+                <!--                                                  <i class="fa fa-bell"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Notifications' | translate}}</span>-->
+                <!--                                                </a>-->
+                <!--                                              </li> &ndash;&gt;-->
+
+                <!--                                            <li>-->
+                <!--                                                <a [style]="">-->
+                <!--                                                    <mat-icon>lock</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Log out' | translate}}</span>-->
+                <!--                                                </a>-->
+                <!--                                            </li>-->
+
+
+                <!--                                        </ul>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+            </div>
+
+
+
+            <!--                  <div class="d-none d-md-block col-md-3 mt-5 pt-5 position-fixed" *ngIf="router.url === '/' || router.url === 'listings/promotion' || router.url === 'listings/business' || router.url === 'listings/TCF'" style="position: absolute;right: 20px;">-->
+
+            <!--                      <div class="w-100 mt-5 listing-section" >-->
+            <!--                          <div class="col-12">-->
+
+            <!--                              <h4 class="fw-bold">{{"Business Ads" | translate}}</h4>-->
+
+            <!--                          </div>-->
+
+            <!--                          <app-random-ads></app-random-ads>-->
+            <!--                          &lt;!&ndash; <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let business of featured_businesses">-->
+            <!--                             <app-business-classic-widget [business]="business.business"></app-business-classic-widget>-->
+            <!--                           </div> &ndash;&gt;-->
+            <!--                      </div>-->
+
+            <!--                      <app-random-ads></app-random-ads>-->
+
+            <!--                  </div>-->
+
+
+        </div>
+
+    </div>
+
+    <div  class="container section-main-container" >
+        <ng-container *ngIf="url !== '/business/create' && url !== '/business/manage' && url !== '/business/create-promotion' && url !== '/promotions/manage' && url !== '/business/loyalty-card/create'">
+            <div class="row mt-5 pt-1 mt-md-0" id="main-content-wrapper" *ngIf="listingUrls.includes(url)">
+
+
+                <div [ngClass]="{'p-0' : listingUrls.includes(url)}"
+                     class="col-12 d-md-flex justify-content-lg-between position-relative">
+
+
+                    <div id="section-main-sidebar" class="pe-4 mt-5 section-sidebar-container h-100">
+                        <div class="row  pt-2 h-100">
+
+
+                            <div *ngIf="(router.url === '/' || router.url === '/business/create' || router.url === '/businesses' || router.url === '/promotions' || router.url === '/listings/promotion' || router.url === '/listings/business' || router.url === '/listings/TCF' || router.url === '/businesses' || router.url.includes('/business-results') || router.url === '/business/profile')  && sidebar"
+                                 class="sidebar-fixed h-100">
+
+                                <div class="w-100 h-100 d-flex flex-column justify-content-between position-relative">
+                                    <div class="w-100">
+                                        <div class="">
+                                            <div class="2 border-bottom mb-2">
+                                                <div class="user-menu">
+                                                    <ul>
+
+                                                        <li>
+                                                            <a [class]="{'active' : url === '/'}" matRipple
+                                                               [routerLink]="'/'">
+                                                                <div class="sidebar-item">
+                          <span class="sidebar-item-icon material-symbols-outlined">
+home
+</span>
+
+                                                                    <span class="sidebar-item-label">
+                             {{ 'Home' | translate }}
+                        </span>
+                                                                </div>
+
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+
+                                                            <a [class]="{'active' : url === '/listings/business'}"
+                                                               matRipple [routerLink]="'/listings/business'">
+                                                                <div class="sidebar-item">
+                       <span class="material-symbols-outlined sidebar-item-icon">
+store
+</span>
+                                                                    <span class="sidebar-item-label">
+                        {{ 'Business' | translate }}
+                        </span>
+
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+
+                                                            <a [class]="{'active' : url === '/listings/promotion'}"
+                                                               matRipple [routerLink]="'/listings/promotion'">
+                                                                <div class="sidebar-item">
+<span class="material-symbols-outlined sidebar-item-icon">
+sell
+</span>
+                                                                    <span class="sidebar-item-label">
+                        {{ 'Promotions and discounts' | translate }}
+                            </span>
+                                                                </div>
+                                                            </a>
+
+                                                        </li>
+                                                        <!-- <li>
+                                                          <a href=""><mat-icon>credit_card</mat-icon> Tarjetas de Cliente Frecuente</a>
+                                                        </li> -->
+
+
+                                                        <li>
+                                                            <a matRipple [class]="{'active' : url === '/listings/TCF'}"
+                                                               [routerLink]="'/listings/TCF'">
+                                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+credit_card
+</span>
+                                                                    <span class="sidebar-item-label">
+                    {{ 'TCF' | translate }}
+
+                        </span>
+
+                                                                </div>
+
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="w-100 mt-3">
+                                            <ng-container *ngIf="authService.isLoggedIn()">
+                                                <ng-container *ngIf="getRole() === 'business'">
+                                                    <app-contact-list-widget
+                                                            [title]="'Recently Contacted'"></app-contact-list-widget>
+
+                                                </ng-container>
+                                                <ng-container *ngIf="getRole() === 'customer'">
+                                                    <app-contact-list-widget
+                                                            [title]="'Top Businesses'"></app-contact-list-widget>
+
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="!authService.isLoggedIn()">
+                                                <app-contact-list-widget
+                                                        [title]="'Top Businesses'"></app-contact-list-widget>
+
+                                            </ng-container>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="w-100 d-flex flex-column gap-1 mb-9 "
+                                         style="position: absolute;bottom: 16px;left: 0px !important;">
+                                        <div>
+                        <span>
+                            <small>Privacy Policy</small> - <small>Terms & Conditions</small> - <small>Cookies</small>
+                        </span>
+                                        </div>
+                                        <span>
+                        WeShare 2024
+                    </span>
+                                    </div>
+
+                                </div>
+                                <!-- app main sidebar -->
+
+
+                                <!--
+                                  <div class="" *ngIf="! authService.isLoggedIn()" [style]="sidebarStyle">
+                                        <div class="">
+                                          {{'For Business Owners' | translate}}
+                                  </div>
+
+                                  <div class="">
+                                    <div class="user-menu">
+                                      <ul>
+                                        <li>
+                                          <p [style]="sidebarTextStyle">
+                                            <small>
+                                              {{'Login to create your business, promotions and frequent customer cards' | translate}}
+                                            </small>
+                                          </p>
+
+                                          <button [style]="sidebarBtnStyle"  [routerLink]="['/'+routes.login]" class="btn btn-outline-success btn-sm">
+                                            <i class="fa fa-user"></i> {{'LOG IN' | translate}}
+                                          </button>
+
+                                        </li>
+
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>home</mat-icon> {{'Dashboard' | translate}}</a>
+                                        </li>
+
+
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>menu</mat-icon> {{'Guide planes' | translate}}</a>
+                                        </li>
+
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>settings</mat-icon> {{'My profile' | translate}}</a>
+                                        </li>
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>book</mat-icon> {{'Tutorials' | translate}}</a>
+                                        </li>
+
+                                      </ul>
+                                    </div>
+
+                                  </div>
+                                </div> -->
+                                <!--                            <div class=""  *ngIf="! authService.isLoggedIn()" >-->
+                                <!--                                &lt;!&ndash; <div class="">-->
+                                <!--                                   {{'For Consumers' | translate}}-->
+                                <!--                                 </div> &ndash;&gt;-->
+
+                                <!--                                <div class="" style="margin-bottom: 100px !important;">-->
+                                <!--                                    <div class="user-menu">-->
+                                <!--                                        <ul >-->
+                                <!--                                            <li>-->
+                                <!--                                                <p>-->
+                                <!--                                                    <small>-->
+                                <!--                                                        {{'Sign in to enjoy the benefits of promotions and discounts from your favorite businesses.' | translate}}-->
+                                <!--                                                    </small>-->
+                                <!--                                                </p>-->
+
+                                <!--                                                <button [routerLink]="['/'+routes.login]" class="btn btn-outline-success btn-sm">-->
+                                <!--                                                    <i class="fa fa-user"></i> {{'LOG IN' | translate}}-->
+                                <!--                                                </button>-->
+
+                                <!--                                            </li>-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a  href=""><mat-icon>menu</mat-icon> {{'Guide planes' | translate}}</a>-->
+                                <!--                                            </li>-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a href=""><mat-icon>settings</mat-icon> {{'My Profile' | translate}}</a>-->
+                                <!--                                            </li>-->
+                                <!--                                            <li>-->
+                                <!--                                                <a href=""><mat-icon>book</mat-icon> {{'Tutorials' | translate}}-->
+                                <!--                                                </a>-->
+                                <!--                                            </li>-->
+                                <!--                                        </ul>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                            <div class=""  *ngIf="authService.isLoggedIn() && getRole() === 'customer'">-->
+                                <!--                                <div class="">-->
+                                <!--                                    {{'For Consumers' | translate}}-->
+                                <!--                                </div>-->
+
+                                <!--                                <div class="" style="margin-bottom: 100px !important;">-->
+                                <!--                                    <div class="user-menu">-->
+                                <!--                                        <ul>-->
+                                <!--                                            <li>-->
+                                <!--                                                <a href=""><mat-icon>menu</mat-icon> {{'Guider Plans' | translate}}</a>-->
+                                <!--                                            </li>-->
+
+                                <!--                                            <li [routerLink]="['/'+routes.customer.profile]">-->
+                                <!--                                                <a>-->
+                                <!--                                                    <mat-icon>group</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'My Profile' | translate}} </span>-->
+                                <!--                                                </a>-->
+
+                                <!--                                            </li>-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a>-->
+                                <!--                                                    <mat-icon>book</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Tutorials' | translate}}</span>-->
+                                <!--                                                </a>-->
+                                <!--                                            </li>-->
+
+
+                                <!--                                            &lt;!&ndash;  <li [routerLink]="['/'+routes.customer.notifications]">-->
+                                <!--                                                <a [style]="sidebarTextStyle" >-->
+                                <!--                                                  <i class="fa fa-bell"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Notifications' | translate}}</span>-->
+                                <!--                                                </a>-->
+                                <!--                                              </li> &ndash;&gt;-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a [style]="">-->
+                                <!--                                                    <mat-icon>lock</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Log out' | translate}}</span>-->
+                                <!--                                                </a>-->
+                                <!--                                            </li>-->
+
+
+                                <!--                                        </ul>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                            </div>
+
+
+                            <!--                  <div class="d-none d-md-block col-md-3 mt-5 pt-5 position-fixed" *ngIf="router.url === '/' || router.url === 'listings/promotion' || router.url === 'listings/business' || router.url === 'listings/TCF'" style="position: absolute;right: 20px;">-->
+
+                            <!--                      <div class="w-100 mt-5 listing-section" >-->
+                            <!--                          <div class="col-12">-->
+
+                            <!--                              <h4 class="fw-bold">{{"Business Ads" | translate}}</h4>-->
+
+                            <!--                          </div>-->
+
+                            <!--                          <app-random-ads></app-random-ads>-->
+                            <!--                          &lt;!&ndash; <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let business of featured_businesses">-->
+                            <!--                             <app-business-classic-widget [business]="business.business"></app-business-classic-widget>-->
+                            <!--                           </div> &ndash;&gt;-->
+                            <!--                      </div>-->
+
+                            <!--                      <app-random-ads></app-random-ads>-->
+
+                            <!--                  </div>-->
+
+
+                        </div>
+
+                    </div>
+                    <div id="section-listings-wrapper" class="page-mid-section" (scroll)="onMiddleSectionScroll($event)"
+                         style="height: 100vh !important;overflow-y: scroll !important;">
+
+
+                        <router-outlet></router-outlet>
+
+                    </div>
+
+                    <div *ngIf="(router.url === '/' || router.url === '/businesses' || router.url === '/promotions' || router.url === '/listings/promotion' || router.url === '/listings/business' || router.url === '/listings/TCF' || router.url === '/businesses' || router.url.includes('/business-results') || router.url === '/business/profile')"
+                         class="page-right-section  mt-5 py-5 ps-4 d-flex justify-content-end "
+                         style="height: 100vh !important;;overflow-y: scroll !important;">
+                        <div class="w-100 d-flex flex-column gap-4 py-md-4">
+                            <app-sponsored-ads></app-sponsored-ads>
+                            <app-referral-network-widget></app-referral-network-widget>
+                            <app-contact-list-widget *ngIf="authService.isLoggedIn()" [avatarSize]="40"
+                                                     [title]="'Recent Messages'"></app-contact-list-widget>
+                            <app-contact-list-widget *ngIf="!authService.isLoggedIn()" [avatarSize]="40"
+                                                     [title]="'Recent Businesses'"></app-contact-list-widget>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div id="tts-bug" class="row mt-5 py-1 mt-md-5" style="min-height: 100vh !important;"
+                 *ngIf="!listingUrls.includes(url)">
+                <router-outlet></router-outlet>
+            </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="url === '/business/create' || url === '/business/manage' || url === '/business/create-promotion' || url === '/promotions/manage' || url === '/business/loyalty-card/create'">
+            <div class="row mt-5 pt-1 mt-md-0" id="main-content-wrapper" style="min-height: 100vh !important;" >
+
+
+                <div
+                     class="col-12 p-0  position-relative">
+
+                    <div id="section-main-sidebar" class="pe-4 pt-5 section-sidebar-container h-100">
+                        <div class="row  pt-2 h-100">
+
+
+                            <div *ngIf="(router.url === '/business/manage' || router.url === '/business/create' || router.url === '/business/create-promotion' || router.url === '/promotions/manage' || router.url === '/business/loyalty-card/create' || router.url === '/businesses' || router.url === '/promotions' || router.url === '/listings/promotion' || router.url === '/listings/business' || router.url === '/listings/TCF' || router.url === '/businesses' || router.url.includes('/business-results') || router.url === '/business/profile')  && sidebar"
+                                 class="sidebar-fixed h-100">
+
+                                <div class="w-100 h-100 d-flex flex-column justify-content-between position-relative">
+                                    <div class="w-100 mb-5">
+                                        <div class="">
+                                            <div class="2 border-bottom mb-2">
+                                                <div class="user-menu">
+                                                    <ul>
+
+                                                        <li>
+                                                            <a  matRipple
+                                                               [routerLink]="'/business/dashboard'">
+                                                                <div class="sidebar-item">
+                          <span class="sidebar-item-icon material-symbols-outlined">
+home
+</span>
+
+                                                                    <span class="sidebar-item-label">
+                             {{ 'Dashboard' | translate }}
+                        </span>
+                                                                </div>
+
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+
+                                                            <a
+                                                               matRipple [routerLink]="'/business/manage'">
+                                                                <div class="sidebar-item">
+                       <span class="material-symbols-outlined sidebar-item-icon">
+store
+</span>
+                                                                    <span class="sidebar-item-label">
+                        {{ 'My Businesses' | translate }}
+                        </span>
+
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+
+                                                            <a
+                                                               matRipple [routerLink]="'/promotions/manage'">
+                                                                <div class="sidebar-item">
+<span class="material-symbols-outlined sidebar-item-icon">
+sell
+</span>
+                                                                    <span class="sidebar-item-label">
+                        {{ 'My Promotions' | translate }}
+                            </span>
+                                                                </div>
+                                                            </a>
+
+                                                        </li>
+                                                        <!-- <li>
+                                                          <a href=""><mat-icon>credit_card</mat-icon> Tarjetas de Cliente Frecuente</a>
+                                                        </li> -->
+
+
+                                                        <li>
+                                                            <a matRipple
+                                                               [routerLink]="'/business/loyalty-cards/manage'">
+                                                                <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+credit_card
+</span>
+                                                                    <span class="sidebar-item-label">
+                    {{ 'My LCs' | translate }}
+
+                        </span>
+
+                                                                </div>
+
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="w-100 mt-3">
+                                            <div class="user-menu">
+                                                <ul>
+
+                                                    <li>
+                                                        <a  matRipple
+                                                            [routerLink]="'/business/my-appointments'">
+                                                            <div class="sidebar-item">
+                          <span class="sidebar-item-icon material-symbols-outlined">
+calendar_month
+</span>
+
+                                                                <span class="sidebar-item-label">
+                             {{ 'My Appointments' | translate }}
+                        </span>
+                                                            </div>
+
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+
+                                                        <a
+                                                                matRipple [routerLink]="'/business/messages'">
+                                                            <div class="sidebar-item">
+                       <span class="material-symbols-outlined sidebar-item-icon">
+chat_bubble
+</span>
+                                                                <span class="sidebar-item-label">
+                        {{ 'My Messages' | translate }}
+                        </span>
+
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+
+                                                        <a
+                                                                matRipple [routerLink]="'/business/my-referral-network'">
+                                                            <div class="sidebar-item">
+<span class="material-symbols-outlined sidebar-item-icon">
+diversity_1
+</span>
+                                                                <span class="sidebar-item-label">
+                        {{ 'My Referral Network' | translate }}
+                            </span>
+                                                            </div>
+                                                        </a>
+
+                                                    </li>
+                                                    <!-- <li>
+                                                      <a href=""><mat-icon>credit_card</mat-icon> Tarjetas de Cliente Frecuente</a>
+                                                    </li> -->
+
+
+                                                    <li>
+                                                        <a matRipple
+                                                           [routerLink]="'/business/payments'">
+                                                            <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+payment
+</span>
+                                                                <span class="sidebar-item-label">
+                    {{ 'Transactions' | translate }}
+
+                        </span>
+
+                                                            </div>
+
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a matRipple
+                                                           [routerLink]="'/business/settings'">
+                                                            <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+person
+</span>
+                                                                <span class="sidebar-item-label">
+                    {{ 'My Account' | translate }}
+
+                        </span>
+
+                                                            </div>
+
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a matRipple
+                                                           [routerLink]="'/business/select-plan'">
+                                                            <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+verified_user
+</span>
+                                                                <span class="sidebar-item-label">
+                    {{ 'Subscription' | translate }}
+
+                        </span>
+
+                                                            </div>
+
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a matRipple
+                                                           (click)="logout()">
+                                                            <div class="sidebar-item">
+
+                    <span class="material-symbols-outlined sidebar-item-icon">
+logout
+</span>
+                                                                <span class="sidebar-item-label">
+                    {{ 'Log out' | translate }}
+
+                        </span>
+
+                                                            </div>
+
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="w-100 d-flex flex-column gap-1 mt-2 "
+                                         style="position: absolute;bottom: 16px;left: 0px !important;">
+                                        <div>
+                        <span>
+                            <small>Privacy Policy</small> - <small>Terms & Conditions</small> - <small>Cookies</small>
+                        </span>
+                                        </div>
+                                        <span>
+                        WeShare 2024
+                    </span>
+                                    </div>
+
+                                </div>
+                                <!-- app main sidebar -->
+
+
+                                <!--
+                                  <div class="" *ngIf="! authService.isLoggedIn()" [style]="sidebarStyle">
+                                        <div class="">
+                                          {{'For Business Owners' | translate}}
+                                  </div>
+
+                                  <div class="">
+                                    <div class="user-menu">
+                                      <ul>
+                                        <li>
+                                          <p [style]="sidebarTextStyle">
+                                            <small>
+                                              {{'Login to create your business, promotions and frequent customer cards' | translate}}
+                                            </small>
+                                          </p>
+
+                                          <button [style]="sidebarBtnStyle"  [routerLink]="['/'+routes.login]" class="btn btn-outline-success btn-sm">
+                                            <i class="fa fa-user"></i> {{'LOG IN' | translate}}
+                                          </button>
+
+                                        </li>
+
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>home</mat-icon> {{'Dashboard' | translate}}</a>
+                                        </li>
+
+
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>menu</mat-icon> {{'Guide planes' | translate}}</a>
+                                        </li>
+
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>settings</mat-icon> {{'My profile' | translate}}</a>
+                                        </li>
+                                        <li>
+                                          <a [style]="sidebarTextStyle" href=""><mat-icon>book</mat-icon> {{'Tutorials' | translate}}</a>
+                                        </li>
+
+                                      </ul>
+                                    </div>
+
+                                  </div>
+                                </div> -->
+                                <!--                            <div class=""  *ngIf="! authService.isLoggedIn()" >-->
+                                <!--                                &lt;!&ndash; <div class="">-->
+                                <!--                                   {{'For Consumers' | translate}}-->
+                                <!--                                 </div> &ndash;&gt;-->
+
+                                <!--                                <div class="" style="margin-bottom: 100px !important;">-->
+                                <!--                                    <div class="user-menu">-->
+                                <!--                                        <ul >-->
+                                <!--                                            <li>-->
+                                <!--                                                <p>-->
+                                <!--                                                    <small>-->
+                                <!--                                                        {{'Sign in to enjoy the benefits of promotions and discounts from your favorite businesses.' | translate}}-->
+                                <!--                                                    </small>-->
+                                <!--                                                </p>-->
+
+                                <!--                                                <button [routerLink]="['/'+routes.login]" class="btn btn-outline-success btn-sm">-->
+                                <!--                                                    <i class="fa fa-user"></i> {{'LOG IN' | translate}}-->
+                                <!--                                                </button>-->
+
+                                <!--                                            </li>-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a  href=""><mat-icon>menu</mat-icon> {{'Guide planes' | translate}}</a>-->
+                                <!--                                            </li>-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a href=""><mat-icon>settings</mat-icon> {{'My Profile' | translate}}</a>-->
+                                <!--                                            </li>-->
+                                <!--                                            <li>-->
+                                <!--                                                <a href=""><mat-icon>book</mat-icon> {{'Tutorials' | translate}}-->
+                                <!--                                                </a>-->
+                                <!--                                            </li>-->
+                                <!--                                        </ul>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                                <!--                            <div class=""  *ngIf="authService.isLoggedIn() && getRole() === 'customer'">-->
+                                <!--                                <div class="">-->
+                                <!--                                    {{'For Consumers' | translate}}-->
+                                <!--                                </div>-->
+
+                                <!--                                <div class="" style="margin-bottom: 100px !important;">-->
+                                <!--                                    <div class="user-menu">-->
+                                <!--                                        <ul>-->
+                                <!--                                            <li>-->
+                                <!--                                                <a href=""><mat-icon>menu</mat-icon> {{'Guider Plans' | translate}}</a>-->
+                                <!--                                            </li>-->
+
+                                <!--                                            <li [routerLink]="['/'+routes.customer.profile]">-->
+                                <!--                                                <a>-->
+                                <!--                                                    <mat-icon>group</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'My Profile' | translate}} </span>-->
+                                <!--                                                </a>-->
+
+                                <!--                                            </li>-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a>-->
+                                <!--                                                    <mat-icon>book</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Tutorials' | translate}}</span>-->
+                                <!--                                                </a>-->
+                                <!--                                            </li>-->
+
+
+                                <!--                                            &lt;!&ndash;  <li [routerLink]="['/'+routes.customer.notifications]">-->
+                                <!--                                                <a [style]="sidebarTextStyle" >-->
+                                <!--                                                  <i class="fa fa-bell"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Notifications' | translate}}</span>-->
+                                <!--                                                </a>-->
+                                <!--                                              </li> &ndash;&gt;-->
+
+                                <!--                                            <li>-->
+                                <!--                                                <a [style]="">-->
+                                <!--                                                    <mat-icon>lock</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">{{'Log out' | translate}}</span>-->
+                                <!--                                                </a>-->
+                                <!--                                            </li>-->
+
+
+                                <!--                                        </ul>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                            </div>-->
+                            </div>
+
+
+                            <!--                  <div class="d-none d-md-block col-md-3 mt-5 pt-5 position-fixed" *ngIf="router.url === '/' || router.url === 'listings/promotion' || router.url === 'listings/business' || router.url === 'listings/TCF'" style="position: absolute;right: 20px;">-->
+
+                            <!--                      <div class="w-100 mt-5 listing-section" >-->
+                            <!--                          <div class="col-12">-->
+
+                            <!--                              <h4 class="fw-bold">{{"Business Ads" | translate}}</h4>-->
+
+                            <!--                          </div>-->
+
+                            <!--                          <app-random-ads></app-random-ads>-->
+                            <!--                          &lt;!&ndash; <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let business of featured_businesses">-->
+                            <!--                             <app-business-classic-widget [business]="business.business"></app-business-classic-widget>-->
+                            <!--                           </div> &ndash;&gt;-->
+                            <!--                      </div>-->
+
+                            <!--                      <app-random-ads></app-random-ads>-->
+
+                            <!--                  </div>-->
+
+
+                        </div>
+
+                    </div>
+
+                    <router-outlet class="position-absolute mt-0"></router-outlet>
+
+
+                </div>
+
+            </div>
+
+
+
+        </ng-container>
+
+
+    </div>
+
+
+<!--    <footer *ngIf="! isMobile() || (url === '/' || url.includes('listings') || url.includes('manage'))" style="height: 300px;margin-top: 100px;margin-bottom: 50px;">-->
+
+
+<!--    <div class="row theme-bg-primary">-->
+
+<!--      <div class="col-md-12">-->
+
+<!--        <p class="text-center">Guia en tu dispositivo movil-->
+<!--        </p>-->
+
+<!--      </div>-->
+<!--      <div class="col-md-12 mt-5 text-center">-->
+
+
+
+<!--        <button mat-raised-button class="btn-lg" color="primary">-->
+
+<!--          <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App-->
+
+<!--        </button>&nbsp;&nbsp;-->
+<!--        <button mat-raised-button class="btn-lg" color="accent">-->
+
+<!--          <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App-->
+
+<!--        </button>-->
+
+<!--        <br/>-->
+
+
+
+
+<!--      </div>-->
+<!--      <div class="col-md-12 mt-4 text-center">-->
+
+
+<!--        <hr/>-->
+<!--        <br/>-->
+<!--        <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad-->
+<!--        </p>-->
+
+<!--        <br/>-->
+<!--        <hr/>-->
+
+<!--        <mat-divider></mat-divider>-->
+
+<!--        <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;-->
+<!--        <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;-->
+<!--        <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;-->
+<!--        <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;-->
+<!--        <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;-->
+
+<!--        <br/><br/>-->
+<!--        <p>-->
+<!--          Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS-->
+
+<!--        </p>-->
+
+
+
+
+
+<!--      </div>-->
+
+
+<!--    </div>-->
+
+
+
+<!--  </footer>-->
+
+
+</div>
+
+
+<!--
+<div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+
+  <div class="row">
+
+
+    <div class="col-11 col-sm-10 col-md-3 col-lg-3mt-3 mb-4" (click)="hideSidebar()" style="position: fixed;z-index: 1000 !important;background: white;" [ngClass]="{'sidebar-expanded': sidebar === true , 'sidebar-collapsed' : sidebar === false }" >
+
+
+      <mat-icon *ngIf="sidebar === true" style="cursor: pointer;float: right;" (click)="hideSidebar()">close</mat-icon>
+
+
+      <div class="row mt-5" style="height: 100%; !important;overflow-y: scroll !important;" >
+
+        <div  style="overflow-y: scroll;" class="col-md-12 sidebar-options-container" *ngIf="authService.isLoggedIn()">
+
+            <p *ngIf="getRole() === 'customer'">PARA CONSUMIDORES</p>
+            <p  *ngIf="getRole() === 'business'">Business</p>
+
+            <mat-divider></mat-divider>
+            <mat-list *ngIf="getRole() === 'customer'">
+              <li [routerLink]="['/'+routes.customer.dashboard]"><mat-icon>speedometer</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Dashboard</span></li>
+
+              <li><mat-icon>group</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">My Profile </span></li>
+
+              <li  [routerLink]="['/'+routes.customer.favorites]"><mat-icon>favorite</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">My Favorites</span></li>
+
+              <li  [routerLink]="['/'+routes.customer.messages]"><mat-icon>comment</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">Messages</span></li>
+
+              <li><i class="fa fa-bell"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Notifications</span></li>
+              <li (click)="accountCloseConfirmation()"><i class="fa fa-times"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Close Account</span></li>
+
+              <li (click)="logout()"><mat-icon>lock</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Log out</span></li>
+
+
+            </mat-list>
+
+            <mat-list  *ngIf="getRole() === 'business'">
+              <li  [routerLink]="['/'+routes.business.dashboard]"><mat-icon>speedometer</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Dashboard</span></li>
+
+              <li><i class="fa fa-user"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Perfil de tu Negocio</span></li>
+              <li (click)="navigate(routes.business.select_plan)"><i class="fa fa-check"></i>&nbsp;&nbsp;<span>Membership Plan</span></li>
+
+              <li [routerLink]="['/'+routes.business.create]"><i class="fa fa-gift"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Crear tu negocio</span></li>
+              <li  [routerLink]="['/'+routes.business.create_promotion]"><i class="fa fa-calculator"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Crear promociones</span></li>
+              <li  [routerLink]="['/'+routes.business.create_ad]"><i class="fa fa-image"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Create Ad</span></li>
+              <li (click)="navigate(routes.business.create_notification)"><i class="fa fa-bell"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Crear Notificaciones</span></li>
+              <li  [routerLink]="['/'+routes.business.manage]"><i class="fa fa-cog"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Manage Business</span></li>
+              <li  [routerLink]="['/'+routes.business.manage_promotions]"><i class="fa fa-gift"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Manage Promotions</span></li>
+              <li  [routerLink]="['/'+routes.business.manage_ads]"><i class="fa fa-image"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Manage Ads</span></li>
+              <li  [routerLink]="['/'+routes.business.messages]"><i class="fa fa-comments"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Messages</span></li>
+              <li  [routerLink]="['/'+routes.business.booking_requests]"><i class="fa fa-home"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Booking requests</span></li>
+              <li (click)="accountCloseConfirmation()"><i class="fa fa-times"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Close Account</span></li>
+
+
+              <li (click)="logout()"><mat-icon>lock</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Log out</span></li>
+
+
+            </mat-list>
+            <mat-divider></mat-divider>
+            <mat-list>
+              <li><mat-icon>info</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">Sobre Nosotros</span></li>
+
+              <li><mat-icon>call</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">Contactenos</span></li>
+
+            </mat-list>
+
+        </div>
+
+
+
+          <div  style="overflow-y: scroll;" class="col-md-12 sidebar-options-container"  *ngIf="! authService.isLoggedIn()">
+
+            <p *ngIf="sidebar === true">PARA CONSUMIDORES</p>
+            <mat-divider></mat-divider>
+            <mat-list>
+              <li  [routerLink]="['/'+routes.login]"><mat-icon>login</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">Iniciar sesion</span></li>
+
+              <li  [routerLink]="['/'+routes.register , 'customer']"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Registrarse
+           </span> </li>
+
+              <li><mat-icon>group</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Mi Perfil </span></li>
+
+              <li><mat-icon>favorite</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">Mis Favoritos</span></li>
+
+
+            </mat-list>
+
+            <p *ngIf="sidebar === true">PARA NEGOCIOS</p>
+            <mat-divider></mat-divider>
+            <mat-list>
+              <li><mat-icon>list</mat-icon> &nbsp;&nbsp;<span *ngIf="sidebar === true">Planes Negocios</span></li>
+
+              <li [routerLink]="['/'+routes.login]"><mat-icon>login</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Iniciar Sesion</span>
+              </li>
+
+              <li [routerLink]="['/'+routes.register , 'business']" ><i class="fa fa-user-plus"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Registrarse</span></li>
+              <li><i class="fa fa-user"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Perfil de tu Negocio</span></li>
+              <li  [routerLink]="['/'+routes.business.create]"><i class="fa fa-gift"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Crear tu negocio</span></li>
+              <li><i class="fa fa-calculator"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Crear promociones</span></li>
+              <li (click)="navigate(routes.business.create_notification)"><i class="fa fa-bell"></i>&nbsp;&nbsp;<span *ngIf="sidebar === true">Crear Notificaciones</span></li>
+              <li  [routerLink]="['/'+routes.business.dashboard]"><mat-icon>speedometer</mat-icon>&nbsp;&nbsp;<span *ngIf="sidebar === true">Dashboard</span></li>
+
+
+
+
+
+
+            </mat-list>
+
+
+
+          </div>
+
+        </div>
+
+
+
+    </div>
+
+    <div>
+      <header class="shadow">
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <mat-icon *ngIf="sidebar === false" (click)="showSideBar()" style="cursor: pointer;">menu</mat-icon>
+
+            <a class="navbar-brand" href="#" >
+              &nbsp;&nbsp; <span>Nombre Portal</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="! authService.isLoggedIn()">
+                <li class="nav-item me-4">
+
+                  <button [routerLink]="['/'+routes.register , 'business']" mat-raised-button color="primary">
+                   <i class="fa fa-plus"></i>  &nbsp;Create My Business Listing
+                  </button>
+
+                </li>
+                <li class="nav-item me-4">
+                  <button  [routerLink]="['/'+routes.register , 'customer']" mat-raised-button color="primary">
+                  <i class="fa fa-user-plus"></i>  &nbsp;Customer Sign Up
+                  </button>
+                </li>
+
+              </ul>
+
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0" *ngIf="authService.isLoggedIn()">
+                <li class="nav-item me-4">
+                  <a class="nav-link active" aria-current="page" href="#">
+
+                    <div align="center">
+                      <mat-icon style="font-size: 20px">business</mat-icon>
+                    </div>
+
+
+                    Agregar tu Negocio
+
+                  </a>
+                </li>
+                <li class="nav-item me-4">
+                  <a class="nav-link active" aria-current="page" href="#">
+
+                    <div align="center">
+                      <i  class="fa fa-heart" style="font-size: 20px"></i>
+                    </div>
+
+
+                    Mis Favoritos
+
+
+                  </a>
+                </li>
+                <li class="nav-item ml-2">
+                  <a class="nav-link active" aria-current="page" href="#">
+
+                    <div align="center">
+                      <i  class="fa fa-group" style="font-size: 20px"></i>
+                    </div>
+
+
+                    Mi Perfil
+
+
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+
+
+
+      </header>
+
+
+
+      <router-outlet></router-outlet>
+
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
+<div class="overlay" [ngClass]="{'enabled' : sidebar === true}"></div> -->
+
+<ng-container *ngIf="displayAppInstaller">
+  <ng-container *ngIf="platform.ANDROID">
+    <div  class="adhs-container adhs-android adhs-chrome visible" style="height: 100vh; width: 100vw;position: fixed">
+      <div class="adhs-logo d-flex justify-content-center align-items-center">
+        <img src="assets/icons/apple-touch-icon.png" alt="logo">
+      </div>
+      <div class="adhs-modal">
+        <div class="adhs-title">{{"Install the Weshare Lite app to continue" | translate}}</div>
+        <div class="adhs-list">
+          <div class="adhs-list-item">
+            <div class="adhs-number-container">
+              <div class="adhs-circle">
+                <div class="adhs-number">1</div>
+              </div>
+            </div>
+            <div class="adhs-instruction">{{"Tap the" | translate}} <img class="adhs-android-chrome-more-button" src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/android-chrome-more-button.svg"> {{"button in the browser bar" | translate}}.</div>
+          </div>
+          <div class="adhs-list-item">
+            <div class="adhs-number-container">
+              <div class="adhs-circle">
+                <div class="adhs-number">2</div>
+              </div>
+            </div>
+            <div class="adhs-instruction">{{"Tap the" | translate}} <img class="adhs-android-chrome-add-to-homescreen-button" src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/android-chrome-add-to-home-screen-button.svg"> {{"or" | translate}}<img class="adhs-android-chrome-install-app" src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/android-chrome-install-app.svg"> {{"button" | translate}}.</div>
+          </div>
+          <div class="adhs-list-item">
+            <div class="adhs-number-container">
+              <div class="adhs-circle">
+                <div class="adhs-number">3</div>
+              </div>
+            </div>
+            <div class="adhs-instruction">Open the <img class="adhs-your-app-icon" src="assets/icons/apple-touch-icon.png"> app.</div>
+          </div>
+          <div class="adhs-list-item d-flex justify-content-center align-items-center pt-3">
+
+            <button (click)="displayAppInstaller = false" class=" btn btn-black">
+              Close
+            </button>
+
+
+          </div>
+
+        </div></div><div class="adhs-android-chrome-bouncing-arrow-container">
+      <img src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/android-chrome-bouncing-arrow.svg" alt="arrow">
+    </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="platform.IOS">
+    <div  class="adhs-container adhs-ios adhs-safari visible" style="height: 100vh; width: 100vw;position: fixed">
+      <div class="adhs-logo d-flex justify-content-center align-items-center">
+        <img src="assets/icons/apple-touch-icon.png" alt="logo">
+      </div>
+      <div class="adhs-modal">
+        <div class="adhs-title">{{"Install the Weshare Lite app to continue" | translate}}</div>
+        <div class="adhs-list">
+          <div class="adhs-list-item">
+            <div class="adhs-number-container">
+              <div class="adhs-circle">
+                <div class="adhs-number">1</div>
+              </div>
+            </div>
+            <div class="adhs-instruction">Tap the <img class="adhs-ios-safari-sharing-api-button" src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/ios-safari-sharing-api-button.svg"> button below.</div>
+          </div>
+          <div class="adhs-list-item">
+            <div class="adhs-number-container">
+              <div class="adhs-circle">
+                <div class="adhs-number">2</div>
+              </div>
+            </div>
+            <div class="adhs-instruction">Select <img class="adhs-ios-safari-add-to-home-screen-button" src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/ios-safari-add-to-home-screen-button.svg"> from the menu that pops up.
+<!--              <span class="adhs-emphasis">You may need to scroll down to find this menu item.</span>-->
+            </div>
+          </div>
+          <div class="adhs-list-item">
+            <div class="adhs-number-container">
+              <div class="adhs-circle">
+                <div class="adhs-number">3</div>
+              </div>
+            </div>
+            <div class="adhs-instruction">Open the <img class="adhs-your-app-icon" src="assets/icons/apple-touch-icon.png"> app.</div>
+          </div>
+
+          <div class="adhs-list-item d-flex justify-content-center align-items-center pt-3">
+
+            <button (click)="displayAppInstaller = false" class=" btn btn-black">
+              Close
+            </button>
+
+
+          </div>
+
+        </div></div><div class="adhs-ios-safari-bouncing-arrow-container">
+      <img src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/ios-safari-bouncing-arrow.svg" alt="arrow">
+    </div></div>
+  </ng-container>
+</ng-container>

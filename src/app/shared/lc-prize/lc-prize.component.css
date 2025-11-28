@@ -1,0 +1,5 @@
+.prize-container {
+    border-radius: 50%;
+    background: radial-gradient(#f44336, #ff4081);
+    padding: 12px;
+}

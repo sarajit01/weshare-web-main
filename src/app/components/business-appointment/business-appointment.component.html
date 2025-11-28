@@ -1,0 +1,527 @@
+<div class="container-fluid pt-3 pb-5" style="background: #eee;">
+
+
+
+  <div class="row mb-5">
+
+    <div class="col-md-12">
+
+      <mat-card>
+
+        <mat-card-header>
+
+          <div class="row mb-2">
+
+            <div class="col-md-12">
+              <h2 class="">
+                Manage Business Appointments
+              </h2>
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-4">
+
+          <mat-tab-group mat-align-tabs="start" backgroundColor="primary">
+            <mat-tab label="Pending" >
+
+              <div class="container">
+
+                <div class="row">
+
+                  <div class="col-md-6 float-end">
+
+                    <mat-form-field style="width: 100%"  appearance="outline">
+                      <input matInput placeholder="Search appointment by business name .." >
+                    </mat-form-field>
+
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-12 mb-2 ">
+
+
+                    <p class="text-primary fw-bolder float-start">
+                      <i class="fa fa-refresh"></i>&nbsp; Pending
+                    </p>
+
+
+
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <div class="table-responsive">
+
+                      <table class="table table-hover">
+
+                        <thead>
+
+                        <tr>
+
+                          <th>Business</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Contact Phone</th>
+                          <th>Date of Appointment</th>
+                          <th>Time</th>
+                          <th>Details</th>
+                          <th>Accept</th>
+                          <th>Reject</th>
+
+
+                        </tr>
+
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr>
+                          <td>Goggi</td>
+                          <td>John</td>
+                          <td>john@test.com</td>
+                          <td>0123456789</td>
+                          <td>
+                            2021-09-10
+                          </td>
+                          <td>10:00 AM</td>
+                          <td>
+
+                            <button mat-raised-button color="accent">
+
+                              <i class="fa fa-angle-right"></i> View
+
+                            </button>&nbsp;&nbsp;
+                          </td>
+                          <td>
+
+                            <button mat-raised-button color="primary" class="btn-danger">
+
+                              <i class="fa fa-check"></i> &nbsp;Accept
+
+                            </button>&nbsp;&nbsp;
+
+                          </td>
+                          <td>
+
+                            <button mat-raised-button color="accent" class="btn-danger">
+
+                              <i class="fa fa-times"></i> &nbsp;Reject
+
+                            </button>&nbsp;&nbsp;
+
+                          </td>
+
+                        </tr>
+
+                        <tr>
+                          <td>Goggi</td>
+                          <td>Smith</td>
+                          <td>smith@test.com</td>
+                          <td>0123456789</td>
+                          <td>
+                            2021-09-11
+                          </td>
+                          <td>10:00 AM</td>
+                          <td>
+
+                            <button mat-raised-button color="accent">
+
+                              <i class="fa fa-angle-right"></i> View
+
+                            </button>&nbsp;&nbsp;
+                          </td>
+                          <td>
+
+                            <button mat-raised-button color="primary" class="btn-danger">
+
+                              <i class="fa fa-check"></i> &nbsp;Accept
+
+                            </button>&nbsp;&nbsp;
+
+                          </td>
+                          <td>
+
+                            <button mat-raised-button color="accent" class="btn-danger">
+
+                              <i class="fa fa-times"></i> &nbsp;Reject
+
+                            </button>&nbsp;&nbsp;
+
+                          </td>
+
+                        </tr>
+
+
+
+                        </tbody>
+
+
+                      </table>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+
+            </mat-tab>
+            <mat-tab label="Accepted">
+
+              <div class="container">
+
+                <div class="row">
+
+                  <div class="col-md-6 float-end">
+
+                    <mat-form-field style="width: 100%"  appearance="outline">
+                      <input matInput placeholder="Search appointment by business name .." >
+                    </mat-form-field>
+
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-12">
+
+
+                    <p class="text-success fw-bolder float-start">
+                      <i class="fa fa-check"></i>&nbsp; Accepted
+                    </p>
+
+                    <button mat-raised-button color="primary" class="float-end">
+
+                      Clear all
+
+                    </button>
+
+
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <div class="table-responsive">
+
+                      <table class="table table-hover">
+
+                        <thead>
+
+                        <tr>
+
+                          <th>Business</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Contact Phone</th>
+                          <th>Date of Appointment</th>
+                          <th>Time</th>
+                          <th>Details</th>
+
+                        </tr>
+
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr>
+                          <td>Goggi</td>
+                          <td>John</td>
+                          <td>john@test.com</td>
+                          <td>0123456789</td>
+                          <td>
+                            2021-09-10
+                          </td>
+                          <td>10:00 AM</td>
+                          <td>
+
+                            <button mat-raised-button color="accent">
+
+                              <i class="fa fa-angle-right"></i> View
+
+                            </button>&nbsp;&nbsp;
+                          </td>
+
+
+                        </tr>
+
+                        <tr>
+                          <td>Goggi</td>
+                          <td>Smith</td>
+                          <td>smith@test.com</td>
+                          <td>0123456789</td>
+                          <td>
+                            2021-09-11
+                          </td>
+                          <td>10:00 AM</td>
+                          <td>
+
+                            <button mat-raised-button color="accent">
+
+                              <i class="fa fa-angle-right"></i> View
+
+                            </button>&nbsp;&nbsp;
+                          </td>
+
+
+
+                        </tr>
+
+
+
+                        </tbody>
+
+
+                      </table>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            </mat-tab>
+            <mat-tab label="Rejected">
+              <div class="container">
+
+                <div class="row">
+
+                  <div class="col-md-6 float-end">
+
+                    <mat-form-field style="width: 100%"  appearance="outline">
+                      <input matInput placeholder="Search appointment by business name .." >
+                    </mat-form-field>
+
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-12">
+
+
+                    <p class="text-danger fw-bolder float-start">
+                      <i class="fa fa-times"></i>&nbsp; Rejected
+                    </p>
+
+                    <button mat-raised-button color="primary" class="float-end">
+
+                      Clear all
+
+                    </button>
+
+                  </div>
+
+                  <div class="col-md-12">
+
+                    <div class="table-responsive">
+
+                      <table class="table table-hover">
+
+                        <thead>
+
+                        <tr>
+
+                          <th>Business</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Contact Phone</th>
+                          <th>Date of Appointment</th>
+                          <th>Time</th>
+                          <th>Details</th>
+
+
+                        </tr>
+
+
+                        </thead>
+
+                        <tbody>
+
+                        <tr>
+                          <td>Goggi</td>
+                          <td>John</td>
+                          <td>john@test.com</td>
+                          <td>0123456789</td>
+                          <td>
+                            2021-09-10
+                          </td>
+                          <td>10:00 AM</td>
+                          <td>
+
+                            <button mat-raised-button color="accent">
+
+                              <i class="fa fa-angle-right"></i> View
+
+                            </button>&nbsp;&nbsp;
+                          </td>
+
+
+
+                        </tr>
+
+                        <tr>
+                          <td>Goggi</td>
+                          <td>Smith</td>
+                          <td>smith@test.com</td>
+                          <td>0123456789</td>
+                          <td>
+                            2021-09-11
+                          </td>
+                          <td>10:00 AM</td>
+                          <td>
+
+                            <button mat-raised-button color="accent">
+
+                              <i class="fa fa-angle-right"></i> View
+
+                            </button>&nbsp;&nbsp;
+                          </td>
+
+
+
+                        </tr>
+
+
+
+                        </tbody>
+
+
+                      </table>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </mat-tab>
+          </mat-tab-group>
+
+
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+</div>

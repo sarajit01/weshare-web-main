@@ -1,0 +1,124 @@
+<div class="container-fluid pt-3 pb-5">
+  <div class="row">
+
+    <div class="row mb-5">
+
+      <div class="col-md-12">
+
+
+
+        <mat-progress-bar *ngIf="progress === true" mode="indeterminate"></mat-progress-bar>
+        <mat-card *ngIf="progress === false">
+
+          <mat-card-header>
+
+            <div class="row mb-2">
+
+              <div class="col-md-12">
+                <h2 class="">
+                  {{'Appointment Booking requests' | translate}}
+                </h2>
+
+
+              </div>
+
+            </div>
+
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="p-4">
+
+            <div class="row">
+
+
+              <div class="col-md-12">
+
+                <div class="alert alert-success">
+                  {{'Here is a list of persons who requested appointments, once you approve they will be in "My Appointments" tab. The requests are still pending until you approve them.' | translate}}
+                </div>
+
+                <div class="table-responsive">
+
+                  <table class="table table-hover">
+
+                    <thead>
+
+                    <tr>
+
+                      <th>{{'Customer ID' | translate}}#</th>
+                      <th>{{'Listing' | translate}}</th>
+                      <th>{{'Listing' | translate}}</th>
+                      <th>{{'Email' | translate}}</th>
+                      <th>{{'Contact Phone' | translate}}</th>
+                      <th>{{'Number of guests' | translate}}</th>
+                      <th>{{'Date' | translate}}</th>
+                      <th>{{'Time' | translate}}</th>
+                      <th>{{'Approve' | translate}}</th>
+                      <th>{{'Delete' | translate}}</th>
+                      <th>{{'Additional notes' | translate}}</th>
+
+
+                    </tr>
+
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr *ngFor="let booking of bookings">
+                      <td>{{booking.customer_id}}</td>
+                      <td>{{booking.business.business_name_prefix}} {{booking.business.business_name}}</td>
+                      <td>{{booking.customer_name}}</td>
+                      <td>{{booking.customer_email}}</td>
+                      <td>{{booking.customer_phone}}</td>
+                      <td>{{booking.guests}}</td>
+                      <td>{{booking.date}}</td>
+                      <td>
+                        {{booking.time_from}}
+                      </td>
+                      <td>
+                        <button (click)="approveBookingReq(booking.id)" class="btn btn-primary">
+
+                          <i class="fa fa-check"></i>
+
+                        </button>&nbsp;&nbsp;
+                      </td>
+                      <td>
+                        <button (click)="deleteBookingReq(booking.id)" class="btn btn-danger">
+
+                          <i class="fa fa-trash"></i>
+
+                        </button>&nbsp;&nbsp;
+                      </td>
+                      <td>
+                        <button (click)="viewMessage(booking.notes)" mat-raised-button color="primary">
+
+                          <i class="fa fa-comments-o"></i>
+
+                        </button>&nbsp;&nbsp;
+                      </td>
+                    </tr>
+
+                    </tbody>
+
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,386 @@
+.business-navigation button {
+  font-size: 18px;
+}
+
+.timing-table tbody tr td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-weight: bold;
+}
+.listing-feature {
+  position: relative;
+ padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+.listing-feature-text {
+  line-height: 1.5;
+  margin-left: 10px;
+  margin-right: 30px;
+  font-weight: bold;
+  color: darkgrey;
+  font-size: 15px;
+}
+
+.listing-feature-icon {
+  line-height: 1.5;
+  font-size: 15px;
+}
+mat-card-title {
+  font-size: 17px !important;
+  font-weight: bold;
+  color: #3f51b5;
+  padding-bottom: 10px;
+}
+.swiper-container {
+
+  overflow: hidden;
+  cursor: grab;
+}
+
+.swiper-wrapper{
+  display:inline-flex;
+}
+
+.feedback-box {
+  align-self: center;
+  width: 50px;height: 50px;display: flex;justify-content: center;align-items: center;
+  background: #3f51b5;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.feedback-box-sm {
+  align-self: center;
+  width: 30px;height: 30px;display: flex;justify-content: center;align-items: center;
+  background: #3f51b5;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.rating i {
+  font-size: 10px;
+}
+.example-box.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-chip .cdk-drop-list-dragging {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.listing {
+  height: 250px;
+  width: 100%;
+
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.listing-cat-lg {
+  height: 450px;
+  width: 100%;
+
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.listing-cat-sm {
+  height: 210px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+
+}
+
+
+.promotion-title-primary , .promotion-title-secondary{
+  line-height: 1;
+}
+
+.promo-location-icon {
+  font-size: 20px;
+}
+
+.promo-location-title {
+  line-height: 1;
+  margin-left: 5px;
+}
+.promo-amount-big {
+  font-size: 40px;
+}
+
+.promo-timeline-area {
+  margin: 0;padding: 0;
+  border-left: 1px solid #ccc;
+
+}
+
+.listing-section .col-md-4 {
+
+  padding: 5px;
+
+}
+
+
+.share-enable {
+
+}
+ngb-rating {
+  color: #FFC107;
+  font-size: 20px;
+}
+
+.heading-lg {
+  font-size: 35px !important;
+  color: white;
+  font-weight: bold;
+}
+
+.heading-md {
+  font-size: 20px !important;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-tab-btn {
+  font-size: 18px;
+  font-weight: bold !important;
+  padding: 5px 15px;
+  white-space: nowrap;
+  border-radius: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: transparent !important;
+  padding-bottom: 15px !important;
+}
+
+.nav-tab-btn a {
+  text-decoration: none;
+  font-size: 20px !important;
+  padding-bottom: 15px !important;
+}
+
+.nav-tab-link-active{
+  /*color: #333333 !important;*/
+  border-bottom: 2px solid #888888 !important;
+}
+
+
+.business-logo {
+  width: 70px;
+  height: 70px;
+  background-position: center !important;
+  background-size: cover !important;
+  border-radius: 16px !important;
+  border: 1px solid white;
+}
+
+.business-heading {
+  margin-top: -50px !important;
+}
+
+.business-heading-wrapper h1 {
+  font-size: 40px !important;
+  font-weight: bold;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+  white-space: nowrap !important;
+}
+
+.business-heading-wrapper p {
+  font-size: 20px !important;
+  font-weight: bold;
+  margin: 0 !important;
+}
+.business-heading {
+  border-bottom: 1px solid #cccccc !important;
+}
+
+.gallery-img {
+  border-radius: 10px;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+@media  only screen and (max-width: 480px){
+  .business-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .business-heading {
+    margin-top: -20px !important;
+  }
+
+  .business-heading-wrapper h1 {
+    font-size: 18px !important;
+  }
+
+  .business-heading-wrapper p {
+    font-size: 12px !important;
+  }
+
+
+  .nav-tab-btn a{
+    font-size: 14px !important;
+  }
+
+  .gallery-img {
+    height: 120px !important;
+  }
+
+
+}
+
+
+@media screen and (min-width: 480px) and (max-width: 600px){
+  .business-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .business-heading {
+    margin-top: -20px !important;
+  }
+
+  .business-heading-wrapper h1 {
+    font-size: 25px !important;
+  }
+
+  .business-heading-wrapper p {
+    font-size: 16px !important;
+  }
+
+
+  .nav-tab-btn a{
+    font-size: 16px !important;
+  }
+
+  .gallery-img {
+    height: 150px !important;
+  }
+
+
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px){
+  .business-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .business-heading {
+    margin-top: -20px !important;
+  }
+
+  .business-heading-wrapper h1 {
+    font-size: 30px !important;
+  }
+
+  .business-heading-wrapper p {
+    font-size: 16px !important;
+  }
+
+  .nav-tab-btn a{
+    font-size: 16px !important;
+  }
+
+  .gallery-img {
+    height: 170px !important;
+  }
+
+
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+  .business-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .business-heading {
+    margin-top: -20px !important;
+  }
+
+  .business-heading-wrapper h1 {
+    font-size: 32px !important;
+  }
+
+  .business-heading-wrapper p {
+    font-size: 16px !important;
+  }
+
+  .nav-tab-btn a{
+    font-size: 16px !important;
+  }
+
+  .nav-tab-btn {
+    padding: 10px 5px !important;
+  }
+
+  .gallery-img {
+    height: 120px !important;
+  }
+
+
+}
+
+@media screen and (max-width: 480px){
+  .nav-tab-btn {
+    padding: 5px 5px;
+  }
+
+  .nav-tab-btn a{
+    padding-bottom: 8px !important;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .top-slider {
+    margin-top: -25px !important;
+  }
+
+
+}
+
+@media screen and (min-width: 992px) {
+
+  .gallery-img {
+    height: 150px !important;
+  }
+
+}
+
+.card-body, mat-card, .list-group, .card {
+  border-radius: 24px !important;
+}
+
+mat-card {
+  margin-top: 16px !important;
+}
+
+@media screen and (min-width: 1200px){
+  .section-container {
+    max-width: 1024px !important;
+  }
+}
+
+@media screen and (min-width: 992px){
+  .section-container {
+    max-width: 800px !important;
+  }
+}
+

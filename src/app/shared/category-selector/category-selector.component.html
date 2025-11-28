@@ -1,0 +1,63 @@
+<div class="w-100">
+    <p class="mb-0">{{"Select Categories" | translate}}</p>
+
+
+    <form [formGroup]="formSearch">
+        <mat-form-field appearance="outline">
+            <mat-label>{{"Search Category" | translate}}</mat-label>
+            <input (change)="getCategories(null)" formControlName="search" matInput>
+
+        </mat-form-field>
+    </form>
+
+    <p>
+        {{"Categories" | translate}} / <span (click)="getCategories(null)">{{"All" | translate}}</span>
+
+        <ng-container *ngFor="let inAction of categoriesInAction; let i = index">
+            <span (click)="getCategories(inAction.id)" class="cursor-pointer" [ngClass]="{'text-primary' : i + 1 === categoriesInAction.length }"> / {{inAction.name}} </span>
+        </ng-container>
+    </p>
+
+    <ng-container>
+        <div id="category-container" class="w-100 mb-4" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">
+
+            <div class="row slide-categories" style="height: 225px!important;"  *ngIf="slides && slides[activeSlideIndex]">
+                <div (click)="selectCategory(category)" *ngFor="let category of slides[activeSlideIndex].categories" class="col-3 d-flex flex-column align-items-center ">
+                    <div class="d-flex justify-content-center align-items-center" style="background: white;width: 60px;height: 60px;">
+                        <img src="{{category.icon}}" style="width: 40px;height: 40px;">
+                    </div>
+                    <div class="w-100 d-flex justify-content-center align-items-center">
+                    <span class="text-center" style="font-size: 12px !important;">{{category.name}}
+
+                        <ng-container *ngIf="category.sub_count">
+                        ({{category.sub_count}})
+                    </ng-container>
+                </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="w-100 d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="slides.length > 1">
+
+                <span  *ngFor="let slide of slides;let i = index" [ngClass]="{'indicator-active' : i == activeSlideIndex}" class="indicator"></span>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #isLoading>
+        <mat-progress-spinner></mat-progress-spinner>
+    </ng-template>
+
+    <p>{{"Selected Categories" | translate}}</p>
+
+    <div class="w-100 d-flex gap-2 flex-wrap">
+        <mat-chip *ngFor="let selected of selectedCategories">
+            {{selected.name}}
+            <button (click)="removeCategory(selected)" matChipRemove>
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+    </div>
+
+</div>

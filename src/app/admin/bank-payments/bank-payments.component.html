@@ -1,0 +1,93 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Payments</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Bank Payments</li>
+
+  </ol>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <mat-progress-bar mode="indeterminate" *ngIf="dataProgress === true"></mat-progress-bar>
+
+      <div class="table-responsive">
+
+        <table class="table table-bordered">
+
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>
+                From Bank
+              </th>
+              <th>Reference No.</th>
+              <th>Payment Date</th>
+
+              <th>Plan</th>
+              <th>Duration</th>
+              <th>Status</th>
+
+              <th>Approve</th>
+              <th>Reject</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+          <tr *ngFor="let payment of payments">
+            <td>
+
+              <span *ngIf="payment.user !== null">
+               ID : {{payment.user.id}} <br/>
+                Name : {{payment.user.first_name}} {{payment.user.last_name}}
+              </span>
+
+            </td>
+            <td>
+             {{payment.bank_name}}
+
+            </td>
+            <td>
+              {{payment.reference_number}}
+            </td>
+            <td>
+              {{payment.payment_date}}
+            </td>
+            <td>
+              <span *ngIf="payment.plan !== null">
+                {{payment.plan.name}} <br/>
+                Total ${{payment.total_payable}} USD
+              </span>
+            </td>
+            <td>
+              {{payment.duration}} months
+            </td>
+            <td>
+              {{payment.status}}
+            </td>
+            <td>
+              <button  (click)="approveBankPayment(payment.id)" type="button" class="btn btn-success">
+                <i class="fa fa-check"></i>
+              </button>
+            </td>
+            <td>
+              <button   (click)="denyBankPayment(payment.id)" type="button" class="btn btn-danger">
+                <i class="fa fa-times"></i>
+              </button>
+            </td>
+
+          </tr>
+
+          </tbody>
+
+
+        </table>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

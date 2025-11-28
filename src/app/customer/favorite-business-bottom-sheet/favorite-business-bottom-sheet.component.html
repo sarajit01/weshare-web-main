@@ -1,0 +1,284 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" *ngIf="business">
+
+    <div   class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+        <i (click)="closePopup()" class="fa fa-angle-down cursor-pointer"></i>
+
+        <div  class="h-100 d-flex justify-content-center align-items-center">
+            <h4 *ngIf="favorite.listing_type === 'business'" class="mb-0">{{business.name}}</h4>
+            <h4 *ngIf="favorite.listing_type === 'promotion'" class="mb-0">{{promotion.promotion_title}}</h4>
+            <h4 *ngIf="favorite.listing_type === 'loyalty_card'" class="mb-0">{{loyalty_card.card_title}}</h4>
+
+        </div>
+
+
+        <i (click)="toggleOptions()" class="fa fa-ellipsis-h cursor-pointer"></i>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="w-100" [@QrCodeCard]="qrCodeCardState" >
+
+
+        <ng-container *ngIf="favorite.listing_type === 'business'">
+            <div (click)="viewQRCode()" *ngIf="viewMode === 'details'"
+                 class="col-12 my-1 p-0 rounded-6  d-flex justify-content-start align-items-end"
+                 style="height: 250px;background-size: contain; background-position: center center; background-repeat: no-repeat;background-image: url('{{business.gallery[0].img}}')">
+                <div class="w-100 d-flex flex-column justify-content-end align-items-start position-relative">
+
+                    <div class="position-absolute w-100 h-100 rounded-bottom-6"
+                         style="z-index: 1;background: black;opacity: 0.4">
+
+                    </div>
+
+                    <div class="w-100 d-flex flex-column px-2 pt-3 pb-2" style="z-index: 2 !important;">
+                        <h2 class="fw-bold text-white mb-0">{{business.name}}</h2>
+                        <h4 class="fw-bold text-white mb-0">{{business.slogan}}</h4>
+                        <h4 class="fw-bold text-white mb-0">{{business.city}}</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div (click)="viewData()" *ngIf="viewMode === 'qr'"
+                 class="col-12 my-1 p-0 rounded-6  d-flex justify-content-start align-items-end"
+                 style="height: 250px;background-size: contain; background-position: center center; background-repeat: no-repeat;background-image: url('{{business.gallery[0].img}}')">
+                <div class="w-100 h-100 d-flex flex-column justify-content-between py-2 align-items-center">
+                    <div style="width: 110px;height: 110px;border-radius: 24px"
+                         class="bg-white d-flex justify-content-center align-items-center">
+                        <img width="90" height="90" class=""
+                             src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data={{getQRCodeData()}}">
+                    </div>
+
+                    <div class="w-100">
+                        <div class="w-100 py-2 bg-black d-flex justify-content-center align-items-center flex-column">
+                            <h4 class="fw-bold text-white mb-0">{{favorite.user.first_name}} {{favorite.user.last_name}}</h4>
+                            <h4 class="fw-bold text-white mb-0">{{"Customer ID"}}: {{favorite.user.id}}</h4>
+                        </div>
+                        <div class="w-100 py-1 text-center">
+                            <small>
+                                {{ "Acumula puntos por tus compras y canjealos por premios" | translate }}
+                            </small>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </ng-container>
+
+
+        <ng-container *ngIf="favorite.listing_type === 'promotion'">
+            <div (click)="viewQRCode()" *ngIf="viewMode === 'details'"
+                 class="col-12 my-1 p-0 rounded-6  d-flex justify-content-start align-items-end"
+                 style="height: 250px;background-size: contain; background-position: center center; background-repeat: no-repeat;background-image: url('{{promotion.gallery[0].img}}')">
+                <div class="w-100 d-flex flex-column justify-content-end align-items-start position-relative">
+
+                    <div class="position-absolute w-100 h-100 rounded-bottom-6"
+                         style="z-index: 1;background: black;opacity: 0.4">
+
+                    </div>
+
+                    <div class="w-100 d-flex flex-column px-2 pt-3 pb-2" style="z-index: 2 !important;">
+                        <h2 class="fw-bold text-white mb-0">{{promotion.promotion_title}}</h2>
+                        <h4 class="fw-bold text-white mb-0">{{business.name}}</h4>
+                        <h4 class="fw-bold text-white mb-0">{{business.city}}</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div (click)="viewData()" *ngIf="viewMode === 'qr'"
+                 class="col-12 my-1 p-0 rounded-6  d-flex justify-content-start align-items-end"
+                 style="height: 250px;background-size: contain; background-position: center center; background-repeat: no-repeat;background-image: url('{{promotion.gallery[0].img}}')">
+                <div class="w-100 h-100 d-flex flex-column justify-content-between py-2 align-items-center">
+                    <div style="width: 110px;height: 110px;border-radius: 24px"
+                         class="bg-white d-flex justify-content-center align-items-center">
+                        <img width="90" height="90" class=" "
+                             src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data={{getQRCodeData()}}">
+                    </div>
+
+                    <div class="w-100">
+                        <div class="w-100 py-2 bg-black d-flex justify-content-center align-items-center flex-column">
+                            <h4 class="fw-bold text-white mb-0">{{favorite.user.first_name}} {{favorite.user.last_name}}</h4>
+                            <h4 class="fw-bold text-white mb-0">{{promotion.code}}</h4>
+                        </div>
+                        <div class="w-100 py-1 text-center">
+                            <small>
+                                Acumula puntos por tus compras y canjealos por premios
+                            </small>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </ng-container>
+
+
+        <ng-container *ngIf="favorite.listing_type === 'loyalty_card'">
+            <div class="w-100 d-flex justify-content-center">
+            <div (click)="viewQRCode()" *ngIf="viewMode === 'details'" style="max-width: 420px !important;" class="col-12 my-1 p-0"
+                 id="lc{{loyalty_card.id}}">
+                <div class="card-img-top rounded-6 py-3 px-3 order-0 order-md-2 loyalty-card-container"
+                     *ngIf="loyalty_card"
+                     style="height: 250px !important;background-size: cover; background-position: center; background-repeat: no-repeat;background-image: url('{{loyalty_card.custom_bg_img}}');background-color: {{loyalty_card.bg_color}};">
+                    <div class="card-body h-100">
+
+                        <div class="d-flex h-100 flex-column justify-content-between gap-2 ">
+                            <div class="w-100 d-flex justify-content-start">
+
+                                <div class="loyalty-card-logo" *ngIf="loyalty_card.display_logo === 'yes'"
+                                     style="background-image: url('{{loyalty_card.logo}}')">
+
+                                </div>
+                                <div class="loyalty-card-logo" *ngIf="loyalty_card.display_logo !== 'yes'">
+
+                                </div>
+
+
+                            </div>
+                            <div class="w-100 d-flex justify-content-center">
+                                <div class="d-flex justify-content-center gap-2"
+                                     *ngIf="loyalty_card.card_type === 'prize'" style="position: relative;">
+
+                                    <ng-container>
+                                        <ng-container *ngFor="let img of Array(parseInt(loyalty_card.visits_for_cash)); let i = index">
+                                            <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
+
+                                                 <span *ngIf="i < loyalty_card.my_visits" class="material-symbols-outlined" style="font-size: 32px;color: {{loyalty_card.heading_font_color}}">
+check_circle
+</span>
+
+                                                <img src="{{loyalty_card.redemption_img}}" *ngIf="i >= loyalty_card.my_visits" class="redemption-img">
+
+                                                <span class="redemp-counter"
+                                                      style="color: {{loyalty_card.font_color || '#FFFFFF'}}">{{i + 1}}</span>
+                                            </div>
+
+
+                                             </ng-container>
+                                    </ng-container>
+
+
+<!--                                    <div class="d-flex flex-column gap-1 justify-content-center align-items-center"-->
+<!--                                         *ngFor="let n of visitArray; let i = index">-->
+<!--                                        <img src="{{loyalty_card.redemption_img}}" class="redemption-img">-->
+
+<!--                                        <span class="redemp-counter"-->
+<!--                                              style="color: {{loyalty_card.font_color || '#FFFFFF'}}">{{i + 1}}</span>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column gap-2 justify-content-center align-items-center">
+
+                                <span style="color: {{loyalty_card.heading_font_color}};font-size: {{loyalty_card.heading_font_size || 18}}px!important;font-weight: bold;color: {{loyalty_card.font_color}};">{{loyalty_card.card_title}}</span>
+                                <span style="font-size: {{loyalty_card.font_size}};color: {{loyalty_card.font_color}};"
+                                      [innerHtml]="loyalty_card.card_description"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div (click)="viewData()" *ngIf="viewMode === 'qr'"  class="col-12 my-1 p-0" style="max-width: 420px !important;">
+                <div class="card-img-top rounded-6 py-1 order-0 order-md-2 " *ngIf="loyalty_card"
+                     style="height: 250px !important;background-size: cover; background-position: center; background-repeat: no-repeat;background-image: url('{{loyalty_card.custom_bg_img}}');background-color: {{loyalty_card.bg_color}};">
+                    <div class="card-body h-100">
+
+                        <div class="w-100 h-100 d-flex flex-column justify-content-between py-2 align-items-center">
+                            <div style="width: 110px;height: 110px;border-radius: 24px"
+                                 class="bg-white d-flex justify-content-center align-items-center">
+                                <img width="90" height="90" class=""
+                                     src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data={{getQRCodeData()}}">
+                            </div>
+
+                            <div class="w-100">
+                                <div class="w-100 py-2 bg-black d-flex justify-content-center align-items-center flex-column">
+                                    <h4 class="fw-bold text-white mb-0">{{favorite.user.first_name}} {{favorite.user.last_name}}</h4>
+                                    <h4 class="fw-bold text-white mb-0">{{"Customer ID"}}: {{favorite.user.id}}</h4>
+                                </div>
+                                <div class="w-100 py-1 text-center">
+                                    <small>
+                                        Acumula puntos por tus compras y canjealos por premios
+                                    </small>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            </div>
+        </ng-container>
+
+    </div>
+
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="optionsExpanded">
+
+        <div (click)="viewQRCode()" *ngIf="viewMode === 'details'" class="w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-qrcode"></i>
+
+            <span> {{"View QR Code"}}</span>
+        </div>
+
+        <div (click)="viewData()" *ngIf="viewMode === 'qr'" class="w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-qrcode"></i>
+
+            <span> {{"Hide QR Code"}}</span>
+        </div>
+
+        <div (click)="viewRewardsHistory()" class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-trophy"></i>
+
+            <span> {{"My Rewards History"}}</span>
+        </div>
+
+        <div (click)="closePopup()" *ngIf="favorite.listing_type ==='business'" [routerLink]="'/business-details/'+business.id" class="w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-eye"></i>
+
+            <span> {{"View Details"}}</span>
+        </div>
+
+        <div (click)="closePopup()" *ngIf="favorite.listing_type ==='promotion'" [routerLink]="['/promotion-details' , promotion.id]" class="w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-eye"></i>
+
+            <span> {{"View Details"}}</span>
+        </div>
+
+        <div (click)="closePopup()" *ngIf="favorite.listing_type ==='loyalty_card'" [routerLink]="'/business/loyalty-cards/'+loyalty_card.id" class="w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-eye"></i>
+
+            <span> {{"View Details"}}</span>
+        </div>
+
+        <div (click)="openSharePopup()" class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+            <i class="fa fa-share-alt"></i>
+
+            <span> {{"Share"}}</span>
+        </div>
+
+        <div (click)="removeFromFavorites()" class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+            <i class="fa fa-trash-o"></i>
+
+            <span> {{"Remove from favorites"}}</span>
+        </div>
+
+    </div>
+
+
+</div>

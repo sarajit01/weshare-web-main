@@ -1,0 +1,32 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" >
+
+    <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">
+            <ng-container *ngIf="data.listing_type === 'business'">
+                {{"Business Details from bs" | translate}}
+            </ng-container>
+            <ng-container *ngIf="data.listing_type === 'promotion'">
+                {{"Promotion Details" | translate}}
+            </ng-container>
+            <ng-container *ngIf="data.listing_type === 'loyalty_card'">
+                {{"Loyalty Card Details" | translate}}
+            </ng-container>
+        </h4>
+
+
+        <i (click)="closePopup()" class="fa fa-times cursor-pointer"></i>
+    </div>
+
+    <div class="w-100 bs-popup-content" style="max-height: 90vh !important;min-height: 90vh !important;height: 90vh !important;overflow-y: scroll !important;position: absolute;top: 60px;overflow-x: hidden !important;">
+        <app-business-detail *ngIf="data.listing_type === 'business'" style="min-height: 90vh !important;max-height: 90vh !important;height: 90vh !important;overflow-y: scroll !important;"  [id]="data.listing_id"></app-business-detail>
+        <app-promotion-detail *ngIf="data.listing_type === 'promotion'" style="min-height: 80vh !important;"  [_id]="data.listing_id"></app-promotion-detail>
+        <app-loyalty-card-details *ngIf="data.listing_type === 'loyalty_card'" style="min-height: 80vh !important;"  [id]="data.listing_id"></app-loyalty-card-details>
+
+    </div>
+
+
+
+
+
+
+</div>

@@ -1,0 +1,173 @@
+<div class="card featured-card-content shadow" id="lc-featured-card-{{lc.id}}">
+
+    <div class="card-img" style="height: 220px;background-color: {{lc.bg_color}};background-position: center;background-size: cover;background-repeat: no-repeat; background-image: url('{{lc.custom_bg_img}}')">
+
+        <div class="w-100 h-100 d-flex flex-column justify-content-between px-2 py-3">
+            <div class="w-100 d-flex justify-content-start">
+                <div *ngIf="lc.display_logo === 'yes'" style="width: 40px;height: 40px;border-radius: 100%;background-size: cover;background-position: center;background-repeat: no-repeat; background-image: url('{{lc.logo}}')"></div>
+            </div>
+            <div class="w-100 d-flex justify-content-center gap-1" *ngIf="lc.card_type === 'prize'">
+                <ng-container *ngIf="checkCompletedVisits;else completionCheckupNotNeeded">
+                    <ng-container *ngFor="let img of Array(parseInt(lc.visits_for_cash)); let i = index">
+
+                    <span *ngIf="i < lc.my_visits" class="material-symbols-outlined" style="font-size: 24px;color: {{lc.heading_font_color}}">
+check_circle
+</span>
+
+                        <img *ngIf="i >= lc.my_visits" src="{{lc.redemption_img}}" style="width: 20px;">
+                    </ng-container>
+                </ng-container>
+                <ng-template #completionCheckupNotNeeded>
+                    <ng-container *ngFor="let img of Array(parseInt(lc.visits_for_cash)); let i = index">
+                        <img  src="{{lc.redemption_img}}" style="width: 20px;">
+                    </ng-container>
+
+                </ng-template>
+            </div>
+            <div class="w-100 d-flex justify-content-center">
+                <span class="text-center" style="color: {{lc.heading_font_color}}">{{lc.card_title}}</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card-body p-2">
+        <div class="w-100 d-flex align-items-center gap-2">
+            <div>
+                <div *ngIf="lc.business" style="width: 40px;height: 40px;border-radius: 100%;background-size: cover; background-repeat: no-repeat;background-position: center;background-image: url('{{lc.business.logo}}');">
+
+                </div>
+            </div>
+
+            <div>
+                <p class="mb-0">{{lc.business.name}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer p-2">
+        <ng-container *ngIf="displayMode === 'rewards'">
+            <div class="w-100 d-flex flex-column px-1 gap-1">
+                <div class="w-100 d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">
+                        {{"Progress" | translate}}
+                    </span>
+
+                    <div class="d-flex gap-1 align-items-center">
+
+                        <ng-container *ngIf="lc.card_type === 'prize'">
+
+
+                            <span class="text-danger" *ngIf="lc.my_visits === 0">{{"No progress yet" | translate}}</span>
+                            <span class="text-success" *ngIf="lc.my_visits > 0 &&  lc.my_visits < lc.visits_for_cash">{{"You are very close" | translate}}</span>
+                            <span class="text-warning" *ngIf="lc.my_visits > 0 && lc.my_visits === lc.visits_for_cash">{{"Ready to reward" | translate}}</span>
+
+
+                            <div>
+                            <span class="material-symbols-outlined"
+                                  [ngClass]="{'text-warning' : lc.my_visits === lc.visits_for_cash , 'text-success' : lc.my_visits > 0 &&  lc.my_visits < lc.visits_for_cash, 'text-danger' : lc.my_visits === 0 }">
+trophy
+</span>
+                            </div>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="lc.card_type === 'points'">
+
+                            <ng-container *ngIf="lc.reward_closest && lc.reward_closest.points;else noRewardConfig">
+                                <span class="text-danger" *ngIf="lc.user_points === 0">{{"No progress yet" | translate}}</span>
+                                <span class="text-success" *ngIf="lc.user_points > 0 &&  lc.user_points < lc.reward_closest.points">{{"You are very close" | translate}}</span>
+                                <span class="text-warning" *ngIf="lc.user_points > 0 && lc.user_points === lc.reward_closest.points">{{"Ready to reward" | translate}}</span>
+
+
+                                <div>
+                            <span class="material-symbols-outlined"
+                                  [ngClass]="{'text-warning' : lc.user_points > 0 && lc.user_points === lc.reward_closest.points , 'text-success' : lc.user_points > 0 &&  lc.user_points < lc.reward_closest.points, 'text-danger' : lc.user_points === 0 }">
+trophy
+</span>
+                                </div>
+                            </ng-container>
+                            <ng-template #noRewardConfig>
+                                <span *ngIf="lc.user_points === 0">{{"Not configured yet" | translate}}</span>
+
+                                <div>
+                            <span class="material-symbols-outlined text-info">
+trophy
+</span>
+                                </div>
+                            </ng-template>
+
+
+                        </ng-container>
+
+
+                    </div>
+                </div>
+
+                <ng-container *ngIf="lc.card_type === 'prize'">
+                    <div class="d-flex flex-column justify-content-center align-items-center pe-3">
+
+                        <div style="width: 100%;height: 14px;border-radius: 8px;background: #888888;position: relative">
+                            <div class="bg-primary" *ngIf="lc.my_visits" style="position: absolute;left: 0;width: {{((lc.my_visits/lc.visits_for_cash) * 100).toFixed(2)}}%;height: 100%;border-radius: 8px;"></div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                    <span >
+                        {{lc.my_visits.toFixed(0)}} / {{lc.visits_for_cash.toFixed(0)}}
+                    </span>
+
+
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="lc.card_type === 'points'">
+                    <div class="d-flex flex-column justify-content-center align-items-center pe-3">
+
+                        <div style="width: 100%;height: 14px;border-radius: 8px;background: #888888;position: relative">
+                            <div class="bg-primary" *ngIf="lc.reward_closest && lc.reward_closest.points" style="position: absolute;left: 0;width: {{((lc.user_points/lc.reward_closest.points) * 100).toFixed(2)}}%;height: 100%;border-radius: 8px;"></div>
+
+                            <div class="bg-primary" *ngIf="!lc.reward_closest || !lc.reward_closest.points" style="position: absolute;left: 0;width: 0;height: 100%;border-radius: 8px;"></div>
+
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                    <span >
+                        {{lc.user_points?.toFixed(2) || 0}} / {{lc.reward_closest?.points.toFixed(2) || 0.00}}
+                    </span>
+
+
+                    </div>
+                </ng-container>
+
+
+            </div>
+
+        </ng-container>
+        <ng-container *ngIf="displayMode === 'basic'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+                <button  (click)="viewDetails()" class="btn btn-theme-dark">
+                    {{"View" | translate}}
+                </button>
+
+                <div class="d-flex gap-2 align-items-center">
+                    <div class="d-flex gap-1 align-items-center">
+                                        <span (click)="saveToFavorites(lc)" class="material-symbols-outlined cursor-pointer">
+add_circle
+</span>
+                        <span *ngIf="lc.likes_count">{{lc.likes_count}}</span>
+                    </div>
+
+                    <div class="d-flex gap-1 align-items-center">
+                                     <span (click)="openSharePopup(lc)" class="material-symbols-outlined cursor-pointer">
+share
+</span>
+                        <span *ngIf="lc.shares_count">{{lc.shares_count}}</span>
+                    </div>
+                </div>
+
+            </div>
+        </ng-container>
+    </div>
+
+</div>

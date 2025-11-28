@@ -1,0 +1,29 @@
+
+@media screen and (max-width: 520px){
+
+    #listing-bottom-toolbar {
+        width: 94% !important;
+        min-width: 94% !important;
+        left: 3% !important;
+    }
+}
+
+
+@media screen and (min-width: 521px) and  (max-width: 767px){
+
+    #listing-bottom-toolbar {
+        min-width:  512px !important;
+        max-width: 512px !important;
+        left: calc((100vw - 512px) / 2) !important;
+    }
+}
+
+
+@media screen and (min-width: 768px){
+
+    #listing-bottom-toolbar {
+       min-width:  512px !important;
+       max-width: 512px !important;
+        left: calc((100vw - 512px) / 2) !important;
+    }
+}

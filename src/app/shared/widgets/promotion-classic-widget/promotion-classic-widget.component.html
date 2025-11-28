@@ -1,0 +1,87 @@
+
+<div class="card" *ngIf="promotion.business"  >
+
+  <div class="d-flex flex-column">
+
+
+
+  <div class=" order-md-0 card-header d-flex justify-content-between align-items-center px-2">
+
+    <div (click)="viewDetails()"  class="d-flex align-items-center justify-content-start gap-3">
+
+      <div class="business-header-logo" style="border-radius: 50%;background-size: cover; background-position: center;background-image: url('{{promotion.business.logo}}');">
+
+      </div>
+
+      <div>
+        <span class=" business-title-header fw-bold" >
+          {{promotion.promotion_title}}
+        </span>
+        <p class=" business-city-header fw-bold" >
+          {{promotion.business.city}}
+        </p>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 justify-content-end  section-listing-type">
+       <span class="material-symbols-outlined">
+local_offer
+</span>
+      <span class=" fw-bold d-none d-lg-flex">{{ promotion.promotion_type | translate}}</span>
+    </div>
+
+  </div>
+  <div class=" d-none  order-md-1 card-body px-2">
+    <p class="card-text" style="font-size: 16px; line-height: 1.5;" [innerHtml]="promotion.desc_short"></p>
+
+  </div>
+  <img *ngIf="promotion.gallery && promotion.gallery[0]" src="{{promotion.gallery[0].img}}" (click)="viewDetails()"  class="order-0 order-md-2 card-img-top" style="border-radius: 0 !important;" />
+    <img *ngIf="promotion.gallery && !promotion.gallery[0] && promotion.business.gallery[0]" src="{{promotion.business.gallery[0].img}}" (click)="viewDetails()"  class="order-0 order-md-2 card-img-top" style="border-radius: 0 !important;" />
+
+<!--  <div class="order-3 card-footer d-flex justify-content-end align-items-center px-2 gap-2">-->
+<!--    <app-business-call-button [business]="promotion.business"></app-business-call-button>-->
+<!--    <app-business-whatsapp-button  *ngIf="promotion.business.user && planService.featureEnabled(promotion.business.user, 'whatsapp')" [business]="promotion.business"></app-business-whatsapp-button>-->
+<!--  </div>-->
+
+  <div class="order-4 card-footer px-2">
+    <div class="row d-flex flex-row align-items-center">
+      <div class="col d-flex justify-content-center align-items-center gap-1">
+        <div class="w-100 d-flex flex-column justify-content-center align-items-center gap-2">
+          <div class="d-flex justify-content-center gap-2 align-items-center">
+            <span>L. {{promotion.price_original}}</span>
+            <span>|</span>
+            <span class="text-primary">L. {{promotion.price_offered}}</span>
+            <span>|</span>
+            <span>Ahorras</span>
+            <span class="text-primary">
+          L. {{promotion.price_discount}}
+        </span>
+          </div>
+          <div class="d-flex flex-column justify-content-center gap-1 align-items-center">
+            <span>Time left</span>
+            <span *ngIf="promotion.time_left">
+               {{promotion.time_left.d}}D {{promotion.time_left.h}}H {{promotion.time_left.m}}M
+            </span>
+            <span *ngIf="!promotion.time_left" class="text-primary">
+              Expired {{promotion.time_ended}}
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+   </div>
+
+
+  <div class="card-footer order-5 d-flex justify-content-between align-items-center px-2">
+    <app-listing-reaction *ngIf="!displayOptionsOnly" class="w-100" [listing]="promotion" [listingType]="'promotion'"></app-listing-reaction>
+
+    <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="displayOptionsOnly">
+       <span class="material-symbols-outlined cursor-pointer" (click)="openBottomSheet()">
+more_vert
+</span>
+    </div>
+  </div>
+
+  </div>
+</div>

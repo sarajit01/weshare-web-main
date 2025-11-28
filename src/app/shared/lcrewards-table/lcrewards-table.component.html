@@ -1,0 +1,70 @@
+<ng-container *ngIf="loyaltyCard && loyaltyCard.card_type === 'points' && loyaltyCard.rewards && loyaltyCard.rewards.length">
+    <ng-container *ngFor="let reward of loyaltyCard.rewards">
+        <div class="card mb-3">
+            <div class="card-body py-2 px-3">
+                <div class="w-100 d-flex flex-column">
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                        <p class="fw-bold mb-0">{{reward.reward_name}} L {{reward.prize}}</p>
+
+                        <div class="d-flex align-items-center">
+                            <small class="material-symbols-outlined text-success">
+                                trophy
+                            </small>
+                            <small class="text-success">{{reward.points}} </small>
+                        </div>
+                    </div>
+
+                    <small class="mb-2">{{reward.notes}}</small>
+
+
+                    <ng-container *ngIf="customer">
+                    <!-- progress bar -->
+                    <div style="width: 100%;height: 6px;border-radius: 8px;background: #888888;position: relative">
+                        <div class="bg-primary"  style="max-width: 100%;position: absolute;left: 0;width: {{reward.progress_bar_width}}%;height: 100%;border-radius: 8px;"></div>
+                    </div>
+                    <!-- end progress bar -->
+
+                    <div class="w-100 d-flex justify-content-between align-items-start">
+                        <small class="fw-bold text-success">{{customer?.points ?? 0}}</small>
+                        <div class="d-flex align-items-center">
+<!--                            <small class="material-symbols-outlined text-success">-->
+<!--                                trophy-->
+<!--                            </small>-->
+<!--                            <small class="text-success">{{reward.points}} </small>-->
+
+                            <ng-container *ngIf="loyaltyCard.card_type === 'points'">
+
+                                <ng-container *ngIf="loyaltyCard.reward_closest && loyaltyCard.reward_closest.points;else noRewardConfig">
+                                    <span class="text-danger" *ngIf="loyaltyCard.user_points === 0">{{"No progress yet" | translate}}</span>
+                                    <span class="text-success" *ngIf="loyaltyCard.user_points > 0 &&  loyaltyCard.user_points < loyaltyCard.reward_closest.points">{{"You are very close" | translate}}</span>
+                                    <span class="text-warning" *ngIf="loyaltyCard.user_points > 0 && loyaltyCard.user_points === loyaltyCard.reward_closest.points">{{"Ready to reward" | translate}}</span>
+
+
+<!--                                    <div>-->
+<!--                            <span class="material-symbols-outlined"-->
+<!--                                  [ngClass]="{'text-warning' : loyaltyCard.user_points > 0 && loyaltyCard.user_points === loyaltyCard.reward_closest.points , 'text-success' : loyaltyCard.user_points > 0 &&  loyaltyCard.user_points < loyaltyCard.reward_closest.points, 'text-danger' : loyaltyCard.user_points === 0 }">-->
+<!--trophy-->
+<!--</span>-->
+<!--                                    </div>-->
+                                </ng-container>
+                                <ng-template #noRewardConfig>
+                                    <span *ngIf="loyaltyCard.user_points === 0">{{"Not configured yet" | translate}}</span>
+
+                                    <div>
+                            <span class="material-symbols-outlined text-info">
+trophy
+</span>
+                                    </div>
+                                </ng-template>
+
+
+                            </ng-container>
+
+                        </div>
+                    </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

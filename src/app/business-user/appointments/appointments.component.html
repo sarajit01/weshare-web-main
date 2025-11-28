@@ -1,0 +1,105 @@
+<div class="container-fluid pt-3 pb-5">
+  <div class="row">
+
+    <div class="row mb-5">
+
+      <div class="col-md-12">
+
+
+
+        <mat-progress-bar *ngIf="progress === true" mode="indeterminate"></mat-progress-bar>
+        <mat-card *ngIf="progress === false">
+
+          <mat-card-header>
+
+            <div class="row mb-2">
+
+              <div class="col-md-12">
+                <h2 class="">
+                  {{'Appointments' | translate}}
+                </h2>
+
+
+              </div>
+
+            </div>
+
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="p-4">
+
+            <div class="row">
+
+
+              <div class="col-md-12">
+                <div class="alert alert-success">
+                  {{'Here is a list of persons who are already approved and booked appointments' | translate}}
+                </div>
+                <div class="table-responsive">
+
+                  <table class="table table-hover">
+
+                    <thead>
+
+                    <tr>
+
+                      <th>{{'Customer ID' | translate}}#</th>
+                      <th>{{'Listing' | translate}}</th>
+                      <th>{{'Name' | translate}}</th>
+                      <th>{{'Email' | translate}}</th>
+                      <th>{{'Contact Phone' | translate}}</th>
+                      <th>{{'Date' | translate}}</th>
+                      <th>{{'Time' | translate}}</th>
+                      <th>{{'Additional notes' | translate}}</th>
+
+
+                    </tr>
+
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr *ngFor="let appointment of appointments">
+                      <td>{{appointment.customer_id}}</td>
+                      <td>{{appointment.business.business_name_prefix}} {{appointment.business.business_name}}</td>
+                      <td>{{appointment.customer_name}}</td>
+                      <td>{{appointment.customer_email}}</td>
+                      <td>{{appointment.customer_phone}}</td>
+                      <td>{{appointment.date}}</td>
+                      <td>
+                        {{appointment.start_time}}
+                      </td>
+
+                      <td>
+                        <button (click)="viewMessage(appointment.notes)" mat-raised-button color="primary">
+
+                          <i class="fa fa-comments-o"></i>
+
+                        </button>&nbsp;&nbsp;
+                      </td>
+                    </tr>
+
+                    </tbody>
+
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

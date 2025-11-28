@@ -1,0 +1,156 @@
+<div class="container-fluid pt-3 pb-5" style="background: #eee;">
+  <div class="row mb-5">
+    <div class="col-md-12">
+
+      <mat-card>
+        <mat-card-header>
+          <div class="row mb-2">
+
+            <div class="col-md-12">
+              <h2 class="">
+                {{'Manage Business Notifications' | translate}} &nbsp;&nbsp;
+
+                <button [routerLink]="['/'+routes.business.create_notification]" class="float-right" mat-raised-button color="primary">
+
+                  <i class="fa fa-plus"></i> &nbsp;{{'Create New' | translate}}
+
+                </button>
+
+              </h2>
+
+
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-4">
+
+          <form class="row mb-4" (submit)="getBusinessNotifications()">
+
+            <div class="col-md-6">
+              <input [(ngModel)]="search" name="search" type="text" class="form-control" placeholder="{{'Search by notification title' | translate}}">
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-primary">
+                <i class="fa fa-search"></i>&nbsp; {{'Search' | translate}}
+              </button>
+            </div>
+          </form>
+
+
+         <div class="row" *ngIf="business_notifications">
+
+            <div class="col-md-4 mb-2" *ngFor="let notify of business_notifications">
+
+              <app-business-notification (eventDeleted)="getBusinessNotifications()" [businessNotification]="notify" [isOwner]="true"></app-business-notification>
+            </div>
+
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+</div>

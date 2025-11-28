@@ -1,0 +1,26 @@
+@media screen and (min-width: 768px) and (max-width: 991px){
+    .container-fluid {
+        width: 100%;
+    }
+    .content-mid-section {
+        width: 60% !important;
+    }
+    .content-right-section {
+        width: 40% !important;
+    }
+}
+
+@media screen and (min-width: 992px){
+    .container-fluid {
+        width: 70%;
+        left: 30% ;
+    }
+    .content-mid-section {
+        width: 60% !important;
+        max-width: 560px !important;
+    }
+    .content-right-section {
+        width: 40% !important;
+    }
+}
+

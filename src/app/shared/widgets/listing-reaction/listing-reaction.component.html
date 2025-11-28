@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between align-items-center px-2">
+
+    <div (click)="saveToFavorites()" class="d-flex gap-2 justify-content-center align-items-center">
+
+     <span class="material-symbols-outlined">
+add_circle
+</span>
+        <span *ngIf="listing.likes_count">{{listing.likes_count}}</span>
+
+
+        <!--      <span class="footer-react-icon-title">-->
+        <!--        {{"Like" | translate}}-->
+        <!--      </span>-->
+
+    </div>
+
+    <div class="d-flex gap-2 justify-content-center align-items-center" (click)="openComments()">
+
+    <span class="material-symbols-outlined">
+mode_comment
+</span>
+
+        <span class="footer-react-icon-title">
+        {{"Comment" | translate}}
+      </span>
+
+        <span *ngIf="listing.comments_count">{{listing.comments_count}}</span>
+
+    </div>
+
+    <div (click)="onSharePrepare()" class="d-flex gap-2 justify-content-center align-items-center">
+
+   <span class="material-symbols-outlined">
+share
+</span>
+
+        <span *ngIf="listing.shares_count">{{listing.shares_count}}</span>
+        <!--      <span class="footer-react-icon-title">-->
+        <!--        {{"Share" | translate}}-->
+        <!--      </span>-->
+
+    </div>
+</div>

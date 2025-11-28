@@ -1,0 +1,26 @@
+
+.calendar-state-hidden {
+    transform: translateY(500px);
+    transition: ease-in 1s;
+}
+
+.calendar-state-expanded {
+    transform: translateY(-10px);
+    transition: ease-in 1s;
+}
+
+.calendar-state-collapsed {
+    transform: translateY(350px);
+    transition: ease-in 1s;
+}
+
+@media screen and (max-width: 600px){
+    .calendar-collapse-btn {
+        z-index: 900 !important;
+    }
+}
+@media screen and (min-width: 601px){
+    .calendar-collapse-btn {
+        z-index: 9000 !important;
+    }
+}

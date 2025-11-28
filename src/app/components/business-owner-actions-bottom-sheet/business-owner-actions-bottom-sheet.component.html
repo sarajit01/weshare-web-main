@@ -1,0 +1,213 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'business'">
+
+        <div (click)="editBusiness(data.listing.id)"  class="w-100 d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+edit
+</span>
+
+            <span> {{"Edit"}}</span>
+        </div>
+
+
+        <div [routerLink]="['/business/' + data.listing.id + '/users']"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+           <span class="material-symbols-outlined">
+group
+</span>
+
+            <span> {{"Manage Business Users"}}</span>
+        </div>
+
+        <div  (click)="appointmentSettings()" class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+           <span class="material-symbols-outlined">
+settings
+</span>
+
+            <span> {{"Appointment Settings"}}</span>
+        </div>
+
+        <div (click)="rewardsSettings()"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+          <span class="material-symbols-outlined">
+trophy
+</span>
+
+            <span> {{"Referral Rewards Settings"}}</span>
+        </div>
+
+        <div (click)="cloneBusiness()"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+       <span class="material-symbols-outlined">
+content_copy
+</span>
+
+            <span> {{"Duplicate"}}</span>
+        </div>
+
+
+        <div (click)="deleteBusinessConfirmation()" class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+          <span class="material-symbols-outlined">
+delete
+</span>
+
+            <span> {{"Delete"}}</span>
+        </div>
+
+        <div (click)="shareBusiness()" class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+        <span class="material-symbols-outlined">
+share
+</span>
+
+            <span> {{"Share"}}</span>
+        </div>
+
+    </div>
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'promotion'">
+
+        <div (click)="editPromotion(data.listing.id)"  class="w-100 cursor-pointer  d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+edit
+</span>
+
+            <span> {{"Edit"}}</span>
+        </div>
+
+
+
+        <div  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+          <span class="material-symbols-outlined">
+trophy
+</span>
+
+            <span> {{"Referral Rewards Settings"}}</span>
+        </div>
+
+        <div  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+       <span class="material-symbols-outlined">
+content_copy
+</span>
+
+            <span> {{"Duplicate"}}</span>
+        </div>
+
+
+        <div class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+          <span class="material-symbols-outlined">
+delete
+</span>
+
+            <span> {{"Delete"}}</span>
+        </div>
+
+        <div class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+        <span class="material-symbols-outlined">
+share
+</span>
+
+            <span> {{"Share"}}</span>
+        </div>
+
+    </div>
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'loyalty_card'">
+
+        <div (click)="editLc(data.listing.id)"  class="w-100 d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+edit
+</span>
+
+            <span> {{"Edit"}}</span>
+        </div>
+
+
+
+<!--        <div  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">-->
+
+<!--          <span class="material-symbols-outlined">-->
+<!--trophy-->
+<!--</span>-->
+
+<!--            <span> {{"Referral Rewards Settings"}}</span>-->
+<!--        </div>-->
+
+        <div  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+       <span class="material-symbols-outlined">
+content_copy
+</span>
+
+            <span> {{"Duplicate"}}</span>
+        </div>
+
+
+        <div (click)="deleteConfirmation(data.listing.id)" class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+          <span class="material-symbols-outlined">
+delete
+</span>
+
+            <span> {{"Delete"}}</span>
+        </div>
+
+        <div class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+        <span class="material-symbols-outlined">
+share
+</span>
+
+            <span> {{"Share"}}</span>
+        </div>
+
+    </div>
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'ad'">
+
+        <div (click)="editAd(data.listing.id)"  class="w-100 d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+edit
+</span>
+
+            <span> {{"Edit"}}</span>
+        </div>
+
+        <div  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+       <span class="material-symbols-outlined">
+content_copy
+</span>
+
+            <span> {{"Duplicate"}}</span>
+        </div>
+
+
+        <div class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+          <span class="material-symbols-outlined">
+delete
+</span>
+
+            <span> {{"Delete"}}</span>
+        </div>
+
+        <div class="cursor-pointer w-100 d-flex align-items-center gap-2 py-2">
+
+        <span class="material-symbols-outlined">
+share
+</span>
+
+            <span> {{"Share"}}</span>
+        </div>
+
+    </div>
+
+</div>

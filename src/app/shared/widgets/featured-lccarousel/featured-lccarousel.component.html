@@ -1,0 +1,96 @@
+
+<div class="position-relative" [class]="{'card' : !transparentBg}"  >
+    <div class="d-flex flex-column">
+        <div *ngIf="!displayEntitiesOnly" class="card-header order-md-0 d-flex justify-content-between align-items-center px-2">
+
+            <div class="d-flex align-items-center justify-content-start gap-2 gap-md-3" >
+
+                <ng-container *ngIf="!business">
+
+                <div>
+                    <img appBrandLogo [width]="40">
+                </div>
+
+                <div>
+        <span class=" business-title-header fw-bold" style="font-size: 16px !important;" >
+         Suggested for you
+        </span>
+                    <p class=" business-city-header mb-0" >
+                        Sponsored
+                    </p>
+                </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="business">
+
+
+                    <div style="width: 40px;height: 40px;border-radius: 100%; background-size: cover; background-position: center; background: url('{{business.logo}}')">
+
+                    </div>
+
+                    <div>
+        <span class=" business-title-header fw-bold" style="font-size: 16px !important;" >
+          {{business.name}}
+        </span>
+                        <p class=" business-city-header mb-0" >
+                            Sponsored
+                        </p>
+                    </div>
+
+                </ng-container>
+
+
+            </div>
+
+            <div class="d-flex align-items-center gap-2 justify-content-end section-listing-type ">
+        <span class="material-symbols-outlined">
+credit_card
+</span>
+
+            </div>
+
+        </div>
+        <div class="card-body px-0 py-2  order-md-1 " style="background: transparent">
+            <ng-container *ngIf="!displayEntitiesOnly">
+                <div class="w-100  px-2" *ngIf="!business">
+                    <p class="card-text" style="line-height: 1.5;">Below we have prepared content that may be of interest to you and Weshare recommends it especially for you</p>
+                </div>
+
+            </ng-container>
+
+            <div  id="carousel-{{carouselId}}"   class="featured-carousel  w-100 mt-3 d-flex gap-3 ps-2 pe-2" (scroll)="onCarouselScroll($event)" style="overflow-x: scroll !important;">
+
+
+                    <div id="lc-featured-{{lc.id}}" class="col-11 pb-3 featured-carousel-item-lc" *ngFor="let lc of lcs">
+
+                        <app-featured-clc [checkCompletedVisits]="checkCompletedVisits" (click)="onItemClick(lc.favorite)" [displayMode]="displayMode" (lcClicked)="onLcSelected.emit($event)"  class="w-100" [lc]="lc"></app-featured-clc>
+
+                    </div>
+
+
+            </div>
+
+            <div class="w-100 mt-2 d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="lcs && lcs.length > 1">
+
+                <span  *ngFor="let lc of lcs;let i = index" [ngClass]="{'indicator-active' : activeSlideIndex == i }" class="indicator"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div (click)="onForwarded()" class="position-absolute carousel-control shadow d-flex justify-content-center align-items-center bg-white" style="left: 92% !important;top: 148px;width: 40px;height: 40px;border-radius: 40px;">
+        <span class="material-symbols-outlined text-black">
+arrow_forward_ios
+</span>
+    </div>
+    <div (click)="onBack()" class="position-absolute carousel-control shadow d-flex justify-content-center align-items-center bg-white" style="left: 4% !important;top: 148px;width: 40px;height: 40px;border-radius: 40px;">
+        <span class="material-symbols-outlined text-black">
+arrow_back_ios
+</span>
+    </div>
+
+
+</div>

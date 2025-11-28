@@ -1,0 +1,29 @@
+.anim-left {
+   transform: translateX(-100vw);
+   transition: ease 0.5s;
+}
+.anim-right {
+    transform: translateX(0);
+    transition: all ease-in 1s;
+}
+
+/*#category-container {*/
+/*    transform: translateX(0);*/
+/*}*/
+
+.slide-categories {
+    /*transition: ease-in 1s;*/
+    animation: ease-in 1s;
+}
+
+.indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background: black;
+}
+
+.indicator-active {
+    width: 10px;
+    height: 10px;
+}

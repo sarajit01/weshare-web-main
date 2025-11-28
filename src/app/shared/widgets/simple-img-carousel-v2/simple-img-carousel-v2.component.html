@@ -1,0 +1,16 @@
+
+<div class="w-100" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" style="height:{{containerHeight}}px;overflow-x: scroll !important">
+
+    <ng-container *ngFor="let media of gallery; let i = index">
+        <div class="justify-content-center align-items-end carousel-item"  [ngClass]="{'carousel-item--inactive' : activeSlideIndex !== i , 'd-flex carousel-item--active' : activeSlideIndex === i}"  style="left: {{i*100}}vw;height:{{containerHeight}}px;background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url('{{media.img}}');">
+
+        </div>
+
+    </ng-container>
+
+    <div class="w-100 mb-2 d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="gallery.length > 1">
+        <span  *ngFor="let ind of gallery;let i = index" [ngClass]="{'indicator-active' : activeSlideIndex == i }"  class="indicator indicator-light"></span>
+    </div>
+</div>
+
+

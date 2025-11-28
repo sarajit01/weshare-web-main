@@ -1,0 +1,165 @@
+<div class="container-fluid px-4">
+    <h4 class="mt-4">Pixelpay Payments History</h4>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">View</li>
+
+        <li class="breadcrumb-item active">All</li>
+    </ol>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <p class="mb-0">{{ "All Transactions"  }}</p>
+                    <button class="btn btn-primary" (click)="exportExcel()">
+                        <i class="fa fa-download"></i> Export to Excel
+                    </button>
+                </div>
+                <div class="card-body" >
+
+                    <form (submit)="getPaymentsHistory()"  class="row mb-4 d-flex align-items-end" [formGroup]="searchForm">
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Date From</label>
+                                <input type="date" class="form-control" formControlName="date_from">
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Date To</label>
+                                <input type="date" class="form-control" formControlName="date_to">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>User</label>
+                                <input type="number"  class="form-control" formControlName="user_id" placeholder="Search by User ID">
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select formControlName="status" class="form-control">
+                                    <option value="">All</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+
+                                <button class="btn btn-primary btn-block">
+                                    <i class="fa fa-search"></i>&nbsp;Search
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="col-md-12" *ngIf="!progress">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-hover" id="payments-table">
+
+                                <thead>
+                                <tr>
+                                    <th>Business</th>
+                                    <th>Date Invoiced</th>
+                                    <th>Date Paid</th>
+                                    <th>Amount</th>
+                                    <th>Payment ID</th>
+                                    <th>Transaction ID</th>
+                                    <th>Details</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <tr *ngFor="let payment of payments.data">
+
+                                    <td>
+<!--                                        [routerLink]="'/admin/users/details/'+payment.user?.id"-->
+                                        <a >
+                                          ID: {{payment.user?.id}} - {{payment.user?.fullname}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{payment.created_at}}
+                                    </td>
+                                    <td>
+                                        <ng-container *ngIf="payment.payment && payment.payment.status === 'paid'">
+                                            <span style="text-wrap: nowrap">{{payment.payment.created_at}}</span>
+
+                                        </ng-container>
+                                    </td>
+                                    <td class="text-danger font-weight-bold">{{payment.amount}} {{payment.currency}}</td>
+                                    <td>
+
+                                        {{payment.id}}
+                                    </td>
+                                    <td>
+                                        <ng-container *ngIf="payment.payment && payment.payment.payment_mode === 'pixelpay' && payment.payment.pixelpay_transaction">
+                                            {{payment.payment.pixelpay_transaction.payment_uuid}}
+                                        </ng-container>
+                                    </td>
+                                    <td>{{payment.description}}</td>
+                                    <td [class]="{'text-success' : payment.status === 'paid' , 'text-danger' : payment.status === 'pending'}">
+
+                                        <span class="d-flex align-items-center gap-1" style="text-wrap: nowrap">
+
+                                                <span class="material-symbols-outlined" *ngIf="payment.status === 'pending'">pending</span>
+
+                                                  <i class="fa fa-check-circle" *ngIf="payment.status === 'paid'">
+                                        </i>
+                                            {{payment.status}}
+                                        </span>
+
+                                    </td>
+
+                                    <!--                                    <td>-->
+
+<!--                                        <button [routerLink]="'/admin/users/details/'+payment.user?.id"  class="btn btn-primary btn-sm">-->
+
+<!--                                            <i class="fa fa-user"></i>-->
+
+<!--                                        </button>-->
+
+<!--                                    </td>-->
+
+
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                    </div>
+
+                    <mat-progress-bar mode="indeterminate" *ngIf="progress"></mat-progress-bar>
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

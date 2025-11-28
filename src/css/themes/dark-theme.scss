@@ -1,0 +1,375 @@
+
+/*Dark theme colors*/
+/*<color name="dark_primary">#15202B</color>*/
+/*<color name="dark_secondary">#192734</color>*/
+/*<color name="dark_secondary_light">#22303C</color>*/
+/*<color name="favorite_card_bg">#22303C</color>*/
+/*<color name="headerInputColor">#22303C</color>*/
+
+
+/*<color name="light_text_active">#1DA1F2</color>*/
+/*<color name="dark_text_active">#1DA1F2</color>*/
+/*<color name="spinner_border">#FFFFFF</color>*/
+/*<color name="spinner_text">#FFFFFF</color>*/
+/*<color name="fabColor">#15202B</color>*/
+/*<color name="fabBg">#FFFFFF</color>*/
+/*<color name="active_tab_border">#FFFFFF</color>*/
+
+/*<style name="HeaderIcon">*/
+/*<item name="tint">#F2F2F2</item>*/
+/*</style>*/
+
+/*<style name="ListingsContainer">*/
+/*<item name="android:background">@color/dark_theme_bg</item>*/
+/*</style>*/
+
+/*<style name="Listing">*/
+/*<item name="android:background">#192734</item>*/
+/*</style>*/
+
+/*<style name="ListingText" parent="Listing">*/
+/*<item name="android:background">#192734</item>*/
+
+/*</style>*/
+
+/*<style name="ListingIcon" parent="HeaderIcon">*/
+/*<item name="android:background">#192734</item>*/
+/*</style>*/
+
+/*<style name="ListingDesc">*/
+/*<item name="android:background">#22303C</item>*/
+/*</style>*/
+
+/*<style name="chip">*/
+/*<item name="cardBackgroundColor">@color/dark_secondary_light</item>*/
+/*<item name="cardCornerRadius">10dp</item>*/
+/*<item name="contentPadding">10dp</item>*/
+/*</style>*/
+
+/*<style name="chipActive" parent="chip">*/
+/*<item name="cardBackgroundColor">@color/light_secondary</item>*/
+/*<item name="android:textColor">@color/dark_theme_bg</item>*/
+/*</style>*/
+
+/*<style name="textActive" parent="ListingDesc">*/
+/*<item name="android:textColor">@color/dark_text_active</item>*/
+
+/*</style>*/
+
+/*<style name="iconActive">*/
+/*<item name="background">@android:color/transparent</item>*/
+/*<item name="backgroundColor">@android:color/transparent</item>*/
+/*<item name="backgroundTint">@android:color/transparent</item>*/
+/*<item name="android:tint">@color/light_text_active</item>*/
+
+/*</style>*/
+
+/*<style name="icon_cards">*/
+/*<item name="background">@color/light_secondary</item>*/
+/*<item name="backgroundColor">@color/dark_secondary</item>*/
+/*<item name="backgroundTint">@color/dark_secondary</item>*/
+/*<item name="android:tint">@color/light_text_active</item>*/
+/*<item name="cardBackgroundColor">@color/dark_secondary_light</item>*/
+/*<item name="strokeColor">@color/white</item>*/
+/*<item name="strokeWidth">1dp</item>*/
+
+
+/*</style>*/
+/*<style name="card">*/
+/*<item name="cardBackgroundColor">@color/dark_secondary_light</item>*/
+/*</style>*/
+
+
+/*<style name="stepper">*/
+/*<item name="sv_doneCircleColor">@color/white</item>*/
+/*<item name="sv_doneCircleRadius">20dp</item>*/
+/*<item name="sv_doneStepLineColor">@color/white</item>*/
+/*<item name="sv_doneStepMarkColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_doneTextColor">@color/white</item>*/
+/*<item name="sv_nextStepLineColor">@color/white</item>*/
+/*<item name="sv_nextTextColor">@color/white</item>*/
+/*<item name="sv_selectedCircleColor">@color/white</item>*/
+/*<item name="sv_selectedCircleRadius">12dp</item>*/
+/*<item name="sv_selectedStepNumberColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_selectedTextColor">@color/white</item>*/
+
+/*</style>*/
+
+/*<style name="CustomIndicator">*/
+/*<item name="ci_drawable">@drawable/dot_white_24dp</item>*/
+/*</style>*/
+
+/*<style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">*/
+/*<item name="background">@color/dark_secondary_light</item>*/
+/*</style>*/
+/*<!-- Base application theme. -->*/
+/*<style name="Base.Theme.Weshare" parent="Theme.Material3.DayNight.NoActionBar">*/
+/*<!-- Customize your dark theme here. -->*/
+/*<!-- <item name="colorPrimary">@color/my_dark_primary</item> -->*/
+/*</style>*/
+
+/*<style name="RatingBar" parent="android:style/Widget.Material.RatingBar.Small">*/
+/*<item name="colorControlNormal">#FFC107</item>*/
+/*<item name="colorControlActivated">#FFC107</item>*/
+/*</style>*/
+/*<style name="MyTransparentBottomSheetDialogTheme" parent="Theme.AppCompat.Light">*/
+/*<item name="android:background">@android:color/transparent</item>*/
+/*<item name="android:colorBackground">@android:color/transparent</item>*/
+
+
+/*</style>*/
+
+/*  */
+/*//*/
+/*//*/
+/*//*/
+/*//*/
+/*//*/
+:root {
+    --dark-bg-color: #15202B;
+    --dark-primary: #15202B;
+    --dark-secondary: #192734;
+    --dark-tirtiry: #22303C;
+    --dark-icon-color: #F2F2F2;
+    --on-surface: #FFFFFF;
+    --primary-blue: #3b71ca !important;
+}
+
+.dark {
+
+    body,  .theme-bg-primary, .theme-surface {
+        background: var(--dark-primary);
+    }
+    #header {
+        background-color: var(--dark-bg-color);
+    }
+
+    .listing-section {
+        background-color: var(--dark-primary);
+    }
+    h1,h2,h3,h4,h5,h6,p,small, span, i{
+        color: var(--on-surface);
+    }
+    #header span, #header a {
+        color: var(--dark-icon-color);
+    }
+    .cat {
+        background: var(--dark-tirtiry);
+    }
+    .card {
+        background: var(--dark-tirtiry);
+    }
+    .card span, .card p {
+        color: white;
+    }
+
+    .featured-card-content {
+        background: var(--dark-secondary) !important;
+    }
+
+    .card-header,  .card-body, .card-img-top, .card-footer {
+        border: none;
+    }
+
+    .bg-theme-dark {
+        background: white !important;
+    }
+
+    footer {
+        background: var(--dark-primary);
+    }
+
+     #bottom-toolbar {
+        background: var(--dark-primary);
+    }
+
+     #bottom-toolbar span {
+        color: white;
+    }
+
+     .btn-theme-dark {
+        background: white;
+        color: var(--dark-primary);
+    }
+
+    .btn-theme-dark span, .btn-theme-dark i {
+        color: var(--dark-primary);
+    }
+
+    app-mobile-header-with-back-button {
+        background: var(--dark-primary);
+    }
+
+     .section-container {
+        background: var(--dark-secondary);
+    }
+
+    .btn-outline-dark {
+        border: 1px solid white;
+        color: white;
+    }
+
+    .indicator, .indicator-active {
+        background: white;
+    }
+    .list-group {
+        background: var(--dark-tirtiry);
+    }
+
+    .list-group-item {
+        background: transparent;
+        color: white;
+    }
+
+    .mat-bottom-sheet-container, .custom-bottom-sheet-container {
+        background: var(--dark-primary);
+    }
+
+    .nav-tab-link-active, .nav-tab-link {
+        color: white;
+    }
+
+    .mat-card {
+        background: var(--dark-tirtiry);
+    }
+
+    mat-card-title {
+        color: white !important;
+    }
+
+    .text-black-50 {
+        color: white !important;
+    }
+
+    .mat-calendar-body-cell-content, .mat-calendar-body-label, .mat-focus-indicator,  .mat-calendar-arrow,  .mat-calendar-invert {
+        color: white !important;
+    }
+
+    .card-body {
+        color: white;
+    }
+
+    .accordion, .my-accordion {
+        color: white;
+    }
+
+    mat-label {
+        color: white !important;
+    }
+
+    input, select, option {
+        color: white !important;
+    }
+
+    .mat-form-field-infix::after {
+        color: white !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: white;
+    }
+
+    .mat-radio-outer-circle {
+        color: white !important;
+    }
+
+    .swal2-popup {
+        background: var(--dark-secondary);
+    }
+    .swal2-html-container {
+        color: white;
+    }
+
+    mat-option, .mat-selected, .mat-active {
+        background: var(--dark-primary);
+    }
+
+    .active-bottom-bar-ic-icon {
+        color: var(--primary-blue) !important;
+    }
+
+    mat-chip {
+        background: var(--dark-tirtiry) !important;
+    }
+
+    textarea, .mat-chip-input, .mat-chip-remove {
+        color: white !important;
+    }
+
+    .mat-chip-input::placeholder {
+        color: #aaaaaa !important;
+    }
+
+    td {
+        color: white;
+    }
+
+    input::placeholder {
+        color: lightgray;
+    }
+
+    .mat-select-arrow {
+        color: white !important;
+    }
+    .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+        background: black;
+    }
+
+    .network-widget
+    {
+        border: 1px solid white;
+        border-radius: 12px;
+        color: white;
+    }
+
+    .network-widget h3 {
+        color: white;
+    }
+
+    .share-tab {
+        padding: 8px 4px !important;
+    }
+    .active-share-tab {
+        border-bottom: 2px solid white;
+    }
+
+    .bottom-toolbar-icon {
+        color: var(--dark-icon-color);
+    }
+
+    .bottom-toolbar-item {
+        color: var(--dark-icon-color);
+    }
+
+
+    .sidebar-fixed a {
+        color: var(--dark-icon-color) !important;
+    }
+
+    .top-search-bar {
+        border: 1px solid white;
+    }
+
+    .user-menu li a:hover,  {
+        background: var(--dark-secondary);
+    }
+
+    .user-menu li .active {
+        background: var(--dark-tirtiry);
+    }
+
+    .contact-person-wrapper:hover {
+        background: var(--dark-secondary);
+    }
+}
+.dark {
+    background: var(--dark-primary);
+}
+
+/*.dark .brand-logo {*/
+/*    background-image: url("/assets/brand/logo_dark.png");*/
+/*    background-size: contain;*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*    outline: none;*/
+/*}*/

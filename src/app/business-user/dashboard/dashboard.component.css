@@ -1,0 +1,32 @@
+canvas{
+
+  width:100% !important;
+  height:500px !important;
+
+}
+
+#dashboard-wrapper {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    overflow-y: scroll !important;overflow-x: hidden !important;
+}
+
+#dashboard-wrapper::-webkit-scrollbar {
+    display: none !important;
+}
+
+@media only screen and (min-width: 768px){
+   .dashboard-action-widget {
+      margin-bottom: 1rem;
+      min-height: 4rem;
+   }
+
+    .card {
+        border-radius: .75rem !important;
+    }
+
+    .btn-theme-dark {
+        border-radius: 0.50rem !important;
+    }
+
+}

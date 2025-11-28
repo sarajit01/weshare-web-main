@@ -1,0 +1,37 @@
+
+<div class="shadow-sm d-flex theme-bg-primary justify-content-between align-items-center px-3" style="position: fixed;top: 0;left:0; width: 100% !important;height: 60px!important;z-index: {{zIndex}} !important;" >
+    <!--    <i (click)="backPrev()" class="fa fa-angle-left fw-bold cursor-pointer" style="font-size: 24px!important;"></i>-->
+
+    <span (click)="backPrev()" class="material-symbols-outlined cursor-pointer">
+arrow_back_ios
+</span>
+
+    <h3 class="mb-0 mat-h3">{{heading}}</h3>
+
+    <div class="top-action-holder {{topIcon}}">
+          <span *ngIf="topIcon" (click)="onTopIconPressed.emit(true)" class="material-symbols-outlined cursor-pointer">
+{{topIcon}}
+</span>
+        <h4 *ngIf="!topIcon && !topBtnIcon">&nbsp;</h4>
+
+        <ng-container *ngIf="topBtnIcon">
+            <button (click)="onTopButtonPressed.emit(true)" class="btn btn-outline-dark d-flex align-items-center" style="border-radius: 20px;">
+                <ng-container *ngIf="topBtnLabel">
+                    {{topBtnLabel}}
+                    <ng-container *ngIf="topBtnIcon">
+                        &nbsp;
+                        <span class="material-symbols-outlined cursor-pointer">
+{{topBtnIcon}}
+</span>
+                    </ng-container>
+                </ng-container>
+            </button>
+        </ng-container>
+
+    </div>
+
+
+
+</div>
+
+<ng-content></ng-content>

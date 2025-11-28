@@ -1,0 +1,95 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">All Plans</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage plans</li>
+
+    <li class="breadcrumb-item active">All plans</li>
+  </ol>
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>All Plans</p>
+
+        </div>
+        <div class="card-body">
+
+          <div class="col-md-12" *ngIf="saveProgress === false">
+
+            <div class="table-responsive">
+
+              <table class="table table-hover">
+
+                <thead>
+                <tr>
+                  <th>Plan ID</th>
+                  <th>Plan name</th>
+                  <th>Monthly Price</th>
+                  <th>Features / Edit</th>
+                  <th>Delete</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr *ngFor="let plan of plans">
+
+                  <td>{{plan.id}}</td>
+                  <td>{{plan.name}}</td>
+                  <td>${{plan.price}}</td>
+                  <td>
+
+                    <button [routerLink]="['/'+ROUTES.admin.root+'/'+ROUTES.admin.plan.root+'/'+plan.id+'/'+ROUTES.admin.plan.edit]" class="btn btn-primary btn-sm">
+
+                      <i class="fa fa-cog"></i>
+
+                    </button>
+
+                  </td>
+
+                  <td>
+
+                    <button (click)="deleteConfirmation(plan.id)" class="btn btn-danger btn-sm">
+
+                      <i class="fa fa-trash"></i>
+
+                    </button>
+
+                  </td>
+
+                </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+
+          </div>
+
+          <mat-progress-bar mode="indeterminate" *ngIf="saveProgress === true"></mat-progress-bar>
+
+
+        </div>
+
+        <div class="card-footer">
+
+          <a routerLink="/admin/add-plan" class="btn btn-primary">
+            Add New plan
+          </a>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

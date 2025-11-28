@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "Categories",
+      "urls": [
+        "https://guiderhn.com/business-portal-api/api/*",
+        "http://localhost/business-portal-api/api/*",
+        "https://api.qrserver.com/*"
+      ],
+      "cacheConfig": {
+        "maxAge": "90d",
+        "maxSize": 10000,
+        "timeout": "20s",
+        "strategy": "freshness"
+      }
+    }
+  ]
+}

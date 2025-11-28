@@ -1,0 +1,232 @@
+<div class="container-fluid pt-3 pb-5" style="background: #eee;">
+
+  <div class="row mb-5">
+
+    <div class="col-md-12">
+
+      <mat-progress-bar *ngIf="progress.invitationsLoading === true" mode="indeterminate"></mat-progress-bar>
+      <mat-card *ngIf="invitations">
+
+        <mat-card-header>
+
+          <div class="row mb-2">
+
+            <div class="col-md-12">
+              <h2 class="">
+                Business Invitations
+              </h2>
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-4">
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <div class="alert alert-success">
+                Here are list of invitation you received from business owners to join as business assistant for the following businesses.
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+
+            <div class="col-md-12">
+
+              <div class="table-responsive">
+
+                <table class="table table-hover">
+
+                  <thead>
+
+                  <tr>
+
+                    <th>Business</th>
+                    <th>Owner</th>
+                    <th>Business role</th>
+                    <th>Service</th>
+                    <th>Received at</th>
+                    <th>Accept</th>
+                    <th>Delete</th>
+
+                  </tr>
+
+
+                  </thead>
+
+                  <tbody>
+
+                  <tr *ngFor="let invite of invitations">
+                    <td>{{invite.business.business_name_prefix}} {{invite.business.business_name}}</td>
+                    <td>{{invite.business.user.first_name}} {{invite.business.user.last_name}}</td>
+                    <td>{{invite.business_role}}</td>
+                    <td>
+                      <span *ngIf="invite.service_id === -1">
+                        All services
+                      </span>
+                      <span *ngIf="invite.service !== null">
+                         {{invite.service.service_name}}
+                      </span>
+                     </td>
+                    <td>
+                     {{invite.created_at}}
+                    </td>
+                    <td>
+                      <button (click)="acceptInvitation(invite.id)" mat-raised-button color="accent">
+
+                      <i class="fa fa-check"></i>
+
+                      </button>&nbsp;&nbsp;
+                    </td>
+                    <!-- <td>
+
+                       <button mat-raised-button color="accent">
+
+                         <i class="fa fa-edit"></i>
+
+                       </button>&nbsp;&nbsp;
+                     </td>
+                     <td>
+
+                       <button mat-raised-button color="accent">
+
+                         <i class="fa fa-copy"></i>
+
+                       </button>&nbsp;&nbsp;
+                     </td> -->
+                    <td>
+
+                      <button (click)="deleteInvitation(invite.id)" mat-raised-button color="primary" class="btn-danger">
+
+                        <i class="fa fa-times"></i> &nbsp;
+
+                      </button>&nbsp;&nbsp;
+
+                    </td>
+
+                  </tr>
+
+                  </tbody>
+
+
+                </table>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+</div>

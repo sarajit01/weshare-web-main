@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-md-12 shadow-sm mb-1">
+        <div class="row">
+          <div class="col-4 col-md-3 col-lg-2 no-md-padding">
+            <div class="listing" style="background: url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+              <div class="row">
+
+                <div class="col-md-6">
+
+                  <div class="row">
+
+
+                    <div class="col-12 mt-2">
+                      <div class="float-start shadow" style="background: white;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 8px;">
+                        <span style="color: black;font-size: 10px;">Destacado</span>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div class="col-md-6 ">
+                  <div class="row mt-2">
+                    <div class="col-12 d-flex justify-content-end">
+                      <div  style="background: orange;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 10px;">
+                        <span style="color: white;font-size: 10px;">Abierto </span>
+                      </div>
+
+                      <!-- <div *ngIf="isFavoriteRemovable === true" (click)="favoriteService.delete('promotion' , promotion.id)" class="shadow" style="cursor:pointer; border: 1px solid white ;height: 30px;background: #dc1a1a;border-radius: 10px;color: white;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+                         <i class="fa fa-times-circle" style="color: white;font-size: 20px;"></i>&nbsp; Remove
+                       </div> -->
+
+
+                    </div>
+
+                    <div class="col-md-12 mt-3 justify-content-end ">
+
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-8 col-md-9 col-lg-10">
+
+            <div class="row">
+              <div class="col-12 ">
+                <h2 class="float-start text-dark">  {{business.business_name_prefix}} {{business.business_name}}</h2>
+              </div>
+
+              <div class="col-12">
+
+                <div class="row">
+                  <div class="col-md-12 text-muted">
+                    <span><i class="fa fa-map-marker"></i>&nbsp;{{business.address}}</span>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="float-start justify-content-start align-items-center">
+                      <h4 class="text-success"><i class="fa fa-user"></i>&nbsp;Customer: {{claim.customer.first_name}} {{claim.customer.last_name}}</h4>
+                      <h3 class="fw-bolder text-primary"><i class="fa fa-check-circle-o"></i>&nbsp; Claimed:
+                        <span *ngIf="claim.claim_type === 'discount'">{{claim.discount}}% Discount</span>
+                        <span *ngIf="claim.claim_type === 'promotion'"> ({{claim.offer}} Promotion) </span>
+                      </h3>
+
+
+                    </div>
+                    <div class="float-end justify-content-end align-items-center">
+
+                    </div>
+
+                  </div>
+                  <div class="col-md-12 text-muted ">
+                   <i class="fa fa-comments-o fw-bold"></i>&nbsp;{{claim.description}}
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-12 mt-2 p-1">
+
+                <div class="row">
+                  <div class="col-md-4" >
+                    <app-business-call-button [business]="business"></app-business-call-button>
+                  </div>
+                  <div class="col-md-4" >
+                    <app-business-whatsapp-button [business]="business"></app-business-whatsapp-button>
+                  </div>
+                  <div class="col-md-4">
+                    <app-business-info-button [business]="business"></app-business-info-button>
+                  </div>
+
+                </div>
+
+              </div> -->
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+</div>

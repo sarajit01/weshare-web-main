@@ -1,0 +1,44 @@
+.sharable-content-container {
+    /*background: rgb(255,255,255);*/
+    /*background: linear-gradient(90deg, rgba(255,255,255,1) 1%, rgba(0,0,0,1) 100%);*/
+
+    /*background: linear-gradient(90deg, rgba(0,0,0,1) 1%, rgba(136,136,136,1) 100%);*/
+
+}
+#sharableCanvas {
+    min-height: 400px !important;
+}
+
+/*.sharable-content-container-fb {*/
+/*    height: 250px;*/
+/*}*/
+
+/*.sharable-content-container-x{*/
+/*    height: 280px;*/
+/*}*/
+
+/*.sharable-content-container-wa {*/
+/*    height: 400px;*/
+/*}*/
+/*.sharable-content-container-other {*/
+/*    height: 400px;*/
+/*}*/
+
+
+/*.sharable-content {*/
+/*    rotate: -30deg;*/
+/*}*/
+.sharable-content-frame {
+    /*background: rgb(136,136,136);*/
+    /*background: linear-gradient(90deg, rgba(136,136,136,1) 1%, rgba(0,0,0,1) 100%);*/
+
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 1%, rgba(136,136,136,1) 100%);
+}
+.sharable-img-frame {
+    border: 10px solid black;
+}
+
+.selected-gradient {
+    border: 2px solid white;
+}

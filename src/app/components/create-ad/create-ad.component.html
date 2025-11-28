@@ -1,0 +1,126 @@
+<div class="container-fluid">
+
+  <div class="row d-none d-md-block">
+
+    <div class="col-md-12 bg-primary">
+
+      <div class="row">
+
+        <div class="col-md-8 " style="padding: 50px 100px 80px 100px">
+
+          <h1 class="" style="color: white;font-size: 40px;line-height: 1.5">
+            Empieza a usar herramientas gratuitas para tu pequeña empresa
+
+          </h1>
+
+          <p style="color: white">
+            Ya sea que desees dar a conocer tu empresa o impulsar las ventas, descubre las herramientas gratuitas de marketing de Cupons que te ayudarán a conectarte con los clientes que buscas.
+
+          </p>
+
+        </div>
+        <div class="col-md-4" style="background: url('https://images.unsplash.com/photo-1522198684868-88edd8463fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'); background-size: cover;background-position: center center; background-repeat: no-repeat;height: auto;">
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row justify-content-center" style="margin-top : -50px !important;">
+
+    <div class="d-none d-md-block col-12 col-md-10 col-sm-12 col-lg-9" *ngIf="statistics">
+      <div class="alert alert-danger font-weight-bold">
+        Your remaining business ad creation limit is <span *ngIf="statistics.ad_limit === '-1' || statistics.ad_limit === -1"> Unlimited</span> <span *ngIf="statistics.ad_limit !== '-1' && statistics.ad_limit !== -1"> {{statistics.ad_limit}}</span>
+      </div>
+
+    </div>
+    <app-business-ad-form class="col-12 p-0 col-sm-10 col-md-7 col-lg-7"></app-business-ad-form>
+  </div>
+
+  <app-mobile-header-with-back-button [heading]="'Create Ad'" [backUrl]="'/business/dashboard'"></app-mobile-header-with-back-button>
+
+
+
+  <!-- footer section -->
+
+  <div class="d-none d-md-block row mt-5 mb-5">
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+
+</div>

@@ -1,0 +1,11 @@
+@media screen and (max-width: 600px) {
+    .card-header, .card-body, .card-footer {
+        padding: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .card {
+        border-radius: 0 !important;
+    }
+}

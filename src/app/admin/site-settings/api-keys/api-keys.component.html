@@ -1,0 +1,170 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Settings</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">API Keys Configuration</li>
+  </ol>
+
+  <form class="row" (submit)="save()">
+
+    <div class="col-md-6 mb-3">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Cloudinary Configuration</p>
+
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Cloud Name</label>
+            <input [ngModel]="api_keys.cloud_name" [value]="api_keys.cloud_name" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Cloud name from cloudinary"/>
+
+          </div>
+          <div class="form-group">
+            <label>API Key</label>
+            <input [(ngModel)]="api_keys.cloud_api" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="API key from cloudinary"/>
+
+          </div>
+          <div class="form-group">
+            <label>API Key</label>
+            <input [(ngModel)]="api_keys.cloud_secret" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Secret from cloudinary"/>
+
+          </div>
+          <div class="form-group">
+            <label>Upload Preset Value</label>
+            <input [(ngModel)]="api_keys.cloud_preset" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="upload preset key from cloudinary"/>
+
+          </div>
+
+        </div>
+        <div class="card-footer d-flex justify-content-end align-items-center">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Pusher Configuration</p>
+
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>APP ID</label>
+            <input [(ngModel)]="api_keys.pusher_app_id" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="APP ID from PUSHER"/>
+
+          </div>
+          <div class="form-group">
+            <label>API key</label>
+            <input [(ngModel)]="api_keys.pusher_api" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="API key from PUSHER"/>
+
+          </div>
+          <div class="form-group">
+            <label>Secret</label>
+            <input [(ngModel)]="api_keys.pusher_secret" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="SECRET key from PUSHER" />
+
+          </div>
+          <div class="form-group">
+            <label>Cluster</label>
+            <input [(ngModel)]="api_keys.pusher_cluster" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="APP CLUSTER from PUSHER"/>
+
+          </div>
+
+        </div>
+
+        <div class="card-footer d-flex justify-content-end align-items-center">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-md-6 mb-3">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Facebook Login</p>
+
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>APP ID</label>
+            <input [(ngModel)]="api_keys.fb_app_id" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="APP ID from facebook"/>
+
+          </div>
+          <div class="form-group">
+            <label>APP SECRET</label>
+            <input [(ngModel)]="api_keys.fb_app_secret" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="APP SECRET from facebook"/>
+
+          </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-end align-items-center">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Google Login</p>
+
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>CLIENT ID</label>
+            <input [(ngModel)]="api_keys.g_client_id" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="CLIENT ID from Google console"/>
+
+          </div>
+          <div class="form-group">
+            <label>CLIENT SECRET</label>
+            <input [(ngModel)]="api_keys.g_client_secret" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="CLIENT SECRET from Google console"/>
+
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end align-items-center">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-12 mb-2">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Google Map</p>
+
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>API key</label>
+            <input [(ngModel)]="api_keys.g_map_key" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Google Map API key"/>
+
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end align-items-center">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </form>
+
+</div>

@@ -1,0 +1,31 @@
+<form [formGroup]="replyForm" (submit)="submitReply()" class="row p-3" >
+
+  <div class="col-md-12">
+
+
+    <p>Replying to message</p>
+    <div class="alert alert-success">
+      <small>{{data.message}}</small>
+    </div>
+
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Message</mat-label>
+      <textarea matInput placeholder="Type your reply here .." formControlName="message"></textarea>
+      <mat-icon matSuffix>chat</mat-icon>
+    </mat-form-field>
+
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <div class="col-12" >
+
+    <button *ngIf="progress === false" mat-raised-button color="primary" class="mt-2">
+      Submit reply
+    </button>
+    <button (click)="closeModal()" *ngIf="progress === false" mat-raised-button color="accent" class=" ml-2 mt-2">
+      Cancel
+    </button>
+    </div>
+
+  </div>
+
+</form>

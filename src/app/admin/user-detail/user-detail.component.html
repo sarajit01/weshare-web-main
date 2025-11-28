@@ -1,0 +1,256 @@
+<div class="container-fluid px-4">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-between align-items-center">
+      <h4 class="mt-4">Manage User</h4>
+
+      <button onclick="window.history.back()" class="btn btn-primary">
+        <i class="fa fa-angle-left"></i>&nbsp;Back
+      </button>
+    </div>
+    <div class="col-12">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">Details</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="">
+            User Information <span *ngIf="user">(ID #{{user.id}})</span>
+          </h4>
+        </div>
+        <div class="card-body">
+          <app-user-profile (onUserLoaded)="user = $event" [userId]="userId"></app-user-profile>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="user">
+      <div class="card">
+        <div class="card-header">
+          <h4>User subscription</h4>
+        </div>
+        <div class="card-body">
+
+
+          <ng-container *ngIf="user.subscription && user.subscription.plan; else nosubscription">
+
+            <p>Plan : {{user.subscription.plan.name}}</p>
+            <p>Started at : {{user.subscription.started_at | date}}</p>
+            <p>End Date : {{user.subscription.expires_at | date}}</p>
+            <p>Status : {{user.subscription.subscription_status}}</p>
+
+          </ng-container>
+          <ng-template #nosubscription>
+            <div class="alert alert-danger">
+              The user has no active subscription
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+  <div class="row mb-5 justify-content-center" *ngIf="user">
+
+    <div class="col-12 d-flex justify-content-between pt-2">
+      <h3 class="text-primary">Listings created by user</h3>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Business Listings</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.business_listings}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Promotions Listings</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.promotion_listings}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Business Ads Listings</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.ads_listings}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-12 mt-2 d-flex justify-content-between pt-2">
+      <h3 class="text-primary">User Featured Listings</h3>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Featured Business</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.featured_business}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Featured Promotions</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.featured_promotion}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Featured Ads</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.featured_ad}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-12 mt-2 d-flex justify-content-between pt-2">
+      <h3 class="text-primary">Listings limitations remaining after creating listings</h3>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Business Listings </strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.unused_business_listings}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Promotion Listings</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.unused_promotion_listings}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card">
+
+        <div class="card-header text-center">
+          <h4>
+            <strong>Business Ads Listings</strong>
+          </h4>
+        </div>
+        <div class="card-body py-3 text-center d-flex justify-content-center">
+          <div class="circled-text">
+            <span>{{user.unused_ads_listings}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+</div>

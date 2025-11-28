@@ -1,0 +1,85 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Manage Category</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Categories</li>
+
+    <li (click)="subCats('')" class="breadcrumb-item active">
+      <a  class="active">All Categories</a></li>
+
+    <li (click)="subCats(cat.parent.id)" *ngIf="cat !== undefined && cat !== null && cat.parent !== undefined && cat.parent !== null" class="breadcrumb-item active">
+      <a  class="active">{{cat.parent.name}}</a></li>
+
+    <li (click)="subCats(cat.id)" *ngIf="cat !== undefined && cat !== null && cat.id !== undefined" class="breadcrumb-item active">
+      <a class="active">{{cat.name}}</a></li>
+
+
+  </ol>
+
+  <form (submit)="getCats()" [formGroup]="form" class="row">
+
+    <div class="col-md-6">
+      <mat-form-field  appearance="outline">
+        <mat-label>Search Category</mat-label>
+        <input matInput formControlName="search"  type="text" placeholder="Search by name .." name="name"  >
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-primary" style="height: 50px;">
+        <i class="fa fa-search"></i>&nbsp;Search
+      </button>
+
+    </div>
+
+
+  </form>
+
+  <div class="row">
+
+    <div class="col-md-12" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+
+    <div class="col-md-3 mb-4"  *ngFor="let cat of categories">
+
+      <div class="card shadow-lg">
+
+        <div class="card-body p-5  text-center">
+
+          <img src="{{cat.icon}}" width="70"> <br/>
+
+          <h3>
+            {{cat.name}} </h3>
+
+        </div>
+
+        <div class="card-footer text-center">
+
+          <button [routerLink]="['/admin/'+ROUTES.admin.category.root+'/'+ROUTES.admin.category.add]" [queryParams]="{cat_id: cat.id }" class="btn btn-sm btn-primary">
+            <i class="fa fa-plus"></i>
+          </button>&nbsp;
+          <button [routerLink]="['/admin/'+ROUTES.admin.category.root+'/'+cat.id+'/'+ROUTES.admin.category.edit]" class="btn btn-sm  btn-primary">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <button (click)="subCats(cat.id)" class="btn btn-success btn-sm ">
+            Sub ({{cat.sub_count}})
+          </button>&nbsp;
+          <button (click)="deleteConfirmation(cat.id)" class="btn btn-danger btn-sm ">
+            <i class="fa fa-trash"></i>
+          </button> <br/>
+          <button [routerLink]="['/admin/'+ROUTES.admin.attributes.root+'/'+cat.id]" class="btn btn-primary btn-block col-12 btn-sm mt-1">
+           <i class="fa fa-cog"></i>&nbsp; Custom Attributes
+          </button>
+          <button [routerLink]="['/admin/'+ROUTES.admin.banners.root+'/'+cat.id]" class="btn btn-primary btn-block col-12 btn-sm mt-1">
+            <i class="fa fa-image"></i>&nbsp; Banners
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</div>

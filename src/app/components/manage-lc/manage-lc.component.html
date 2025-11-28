@@ -1,0 +1,111 @@
+<div class="w-100">
+  <div class="shadow-sm theme-bg-primary d-flex justify-content-between align-items-center px-3" style="z-index: 100000000 !important;position: fixed;top: 0;left:0; width: 100% !important;height: 60px!important;" >
+    <!--    <i (click)="backPrev()" class="fa fa-angle-left fw-bold cursor-pointer" style="font-size: 24px!important;"></i>-->
+
+    <span (click)="backPrev()" class="material-symbols-outlined cursor-pointer">
+arrow_back_ios
+</span>
+
+    <h3 class="mb-0 mat-h3">
+
+      {{"My Loyalty Cards"}}
+
+
+    </h3>
+
+    <h4>&nbsp;</h4>
+  </div>
+  <div class="row py-3 d-flex flex-column align-items-center justify-content-center" *ngIf="lcs">
+    <ng-container *ngFor="let listing of lcs">
+      <div class="col-12 col-md-6 col-lg-7 p-0 mb-2 mb-md-3" style="max-width: 460px !important;">
+
+          <div class="w-100">
+              <app-loyalty-card-widget [hasCustomActionOnClick]="true" [displayOptionsOnly]="true" class="w-100 p-0"
+                                       [loyalty_card]="listing"></app-loyalty-card-widget>
+
+          </div>
+
+
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div class="container d-none pt-3 pb-5" style="background: #eee;">
+  <div class="row mb-5">
+
+    <div class="col-md-12">
+
+      <mat-card>
+
+        <mat-card-header>
+
+          <div class="w-100 mb-2">
+
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
+              <h2 class="mb-0 pb-0">
+                Manage My Loyalty Cards
+              </h2>
+                <button [routerLink]="['/'+routes.loyalty_card.create]" mat-raised-button color="primary">
+
+                  <i class="fa fa-plus"></i> &nbsp;Create Loyalty Card
+
+                </button>
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-4">
+
+          <form class="row mb-4" (submit)="getLCs()">
+
+            <div class="col-md-6">
+              <input [(ngModel)]="search" name="search" type="text" class="form-control" placeholder="Search Loyalty Card by name">
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-primary">
+                <i class="fa fa-search"></i>&nbsp; Search
+              </button>
+            </div>
+          </form>
+
+
+          <div class="row" *ngIf="lcs">
+
+            <div class="col-md-4 d-flex flex-column gap-2 mb-5" *ngFor="let lc of lcs">
+              <app-loyalty-card-widget [loyalty_card]="lc"></app-loyalty-card-widget>
+
+              <div class="d-flex justify-content-center align-items-center gap-2">
+
+                <button [routerLink]="'/'+routes.loyalty_card.edit+'/'+lc.id" type="button" class="btn btn-primary btn-sm">
+                  Edit
+                </button>
+                <button (click)="deleteConfirmation(lc.id)" class="btn btn-danger btn-sm">
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+
+  </div>
+
+</div>

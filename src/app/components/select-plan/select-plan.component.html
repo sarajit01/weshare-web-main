@@ -1,0 +1,156 @@
+
+<app-mobile-header-with-back-button [backUrl]="'/' + authService.getRole() + '/settings'"  [heading]="'Membership'"></app-mobile-header-with-back-button>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12 mb-4" *ngIf="progress === false">
+      <h2 class="text-center font-weight-bold">Business Membership Plan</h2>
+    </div>
+    <div class="col-md-12" *ngIf="progress === true">
+      <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+    </div>
+  </div>
+    <div class="row" *ngIf="progress === false && plans">
+
+      <div class="col-md-12 mb-4" *ngIf="my_plan && my_plan.plan && my_plan.subscribed">
+
+        <div class="card">
+
+          <div class="card-header">
+            <p>{{ "My subscription" | translate }}</p>
+          </div>
+          <div class="card-body">
+
+              <p>Plan : {{ my_plan.plan.name }}</p>
+              <p>Started at : {{ my_plan.started_at | date }}</p>
+              <p>End Date : {{ my_plan.expires_at | date }}</p>
+              <p>Status : {{ my_plan.subscription_status }}</p>
+
+              <button (click)="unsubscribe()" class="btn btn-theme-dark">
+                  {{ "Cancel Subscription" | translate }}
+              </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-4" *ngFor="let plan of plans | activeMembership" >
+
+        <div class="membership-plan card mb-5">
+
+          <div class="card-header">
+            <h3 class="text-center membership-title text-black-50">
+              {{plan.name}}
+            </h3>
+          </div>
+          <div class="card-body text-center text-primary">
+
+            <span class="membership-price">{{plan.price}} HNL</span> / month
+
+          </div>
+
+          <div class="card-body">
+
+              <ng-container *ngFor="let feature of plan.features">
+
+                  <p class="membership-feature" *ngIf="feature.status === '1'"
+                     [ngClass]="{'text-success' : feature.status === '1' , 'text-danger' : feature.status !== '1'}">
+
+                      <i class="fa fa-check-circle" *ngIf="feature.status === '1'"></i>&nbsp;
+<!--                      <i class="fa fa-times" *ngIf="feature.status !== '1'"></i>&nbsp;-->
+
+
+                      {{ feature.feature.label }}
+
+                      <span *ngIf="feature.status === '1' && feature.feature.has_count !== null">
+                ({{ feature.maximum_limit }})
+              </span>
+
+                  </p>
+              </ng-container>
+
+          </div>
+          <div class="card-footer text-center">
+
+            <!-- If user has an active subscription -->
+            <div *ngIf="my_plan && my_plan !== null && my_plan.plan !== null && my_plan.subscribed === true">
+
+              <!-- If this is the current plan -->
+              <div *ngIf="my_plan.plan_id !== null && my_plan.plan_id.toString() === plan.id.toString()">
+
+              <span class="text-primary">
+                Current Plan
+              </span> <br/>
+
+                Active till - {{my_plan.expires_at | date}}
+
+              </div>
+
+              <!-- If plan price greater than current subscription plan -->
+              <button *ngIf="my_plan.plan.price < plan.price" (click)="onSelect(plan)" class="btn btn-theme-dark">
+
+                Upgrade
+
+              </button>
+
+              <!-- If plan price less than current subscription plan -->
+              <button *ngIf="my_plan.plan.price > plan.price" (click)="snackbarService.openSnackBar('You can downgrade plan after the current active subscription is ended !')" class="btn btn-theme-dark">
+
+                Downgrade
+
+              </button>
+
+
+            </div>
+
+
+
+            <!-- If user doesn't have an active subscription -->
+
+            <div *ngIf="my_plan === undefined || my_plan === null || my_plan.plan === null || my_plan.subscribed === false">
+
+              <!-- If free trial not enabled -->
+              <div *ngIf="plan.free_trial_enabled === null">
+                <button (click)="onSelect(plan)" class="btn btn-theme-dark">
+
+                  Select
+
+                </button>
+
+              </div>
+
+              <!-- If free trial enabled -->
+              <div *ngIf="plan.free_trial_enabled !== null">
+
+                <button *ngIf="free_trial_used !== true " (click)="onSelect(plan , true)" class="btn btn-theme-dark">
+
+                  Free Trial
+
+                </button>&nbsp;
+                <button (click)="onSelect(plan)" class="btn btn-theme-dark">
+
+                  Select
+
+                </button>
+
+              </div>
+
+
+
+
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+</div>

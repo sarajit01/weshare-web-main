@@ -1,0 +1,25 @@
+<div class="container-fluid pt-3 pb-5">
+
+  <div class="row d-none d-md-block mb-2">
+
+    <div class="col-md-12">
+      <h2 class="text-center">
+        Edit Business Ad <span *ngIf="businessAd">({{businessAd.title}})</span>
+      </h2>
+    </div>
+
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+
+    <div class="col-md-12 mb-4" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <app-business-ad-form class="p-0 col-12 col-md-10 col-sm-12 col-lg-9" [businessAd]="businessAd" *ngIf="progress === false && businessAd"></app-business-ad-form>
+  </div>
+
+  <app-mobile-header-with-back-button *ngIf="!progress && businessAd" [heading]="businessAd.title" [backUrl]="'/business-ads/manage'"></app-mobile-header-with-back-button>
+
+
+</div>

@@ -1,0 +1,41 @@
+<form [formGroup]="claimForm" (submit)="submitClaim()" class="row p-3" >
+
+  <div class="col-md-12">
+
+
+    <p>Claim a {{data.claim_type | translate}} to business ({{data.business.business_name_prefix}} {{data.business.business_name}})</p>
+
+    <mat-form-field class="col-12" appearance="outline" *ngIf="data.claim_type === 'promotion'">
+      <mat-label>{{'Your Offer (Price you wish to claim)' | translate}}</mat-label>
+      <input [required]="true" type="number" matInput placeholder="{{'Your claim price' | translate}}" formControlName="offer"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-12" appearance="outline" *ngIf="data.claim_type === 'discount'">
+      <mat-label>{{'Discount (%) you want to claim' | translate}}</mat-label>
+      <input [required]="true" matInput type="number" placeholder="Eg: 10%" formControlName="discount"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+
+
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>{{'Claim description' | translate}}</mat-label>
+      <textarea [required]="true" matInput placeholder="{{'The reason for your claim, why you want it and other description' | translate}} .." formControlName="description"></textarea>
+      <mat-icon matSuffix>chat</mat-icon>
+    </mat-form-field>
+
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <div class="col-12" >
+
+      <button (click)="submitClaim()" *ngIf="progress === false" mat-raised-button color="primary" class="mt-2">
+        {{'Create Claim' | translate}}
+      </button>
+      <button (click)="closeModal()" *ngIf="progress === false" mat-raised-button color="accent" class=" ml-2 mt-2">
+        {{'Cancel' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</form>

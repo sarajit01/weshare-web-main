@@ -1,0 +1,115 @@
+.react-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: white;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.footer-react-icon {
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+}
+
+.footer-react-icon-title {
+  font-size: 16px;
+  color: #888;
+  cursor: pointer;
+}
+
+.business-header-logo {
+  width: 50px;height: 50px;
+}
+
+.business-title-header, .section-listing-type {
+  font-size: 16px;
+}
+
+.section-listing-type i {
+  font-size: 24px
+}
+
+.business-city-header {
+  margin-bottom: 0 !important;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 600px){
+
+  .card-text {
+    font-size: 14px !important;
+  }
+
+  .business-title-header , .section-listing-type{
+    font-size: 14px !important;
+  }
+  .section-listing-type i {
+    font-size: 14px
+  }
+
+  .business-header-logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .card-header , .card-body, .card-footer {
+    padding: 10px !important;
+  }
+
+  .footer-react-icon {
+    font-size: 16px;
+  }
+
+  .footer-react-icon-title {
+    font-size: 15px;
+  }
+
+  .card {
+    border-radius: 0 !important;
+  }
+
+}
+
+@media screen and (min-width: 600px) and (max-width: 992px){
+
+  .card-text {
+    font-size: 14px !important;
+  }
+
+  .business-title-header , .section-listing-type{
+    font-size: 16px !important;
+  }
+  .business-city-header {
+    font-size: 14px !important;
+  }
+  .section-listing-type i {
+    font-size: 14px
+  }
+
+  .business-header-logo {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .card-header , .card-body, .card-footer {
+    padding: 10px !important;
+  }
+
+  .footer-react-icon {
+    font-size: 16px;
+  }
+
+  .footer-react-icon-title {
+    font-size: 15px;
+  }
+
+}
+

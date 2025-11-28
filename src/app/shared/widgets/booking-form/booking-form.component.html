@@ -1,0 +1,111 @@
+<mat-card class="shadow" style="background: #fff">
+  <mat-card-header>
+    <mat-card-title>Appointment Booking</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+
+    <form class="row p-3" [formGroup]="bookingForm" (submit)="submitBookingRequest()">
+
+      <div class="col-md-12">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Please select a service</mat-label>
+          <mat-select formControlName="service_id" (selectionChange)="onDataChange()">
+            <mat-option value="">Select Service</mat-option>
+            <mat-option [value]="service.id" *ngFor="let service of business.services">{{service.service_name}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Please select business user for the appointment</mat-label>
+          <mat-select formControlName="business_user_id" (selectionChange)="onDataChange()">
+            <mat-option value="">Select Business User</mat-option>
+            <mat-option value="{{user.user.id}}" *ngFor="let user of business.business_users">{{user.user.first_name}} {{user.user.last_name}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline">
+          <mat-error></mat-error>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="customer_name" placeholder="Name">
+          <mat-icon matSuffix>edit</mat-icon>
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="customer_email" matInput placeholder="Email">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input formControlName="customer_phone" matInput placeholder="Phone">
+          <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+          <mat-label>Date</mat-label>
+          <input formControlName="date" readonly (dateChange)="setDate($event)" matInput [matDatepicker]="picker1">
+          <mat-datepicker-toggle  matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+       <!-- <mat-form-field  appearance="outline">
+          <mat-label>Date to</mat-label>
+          <input matInput formControlName="date_to" [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field> -->
+
+        <div class="w-100 my-2" *ngIf="weekDaySelected" >
+
+          <p class="">Pick a time for the appointment</p>
+          <h4 class="font-weight-bold"><i class="fa fa-calendar-o mr-1"></i>
+            {{weekDaySelected}} <span *ngIf="bookingForm.controls.time_from.value">at <i class="fa fa-clock-o mr-1 ml-1"></i>
+              {{bookingForm.controls.time_from.value}}</span></h4>
+          <div>
+
+            <mat-chip class="m-1" (click)="setTime(x)" *ngFor="let x of available_times">{{x}}</mat-chip>
+
+          </div>
+          <div class="d-flex" *ngIf="! available_times.length">
+
+            <div class="alert alert-danger font-weight-bold">Sorry, no time available for {{weekDaySelected}}</div>
+
+          </div>
+
+        </div>
+
+        <!--
+        <mat-form-field  appearance="outline">
+          <mat-label>Start Time</mat-label>
+          <input formControlName="time_from" matInput type="time">
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+          <mat-label>End Time</mat-label>
+          <input matInput formControlName="time_to" type="time">
+        </mat-form-field> -->
+        <mat-form-field  appearance="outline">
+          <mat-label>Guests</mat-label>
+          <input matInput type="number" formControlName="guests" [min]="1" placeholder="How many guests">
+          <mat-icon matSuffix>user</mat-icon>
+
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline">
+          <mat-label>Additional Information</mat-label>
+          <textarea matInput formControlName="notes" placeholder="Additional Information"></textarea>
+          <mat-icon matSuffix>edit</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="form-control mt-2">
+          Submit
+        </button>
+
+      </div>
+
+    </form>
+
+
+  </mat-card-content>
+
+</mat-card>

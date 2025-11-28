@@ -1,0 +1,324 @@
+<div class="listing" [routerLink]="['/promotion-details' , promotion.id]" *ngIf="promotion.business" style="background: url('{{promotion.business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="row">
+
+
+        <div class="col-12 mt-2">
+          <div class="float-start shadow" style="background: white;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 8px;">
+            <span style="color: black;font-size: 10px;">{{'Outstanding' | translate}}</span>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-md-6 ">
+      <div class="row mt-2">
+        <div class="col-12 d-flex justify-content-end">
+          <div  style="background: orange;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 10px;">
+            <span style="color: white;font-size: 10px;">{{'Open' | translate}} </span>
+          </div>
+          <div *ngIf="isFavoriteRemovable !== true" (click)="saveToFavorites()" class="shadow float-end d-flex ml-2" style="cursor:pointer; border: 1px solid white ;width:30px;height: 30px;background: #1f2023;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+
+            <mat-icon style="color: white;font-size: 20px;">favorite</mat-icon>
+          </div>
+
+          <div *ngIf="isFavoriteRemovable === true" (click)="favoriteService.delete('promotion' , promotion.id)" class="shadow" style="cursor:pointer; height: 30px;background: transparent;border-radius: 10px;color: white;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+            <i class="fa fa-times-circle" style="color: white;font-size: 20px;"></i>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-12 mt-3 justify-content-end ">
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <!--<div class="row mt-5">
+
+
+    <div class="col-md-6 mt-3" style="padding-left: 15px;  !important;">
+
+      <p class="float-start">
+
+        <span style="color: white;font-size: 15px;">5.0</span>&nbsp;&nbsp;
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+
+
+
+        <br/>
+        <span style="color: white;font-size: 15px;">4 Comments</span>
+
+
+
+
+      </p>
+
+
+    </div>
+    <div class="col-md-6 mt-3" style="padding-right: 10px !important;">
+
+
+      <div  [routerLink]="['/promotion-details' , promotion.id]" class="float-end shadow" style="cursor: pointer !important;border: 1px solid white ;width:70px;height: 30px;background: #1aab93;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">More </span>
+      </div>
+
+
+
+    </div>
+
+  </div> -->
+
+
+
+</div>
+
+<div class="card"  style="top: -05px;">
+  <div class="card-body" style="padding: 10px !important;">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-inline-block d-flex justify-content-between align-items-center">
+          <div>
+            <span class="font-weight-bold">  {{promotion.title}}</span> <br/>
+            <span class=" text-dark" *ngIf="promotion.business">  {{promotion.business.name}}</span>
+          </div>
+          <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isOwner || isAdmin" class="">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="isAdmin !== true" [routerLink]="['/'+routes.business.edit_promotion+'/'+promotion.id]"  >
+              <i class="fa fa-pencil"></i>&nbsp; {{'Edit' | translate}}
+            </button>
+
+            <button  mat-menu-item *ngIf="isAdmin === true" [routerLink]="['/'+routes.admin.root+'/'+routes.admin.listings.root+'/'+routes.admin.listings.promotion.edit+'/'+promotion.id]"  >
+              <i class="fa fa-pencil"></i>&nbsp; {{'Edit' | translate}}
+            </button>
+
+            <!--  <button  mat-menu-item *ngIf="isAdmin === true && promotion.status !== 'approved'"   >
+                <i class="fa fa-check"></i>&nbsp; Approve
+              </button>
+
+              <button   mat-menu-item *ngIf="isAdmin === true && promotion.status !== 'denied'"   >
+                <i class="fa fa-times"></i>&nbsp; Deny
+              </button> -->
+
+            <!-- <button  mat-menu-item *ngIf="isOwner && !isAdmin" [routerLink]="['/business/'+promotion.id+'/users']"  >
+               <i class="fa fa-cog"></i>&nbsp; Manage
+             </button> -->
+
+            <button  mat-menu-item (click)="clonePromotion()" *ngIf="cloneProgress === false && ( isAdmin || isOwner)" >
+              <i class="fa fa-copy"></i>&nbsp; {{'Duplicate' | translate}}
+            </button>
+
+
+            <button  mat-menu-item (click)="deleteConfirmation()" *ngIf="deletable === true && isAdmin !== true" >
+              <i class="fa fa-trash"></i>&nbsp; {{'Delete' | translate}}
+            </button>
+
+            <button  mat-menu-item (click)="markAsFeatured()" *ngIf="! promotion.featured && isAdmin === true" >
+              <i class="fa fa-check"></i>&nbsp; {{'Mark as Featured' | translate}}
+            </button>
+            <button  mat-menu-item (click)="removeFromFeatured(promotion.featured)" *ngIf="promotion.featured && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; {{'Remove from Featured' | translate}}
+            </button>
+
+            <button  mat-menu-item (click)="markAsTrending()" *ngIf="! promotion.trending && isAdmin === true" >
+              <i class="fa fa-check"></i>&nbsp; {{'Mark as Trending' | translate}}
+            </button>
+
+            <button  mat-menu-item (click)="removeFromFeatured(promotion.trending)"  *ngIf="promotion.trending && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; {{'Remove from Trending' | translate}}
+            </button>
+
+
+            <button  mat-menu-item (click)="markAsPopular()" *ngIf="! promotion.popular && isAdmin === true" >
+              <i class="fa fa-user-plus"></i>&nbsp; {{'Mark as Popular' | translate}}
+            </button>
+
+            <button  mat-menu-item (click)="removeFromFeatured(promotion.popular)"  *ngIf="promotion.popular && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; {{'Remove from popular' | translate}}
+            </button>
+
+
+
+            <button  mat-menu-item (click)="markAsSponsored()" *ngIf="! promotion.sponsored && isAdmin === true" >
+              <i class="fa fa-check-circle"></i>&nbsp; {{'Mark as Sponsored' | translate}}
+            </button>
+
+            <button  mat-menu-item (click)="removeFromFeatured(promotion.sponsored)"  *ngIf="promotion.sponsored && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; Remove from Sponsored
+            </button>
+
+
+
+          </mat-menu>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="d-inline-block col-12 zero-padding" *ngIf="promotion.business">
+         <small *ngIf="promotion.business.address_short">{{promotion.business.address_short}}</small>          <small *ngIf="! promotion.business.address_short">{{'No Address added' | translate}}</small>
+
+        </div>
+        <div class="d-inline-block col-12 zero-padding"  *ngIf="promotion.business">
+          <small *ngIf="promotion.business.city_short">{{promotion.business.city_short}}</small>           <small *ngIf="! promotion.business.city_short">{{'No city added' | translate}}</small>
+
+        </div>
+        <div class="d-flex mt-1">
+
+          <div style="color: white;font-size: 12px;padding: 10px;border-radius: 5px;" class="bg-primary">5.0</div>&nbsp;&nbsp;
+          <div>
+            <div class="col-12" style="padding: 0 !important;">
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+            </div>
+            <div class="col-12" style="padding: 0 !important;">
+              <span style="font-size: 10px;">4 {{'Comments' | translate}}</span>
+
+            </div>
+
+          </div>
+
+
+
+
+
+        </div>
+
+      </div>
+      <div class="col-6" >
+
+        <div class="d-inline-block d-flex justify-content-center">
+          <h3 class="text-center"><span class="text-decoration-line-through text-dark">L {{promotion.price_original}}</span> <span class="font-weight-bold text-success ml-2">L {{promotion.price_offered}}</span></h3>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-outline-success btn-sm">
+            {{promotion.discount_percentage}}% DESC
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="card-body">
+
+    <div class="row">
+
+      <div class="col-md-7 text-center">
+
+
+        <button class="btn btn-success rounded-3 mb-2">Whatsapp</button>
+
+        <h4 class="text-center fw-bold">
+          Precio de Oferta Lps. <br/>
+          {{promotion.price_offered}}
+        </h4>
+
+      </div>
+      <div class="col-md-5">
+
+        <h1 class=" text-center text-danger fw-bold promo-amount-big">{{promotion.discount_percentage}}%</h1>
+        <h2 class="fw-bold text-center  text-black-50">
+          Descuento
+
+        </h2>
+
+      </div>
+
+
+    </div>
+
+
+
+
+  </div> -->
+
+  <div class="card-footer">
+
+    <div class="row d-flex align-items-center">
+    <!--  <div class="col-4" style="padding: 2px !important;">
+        <button   class="btn btn-primary btn-sm btn-block">
+          <small><i class="fa fa-info"></i> Details</small>
+        </button>
+      </div> -->
+      <div class="col" *ngIf="promotion.time_ended" style="padding: 2px !important;">
+        <button class="btn btn-outline-dark btn-sm btn-block" >
+          <small><i class="fa fa-clock"></i> Ended {{promotion.time_ended}}</small>
+        </button>
+      </div>
+      <div class="col" *ngIf="promotion.time_left" style="padding: 2px !important;">
+        <button class="btn btn-success btn-sm btn-block" >
+          <small><i class="fa fa-clock"></i> {{promotion.time_left.d}}D {{promotion.time_left.h}}H {{promotion.time_left.m}}M</small>
+        </button>
+      </div>
+      <div class="col" style="padding: 2px !important;">
+        <button (click)="viewCode(promotion.code)" class="btn btn-danger btn-sm btn-block">
+          <small><i class="fa fa-wallet"></i> Coupon</small>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- <div class="card-footer">
+
+     <div class="row">
+
+       <div class="col-md-5 d-flex justify-content-center align-content-center mt-1">
+
+         <h3 class="text-center mt-4 text-black-50" *ngIf="promotion.business && promotion.business.main_cat">
+
+           <i  class="{{promotion.business.main_cat.icon}} text-success"></i>&nbsp;&nbsp;{{promotion.business.main_cat.name}}
+
+         </h3>
+
+       </div>
+
+       <div class="col-md-7 promo-timeline-area">
+
+         <h4 class="lh-1 text-center fw-bold text-black-50">
+           Tiempo Restante
+
+         </h4>
+         <h1 class="lh-1 text-center text-danger">
+           <i class="fa fa-clock-o"></i>
+         </h1>
+         <h4 class="lh-1 text-center fw-bold text-black-50">
+           30 Días | 19 Horas</h4>
+
+       </div>
+
+
+
+     </div>
+
+
+   </div> -->
+
+</div>

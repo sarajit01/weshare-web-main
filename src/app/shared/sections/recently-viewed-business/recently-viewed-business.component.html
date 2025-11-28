@@ -1,0 +1,12 @@
+<div class="col-md-12">
+  <h3 class="fw-bold">{{'Your recently viewed businesses' | translate}}</h3>
+</div>
+
+<div class="row listing-section" *ngIf="businesses">
+  <app-swipper [hasNavigator]="false">
+    <div class="col-12" style="padding: 2px !important;" *ngFor="let business of businesses">
+      <app-business-classic-widget [business]="business.business"></app-business-classic-widget>
+    </div>
+  </app-swipper>
+</div>
+

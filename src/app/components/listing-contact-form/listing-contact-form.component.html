@@ -1,0 +1,30 @@
+<form id="promotion-form-mobile" (submit)="sendMsg()" class="row p-3" [formGroup]="contactForm">
+
+    <mat-form-field  class="col-12" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-icon matSuffix>edit</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput placeholder="Email" formControlName="email">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput placeholder="Phone" formControlName="phone">
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Message</mat-label>
+      <textarea matInput placeholder="Message" formControlName="message"></textarea>
+      <mat-icon matSuffix>chat</mat-icon>
+    </mat-form-field>
+
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <button *ngIf="progress === false"  class="btn btn-theme-dark btn-block mt-2">
+      Send Message
+    </button>
+
+</form>

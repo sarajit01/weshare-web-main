@@ -1,0 +1,332 @@
+<!--<div class="listing" style="background: linear-gradient(0deg, rgba(21,20,20,0.53), rgba(26,25,25,0.97)), url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;margin-bottom: 20px;">
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div (click)="saveToFavorites()" class="shadow" style="border: 1px solid white ;width:30px;height: 30px;background: #b528a7;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <mat-icon style="color: white;font-size: 20px;cursor: pointer;">favorite</mat-icon>
+      </div>
+
+    </div>
+    <div class="col-md-6 justify-content-end">
+      <div class="float-end shadow" style="border: 1px solid white ;width:100px;height: 30px;background: #10575f;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">Abierto </span>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row mt-3">
+
+
+    <div class="col-md-6 justify-content-end">
+      <div class="float-start shadow" style="width:100px;height: 30px;background: #cc32d7;border-radius: 5px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">Destacado</span>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div class="row mt-5">
+
+
+    <div class="col-md-7 mt-4" style="padding-left: 10px;  !important;">
+
+      <p class="" ><span style="color: white;font-size: 15px;">{{business.business_name_prefix}} {{business.business_name}}</span> <br/>
+        <i style="color: #0dcaf0" class="fa fa-map-marker"></i>&nbsp;
+        <span style="font-size: 10px;color: white">{{business.city}} , {{business.country}}
+</span>
+
+      </p>
+
+    </div>
+    <div class="col-md-5 mt-4" style="padding-right: 10px !important;">
+      <p class="float-end">
+
+        <span style="color: white;font-size: 10px;">5.0</span>&nbsp;
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+
+
+        <br/>
+        <span style="color: white;font-size: 10px;">4 Comments</span>
+
+
+
+
+      </p>
+
+
+
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-6">
+      <i *ngIf="business.main_cat !== null" class="{{business.main_cat.icon}}" style="font-size: 17px;color: #2cffe9;"></i>&nbsp;
+
+      <span *ngIf="business.main_cat !== null" style="color: white;font-size: 10px;">{{business.main_cat.name}}</span>
+
+
+    </div>
+    <div class="col-md-6 float-end">
+
+      <i class="fa fa-whatsapp shadow" style="font-size: 20px;color: #82dd6d;"></i>&nbsp;
+
+      <div  [routerLink]="['/business-details/'+business.id]" class="float-end shadow" style="cursor:pointer;border: 1px solid white ;width:70px;height: 30px;background: #1aab93;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">More </span>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+
+</div>
+-->
+
+<div class="listing"  [routerLink]="'/business-details/'+business.id" style="background: url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+  <div class="row">
+
+    <div class="col-12 mt-2 d-flex justify-content-between">
+
+      <div>
+        <div class="float-start shadow" style="background: white;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 8px;">
+            <span style="color: black;font-size: 10px;">
+              {{'Outstanding' | translate}}
+            </span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center">
+
+        <div  style="background: orange;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 10px;">
+          <span style="color: white;font-size: 10px;">{{'Open' | translate}} </span>
+        </div>
+        <div (click)="saveToFavorites()" class="shadow float-end d-flex ml-2" style="cursor:pointer; border: 1px solid white ;width:30px;height: 30px;background: #1f2023;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+
+          <mat-icon style="color: white;font-size: 20px;">favorite</mat-icon>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="col-6 ">
+      <div class="row mt-2">
+        <div class="col-12 d-flex justify-content-end">
+
+
+         <!-- <div *ngIf="isFavoriteRemovable === true" (click)="favoriteService.delete('promotion' , promotion.id)" class="shadow" style="cursor:pointer; border: 1px solid white ;height: 30px;background: #dc1a1a;border-radius: 10px;color: white;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+            <i class="fa fa-times-circle" style="color: white;font-size: 20px;"></i>&nbsp; Remove
+          </div> -->
+
+
+        </div>
+
+        <div class="col-md-12 mt-3 justify-content-end ">
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <!--<div class="row mt-5">
+
+
+    <div class="col-md-6 mt-3" style="padding-left: 15px;  !important;">
+
+      <p class="float-start">
+
+        <span style="color: white;font-size: 15px;">5.0</span>&nbsp;&nbsp;
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+
+
+
+        <br/>
+        <span style="color: white;font-size: 15px;">4 Comments</span>
+
+
+
+
+      </p>
+
+
+    </div>
+    <div class="col-md-6 mt-3" style="padding-right: 10px !important;">
+
+
+      <div  [routerLink]="['/promotion-details' , promotion.id]" class="float-end shadow" style="cursor: pointer !important;border: 1px solid white ;width:70px;height: 30px;background: #1aab93;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">More </span>
+      </div>
+
+
+
+    </div>
+
+  </div> -->
+
+
+
+</div>
+
+<div class="card"  style="top: -05px;">
+  <div class="card-body" style="padding: 10px !important;">
+    <div class="row">
+
+      <div class="col-12">
+        <div class="float-start">
+          <div class="d-inline-block d-flex justify-content-start">
+            <span class="font-weight-bold float-start">  {{business.name}}</span>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="float-start d-flex justify-content-start">
+          <div class="d-inline-block ">
+            <span class="font-weight-bold">  {{business.city_short}} </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-inline-block">
+          <small>{{business.address_short}}</small>
+        </div>
+
+        <div class="d-flex mt-1">
+
+          <div style="color: white;font-size: 12px;padding: 10px;border-radius: 5px;" class="bg-primary">5.0</div>&nbsp;&nbsp;
+          <div>
+            <div class="col-12" style="padding: 0 !important;">
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+            </div>
+            <div class="col-12" style="padding: 0 !important;">
+              <span style="font-size: 10px;">4 {{'Comments' | translate}}</span>
+
+            </div>
+
+          </div>
+
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!--<div class="card-body">
+
+    <div class="row">
+
+      <div class="col-md-7 text-center">
+
+
+        <button class="btn btn-success rounded-3 mb-2">Whatsapp</button>
+
+        <h4 class="text-center fw-bold">
+          Precio de Oferta Lps. <br/>
+          {{promotion.price_offered}}
+        </h4>
+
+      </div>
+      <div class="col-md-5">
+
+        <h1 class=" text-center text-danger fw-bold promo-amount-big">{{promotion.discount_percentage}}%</h1>
+        <h2 class="fw-bold text-center  text-black-50">
+          Descuento
+
+        </h2>
+
+      </div>
+
+
+    </div>
+
+
+
+
+  </div> -->
+
+  <div class="card-footer">
+
+    <div class="row d-flex align-items-center">
+      <div class="col" style="padding: 2px !important;">
+        <app-business-call-button [business]="business"></app-business-call-button>
+      </div>
+      <div class="col" style="padding: 2px !important;"   *ngIf="business.user && planService.featureEnabled(business.user, 'whatsapp')">
+        <app-business-whatsapp-button  [business]="business"></app-business-whatsapp-button>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+  <!-- <div class="card-footer">
+
+     <div class="row">
+
+       <div class="col-md-5 d-flex justify-content-center align-content-center mt-1">
+
+         <h3 class="text-center mt-4 text-black-50" *ngIf="promotion.business && promotion.business.main_cat">
+
+           <i  class="{{promotion.business.main_cat.icon}} text-success"></i>&nbsp;&nbsp;{{promotion.business.main_cat.name}}
+
+         </h3>
+
+       </div>
+
+       <div class="col-md-7 promo-timeline-area">
+
+         <h4 class="lh-1 text-center fw-bold text-black-50">
+           Tiempo Restante
+
+         </h4>
+         <h1 class="lh-1 text-center text-danger">
+           <i class="fa fa-clock-o"></i>
+         </h1>
+         <h4 class="lh-1 text-center fw-bold text-black-50">
+           30 Días | 19 Horas</h4>
+
+       </div>
+
+
+
+     </div>
+
+
+   </div> -->
+
+</div>

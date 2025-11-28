@@ -1,0 +1,157 @@
+<div class="container d-none " style="background: #eee;">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-center align-items-center bg-dark heading-section" style="height: 150px;">
+
+      <h1 class="text-white">{{'My Favorites' | translate}}</h1>
+
+    </div>
+  </div>
+</div>
+<div class="shadow-sm d-flex bg-white justify-content-between align-items-center px-3" style="z-index: 100000000 !important;position: fixed;top: 0;left:0; width: 100% !important;height: 60px!important;" >
+<!--    <i (click)="backPrev()" class="fa fa-angle-left fw-bold cursor-pointer" style="font-size: 24px!important;"></i>-->
+
+    <span (click)="backPrev()" class="material-symbols-outlined cursor-pointer">
+arrow_back_ios
+</span>
+
+    <h3 class="text-black mb-0 mat-h3">{{"My Favorites"}}</h3>
+
+    <h4>&nbsp;</h4>
+</div>
+<div class="container-fluid">
+  <div *ngIf="! favorites || !favorites.length" class="row mt-4 mb-4">
+
+    <div class="col-12 p-2">
+
+       <div class="col-12 d-flex justify-content-center align-items-center">
+          <i class="fa fa-heart-o" style="font-size: 30px; color: #888"></i>
+       </div>
+      <div class="mt-2 col-12 d-flex justify-content-center align-items-center">
+         <h4 class="text-muted">{{'Nothing on your wishlist yet' | translate}}</h4>
+      </div>
+      <div class="col-12 d-flex justify-content-center align-items-center">
+        <p class="text-muted">{{'Tap the heart on any deal and we will save the stuff you love here' | translate}}</p>
+      </div>
+      <div class="mt-2 col-12 d-flex justify-content-center align-items-center">
+          <button [routerLink]="'/'" class="btn btn-success">
+            {{'Find a Deal to Love' | translate}}
+          </button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="row mt-4 mb-4 d-flex flex-column justify-content-center align-items-center" *ngIf="favorites && favorites.length">
+    <h2 class="text-center d-none ">
+      <i class="fa fa-heart"></i> {{favorites.length}} {{'Items in favorite list' | translate}}
+
+    </h2>
+
+      <app-my-points-widget class="p-0" [user]="user"></app-my-points-widget>
+
+      <h2 class="d-block  fw-bold h2 mb-0 mb-2 px-0">{{"Your Rewards" | translate}}</h2>
+
+      <div class="w-100 _swipper-contents-container mb-3  px-0" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">
+          <ng-container *ngFor="let favorite of favorites">
+              <ng-container *ngIf="favorite.listing_type === 'business' && favorite.business" >
+                  <app-favorite-business [favorite]="favorite" [business]="favorite.business"></app-favorite-business>
+              </ng-container>
+          </ng-container>
+
+      </div>
+
+
+      <h2 class="d-block  fw-bold h2 mb-0 mb-2 px-0">{{"Promos and Discounts"}}</h2>
+
+      <div class="w-100 _swipper-contents-container px-0 mb-4 " style="display: flex !important;gap: 10px !important;overflow-x: scroll;">
+          <ng-container *ngFor="let favorite of favorites">
+              <ng-container *ngIf="favorite.listing_type === 'promotion' && favorite.promotion && favorite.promotion.business" >
+                  <app-favorite-promotion [favorite]="favorite"></app-favorite-promotion>
+              </ng-container>
+          </ng-container>
+
+      </div>
+
+      <h2 class="d-block  fw-bold h2 mb-0 mb-2 px-0 ">{{"Prize Loyalty Cards"}}</h2>
+
+      <div class="w-100 _swipper-contents-container px-0 mb-4 " style="display: flex !important;gap: 10px !important;overflow-x: scroll;">
+          <ng-container *ngFor="let favorite of favorites">
+              <ng-container *ngIf="favorite.listing_type === 'loyalty_card' && favorite.loyalty_card && favorite.loyalty_card.business" >
+                  <app-favorite-loyalty-card [favorite]="favorite" [loyalty_card]="favorite.loyalty_card"></app-favorite-loyalty-card>
+              </ng-container>
+          </ng-container>
+
+      </div>
+
+
+      <h2 class="d-block  fw-bold h2 mb-0 mb-2 px-0">{{"Point Loyalty Cards"}}</h2>
+
+<!--      <div class="col-12 col-md-5 mb-4" *ngFor="let favorite of favorites">-->
+
+<!--          <ng-container *ngIf="favorite.listing_type === 'business' && favorite.business">-->
+<!--            <app-business-classic-widget [isFavorite]="true" [referrerId]="favorite.referrer_id" [business]="favorite.business"></app-business-classic-widget>-->
+<!--          </ng-container>-->
+<!--          <ng-container *ngIf="favorite.listing_type === 'promotion' && favorite.promotion">-->
+<!--            <app-promotion-classic-widget  [promotion]="favorite.promotion"></app-promotion-classic-widget>-->
+<!--          </ng-container>-->
+<!--          <ng-container *ngIf="favorite.listing_type === 'loyalty_card' && favorite.loyalty_card">-->
+<!--            <app-loyalty-card-widget [referrer_id]="favorite.referrer_id" [loyalty_card]="favorite.loyalty_card"></app-loyalty-card-widget>-->
+<!--          </ng-container>-->
+
+<!--        </div>-->
+
+      <!--  <div class="col-md-4 col-lg-3" *ngFor="let business of favorites['business']">
+
+          <business  [isFavoriteRemovable]="true" [business]="business.business"></business>
+
+        </div> -->
+
+   <!-- <div class="col-md-5">
+
+      <div class="row mt-5" *ngIf="similars && similars['business']">
+
+        <div class="col-md-12 mb-4">
+
+          <h3 class="text-black-50">
+            Negocios Similares
+
+          </h3>
+
+        </div>
+
+        <div class="col-md-12 mb-2" *ngFor="let similar of similars['business']">
+
+          <div class="row">
+
+            <div class="col-md-4">
+
+              <div style="width: 100%; height: 100px; background: url('{{similar.logo}}') ; background-size: cover; background-position : center center;border-radius: 10px;"></div>
+
+            </div>
+            <div class="col-md-8">
+
+              <span class="business-title fw-bold">{{similar.business_name_prefix}} {{similar.business_name}}</span>
+              <br/>
+              <span class="business-location">{{similar.address}}</span>
+              <br/>
+              <span class="business-location">{{similar.city}} , {{similar.country}}</span>
+
+              <br/>
+              <span class="fw-bold business-location" *ngIf="similar.main_cat && similar.main_cat !== null">{{similar.main_cat.name}}</span>
+
+            </div>
+
+          </div>
+
+          <mat-divider></mat-divider>
+
+        </div>
+
+      </div>
+
+    </div> -->
+  </div>
+
+
+</div>

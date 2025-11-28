@@ -1,0 +1,67 @@
+<div class="w-100" style="min-height: 100vh !important;">
+    <div class="shadow-sm d-flex theme-bg-primary justify-content-between align-items-center px-3" style="z-index: 100000000 !important;position: fixed;top: 0;left:0; width: 100% !important;height: 60px!important;" >
+        <!--    <i (click)="backPrev()" class="fa fa-angle-left fw-bold cursor-pointer" style="font-size: 24px!important;"></i>-->
+
+        <span (click)="backPrev()" class="material-symbols-outlined cursor-pointer">
+arrow_back_ios
+</span>
+
+        <h3 class=" mb-0 mat-h3">{{"My Referral Network"}}</h3>
+
+        <h4>&nbsp;</h4>
+    </div>
+    <div class="container-fluid" style="max-width: 600px !important;">
+
+        <div class="row mt-3 mb-2">
+            <div class="col-12 p-0">
+                <form class="referral-network-search-form">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>{{"Search network By user ID or email"}}</mat-label>
+                        <input type="tel" matInput placeholder="">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+
+        <app-user-points-widget class=""  [user]="user" *ngIf="user"></app-user-points-widget>
+
+            <div class="row mt-3  mb-4 d-flex flex-column  gap-2" *ngIf="referredUsers.length">
+
+                <ng-container *ngFor="let referredUser of referredUsers">
+                    <div class="col-12 p-0">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-2">
+                                <div class="row">
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <img src="{{referredUser.user.default_avatar}}" class="shadow-sm" style="width: 100%;height: fit-content;border-radius: 100%;max-width: 56px !important;max-height: 56px !important;">
+                                    </div>
+
+                                    <div class="col-10 d-flex flex-column ps-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="fw-bold mb-0" style="font-size: 14px;">{{referredUser.user.first_name}} {{referredUser.user.last_name}}</p>
+
+                                            <span class="text-primary fw-bold">{{referredUser.user?.points?.toFixed(1)}} {{"Points"}}</span>
+                                        </div>
+                                        <span style="font-size: 12px">{{referredUser.user?.email}}</span>
+                                        <span style="font-size: 12px">ID: {{referredUser.user?.id}}</span>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+
+
+            </div>
+
+
+
+    </div>
+
+</div>

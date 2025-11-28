@@ -1,0 +1,133 @@
+  <div class="row">
+
+    <div class="col-md-12 shadow-lg mb-1 p-1">
+        <div class="row">
+          <div [routerLink]="'/business-details/'+business.id" class="col-4 no-md-padding" style="background: url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+            <div class="listing" >
+              <div class="row">
+
+                <div class="col-md-6">
+
+                  <div class="row">
+
+
+                    <div class="col-12 mt-2">
+                      <div class="float-start shadow" style="background: white;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 8px;">
+                        <span style="color: black;font-size: 10px;">Destacado</span>
+                      </div>
+
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div class="col-md-6 ">
+                  <div class="row mt-2">
+                    <div class="col-12 d-flex justify-content-end">
+                      <div  style="background: orange;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 10px;">
+                        <span style="color: white;font-size: 10px;">Abierto </span>
+                      </div>
+                      <div (click)="saveToFavorites()" class="shadow float-end d-flex ml-2" style="cursor:pointer; border: 1px solid white ;width:30px;height: 30px;background: #1f2023;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+
+                        <mat-icon style="color: white;font-size: 20px;">favorite</mat-icon>
+                      </div>
+
+                      <!-- <div *ngIf="isFavoriteRemovable === true" (click)="favoriteService.delete('promotion' , promotion.id)" class="shadow" style="cursor:pointer; border: 1px solid white ;height: 30px;background: #dc1a1a;border-radius: 10px;color: white;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+                         <i class="fa fa-times-circle" style="color: white;font-size: 20px;"></i>&nbsp; Remove
+                       </div> -->
+
+
+                    </div>
+
+                    <div class="col-md-12 mt-3 justify-content-end ">
+
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-8 pl-4 pt-2 pb-0 pr-4">
+
+            <div class="row">
+              <div class="col-12 ">
+                <h2 class="font-weight-bold float-start">  {{business.business_name_prefix}} {{business.business_name}}</h2>
+              </div>
+
+              <div class="col-12">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>{{business.address}}</h4>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="float-start justify-content-start align-items-center">
+                      <h4>Closed now</h4>
+                    </div>
+                    <div class="float-end justify-content-end align-items-center">
+                      <div class="d-flex mt-1">
+
+                        <div style="color: white;font-size: 12px;padding: 10px;border-radius: 5px;" class="bg-primary">5.0</div>&nbsp;&nbsp;
+                        <div>
+                          <div class="col-12" style="padding: 0 !important;">
+                            <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                            <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                            <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                            <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                            <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                          </div>
+                          <div class="col-12" style="padding: 0 !important;">
+                            <span style="font-size: 10px;">4 Comments</span>
+
+                          </div>
+
+                        </div>
+
+
+
+
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 mt-2 p-1">
+                <mat-divider class="py-1"></mat-divider>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-6" style="padding: 3px !important;" >
+                      <app-business-call-button [business]="business"></app-business-call-button>
+
+                    </div>
+                    <div class="col-6" style="padding: 3px !important;">
+                      <app-business-whatsapp-button [business]="business"></app-business-whatsapp-button>
+                    </div>
+                    <!--<div class="col-6" style="padding: 3px !important;">
+                      <app-business-info-button [business]="business"></app-business-info-button>
+                    </div> -->
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+
+

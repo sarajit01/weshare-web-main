@@ -1,0 +1,166 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">All Plans</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage plans</li>
+
+    <li class="breadcrumb-item active">Edit plan</li>
+  </ol>
+
+  <div class="row">
+    <mat-progress-bar mode="indeterminate" *ngIf="progress === true"></mat-progress-bar>
+
+    <form  [formGroup]="formPlan" *ngIf="plan !== undefined"  class="col-md-12">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Edit Plan</p>
+
+        </div>
+        <div class="card-body">
+
+          <div class="col-md-12">
+
+            <div class="row">
+
+              <div class="col-md-3 mb-4">
+
+
+                <mat-form-field  appearance="outline">
+                  <mat-label>Plan Name</mat-label>
+
+                  <mat-error>Plan name is required</mat-error>
+                  <input matInput  type="text" name="name" formControlName="name" >
+                </mat-form-field>
+
+              </div>
+              <div class="col-md-3 mb-4">
+
+                <mat-form-field  appearance="outline">
+                  <mat-label>Plan monthly price</mat-label>
+
+                  <mat-error>What is monthly price ?</mat-error>
+                  <input  matInput type="number" name="price" formControlName="price" >
+                </mat-form-field>
+
+
+              </div>
+              <div class="col-md-3 mb-4">
+
+                <mat-form-field  appearance="outline">
+                  <mat-label>Payment Frequency (months)</mat-label>
+
+                  <mat-error>After how many months it will be renewed ? ?</mat-error>
+                  <input matInput type="number" name="duration" formControlName="duration" >
+                </mat-form-field>
+
+
+              </div>
+              <div class="col-md-3 mb-4">
+
+                <mat-form-field  appearance="outline">
+                  <mat-label>Discount (%)</mat-label>
+
+                  <mat-error>Enter valid discount ( within 1 & 100 )</mat-error>
+                  <input matInput type="number" name="discount" formControlName="discount" max="100" min="1">
+                </mat-form-field>
+
+
+              </div>
+              <div class="col-md-3 mb-4">
+
+                <mat-slide-toggle name="free_trial_enabled" formControlName="free_trial_enabled">
+                  Free Trial Enabled
+                </mat-slide-toggle>
+
+              </div>
+              <div class="col-md-3 mb-4">
+
+                <mat-slide-toggle name="status" formControlName="status">
+                  Plan Enabled
+                </mat-slide-toggle>
+
+              </div>
+              <div class="col-md-3 mb-4">
+
+
+                <mat-form-field  appearance="outline">
+                  <mat-label>Free trial Duration (months)</mat-label>
+
+                  <mat-error>What is free trial duration ?</mat-error>
+                  <input matInput type="number" name="free_trial_duration" formControlName="free_trial_duration" >
+                </mat-form-field>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="col-md-12 mt-4" *ngIf="features">
+      <div class="card">
+
+        <div class="card-header">
+          <h4>Plan Features</h4>
+
+
+        </div>
+
+        <div class="card-body">
+          <div class="row" >
+
+
+            <div class="col-md-4 mb-2" *ngFor="let feature of features">
+
+              <div class="row">
+
+                <div class="col-md-12">
+
+                  <mat-slide-toggle [(ngModel)]="feature.status">{{feature.feature.label}}</mat-slide-toggle>
+                  <mat-form-field *ngIf="feature.feature.has_count !== null"  appearance="outline">
+                    <mat-label>Maximum limit for {{feature.feature.label}}</mat-label>
+                    <mat-error>Maximum Limit</mat-error>
+                    <input [(ngModel)]="feature.maximum_limit" name="{{feature.id}}_maximum_limit" matInput type="number" placeholder="maximum limit"  >
+                  </mat-form-field>
+
+
+                </div>
+
+
+
+
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+
+
+        <div class="card-footer">
+
+          <mat-progress-bar mode="indeterminate" *ngIf="saveProgress === true"></mat-progress-bar>
+          <button *ngIf="saveProgress === false" (click)="saveSettings()" class="btn btn-primary">
+            Save settings
+          </button>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

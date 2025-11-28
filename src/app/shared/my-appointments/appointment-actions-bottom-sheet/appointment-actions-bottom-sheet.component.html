@@ -1,0 +1,84 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)"
+     *ngIf="appointment">
+
+    <div   class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+
+        <div  class="h-100 d-flex justify-content-center align-items-center">
+            <h4 class="mb-0">{{appointment.service.service_name}}</h4>
+        </div>
+
+
+        <i (click)="closePopup(false)" class="fa fa-times cursor-pointer"></i>
+    </div>
+    <mat-divider></mat-divider>
+
+    <mat-progress-spinner *ngIf="progress"></mat-progress-spinner>
+
+
+
+    <div class="w-100 d-flex flex-column">
+
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Date"}}</span>
+            <span class="fw-bold">{{appointment.date}}</span>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Start Time"}}</span>
+            <span class="fw-bold">{{appointment.date}}</span>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Business"}}</span>
+            <span class="fw-bold">{{appointment.business.business_name}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Customer"}}</span>
+            <span class="fw-bold">{{appointment.customer_name}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Email"}}</span>
+            <span class="fw-bold">{{appointment.customer_email}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Phone"}}</span>
+            <span class="fw-bold">{{appointment.customer_phone}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+            <span>{{"Status"}}</span>
+            <span class="fw-bold">{{appointment.status | uppercase}}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="appointment.customer_notes">
+            <div class="w-100 d-flex py-2 justify-content-between align-items-center">
+                {{appointment.customer_notes}}
+            </div>
+            <mat-divider></mat-divider>
+        </ng-container>
+
+    </div>
+
+    <div class="w-100 d-flex justify-content-end gap-1 py-1">
+        <div class="col">
+            <button (click)="reject()" class="btn btn-theme-dark btn-block">
+                {{"Delete" | translate}}
+            </button>
+        </div>
+        <div class="col">
+            <button (click)="confirm()" class="btn btn-theme-dark btn-block">
+                {{"Confirm" | translate}}
+            </button>
+        </div>
+    </div>
+
+
+
+</div>
+
+<app-progress-bar *ngIf="progress"></app-progress-bar>

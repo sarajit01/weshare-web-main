@@ -1,0 +1,42 @@
+<div class="shadow-sm d-flex theme-bg-primary justify-content-between align-items-center px-3" style="z-index: 100000000 !important;position: fixed;top: 0;left:0; width: 100% !important;height: 60px!important;" >
+    <!--    <i (click)="backPrev()" class="fa fa-angle-left fw-bold cursor-pointer" style="font-size: 24px!important;"></i>-->
+
+    <span (click)="backPrev()" class="material-symbols-outlined cursor-pointer">
+arrow_back_ios
+</span>
+
+    <h3 class=" mb-0 mat-h3">
+        <ng-container *ngIf="listingType === 'business'">
+            {{"My Businesses"}}
+        </ng-container>
+        <ng-container *ngIf="listingType === 'promotion'">
+            {{"My Promotions"}}
+        </ng-container>
+        <ng-container *ngIf="listingType === 'discount'">
+            {{"My Discounts"}}
+        </ng-container>
+        <ng-container *ngIf="listingType === 'tcf'">
+            {{"My Loyalty Cards"}}
+        </ng-container>
+
+
+    </h3>
+
+    <h4>&nbsp;</h4>
+</div>
+<div class="row py-3">
+        <ng-container *ngFor="let listing of listings">
+            <div class="col-12 p-0 mb-2">
+
+                <app-business-classic-widget [hasCustomActionOnClick]="true" [displayOptionsOnly]="true" class="w-100 p-0" *ngIf="listingType === 'business'"
+                                             [business]="listing"></app-business-classic-widget>
+
+                <app-promotion-classic-widget [hasCustomActionOnClick]="true" [displayOptionsOnly]="true" class="w-100 p-0" [promotion]="listing" *ngIf="listingType === 'promotion' && listing.promotion_type === 'Promotion'"></app-promotion-classic-widget>
+
+                <app-loyalty-card-widget [hasCustomActionOnClick]="true"  [displayOptionsOnly]="true" class="w-100 p-0" [loyalty_card]="listing" *ngIf="listingType === 'tcf'"></app-loyalty-card-widget>
+
+
+            </div>
+        </ng-container>
+
+</div>

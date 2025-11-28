@@ -1,0 +1,5 @@
+<div  class="w-100 d-flex justify-content-center align-items-end" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" style="border-top-right-radius: 24px;border-top-left-radius: 24px;height:{{containerHeight}}px;background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url('{{gallery[activeSlideIndex].img}}');">
+    <div class="w-100 mb-2 d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="gallery.length > 1">
+        <span  *ngFor="let ind of gallery;let i = index" [ngClass]="{'indicator-active' : activeSlideIndex == i }"  class="indicator indicator-light"></span>
+    </div>
+</div>

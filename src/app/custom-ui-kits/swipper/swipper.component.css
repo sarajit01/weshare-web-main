@@ -1,0 +1,34 @@
+
+.swipper-navigator {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background: white;
+  font-size: 18px;
+  color: #333;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;align-items: center;
+  position: absolute;
+  z-index: 100 !important;
+}
+
+.swipper-navigator-prev {
+  left: 0;
+}
+
+.swipper-navigator-next {
+  right: 0;
+}
+.swipper-content {
+  width: 100% !important;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+
+}
+
+.swipper-content::-webkit-scrollbar {
+  display: none;
+}

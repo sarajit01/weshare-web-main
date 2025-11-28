@@ -1,0 +1,1119 @@
+<div class="container p-0 mb-5 dashboard-container " id="dashboard-wrapper">
+
+    <div class="row d-md-none  pt-4">
+
+        <app-my-points-widget [user]="user"></app-my-points-widget>
+
+    </div>
+    <mat-progress-bar  *ngIf="progress" mode="indeterminate"></mat-progress-bar>
+
+    <div class="w-100 d-md-flex">
+        <div class="w-100 w-md-60 pe-md-4 mb-md-5 pb-md-5 pe-lg-5 left-content-wrapper">
+
+            <div class="row py-2">
+
+                <!--        <h2 class="fw-bold mb-0">Your Shortcuts</h2>-->
+                <h2 class="fw-bold mb-2 mb-md-0">{{ "My Businesses" | translate }}</h2>
+
+
+                <!--        <div class="w-100 _swipper-contents-container mb-3  px-0 ps-2 py-1" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">-->
+                <!--            <ng-container *ngFor="let shortcut of frequentlyVisited">-->
+                <!--                <app-customer-short-cut [listingViewed]="shortcut"></app-customer-short-cut>-->
+                <!--            </ng-container>-->
+
+                <!--        </div>-->
+
+
+                <app-featured-businesses-carousel [transparentBg]="true" [displayMode]="'rewards'" class="m-0 p-0"
+                                                  [displayEntitiesOnly]="true"
+                                                  [businesses]="favoriteBusinesses"></app-featured-businesses-carousel>
+
+
+            </div>
+            <div class="row py-2">
+
+                <!--        <h2 class="fw-bold mb-0">Your Shortcuts</h2>-->
+                <h2 class="fw-bold mb-2 mb-md-0">{{ "My Promotions" | translate }}</h2>
+
+
+                <!--        <div class="w-100 _swipper-contents-container mb-3  px-0 ps-2 py-1" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">-->
+                <!--            <ng-container *ngFor="let shortcut of frequentlyVisited">-->
+                <!--                <app-customer-short-cut [listingViewed]="shortcut"></app-customer-short-cut>-->
+                <!--            </ng-container>-->
+
+                <!--        </div>-->
+
+                <app-featured-promotions-carousel [transparentBg]="true" [displayMode]="'rewards'" class="m-0 p-0"
+                                                  [displayEntitiesOnly]="true"
+                                                  [promotions]="favoritePromotions"></app-featured-promotions-carousel>
+
+
+            </div>
+
+            <div class="row py-2">
+
+                <!--        <h2 class="fw-bold mb-0">Your Shortcuts</h2>-->
+                <h2 class="fw-bold mb-2 mb-md-0">{{ "My LCs" | translate }}</h2>
+
+
+                <!--        <div class="w-100 _swipper-contents-container mb-3  px-0 ps-2 py-1" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">-->
+                <!--            <ng-container *ngFor="let shortcut of frequentlyVisited">-->
+                <!--                <app-customer-short-cut [listingViewed]="shortcut"></app-customer-short-cut>-->
+                <!--            </ng-container>-->
+
+                <!--        </div>-->
+
+                <app-featured-lccarousel [checkCompletedVisits]="true" [transparentBg]="true" class="m-0 p-0"
+                                         [displayMode]="'rewards'" [displayEntitiesOnly]="true"
+                                         [lcs]="favoriteLcs"></app-featured-lccarousel>
+
+            </div>
+
+        </div>
+        <div class="d-none d-md-block w-md-40 right-content-wrapper pb-md-5">
+
+            <div class="col-12 mt-3 d-flex flex-column gap-3">
+
+                <div class="order-md-0 d-flex justify-content-end align-items-center gap-3">
+                    <div class="d-flex gap-2">
+                        <div>
+                      <span class="material-symbols-outlined cursor-pointer" (click)="changeAppTheme('dark')">
+dark_mode
+</span>
+                        </div>
+                        <div>
+                     <span class="material-symbols-outlined cursor-pointer" (click)="changeAppTheme('light')">
+light_mode
+</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card order-md-1">
+                    <div class="card-body p-3 p-lg-4">
+                        <div class="row">
+                            <div class="col-12 d-flex flex-column gap-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="mb-0 fw-bold" style="font-size: 16px;">{{"My Account" | translate}}</p>
+                                    <p class="mb-0 fw-bold text-primary">
+                                        {{user?.points.toFixed(2) || 0}} {{"Points" | translate}}
+                                    </p>
+                                </div>
+                                <div class="d-flex gap-4">
+                                    <div>
+                                        <img class="rounded-5" src="https://ui-avatars.com/api/?background=random&name={{authService.getAuthUserData('first_name')}}+{{authService.getAuthUserData('last_name')}}" style="width:60px;height: 60px;">
+                                    </div>
+                                    <div class="d-flex flex-column gap-1">
+                                        <span class="fw-bold">ID: {{authService.getUserID()}}</span>
+                                        <span class="fw-bold">{{authService.getAuthUserData('first_name')}} {{authService.getAuthUserData('last_name')}}</span>
+                                        <span style="overflow-wrap: anywhere !important;">{{authService.getAuthUserData('email')}}</span>
+                                        <span>{{authService.getAuthUserData('phone')}} {{authService.getAuthUserData('role')}}</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end align-items-center">
+                                    <a [routerLink]="'/customer/settings'" class="btn btn-theme-dark">
+                                        {{"Go to Settings" | translate}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card order-md-2 order-lg-3">
+                    <div class="card-body p-3 p-lg-4">
+                        <div class="w-100 d-flex flex-column gap-3">
+                            <p class="mb-0 fw-bold" style="font-size: 16px;">
+                                {{"My Referral Network" | translate}}
+                            </p>
+
+                            <div class="w-100 d-flex flex-column gap-2">
+                                <ng-container *ngFor="let user of appointmentRequests">
+
+                                    <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">
+                                        <div>
+                                            <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"
+                                                 style="width: 40px;height: 40px;border-radius: 40px;">
+                                        </div>
+                                        <div class=" d-flex flex-column gap-2">
+                    <span class="fw-bold" style="font-size: 16px;">
+                        {{ user.name }}
+                    </span>
+                                            <span class="text-muted" style="font-size: 14px;">
+                        {{ user.email }}
+                    </span>
+                                        </div>
+                                    </div>
+
+                                </ng-container>
+                            </div>
+
+                            <span class="w-100 text-center fw-bold cursor-pointer" [routerLink]="'/customer/my-referral-network'">
+        View all
+    </span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="w-100 order-md-3 order-lg-2">
+                    <div class="row">
+                    <div class="col-12 col-lg-6 pe-lg-0 mb-md-3 mb-lg-3 dashboard-action-widget mb-md-0">
+                        <div [routerLink]="['/customer/my-appointments']" class="card h-100">
+                            <div class="card-body d-flex align-items-center py-3">
+                                <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+calendar_month
+</span>
+
+                                    <p class="mb-0">{{"My Appointments"}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-md-3 dashboard-action-widget mb-md-0">
+                        <div [routerLink]="['/customer/messages']" class="card h-100">
+                            <div class="card-body d-flex align-items-center py-3">
+                                <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+chat_bubble
+</span>
+
+                                    <p class="mb-0">{{"Messages"}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 pe-lg-0 mb-md-3 dashboard-action-widget mb-md-0">
+                        <div class="card h-100">
+                            <div class="card-body d-flex align-items-center py-3">
+                                <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+visibility
+</span>
+
+                                    <p class="mb-0">{{"Recently Viewed"}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-md-3 dashboard-action-widget mb-md-0">
+                        <div class="card h-100">
+                            <div class="card-body d-flex align-items-center py-3">
+                                <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+notifications
+</span>
+
+                                    <p class="mb-0">{{"Suggested for you"}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 dashboard-action-widget mb-md-0">
+                        <div class="card">
+                            <div class="card-body py-3">
+                                <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+help
+</span>
+
+                                    <p class="mb-0">{{"Help & Support"}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+                <div class="card order-md-4">
+                    <div class="card-body p-3 p-lg-4">
+                        <div class="w-100 d-flex flex-column gap-3">
+                            <p class="mb-0 fw-bold" style="font-size: 16px;">
+                                {{"Recent Messages" | translate}}
+                            </p>
+
+                            <div class="w-100 d-flex flex-column gap-2">
+                                <ng-container *ngFor="let user of recentMessages">
+
+                                    <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">
+                                        <div>
+                                            <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"
+                                                 style="width: 40px;height: 40px;border-radius: 40px;">
+                                        </div>
+                                        <div class=" d-flex flex-column gap-2">
+                    <span class="fw-bold" style="font-size: 16px;">
+                        {{ user.name }}
+                    </span>
+                                            <span class="text-muted" style="font-size: 14px;">
+                        {{ user.email }}
+                    </span>
+                                        </div>
+                                    </div>
+
+                                </ng-container>
+                            </div>
+
+                            <span class="w-100 text-center fw-bold cursor-pointer" [routerLink]="'/business/my-appointments'">
+        View all
+    </span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+  <div class="w-100 d-flex flex-column d-md-none gap-2">
+    <div class="row d-flex justify-content-center">
+      <div class="col-6  dashboard-action-widget pe-1">
+        <div [routerLink]="['/my-referral-network']" class="card h-100">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex gap-2">
+<span class="material-symbols-outlined text-primary">
+diversity_1
+</span>
+
+              <p class="mb-0">{{"My Network"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-6 dashboard-action-widget ps-1">
+        <div [routerLink]="['/customer/my-appointments']" class="card h-100">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+calendar_month
+</span>
+
+              <p class="mb-0">{{"My Appoints"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+<!--    <div class="row d-flex">-->
+
+<!--        <div class="col-6 dashboard-action-widget pe-1">-->
+<!--            <div class="card h-100" [routerLink]="['/customer/my-listings/business']">-->
+<!--                <div class="card-body d-flex align-items-center py-3">-->
+<!--                    <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--store-->
+<!--</span>-->
+
+<!--                        <p class="mb-0">{{"My Business"}}</p>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 dashboard-action-widget ps-1" [routerLink]="['/customer/my-listings/discount']">-->
+<!--        <div class="card h-100">-->
+<!--          <div class="card-body d-flex align-items-center py-3">-->
+<!--            <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--local_offer-->
+<!--</span>-->
+
+<!--              <p class="mb-0">{{"My Discounts"}}</p>-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+
+
+
+<!--    </div>-->
+<!--      <div class="row d-flex">-->
+<!--          <div class="col-6 dashboard-action-widget pe-1" [routerLink]="['/customer/my-listings/promotion']">-->
+<!--              <div class="card h-100">-->
+<!--                  <div class="card-body d-flex align-items-center py-3">-->
+<!--                      <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--local_offer-->
+<!--</span>-->
+
+<!--                          <p class="mb-0">{{"My Promos"}}</p>-->
+
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+
+
+<!--          <div class="col-6 dashboard-action-widget ps-1" [routerLink]="['/customer/my-listings/tcf']">-->
+<!--              <div class="card h-100">-->
+<!--                  <div class="card-body d-flex align-items-center py-3">-->
+<!--                      <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--credit_card-->
+<!--</span>-->
+
+<!--                          <p class="mb-0">{{"My Cards"}}</p>-->
+
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+
+
+
+<!--      </div>-->
+
+
+      <div class="row d-flex">
+
+
+      <div class="col-6 dashboard-action-widget pe-1">
+        <div class="card h-100">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+visibility
+</span>
+
+              <p class="mb-0">{{"Recently Viewed"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+          <div class="col-6 dashboard-action-widget ps-1">
+              <div class="card h-100">
+                  <div class="card-body d-flex align-items-center py-3">
+                      <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+notifications
+</span>
+
+                          <p class="mb-0">{{"Suggested for you"}}</p>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+      </div>
+
+<!--      <div class="row py-2" *ngIf="(businessesToRedemp && businessesToRedemp.length) || (lcVisits && lcVisits.length)">-->
+
+<!--          <h2 class="fw-bold mb-1">{{"Redeem your prizes"}}</h2>-->
+
+<!--          <ng-container *ngIf="businessesToRedemp && businessesToRedemp.length">-->
+<!--              <ng-container *ngFor="let readyToReward of businessesToRedemp">-->
+<!--                  <ng-container *ngIf="readyToReward.reward_closest && readyToReward.business">-->
+<!--                      <div class="col-12 col-md-6 py-1" >-->
+<!--                          <div class="card">-->
+<!--                              <div class="card-body px-2 py-2">-->
+<!--                                  <div class="w-100 dashboard-action-widget d-flex justify-content-between align-items-center">-->
+
+<!--                                      <div class="d-flex gap-2">-->
+
+<!--                                          <div>-->
+<!--                                              <img src="{{readyToReward.business.logo}}"-->
+<!--                                                   style="width: 30px;height: 30px;border-radius: 50% !important;">-->
+<!--                                          </div>-->
+
+<!--                                          <div class="d-flex flex-column gap-1">-->
+<!--                                              <small>{{readyToReward.business.name}}</small>-->
+<!--                                              <small>{{readyToReward.business.city_short}}</small>-->
+<!--                                          </div>-->
+
+<!--                                      </div>-->
+
+<!--                                      <div class="d-flex flex-column justify-content-center align-items-center pe-3">-->
+
+<!--                                          <div style="width: 80px;height: 10px;border-radius: 8px;background: #888888;position: relative">-->
+<!--                                              <div *ngIf="readyToReward.balance" style="position: absolute;left: 0;width: {{((readyToReward.balance/readyToReward.reward_closest.points) * 100).toFixed(2)}}%;height: 100%;background: dodgerblue;border-bottom-left-radius: 8px;border-top-left-radius: 8px;"></div>-->
+<!--                                          </div>-->
+<!--                                          <small style="font-size: 10px;" *ngIf="readyToReward.balance">-->
+<!--                                              {{readyToReward.balance.toFixed(1)}} / {{readyToReward.reward_closest.points.toFixed(1)}}-->
+<!--                                          </small>-->
+<!--                                          <small style="font-size: 10px" *ngIf="!readyToReward.balance">-->
+<!--                                              0.00 / {{readyToReward.reward_closest.points.toFixed(1)}}-->
+<!--                                          </small>-->
+
+<!--                                      </div>-->
+
+<!--                                  </div>-->
+<!--                              </div>-->
+<!--                          </div>-->
+
+
+
+<!--                      </div>-->
+<!--                  </ng-container>-->
+<!--              </ng-container>-->
+<!--          </ng-container>-->
+<!--          <ng-container *ngIf="lcVisits && lcVisits.length">-->
+<!--              <ng-container *ngFor="let lcVisit of lcVisits">-->
+<!--                  <ng-container *ngIf="lcVisit.lc.card_type === 'prize' && lcVisit.lc.my_visits > 0">-->
+<!--                      <div class="col-12 col-md-6 py-1" >-->
+<!--                          <div class="card">-->
+<!--                              <div class="card-body px-2 py-2">-->
+<!--                                  <div class="w-100 dashboard-action-widget d-flex justify-content-between align-items-center">-->
+
+<!--                                      <div class="d-flex gap-2">-->
+
+<!--                                          <div>-->
+<!--                                              <img src="{{lcVisit.lc.logo}}"-->
+<!--                                                   style="width: 30px;height: 30px;border-radius: 50% !important;">-->
+<!--                                          </div>-->
+
+<!--                                          <div class="d-flex flex-column gap-1">-->
+<!--                                              <small>{{lcVisit.lc.card_title_short}}</small>-->
+<!--                                              <small>{{lcVisit.lc.business.name }}</small>-->
+<!--                                          </div>-->
+
+<!--                                      </div>-->
+
+<!--                                      <div class="d-flex flex-column justify-content-center align-items-center pe-3">-->
+
+<!--                                          <div style="width: 80px;height: 10px;border-radius: 8px;background: #888888;position: relative">-->
+<!--                                              <div *ngIf="lcVisit.lc.my_visits" style="position: absolute;left: 0;width: {{((lcVisit.lc.my_visits/lcVisit.lc.visits_for_cash) * 100).toFixed(2)}}%;height: 100%;background: dodgerblue;border-bottom-left-radius: 8px;border-top-left-radius: 8px;"></div>-->
+<!--                                          </div>-->
+<!--                                          <small style="font-size: 10px;" >-->
+<!--                                              {{lcVisit.lc.my_visits.toFixed(0)}} / {{lcVisit.lc.visits_for_cash.toFixed(0)}}-->
+<!--                                          </small>-->
+
+
+<!--                                      </div>-->
+
+<!--                                  </div>-->
+<!--                              </div>-->
+<!--                          </div>-->
+
+
+
+<!--                      </div>-->
+<!--                  </ng-container>-->
+<!--              </ng-container>-->
+<!--          </ng-container>-->
+
+
+<!--      </div>-->
+
+
+
+<!--    <div class="row">-->
+<!--      <div class="col-12 dashboard-action-widget">-->
+<!--        <div class="card">-->
+<!--          <div class="card-body py-3">-->
+<!--            <div class="col-12 d-flex gap-3">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--chat_bubble-->
+<!--</span>-->
+
+<!--              <p class="mb-0">{{"Messages"}}</p>-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="row">
+      <div class="col-12 dashboard-action-widget">
+        <div class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+help
+</span>
+
+              <p class="mb-0">{{"Help & Support"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 dashboard-action-widget">
+        <div [routerLink]="['/customer/settings']" class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+settings
+</span>
+
+              <p class="mb-0">{{"Settings"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 dashboard-action-widget" (click)="authService.logoutWithRedirect()">
+        <div class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+logout
+</span>
+
+              <p class="mb-0">{{"Logout"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+<!--<div class="d-none d-md-block container p-0 mb-5" id="dashboard-wrapper">-->
+
+<!--&lt;!&ndash;    <div class="row pt-4 pt-md-3 pb-md-3">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-12 d-none d-md-flex justify-content-between align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="d-flex">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h2 class="fw-bold mb-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                    {{"Dashboard"}}&ndash;&gt;-->
+<!--&lt;!&ndash;                </h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="d-flex align-items-center gap-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="d-flex gap-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <span class="material-symbols-outlined cursor-pointer" (click)="changeAppTheme('dark')">&ndash;&gt;-->
+<!--&lt;!&ndash;dark_mode&ndash;&gt;-->
+<!--&lt;!&ndash;</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                     <span class="material-symbols-outlined cursor-pointer" (click)="changeAppTheme('light')">&ndash;&gt;-->
+<!--&lt;!&ndash;light_mode&ndash;&gt;-->
+<!--&lt;!&ndash;</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+
+
+<!--    &lt;!&ndash; Tablet & Desktop version &ndash;&gt;-->
+
+
+<!--    <div class="row d-none d-md-flex">-->
+<!--        <div class="col-md-7 col-lg-8">-->
+
+<!--            <div class="row py-2">-->
+
+<!--                &lt;!&ndash;        <h2 class="fw-bold mb-0">Your Shortcuts</h2>&ndash;&gt;-->
+<!--                <h2 class="fw-bold mb-2">{{"My Businesses" | translate}}</h2>-->
+
+
+<!--                &lt;!&ndash;        <div class="w-100 _swipper-contents-container mb-3  px-0 ps-2 py-1" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">&ndash;&gt;-->
+<!--                &lt;!&ndash;            <ng-container *ngFor="let shortcut of frequentlyVisited">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <app-customer-short-cut [listingViewed]="shortcut"></app-customer-short-cut>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </ng-container>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--                <app-featured-businesses-carousel [transparentBg]="true" [displayMode]="'rewards'" class="m-0 p-0" [displayEntitiesOnly]="true" [businesses]="favoriteBusinesses"></app-featured-businesses-carousel>-->
+
+
+
+<!--            </div>-->
+<!--            <div class="row py-2">-->
+
+<!--                &lt;!&ndash;        <h2 class="fw-bold mb-0">Your Shortcuts</h2>&ndash;&gt;-->
+<!--                <h2 class="fw-bold mb-2">{{"My Promotions" | translate}}</h2>-->
+
+
+<!--                &lt;!&ndash;        <div class="w-100 _swipper-contents-container mb-3  px-0 ps-2 py-1" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">&ndash;&gt;-->
+<!--                &lt;!&ndash;            <ng-container *ngFor="let shortcut of frequentlyVisited">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <app-customer-short-cut [listingViewed]="shortcut"></app-customer-short-cut>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </ng-container>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--                <app-featured-promotions-carousel [transparentBg]="true" [displayMode]="'rewards'" class="m-0 p-0" [displayEntitiesOnly]="true" [promotions]="favoritePromotions"></app-featured-promotions-carousel>-->
+
+
+
+<!--            </div>-->
+
+<!--            <div class="row py-2">-->
+
+<!--                &lt;!&ndash;        <h2 class="fw-bold mb-0">Your Shortcuts</h2>&ndash;&gt;-->
+<!--                <h2 class="fw-bold mb-2">{{"My LCs" | translate}}</h2>-->
+
+
+<!--                &lt;!&ndash;        <div class="w-100 _swipper-contents-container mb-3  px-0 ps-2 py-1" style="display: flex !important;gap: 10px !important;overflow-x: scroll;">&ndash;&gt;-->
+<!--                &lt;!&ndash;            <ng-container *ngFor="let shortcut of frequentlyVisited">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <app-customer-short-cut [listingViewed]="shortcut"></app-customer-short-cut>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </ng-container>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--                <app-featured-lccarousel [checkCompletedVisits]="true"  [transparentBg]="true" class="m-0 p-0" [displayMode]="'rewards'" [displayEntitiesOnly]="true" [lcs]="favoriteLcs"></app-featured-lccarousel>-->
+
+<!--            </div>-->
+
+<!--            <div class="w-100 d-none d-md-flex  flex-column gap-2">-->
+
+<!--                <div class="row d-flex">-->
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="['/business/manage']">-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--store-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Businesses"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="['/promotions/manage']">-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--local_offer-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Promotions"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="['/business/loyalty-cards/manage']">-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--credit_card-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My LCs"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="['/business/my-referral-network']">-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--diversity_1-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Network"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="'/business/messages'">-->
+<!--                            <div class="card-body py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--chat_bubble-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Messages"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100">-->
+<!--                            <div [routerLink]="['/business/my-appointments']" class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--calendar_month-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Appointments"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="['/discounts/manage']">-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--local_offer-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Discounts"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100">-->
+<!--                            <div class="card-body py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--help-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"Help & Support"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                    <div class="col-md-6 col-lg-4 dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="['/business-ads/manage']">-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--campaign-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{ "My Ads" }}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-6 col-lg-4 d-lg-none dashboard-action-widget">-->
+<!--                        <div class="card h-100" [routerLink]="'/business/notifications'" >-->
+<!--                            <div class="card-body d-flex align-items-center py-3">-->
+<!--                                <div class="col-12 d-flex align-items-center gap-2">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--notifications-->
+<!--</span>-->
+
+<!--                                    <p class="mb-0">{{"My Notifications"}}</p>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+
+<!--                </div>-->
+
+
+<!--                &lt;!&ndash;              <div class="row d-flex">&ndash;&gt;-->
+
+
+
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;              <div class="row d-flex">&ndash;&gt;-->
+
+
+
+
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;              <div class="row d-flex">&ndash;&gt;-->
+
+
+<!--                &lt;!&ndash;                 &ndash;&gt;-->
+
+
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+
+
+<!--                &lt;!&ndash;              <div class="row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                  <div class="col-12 dashboard-action-widget">&ndash;&gt;-->
+<!--                &lt;!&ndash;                      <div class="card">&ndash;&gt;-->
+<!--                &lt;!&ndash;                          <div class="card-body py-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                              <div class="col-12 d-flex gap-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;<span class="material-symbols-outlined text-primary">&ndash;&gt;-->
+<!--                &lt;!&ndash;chat_bubble&ndash;&gt;-->
+<!--                &lt;!&ndash;</span>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                                  <p class="mb-0">{{"Messages"}}</p>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                              </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                          </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;              <div class="row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                  <div class="col-12 dashboard-action-widget">&ndash;&gt;-->
+<!--                &lt;!&ndash;                      <div class="card" [routerLink]="['/business/payments']">&ndash;&gt;-->
+<!--                &lt;!&ndash;                          <div class="card-body py-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                              <div class="col-12 d-flex gap-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;<span class="material-symbols-outlined text-primary">&ndash;&gt;-->
+<!--                &lt;!&ndash;attach_money&ndash;&gt;-->
+<!--                &lt;!&ndash;</span>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                                  <p class="mb-0">{{"My Payments"}}</p>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                              </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                          </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+
+
+<!--                &lt;!&ndash;              <div class="row">&ndash;&gt;-->
+
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;              <div class="row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                  <div class="col-12 dashboard-action-widget">&ndash;&gt;-->
+<!--                &lt;!&ndash;                      <div [routerLink]="['/business/settings']" class="card">&ndash;&gt;-->
+<!--                &lt;!&ndash;                          <div class="card-body py-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                              <div class="col-12 d-flex gap-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;<span class="material-symbols-outlined text-primary">&ndash;&gt;-->
+<!--                &lt;!&ndash;settings&ndash;&gt;-->
+<!--                &lt;!&ndash;</span>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                                  <p class="mb-0">{{"Settings"}}</p>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                              </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                          </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;              <div class="row">&ndash;&gt;-->
+<!--                &lt;!&ndash;                  <div class="col-12 dashboard-action-widget" (click)="_authService.logoutWithRedirect()">&ndash;&gt;-->
+<!--                &lt;!&ndash;                      <div class="card">&ndash;&gt;-->
+<!--                &lt;!&ndash;                          <div class="card-body py-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;                              <div class="col-12 d-flex gap-3">&ndash;&gt;-->
+<!--                &lt;!&ndash;<span class="material-symbols-outlined text-primary">&ndash;&gt;-->
+<!--                &lt;!&ndash;logout&ndash;&gt;-->
+<!--                &lt;!&ndash;</span>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                                  <p class="mb-0">{{"Logout"}}</p>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                              </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                          </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;              </div>&ndash;&gt;-->
+
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-5 col-lg-4 d-flex flex-column gap-3 pb-5">-->
+<!--            <div class="card">-->
+<!--                <div class="card-body p-3 p-lg-4">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-12 d-flex flex-column gap-3">-->
+<!--                            <p class="mb-0 fw-bold" style="font-size: 16px;">{{"My Account" | translate}}</p>-->
+<!--                            <div class="d-flex gap-4">-->
+<!--                                <div>-->
+<!--                                    <img class="rounded-5" src="https://ui-avatars.com/api/?background=random&name={{authService.getAuthUserData('first_name')}}+{{authService.getAuthUserData('last_name')}}" style="width:60px;height: 60px;">-->
+<!--                                </div>-->
+<!--                                <div class="d-flex flex-column gap-1">-->
+<!--                                    <span class="fw-bold">ID: {{authService.getUserID()}}</span>-->
+<!--                                    <span class="fw-bold">{{authService.getAuthUserData('first_name')}} {{authService.getAuthUserData('last_name')}}</span>-->
+<!--                                    <span>{{authService.getAuthUserData('email')}}</span>-->
+<!--                                    <span>{{authService.getAuthUserData('phone')}} {{authService.getAuthUserData('role')}}</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex justify-content-end align-items-center">-->
+<!--                                <a [routerLink]="'/business/settings'" class="btn btn-theme-dark">-->
+<!--                                    {{"Go to Settings" | translate}}-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card">-->
+<!--                <div class="card-body p-3 p-lg-4">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-12 d-flex flex-column gap-4">-->
+<!--                            <p class="mb-0 fw-bold" style="font-size: 16px;">{{"Subscription & Payments" | translate}}</p>-->
+<!--                            <div class="d-flex gap-4">-->
+<!--                                <div>-->
+<!--                                  <span class="material-symbols-outlined" style="font-size: 40px;">-->
+<!--paid-->
+<!--</span>-->
+<!--                                </div>-->
+<!--                                <div class="d-flex flex-column">-->
+<!--                                    <span class="fw-bold">{{"Basic Membership" | translate}}</span>-->
+<!--                                    <span class="fw-bold">{{"$10 / Month"}}</span>-->
+<!--                                    <span>Will Expire in 23 days</span>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex gap-2 flex-wrap align-items-center">-->
+<!--                                <div class="flex-grow-1">-->
+<!--                                    <a [routerLink]="'/business/select-plan'" class="btn btn-theme-dark btn-block">-->
+<!--                                        {{"Upgrade" | translate}}-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="flex-grow-1">-->
+<!--                                    <a [routerLink]="'/business/payments'" class="btn btn-theme-dark btn-block">-->
+<!--                                        {{"Payments" | translate}}-->
+<!--                                    </a>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card">-->
+<!--                <div class="card-body p-3 p-lg-4">-->
+<!--                    <div class="w-100 d-flex flex-column gap-3">-->
+<!--                        <p class="mb-0 fw-bold" style="font-size: 16px;">-->
+<!--                            {{"My Referral Network" | translate}}-->
+<!--                        </p>-->
+
+<!--                        <div class="w-100 d-flex flex-column gap-2">-->
+<!--                            <ng-container *ngFor="let user of appointmentRequests">-->
+
+<!--                                <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">-->
+<!--                                    <div>-->
+<!--                                        <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"-->
+<!--                                             style="width: 40px;height: 40px;border-radius: 40px;">-->
+<!--                                    </div>-->
+<!--                                    <div class=" d-flex flex-column gap-2">-->
+<!--                    <span class="fw-bold" style="font-size: 16px;">-->
+<!--                        {{ user.name }}-->
+<!--                    </span>-->
+<!--                                        <span class="text-muted" style="font-size: 14px;">-->
+<!--                        {{ user.email }}-->
+<!--                    </span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                            </ng-container>-->
+<!--                        </div>-->
+
+<!--                        <span class="w-100 text-center fw-bold cursor-pointer" [routerLink]="'/business/my-appointments'">-->
+<!--        View all-->
+<!--    </span>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="card">-->
+<!--                <div class="card-body p-3 p-lg-4">-->
+<!--                    <div class="w-100 d-flex flex-column gap-3">-->
+<!--                        <p class="mb-0 fw-bold" style="font-size: 16px;">-->
+<!--                            {{"Recent Messages" | translate}}-->
+<!--                        </p>-->
+
+<!--                        <div class="w-100 d-flex flex-column gap-2">-->
+<!--                            <ng-container *ngFor="let user of recentMessages">-->
+
+<!--                                <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">-->
+<!--                                    <div>-->
+<!--                                        <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"-->
+<!--                                             style="width: 40px;height: 40px;border-radius: 40px;">-->
+<!--                                    </div>-->
+<!--                                    <div class=" d-flex flex-column gap-2">-->
+<!--                    <span class="fw-bold" style="font-size: 16px;">-->
+<!--                        {{ user.name }}-->
+<!--                    </span>-->
+<!--                                        <span class="text-muted" style="font-size: 14px;">-->
+<!--                        {{ user.email }}-->
+<!--                    </span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                            </ng-container>-->
+<!--                        </div>-->
+
+<!--                        <span class="w-100 text-center fw-bold cursor-pointer" [routerLink]="'/business/messages'">-->
+<!--        View all-->
+<!--    </span>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; End Tablet / Desktop &ndash;&gt;-->
+
+
+
+<!--</div>-->
+
+
+<!--<div   [@goldenStarBottomTop]="goldenStarPosition" style="width: 40px;height: 40px;background: #ffe969;position: fixed;bottom: 60px;right: 20px;z-index: 10000; border-radius: 40px;border: 4px solid #d79329" class="d-flex align-items-center justify-content-center" >-->
+<!--    <span class="material-symbols-outlined" style="color: #d79329">-->
+<!--star-->
+<!--</span>-->
+<!--</div>-->
+
+
+<!--<div class="w-100 d-none d-md-block">-->
+<!--    <app-my-favorites></app-my-favorites>-->
+
+<!--    <div class="col-md-12 mt-2">-->
+<!--        <app-recently-viewed-business></app-recently-viewed-business>-->
+<!--    </div>-->
+
+<!--    <div class="row mt-2 mb-2">-->
+<!--        <app-deals-under-price></app-deals-under-price>-->
+<!--    </div>-->
+<!--</div>-->

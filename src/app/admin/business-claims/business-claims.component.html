@@ -1,0 +1,75 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Business Claims</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Business Claims</li>
+
+  </ol>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <mat-progress-bar mode="indeterminate" *ngIf="dataProgress === true"></mat-progress-bar>
+
+      <div class="table-responsive">
+
+        <table class="table table-bordered">
+
+          <thead>
+          <tr>
+            <th>User</th>
+            <th>Business ID</th>
+            <th>Business title</th>
+            <th>Claimed at</th>
+            <th>Status</th>
+            <th>Assign</th>
+            <th>Delete</th>
+
+          </tr>
+          </thead>
+
+          <tbody>
+
+          <tr *ngFor="let claim of claims">
+
+            <td>
+              {{claim.user.first_name}} {{claim.user.last_name}} (User ID: {{claim.user.id}})
+            </td>
+            <td>
+              {{claim.business.id}}
+            </td>
+            <td>
+              {{claim.business.business_name_prefix}}  {{claim.business.business_name}}
+            </td>
+            <td>
+              {{claim.created_at | date}}
+            </td>
+            <td>
+              {{claim.status}}
+            </td>
+            <td>
+              <button (click)="approve(claim.id)" class="btn btn-success">
+                <i class="fa fa-check"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+
+
+          </tr>
+
+
+          </tbody>
+
+
+        </table>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

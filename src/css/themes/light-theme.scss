@@ -1,0 +1,282 @@
+/*Light theme css*/
+
+/*<style name="Button">*/
+/*<item name="backgroundColor">@color/dark_theme_bg</item>*/
+/*<item name="backgroundTint">@color/dark_theme_bg</item>*/
+/*<item name="android:textColor">@color/white</item>*/
+/*<item name="android:layout_height">50dp</item>*/
+/*<item name="textAllCaps">true</item>*/
+/*<item name="tint">@color/white</item>*/
+/*</style>*/
+
+/*<style name="CustomChipInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">*/
+/*<item name="strokeWidth">0dp</item>*/
+/*<item name="colorOutline">@android:color/transparent</item>*/
+/*<item name="android:textAppearance">@color/light_theme_primary</item>*/
+/*<item name="android:textColorHint">@color/light_theme_primary</item>*/
+/*<item name="android:textColor">@color/light_theme_primary</item>*/
+/*<item name="android:layout_marginVertical" tools:targetApi="o">3dp</item>*/
+
+/*</style>*/
+
+/*<style name="Spinner" parent="@android:style/Widget.Holo.DropDownItem.Spinner">*/
+/*<item name="android:drawable">@drawable/spinner_style</item>*/
+/*<item name="android:color">@color/spinner_text</item>*/
+/*<item name="android:textColor">@color/spinner_text</item>*/
+/*</style>*/
+
+
+/*<style name="HeaderIcon">*/
+/*<item name="tint">#22303C</item>*/
+/*</style>*/
+
+/*<style name="HeaderTop">*/
+/*<item name="background">@drawable/header_border</item>*/
+/*</style>*/
+
+/*<style name="FooterBar">*/
+/*<item name="android:background">#FFFFFF</item>*/
+/*</style>*/
+
+/*<style name="FooterIcon" parent="FooterBar">*/
+/*<item name="tint">#22303C</item>*/
+/*</style>*/
+
+/*<style name="FooterBarText" parent="FooterBar">*/
+/*<item name="color">#22303C</item>*/
+/*<item name="android:textSize">14sp</item>*/
+/*</style>*/
+
+/*<style name="FooterIconActive" parent="FooterBar">*/
+/*<item name="tint">@color/light_text_active</item>*/
+/*</style>*/
+
+/*<style name="FooterBarTextActive" parent="FooterBar">*/
+/*<item name="android:textColor">@color/light_text_active</item>*/
+/*<item name="android:textSize">14sp</item>*/
+/*</style>*/
+
+/*<style name="Border">*/
+/*<item name="color">@color/dark_theme_bg</item>*/
+/*<item name="backgroundTint">@color/dark_theme_bg</item>*/
+/*</style>*/
+
+/*<style name="ListingsContainer">*/
+/*<item name="android:background">#E1E8ED</item>*/
+/*</style>*/
+
+/*<style name="Listing">*/
+/*<item name="android:background">#FFFFFF</item>*/
+/*</style>*/
+
+/*<style name="ListingText" parent="Listing"></style>*/
+
+/*<style name="ListingIcon" parent="HeaderIcon">*/
+/*<item name="android:background">#FFFFFF</item>*/
+/*</style>*/
+
+/*<style name="ListingDesc">*/
+/*<item name="android:background">#F2F2F2</item>*/
+/*</style>*/
+
+
+/*<style name="chip">*/
+/*<item name="cardBackgroundColor">@color/light_secondary</item>*/
+/*<item name="cardCornerRadius">10dp</item>*/
+/*<item name="contentPadding">10dp</item>*/
+/*</style>*/
+
+/*<style name="chipActive" parent="chip">*/
+/*<item name="cardBackgroundColor">@color/light_secondary_dark</item>*/
+
+/*</style>*/
+
+/*<style name="textActive" parent="ListingDesc">*/
+/*<item name="android:textColor">@color/dark_text_active</item>*/
+
+/*</style>*/
+
+/*<style name="iconActive">*/
+/*<item name="background">@android:color/transparent</item>*/
+/*<item name="backgroundColor">@android:color/transparent</item>*/
+/*<item name="backgroundTint">@android:color/transparent</item>*/
+/*<item name="android:tint">@color/light_text_active</item>*/
+
+/*</style>*/
+
+/*<style name="icon_cards">*/
+/*<item name="background">@color/light_secondary</item>*/
+/*<item name="backgroundColor">@color/light_secondary</item>*/
+/*<item name="backgroundTint">@color/light_secondary</item>*/
+/*<item name="android:tint">@color/light_text_active</item>*/
+/*<item name="cardBackgroundColor">@color/light_secondary</item>*/
+/*<item name="strokeColor">#22303C</item>*/
+/*<item name="strokeWidth">1dp</item>*/
+
+
+/*</style>*/
+
+/*<style name="card">*/
+/*<item name="cardBackgroundColor">@color/white</item>*/
+/*</style>*/
+
+/*<style name="stepper">*/
+/*<item name="sv_doneCircleColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_doneCircleRadius">20dp</item>*/
+/*<item name="sv_doneStepLineColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_doneStepMarkColor">@color/white</item>*/
+/*<item name="sv_doneTextColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_nextStepLineColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_nextTextColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_selectedCircleColor">@color/dark_theme_bg</item>*/
+/*<item name="sv_selectedCircleRadius">12dp</item>*/
+/*<item name="sv_selectedStepNumberColor">@color/white</item>*/
+/*<item name="sv_selectedTextColor">@color/dark_theme_bg</item>*/
+
+/*</style>*/
+
+/*<style name="CustomIndicator">*/
+/*<item name="ci_drawable">@drawable/dot_black_48dp</item>*/
+/*</style>*/
+
+
+/*<style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">*/
+/*<item name="background">@color/white</item>*/
+/*</style>*/
+/*<!-- Base application theme. -->*/
+/*<style name="Base.Theme.Weshare" parent="Theme.Material3.DayNight.NoActionBar">*/
+/*<!-- Customize your light theme here. -->*/
+/*<!-- <item name="colorPrimary">@color/my_light_primary</item> -->*/
+/*</style>*/
+
+
+/*<style name="RatingBar" parent="android:style/Widget.Material.RatingBar.Small">*/
+/*<item name="colorControlNormal">#FFC107</item>*/
+/*<item name="colorControlActivated">#FFC107</item>*/
+/*</style>*/
+
+/*<style name="MyTransparentBottomSheetDialogTheme" parent="Theme.AppCompat.Light">*/
+/*<item name="android:background">@android:color/transparent</item>*/
+/*<item name="android:colorBackground">@android:color/transparent</item>*/
+/*</style>*/
+
+/*//*/
+
+/*//*/
+
+/*//*/
+
+/*//*/
+
+:root {
+    --light-bg-color: #FFFFFF;
+    --light-primary: #FFFFFF;
+    --light-secondary: #F2F2F2;
+    --light-tirtiry: #E1E8ED;
+    --light-icon-color: #22303C;
+}
+.light {
+    #header {
+        background-color: var(--light-bg-color);
+    }
+
+    #header span, #header a {
+        color: var(--light-icon-color);
+    }
+
+    .listing-section, .theme-surface {
+        background: var(--light-tirtiry) !important;
+    }
+
+    .cat {
+        background: var(--light-secondary);
+    }
+
+    .card {
+        background: var(--light-primary);
+    }
+
+    .bg-theme-dark {
+        background: #15202B !important;
+    }
+
+    .btn-theme-dark {
+        background: #15202B;
+        font-size: 14px !important;
+        font-weight: normal !important;
+        color: white !important;
+    }
+
+    .btn-theme-dark:hover {
+        background: #15202B;
+        box-shadow: 0 2px 6px -1px rgba(0, 0, 0, .16), 0 6px 18px -1px rgba(0, 0, 0, .1) !important;
+    }
+
+    .theme-bg-primary {
+        background: var(--light-primary);
+    }
+
+    .nav-tab-link-active, .nav-tab-link {
+        color: #333333;
+    }
+
+    .mat-card-title {
+        color: var(--light-icon-color) !important;
+        margin-bottom: 0 !important;
+    }
+
+
+    .network-widget
+    {
+        border: 1px solid var(--light-icon-color);
+        border-radius: 12px;
+        color: var(--light-icon-color);
+    }
+
+    .network-widget h3 {
+        color: var(--light-icon-color);
+
+    }
+
+    .share-tab {
+        padding: 8px 4px !important;
+    }
+    .active-share-tab {
+        border-bottom: 2px solid var(--light-icon-color);
+    }
+
+    #listing-bottom-toolbar img {
+        color: var(--light-icon-color);
+    }
+
+    .top-search-bar {
+        border: 1px solid #cccccc
+    }
+
+    .user-menu {
+        color: var(--light-icon-color) !important;
+    }
+
+    .user-menu ul li a , .user-menu ul li p{
+        color: var(--light-icon-color) !important;
+    }
+
+    .user-menu li a:hover,  {
+        background: var(--light-secondary);
+    }
+
+    .user-menu li .active {
+        background: var(--light-secondary) !important;
+    }
+
+    .contact-person-wrapper:hover {
+        background: var(--light-secondary);
+    }
+}
+
+/*.light .brand-logo {*/
+/*    background-image: url("/assets/brand/logo_light.png");*/
+/*    background-size: contain;*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*}*/

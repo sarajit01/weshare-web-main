@@ -1,0 +1,9 @@
+.tab-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-active {
+    border-bottom: 1px solid #3b71ca;
+}

@@ -1,0 +1,19 @@
+<div  class="w-100 "  style="overflow-x: scroll !important;position: relative">
+
+
+
+    <div class="featured-carousel  w-100 d-flex" (scroll)="onCarouselScroll($event)" style="overflow-x: scroll !important;border-top-right-radius: {{radiusCorners}}px;border-top-left-radius: {{radiusCorners}}px;">
+        <div class="w-100" (click)="onItemClick(img)" *ngFor="let img of gallery">
+
+                <div class="featured-carousel-item-gallery" style="width: 100vw !important;height: {{itemHeight}}px;background-position: center;background-size: cover;background-repeat: no-repeat; background-image: url('{{img.img}}')">
+
+                </div>
+
+        </div>
+
+    </div>
+
+    <div  class="w-100  d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="gallery.length > 1" style="position: absolute;bottom: 15px;">
+        <span  *ngFor="let ind of gallery;let i = index" [ngClass]="{'indicator-active' : activeSlideIndex == i }"  class="indicator indicator-light"></span>
+    </div>
+</div>

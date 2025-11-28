@@ -1,0 +1,59 @@
+<div class="container-fluid px-4">
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Admin</li>
+    <li class="breadcrumb-item">CMS</li>
+    <li class="breadcrumb-item">Edit Page</li>
+  </ol>
+
+  <div class="row" *ngIf="page_id">
+
+    <form [formGroup]="form" class="col-md-12">
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>Edit Page <span *ngIf="page">
+            ({{page.page_title}})
+          </span> </p>
+
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="form-group">
+
+                <label>Page title</label>
+
+                <input type="text" class="form-control" formControlName="page_title">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+              <p>Design something awesome with the editor!</p>
+              <email-editor (loaded)="editorLoaded($event)"></email-editor>
+
+
+            </div>
+
+            <div class="col-md-12 d-flex justify-content-end">
+              <div class="form-group">
+                <button (click)="exportHtml()" class="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+
+  </div>
+
+</div>

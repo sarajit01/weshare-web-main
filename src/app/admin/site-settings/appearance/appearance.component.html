@@ -1,0 +1,49 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Settings</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Appearance</li>
+  </ol>
+
+  <div class="row">
+
+    <form  class="col-md-12" >
+      <div class="card">
+
+        <div class="card-header">
+
+          <button  type="button" [routerLink]="'general'"  class="btn btn-outline-primary">
+            General
+          </button>
+          <button type="button" [routerLink]="'logo'" class="btn btn-outline-primary ml-1">
+            Logo
+          </button>
+          <button type="button" [routerLink]="'sidebar'"  class="btn btn-outline-primary ml-1">
+            Sidebar
+          </button>
+          <button type="button" [routerLink]="'header'" class="btn btn-outline-primary ml-1">
+            Header
+          </button>
+          <button type="button" [routerLink]="'content'" class="btn btn-outline-primary ml-1">
+            Content
+          </button>
+          <button  type="button" [routerLink]="'footer'"  class="btn btn-outline-primary ml-1">
+            Footer
+          </button>
+          <button  type="button" [routerLink]="'social'"  class="btn btn-outline-primary ml-1">
+            Social Media Links
+          </button>
+
+        </div>
+        <div class="card-body">
+           <router-outlet></router-outlet>
+
+        </div>
+
+      </div>
+
+    </form>
+
+
+  </div>
+
+</div>

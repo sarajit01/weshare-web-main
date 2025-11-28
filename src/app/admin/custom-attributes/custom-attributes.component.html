@@ -1,0 +1,108 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Custom Attributes</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Custom Attributes</li>
+
+    <li *ngIf="category !== undefined" class="breadcrumb-item active">{{category.name}}</li>
+  </ol>
+
+  <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+  <div *ngIf="isLoading === false" class="row">
+    <div class="col-md-12">
+      <h3 class="font-weight-bold h3 fw-bold">
+        <span *ngIf="! form.controls.id.value">Add attribute</span>   <span *ngIf="form.controls.id.value">Edit attribute</span>  </h3>
+      <form [formGroup]="form" (submit)="saveAttribute()">
+        <div class="row">
+           <div class="col-md-12 mt-2">
+              <div class="form-group">
+                <label>Enter Attribute name</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Ex: Number of bedrooms">
+              </div>
+           </div>
+          <div class="col-md-12 mt-2">
+            <div class="form-group">
+              <label>Select Input type</label>
+              <select formControlName="input_type" class="form-control">
+                <option value="text">Text input</option>
+                <option value="numeric">Numeric Input</option>
+                <option value="checkbox">Checkbox</option>
+
+                <!--  <option value="dropdown">Dropdown to select</option>
+                  <option value="radio_button">Radio Buttons to select</option> -->
+                <option value="date">Date</option>
+                <option value="date_range">Date range</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12 mt-2">
+            <div class="form-group">
+              <button class="btn btn-primary">
+                <span *ngIf="! form.controls.id.value">
+                <i class="fa fa-plus"></i>&nbsp;Add this attribute
+                </span>
+                <span *ngIf="form.controls.id.value">
+                <i class="fa fa-refresh"></i>&nbsp;Update
+                </span>
+              </button>&nbsp;
+              <button type="button" class="btn btn-danger" (click)="cancel()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-md-12 mt-5">
+      <h3 class="font-weight-bold h3 fw-bold">Added Attributes</h3>
+
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+           <thead>
+              <tr>
+                <th>Name</th>
+                <th>Input type</th>
+                <th>
+                  Edit
+                </th>
+                <th>Delete</th>
+              </tr>
+           </thead>
+
+            <tbody>
+
+            <tr *ngFor="let attr of attributes">
+
+              <td>
+                {{attr.name}}
+              </td>
+              <td>
+                {{attr.input_type}}
+              </td>
+              <td>
+                <button (click)="editAttr(attr)" class="btn btn-primary">
+                  <i class="fa fa-edit"></i>
+                </button>
+              </td>
+              <td>
+                <button (click)="deleteAttr(attr)" class="btn btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</div>

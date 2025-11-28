@@ -1,0 +1,56 @@
+<form [formGroup]="form" class="row" *ngIf="business" (submit)="submitData()" >
+
+  <div class="col-md-12">
+
+
+    <p>Add visit for customer</p>
+
+    <mat-form-field class="col-12" appearance="outline" >
+      <mat-label>{{'Enter Customer ID' | translate}}</mat-label>
+      <input [required]="true" type="number" matInput placeholder="{{'Enter customer id' | translate}}" formControlName="customer_id"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+      <mat-error>{{'Please select a Loyalty Card' | translate}}</mat-error>
+      <mat-label>{{'Select Loyalty Card' | translate}}</mat-label>
+      <mat-select [required]="true" formControlName="lcc_id" >
+        <mat-select-trigger>
+
+                    <span *ngIf="form.controls.lcc_id.value">
+                     <i class="fa fa-check-circle text-success"></i>&nbsp;{{form.controls.lcc_id.value.card_title}}
+                    </span>
+
+        </mat-select-trigger>
+        <mat-option>
+          <ngx-mat-select-search formControlName="search_card"
+                                 placeholderLabel="{{'Search' | translate}} ..."
+                                 noEntriesFoundLabel="'no match found'"></ngx-mat-select-search>
+        </mat-option>
+
+        <!-- | searchBusiness : form.controls.search_card.value" -->
+
+        <mat-option [value]="card" *ngFor="let card of business.loyalty_cards">{{card.card_title}} (ID: {{card.id}})</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-12" appearance="outline" >
+      <mat-label>{{'Visits' | translate}}</mat-label>
+      <input [required]="true" type="number"  matInput placeholder="{{'Enter Number of visits to add' | translate}}" formControlName="visits_count"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <div class="col-12 d-flex justify-content-end align-items-center gap-2" >
+
+      <button type="submit" *ngIf="progress === false" mat-raised-button color="primary" class="mt-2">
+        {{'Add Visit' | translate}}
+      </button>
+      <button type="button" mat-dialog-close *ngIf="progress === false" mat-raised-button color="accent" class=" ml-2 mt-2">
+        {{'Cancel' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</form>

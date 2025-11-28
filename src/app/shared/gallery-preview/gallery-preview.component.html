@@ -1,0 +1,162 @@
+<div  class="theme-bg-primary" [sheetState]="previewState" appCollapsableBottomSheet [heightOnFullExpanded]="100" [heightOnHalfExpanded]="60" [heightOnCollapsed]="60" [heightOnHidden]="0" style="position: fixed;width: 100vw !important;z-index: 160 !important;left: 0;overflow-x: hidden !important;bottom: 0;overflow-y: scroll;height: 100vh !important;top: 0 !important;" >
+
+    <ng-container *ngIf="displayType === 'vertical'">
+
+        <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center" (onSwipeUp)="onSwipeUp()"
+             (onSwipeDown)="onSwipeDown()" appMovableOnDragDrop>
+            <div>
+                <!--                    <span class="material-symbols-outlined cursor-pointer" (click)="onSwipeDown()" style="font-size: 24px;">-->
+                <!--keyboard_arrow_down-->
+                <!--</span>-->
+                <h4 class="mb-0">
+                    {{"Gallery" | translate}}
+                </h4>
+            </div>
+
+            <h4 class="mb-0">
+                <ng-container *ngIf="listing.listing_type === 'business'">
+                    {{ listing.business?.business_name | translate}}
+                </ng-container>
+                <ng-container *ngIf="listing.listing_type === 'promotion'">
+                    {{ listing.promotion?.promotion_title | translate}}
+                </ng-container>
+                <ng-container *ngIf="listing.listing_type === 'loyalty_card'">
+                    {{ listing.loyalty_card?.card_title | translate}}
+                </ng-container>
+            </h4>
+
+            <div (click)="onClose()">
+                  <span class="material-symbols-outlined" style="font-size: 24px">
+close
+</span>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <app-gallery-items [listing]="listing" [gallery]="gallery" (selectedItem)="onItemClick($event)"></app-gallery-items>
+<!--            <ng-container *ngIf="listing.listing_type === 'business'">-->
+<!--                <app-gallery-items [listing]="listing" [gallery]="listing.business?.gallery"></app-gallery-items>-->
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="listing.listing_type === 'promotion'">-->
+<!--                <app-gallery-items *ngIf="listing.promotion.gallery && listing.promotion.gallery.length"-->
+<!--                                   [listing]="listing" [gallery]="listing.promotion?.gallery"></app-gallery-items>-->
+<!--                <app-gallery-items *ngIf="!listing.promotion.gallery || !listing.promotion.gallery.length"-->
+<!--                                   [listing]="listing"-->
+<!--                                   [gallery]="listing.promotion.business.gallery"></app-gallery-items>-->
+
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="listing.listing_type === 'loyalty_card'">-->
+<!--                <app-gallery-items [listing]="listing"-->
+<!--                                   [gallery]="listing.loyalty_card.business?.gallery"></app-gallery-items>-->
+<!--            </ng-container>-->
+
+        </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="displayType === 'horizontal'">
+
+        <div appFullScreenXY class="d-flex align-items-center justify-content-center">
+            <img src="{{gallery[activeItemIndex].img}}" class="img-fluid">
+        </div>
+
+        <div appFullScreenXY class="d-flex justify-content-between flex-column align-items-center" appMovableOnDragDrop (onSwipeLeft)="onSwipeLeft()" (onSwipeRight)="onSwipeRight()" >
+
+            <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center"
+                 (onSwipeDown)="onSwipeDown()" appMovableOnDragDrop>
+                <div>
+                    <!--                    <span class="material-symbols-outlined cursor-pointer" (click)="onSwipeDown()" style="font-size: 24px;">-->
+                    <!--keyboard_arrow_down-->
+                    <!--</span>-->
+                    <h4 class="mb-0">
+                        {{"" | translate}}
+                    </h4>
+                </div>
+
+                <h4 class="mb-0">
+                    {{activeItemIndex + 1}} of {{gallery.length}}
+                </h4>
+
+                <div (click)="onClose()">
+                  <span class="material-symbols-outlined" style="font-size: 24px">
+close
+</span>
+                </div>
+
+
+            </div>
+
+
+            <div class="w-100 d-flex flex-column gap-1 px-2 pb-2">
+
+                <ng-container *ngIf="listing.listing_type === 'business' && listing.business">
+                    <span class="fw-bold">{{listing.business?.business_name}}</span>
+                    <span>{{listing.business?.slogan}}</span>
+
+
+                    <button class="btn btn-outline-dark btn-sm my-2">
+                        {{"Send a message" | translate}}
+                    </button>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small>{{listing.business.likes_count}} {{"Likes" | translate}}</small>
+                        </div>
+                        <div>
+                            <small>{{listing.business.comments_count}} {{"Comments" | translate}}</small>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="listing.listing_type === 'promotion' && listing.promotion">
+                    <span class="fw-bold">{{listing.promotion?.promotion_title}}</span>
+                    <span>{{listing.promotion?.business?.business_name}}</span>
+
+
+                    <button class="btn btn-outline-dark btn-sm my-2">
+                        {{"Send a message" | translate}}
+                    </button>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small>{{listing.promotion.likes_count}} {{"Likes" | translate}}</small>
+                        </div>
+                        <div>
+                            <small>{{listing.promotion.comments_count}} {{"Comments" | translate}}</small>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="listing.listing_type === 'loyalty_card' && listing.loyalty_card">
+                    <span class="fw-bold">{{listing.loyalty_card?.card_title}}</span>
+                    <span>{{listing.loyalty_card?.business?.business_name}}</span>
+
+
+                    <button class="btn btn-outline-dark btn-sm my-2">
+                        {{"Send a message" | translate}}
+                    </button>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small>{{listing.loyalty_card.likes_count}} {{"Likes" | translate}}</small>
+                        </div>
+                        <div>
+                            <small>{{listing.loyalty_card.comments_count}} {{"Comments" | translate}}</small>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <mat-divider></mat-divider>
+
+                <app-listing-reaction [listing]="listing"></app-listing-reaction>
+
+            </div>
+
+        </div>
+
+
+    </ng-container>
+
+</div>

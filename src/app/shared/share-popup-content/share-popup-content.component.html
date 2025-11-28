@@ -1,0 +1,64 @@
+<div appCollapsableBottomSheet [sheetState]="previewState"  [heightOnFullExpanded]="100" [heightOnHalfExpanded]="60" [heightOnCollapsed]="60" [heightOnHidden]="0"  class="custom-bottom-sheet-container px-2 py-2" style="left: 0;position: fixed;bottom: 0;width: 100vw !important;z-index: 100000 !important;">
+    <div class="w-100" appMovableOnDragDrop (onSwipeDown)="onSwipeDown()">
+
+        <div   class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+            <!--        <i (click)="closePopup()" class="fa fa-angle-down cursor-pointer"></i>-->
+
+            <div  class="h-100 d-flex justify-content-center align-items-center">
+
+                <h4 class="mb-0">
+                    <ng-container [ngSwitch]="listingType">
+                        <ng-container *ngSwitchCase="'lc'">{{"Share Loyalty Card" | translate}}</ng-container>
+                        <ng-container *ngSwitchCase="'business'">{{"Share Business" | translate}}</ng-container>
+                        <ng-container *ngSwitchCase="'business_ad'">{{"Share Business Ad" | translate}}</ng-container>
+                        <ng-container *ngSwitchCase="'ad'">{{"Share Business Ad" | translate}}</ng-container>
+                        <ng-container *ngSwitchCase="'promotion'">
+                            <ng-container [ngSwitch]="listing.promotion_type">
+                                <ng-container *ngSwitchCase="'Promotion'">{{"Share Promotion" | translate}}</ng-container>
+                                <ng-container *ngSwitchCase="'Discount'">{{"Share Discount" | translate}}</ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </h4>
+            </div>
+
+
+            <i (click)="onSwipeDown()" class="fa fa-times cursor-pointer"></i>
+        </div>
+        <mat-divider></mat-divider>
+
+        <ng-container *ngIf="progress">
+            <div class="col-12 py-3" >
+                <p class="text-center">{{"Generating referral link for you" | translate}}</p>
+            </div>
+            <div class="col-12 d-flex justify-content-center" >
+
+                <mat-progress-spinner mode="indeterminate" diameter="40" ></mat-progress-spinner>
+
+            </div>
+        </ng-container>
+
+        <div class="col-md-12 py-3" *ngIf="listing && link">
+
+
+            <h4 class="text-center">{{"Share with other users and get rewards everytime you share" | translate}}</h4>
+            <div class="mb-5 overflow-auto d-md-flex justify-content-center">
+                <share-buttons theme="circles-dark"
+                               [include]="['facebook', 'twitter', 'whatsapp', 'email', 'sms',  'copy']"
+                               [showIcon]="true"
+                               [showText]="false"
+                               [url]="link"
+                               description="{{listing.description}}">
+                </share-buttons>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center" >
+                <button type="button" (click)="onClose()"  mat-raised-button color="accent">
+                    {{'Close' | translate}}
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,178 @@
+<div class="container pt-3 pb-5">
+
+  <app-mobile-header-with-back-button [backUrl]="'/business/manage'" [heading]="'Rewards Settings'"></app-mobile-header-with-back-button>
+
+  <div class="row mb-5">
+
+    <div class="col-md-12 p-0">
+
+      <mat-progress-bar *ngIf="progress === true" mode="indeterminate"></mat-progress-bar>
+      <mat-card *ngIf="business">
+
+        <mat-card-header class="d-none d-md-block">
+
+          <div class="row w-100  mb-2">
+
+            <div class="col-md-12 d-flex justify-content-between align-items-center flex-wrap">
+              <h2 class="">
+                {{"Referral Rewards table for Business" | translate}} ( {{business.business_name_prefix}} {{business.business_name}} )
+              </h2>
+              <button [routerLink]="['/business/manage']" mat-raised-button color="accent">
+
+                <i class="fa fa-angle-left"></i> Back
+
+              </button>&nbsp;&nbsp;
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-md-4">
+
+          <div class="row">
+
+
+            <form [formGroup]="formRewards" (submit)="saveRewardSettings()" class="col-md-12">
+
+              <div class="row" >
+
+
+                <div class="col-md-12">
+
+                  <h4 class="fw-bold">Referral Rewards Multi Level Network Configuration</h4>
+
+                </div>
+
+                <div class="col-md-12">
+
+                  <mat-form-field  appearance="outline">
+                    <mat-label>{{"How many levels you want to deepen for referral reward in multi-level referral program? (minimum: 1, maximum: 10)" | translate}}  </mat-label>
+
+                    <input (change)="onLevelCountChange()" formControlName="levels_count" [min]="1" [max]="10" type="number"   matInput>
+                    <mat-error>Number of levels</mat-error>
+
+                  </mat-form-field>
+
+                </div>
+
+                <div class="col-md-12">
+
+                  <mat-form-field  appearance="outline" *ngFor="let level of levels">
+                    <mat-label>Number of percentage will be rewarded to level {{level.level}} referrer based on customer consumption </mat-label>
+
+                    <input  [ngModelOptions]="{standalone: true}" [(ngModel)]="level.reward_percent" type="number" [min]="0" [max]="100"   matInput>
+                    <mat-error>Level {{level.level}} rewarded percentage</mat-error>
+
+                  </mat-form-field>
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                  <h4 class="fw-bold">Point -> Value Conversion Configuration</h4>
+
+                </div>
+
+                <div class="col-md-12">
+
+                  <mat-form-field  appearance="outline">
+                    <mat-label>{{"Each point value in $" | translate}} (for ex: 10 , then 10$ = 1 point) </mat-label>
+
+                    <input formControlName="point_value" type="number"   matInput>
+                    <mat-error>Each point value in $</mat-error>
+
+                  </mat-form-field>
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                  <h4 class="fw-bold">Customer Rewards Configuration</h4>
+
+                </div>
+
+                <div class="col-md-12">
+
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Number of percentage will be rewarded to customer based on customer consumption </mat-label>
+
+                    <input formControlName="customer_percent" type="number" [min]="0" [max]="100"   matInput>
+                    <mat-error> Percentage will be rewarded to customer</mat-error>
+
+                  </mat-form-field>
+
+                </div>
+
+              </div>
+
+
+              <div class="row mt-2" >
+                      <div class="col-md-12 d-flex justify-content-between flex-wrap align-items-center">
+
+                        <span class="fw-bold">Rewards Messages</span>
+
+                        <button type="button" class="btn btn-theme-dark btn-sm" (click)="addReward()" >
+                          Add
+                        </button>
+
+                      </div>
+                    </div>
+
+                    <ng-container >
+
+                      <div class="row mt-2" *ngFor="let reward of rewards">
+                        <div class="col-md-3">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{"#Points" | translate}}</mat-label>
+                            <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="reward.points" placeholder="3000">
+                          </mat-form-field>
+
+                        </div>
+                        <div class="col-md-9 d-flex flex-column gap-2">
+                          <mat-form-field appearance="outline">
+                            <mat-label>{{"Message your client receives" | translate}}</mat-label>
+                            <input matInput type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="reward.message_for_customer">
+                          </mat-form-field>
+
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                     <div class="row">
+                       <div class="col-12 py-2 d-flex justify-content-end">
+                         <button mat-raised-button color="primary">Save</button>
+                       </div>
+                     </div>
+
+
+              </form>
+
+
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+</div>

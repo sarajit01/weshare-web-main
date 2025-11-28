@@ -1,0 +1,49 @@
+@import "../business-classic-widget/business-classic-widget.component.css";
+
+
+.loyalty-card-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.loyalty-card-container {
+
+}
+
+.redemption-img {
+  width: 35px !important;
+}
+
+@media screen and (max-width: 480px){
+  .redemption-img {
+    width: 25px !important;
+  }
+  .loyalty-card-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .lc-qr-code {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 3992px){
+  .redemption-img {
+    width: 28px !important;
+  }
+  .loyalty-card-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lc-qr-code {
+    width: 40px;
+    height: 40px;
+  }
+}

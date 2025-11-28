@@ -1,0 +1,22 @@
+<div class="container-fluid pt-3 pb-5" style="background: #eee;">
+
+  <div class="row mb-2">
+
+    <div class="col-md-12">
+      <h2 class="text-center">
+        {{'Edit Business Notification' | translate}}<span *ngIf="businessNotification">({{businessNotification.name}})</span>
+      </h2>
+    </div>
+
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+
+    <div class="col-md-12 mb-4" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <app-listing-notification-form class="col-12 col-md-10 col-sm-12 col-lg-9" [businessNotification]="businessNotification" *ngIf="progress === false && businessNotification"></app-listing-notification-form>
+  </div>
+
+</div>

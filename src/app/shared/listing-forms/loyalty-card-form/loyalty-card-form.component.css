@@ -1,0 +1,34 @@
+#lc-live-preview {
+
+}
+
+.preview-state-hidden {
+    transform: translateY(400px);
+    transition: ease-in 1s;
+}
+
+.preview-state-expanded {
+    transform: translateY(-10px);
+    transition: ease-in 1s;
+}
+
+.preview-state-collapsed {
+    transform: translateY(210px);
+    transition: ease-in 1s;
+}
+
+@media screen and (min-width: 480px) and (max-width: 1023px){
+    #lc-live-preview {
+        max-width: 480px !important;
+        left: calc((100vw - 480px) / 2) !important;
+        padding-bottom: 16px !important;
+    }
+}
+
+@media screen and (min-width: 1024px){
+    #lc-live-preview {
+        max-width: 480px !important;
+        left: 20px !important;
+        padding-bottom: 16px !important;
+    }
+}

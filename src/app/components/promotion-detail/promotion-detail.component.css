@@ -1,0 +1,160 @@
+@import "../../business/business-detail/business-detail.component.css";
+
+.business-navigation button {
+  font-size: 18px;
+}
+
+.timing-table tbody tr td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-weight: bold;
+}
+.listing-feature {
+  position: relative;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+}
+.listing-feature-text {
+  line-height: 1.5;
+  margin-left: 10px;
+  margin-right: 30px;
+  font-weight: bold;
+  color: darkgrey;
+  font-size: 15px;
+}
+
+.listing-feature-icon {
+  line-height: 1.5;
+  font-size: 15px;
+}
+mat-card-title {
+  font-size: 17px !important;
+  font-weight: bold;
+  color: #3f51b5;
+  padding-bottom: 10px;
+}
+.swiper-container {
+
+  overflow: hidden;
+  cursor: grab;
+}
+
+.swiper-wrapper{
+  display:inline-flex;
+}
+
+.feedback-box {
+  align-self: center;
+  width: 50px;height: 50px;display: flex;justify-content: center;align-items: center;
+  background: #3f51b5;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.feedback-box-sm {
+  align-self: center;
+  width: 30px;height: 30px;display: flex;justify-content: center;align-items: center;
+  background: #3f51b5;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.rating i {
+  font-size: 10px;
+}
+.example-box.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-chip .cdk-drop-list-dragging {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.listing {
+  height: 250px;
+  width: 100%;
+
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.listing-cat-lg {
+  height: 450px;
+  width: 100%;
+
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.listing-cat-sm {
+  height: 210px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+
+}
+
+
+.promotion-title-primary , .promotion-title-secondary{
+  line-height: 1;
+}
+
+.promo-location-icon {
+  font-size: 20px;
+}
+
+.promo-location-title {
+  line-height: 1;
+  margin-left: 5px;
+}
+.promo-amount-big {
+  font-size: 40px;
+}
+
+.promo-timeline-area {
+  margin: 0;padding: 0;
+  border-left: 1px solid #ccc;
+
+}
+
+.listing-section .col-md-4 {
+
+  padding: 5px;
+
+}
+
+.btn-danger {
+  background: red !important;
+}
+
+.text-danger {
+  color: red !important;
+}
+
+
+.heading-lg {
+  font-size: 35px !important;
+  color: white;
+  font-weight: bold;
+}
+
+.heading-md {
+  font-size: 20px !important;
+  color: white;
+  font-weight: bold;
+}
+
+h1,h2,h3,h4 {
+  margin-bottom: 0 !important;
+}
+

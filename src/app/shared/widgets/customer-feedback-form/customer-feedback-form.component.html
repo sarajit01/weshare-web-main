@@ -1,0 +1,48 @@
+<form (submit)="submitFeedback()" class="row p-3" [formGroup]="feedbackForm" *ngIf="feedbackFormOpen === true">
+
+  <div class="col-md-12">
+
+    <div class="form-group">
+
+      <div class="alert alert-primary">
+        Your feedback is very important for us! Please submit a feedback
+      </div>
+
+    </div>
+    <div class="form-group">
+      <p>How was the quality of the service?</p>
+      <ngb-rating formControlName="quality_rating" [max]="5" [(rate)]="quality_rating" [readonly]="false"></ngb-rating>
+
+    </div>
+    <div class="form-group">
+      <p>Your rating about the location of the service</p>
+      <ngb-rating formControlName="location_rating" [max]="5" [(rate)]="location_rating" [readonly]="false"></ngb-rating>
+
+    </div>
+    <div class="form-group">
+      <p>Your rating about price of the service/product</p>
+      <ngb-rating formControlName="price_rating"  [max]="5" [(rate)]="price_rating" [readonly]="false"></ngb-rating>
+
+    </div>
+    <div class="form-group">
+      <p>Did the service fulfilled your expectation</p>
+      <ngb-rating formControlName="service_rating" [max]="5" [(rate)]="service_rating" [readonly]="false"></ngb-rating>
+
+    </div>
+
+
+    <mat-form-field class="col-12" appearance="outline">
+      <mat-label>Comment</mat-label>
+      <textarea matInput placeholder="Write your comment about your experience ..." formControlName="customer_comment"></textarea>
+      <mat-icon matSuffix>chat</mat-icon>
+    </mat-form-field>
+
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <button *ngIf="progress === false" mat-raised-button color="primary" class="form-control mt-2">
+      Submit feedback
+    </button>
+
+  </div>
+
+</form>

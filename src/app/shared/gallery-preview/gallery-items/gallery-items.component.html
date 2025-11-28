@@ -1,0 +1,14 @@
+<ng-container *ngIf="gallery.length;else noMedia">
+    <div class="w-100 d-flex flex-column">
+        <ng-container *ngFor="let media of gallery;let i = index">
+            <app-gallery-item (click)="onItemSelect(i)" [media]="media" [listing]="listing"></app-gallery-item>
+        </ng-container>
+    </div>
+</ng-container>
+<ng-template #noMedia>
+    <div class="w-100">
+        <div class="alert alert-danger">
+            {{"No media found to display" | translate}}
+        </div>
+    </div>
+</ng-template>

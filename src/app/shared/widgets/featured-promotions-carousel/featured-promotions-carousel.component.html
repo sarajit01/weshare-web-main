@@ -1,0 +1,196 @@
+<div class="position-relative" [class]="{'card' : !transparentBg}">
+    <div class="d-flex flex-column">
+        <div *ngIf="!displayEntitiesOnly" class="card-header order-md-0 d-flex justify-content-between align-items-center px-2">
+
+            <div class="d-flex align-items-center justify-content-start gap-2 gap-md-3" >
+
+                <ng-container *ngIf="!business">
+
+
+                <div>
+                    <img appBrandLogo [width]="40">
+                </div>
+
+                <div>
+        <span class=" business-title-header fw-bold" style="font-size: 16px !important;" >
+         Suggested for you
+        </span>
+                    <p class=" business-city-header mb-0" >
+                        Sponsored
+                    </p>
+                </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="business">
+
+
+                    <div style="width: 40px;height: 40px;border-radius: 100%; background-size: cover; background-position: center; background: url('{{business.logo}}')">
+
+                    </div>
+
+                    <div>
+        <span class=" business-title-header fw-bold" style="font-size: 16px !important;" >
+          {{business.name}}
+        </span>
+                        <p class=" business-city-header mb-0" >
+                            Sponsored
+                        </p>
+                    </div>
+
+                </ng-container>
+
+
+            </div>
+
+            <div class="d-flex align-items-center gap-2 justify-content-end section-listing-type ">
+        <span class="material-symbols-outlined">
+local_offer
+</span>
+
+            </div>
+
+        </div>
+        <div class="card-body px-0 py-2  order-md-1 ">
+            <ng-container *ngIf="!displayEntitiesOnly">
+                <div class="w-100  px-2" *ngIf="! business">
+                    <p class="card-text" style="line-height: 1.5;">Below we have prepared content that may be of interest to you and Weshare recommends it especially for you</p>
+                </div>
+
+            </ng-container>
+
+            <div  id="carousel-{{carouselId}}" class="featured-carousel w-100 mt-3 d-flex gap-3 ps-2 pe-2" (scroll)="onCarouselScroll($event)" style="overflow-x: scroll !important;">
+                <div class="col-7 pb-3 featured-carousel-item-promo" *ngFor="let promotion of promotions" (click)="onItemClick(promotion.favorite)">
+
+                    <div class="card shadow featured-card-content" >
+
+                        <div class="card-img" *ngIf="promotion.gallery && promotion.gallery[0]" style="height: 220px;background-position: center;background-size: cover;background-repeat: no-repeat; background-image: url('{{promotion.gallery[0].img}}')">
+
+                        </div>
+                        <div class="card-img" *ngIf="!promotion.gallery[0] && promotion.business && promotion.business.gallery && promotion.business.gallery[0]" style="height: 220px;background-position: center;background-size: cover;background-repeat: no-repeat; background-image: url('{{promotion.business.gallery[0].img}}')">
+
+                        </div>
+
+                        <div class="card-body featured-card-content p-2">
+                            <div class="w-100 d-flex align-items-center gap-2">
+                                <div>
+                                    <div style="width: 40px;height: 40px;border-radius: 100%;background-size: cover; background-repeat: no-repeat;background-position: center;background-image: url('{{promotion.business.logo}}')">
+
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <p class="mb-0">{{promotion.promotion_title}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer featured-card-content p-2">
+                            <div class="w-100 flex-column d-flex align-items-center justify-content-center">
+
+                                <span><span style="text-decoration: line-through">L{{promotion.price_original}}</span>&nbsp; |
+                                <span class="text-primary">&nbsp; L{{promotion.price_offered}}</span>
+                                </span>
+
+                                <small class="pt-2 pb-1">
+                                    Ahorras <span class="text-primary">L{{promotion.price_discount}}</span>
+                                </small>
+
+
+                                     <small *ngIf="promotion.time_left">
+               {{promotion.time_left.d}}D {{promotion.time_left.h}}H {{promotion.time_left.m}}M
+            </small>
+            <small *ngIf="!promotion.time_left" class="text-primary">
+              Expired {{promotion.time_ended}}
+            </small>
+
+
+                            </div>
+                        </div>
+                        <div class="card-footer featured-card-content p-2">
+                            <div class="w-100 d-flex justify-content-between align-items-center">
+                                <button (click)="viewPromotion(promotion)" class="btn btn-theme-dark">
+                                    {{"View" | translate}}
+                                </button>
+
+                                <div class="d-flex gap-2 align-items-center">
+                                    <div class="d-flex gap-1 align-items-center">
+                                        <span (click)="saveToFavorites(promotion)" class="material-symbols-outlined cursor-pointer">
+add_circle
+</span>
+                                        <span *ngIf="promotion.likes_count">{{promotion.likes_count}}</span>
+                                    </div>
+
+                                    <div class="d-flex gap-1 align-items-center">
+                                     <span (click)="openSharePopup(promotion)" class="material-symbols-outlined cursor-pointer">
+share
+</span>
+                                        <span *ngIf="promotion.shares_count">{{promotion.shares_count}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="w-100 mt-2 d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="promotions && promotions.length > 1">
+
+                <span  *ngFor="let lc of promotions;let i = index" [ngClass]="{'indicator-active' : activeSlideIndex == i }"  class="indicator"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!--  <div class="card-footer d-flex justify-content-between align-items-center px-2">-->
+    <!--    <div class="d-flex gap-2 align-items-center">-->
+
+    <!--      <div class="d-flex justify-content-start align-items-center gap-1">-->
+    <!--        <div (click)="saveToFavorites()" class="react-icon bg-primary">-->
+    <!--          <i class="fa fa-thumbs-up"></i>-->
+    <!--        </div>-->
+    <!--        <div (click)="saveToFavorites()" class="react-icon bg-danger">-->
+    <!--          <i class="fa fa-heart-o"></i>-->
+    <!--        </div>-->
+
+    <!--      </div>-->
+    <!--      <div>-->
+    <!--        <span>1k</span>-->
+    <!--      </div>-->
+
+    <!--    </div>-->
+
+    <!--    <div class="d-flex gap-2 align-items-center">-->
+
+    <!--      <div class="d-flex justify-content-end align-items-center gap-1">-->
+    <!--        <span>124 {{"Comments" | translate}}</span>-->
+    <!--      </div>-->
+    <!--      <div>-->
+    <!--        <span>0 {{"Shares" | translate}}</span>-->
+    <!--      </div>-->
+
+    <!--    </div>-->
+
+
+
+    <!--  </div>-->
+
+
+    <div (click)="onForwarded()" class="position-absolute carousel-control shadow d-flex justify-content-center align-items-center bg-white" style="left: 92% !important;top: 148px;width: 40px;height: 40px;border-radius: 40px;">
+        <span class="material-symbols-outlined text-black">
+arrow_forward_ios
+</span>
+    </div>
+    <div (click)="onBack()" class="position-absolute carousel-control shadow d-flex justify-content-center align-items-center bg-white" style="left: 4% !important;top: 148px;width: 40px;height: 40px;border-radius: 40px;">
+        <span class="material-symbols-outlined text-black">
+arrow_back_ios
+</span>
+    </div>
+
+
+
+</div>

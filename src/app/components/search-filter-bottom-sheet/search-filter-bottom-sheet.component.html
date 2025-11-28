@@ -1,0 +1,146 @@
+<div class="theme-bg-primary"  (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" style="z-index: 2000000 !important;position: fixed;top: 0; left: 0;overflow: scroll;height: 100vh !important;width: 100vw !important;">
+
+    <div class="px-3 mt-5 py-2 d-flex flex-column">
+
+        <div  class="w-100 d-flex justify-content-end align-items-center py-3" >
+            <div (click)="onClose()" class="d-flex theme-bg-primary shadow-sm justify-content-center align-items-center" style="z-index: 1000000 !important;position: fixed; top: 20px; right: 20px;width: 40px;height: 40px;border-radius: 40px;">
+                  <span class="material-symbols-outlined cursor-pointer" style="font-size: 30px; font-weight: bold">
+close
+</span>
+            </div>
+
+        </div>
+
+
+        <form id="business-mobile-form" class="pb-5 mb-5"  [formGroup]="formSearch">
+
+
+            <mat-form-field appearance="outline">
+                <mat-label>{{"What are you looking for? " | translate}}</mat-label>
+                <input matInput type="text" (keyup)="loadCategorySuggestions()" formControlName="keyword">
+            </mat-form-field>
+            <mat-form-field appearance="outline" *ngIf="countries && countries.length" >
+                <!--            <mat-error>Please select a business</mat-error>-->
+                <mat-label>{{'Country' | translate}}</mat-label>
+
+<!--                <input formControlName="country" type="text"-->
+<!--                       placeholder="{{'Select' | translate}}"-->
+<!--                       matInput-->
+<!--                       [matAutocomplete]="auto">-->
+<!--                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectCountry($event.option.value)">-->
+<!--                    <mat-option *ngFor="let country of countries" [value]="country">-->
+<!--                        {{country.country_name}}-->
+<!--                    </mat-option>-->
+<!--                </mat-autocomplete>-->
+
+                <select matNativeControl (change)="selectCountry()" formControlName="country" >
+                    <option value=""></option>
+                    <option [value]="country.country_code" *ngFor="let country of countries">{{country.country_name}}</option>
+                </select>
+
+            </mat-form-field>
+            <mat-form-field appearance="outline" *ngIf="selectedCountry && selectedCountry.cities && selectedCountry.cities.length">
+                <mat-label>{{'City' | translate}}</mat-label>
+                <select matNativeControl  formControlName="city" >
+                    <option value=""></option>
+                    <option [value]="city.city" *ngFor="let city of selectedCountry.cities">{{city.city}}</option>
+                </select>
+<!--                <input formControlName="city"  type="text"-->
+<!--                       placeholder="{{'Select' | translate}}"-->
+<!--                       matInput-->
+<!--                       [matAutocomplete]="auto">-->
+<!--                <mat-autocomplete #auto="matAutocomplete" >-->
+
+<!--                    <mat-option *ngFor="let city of selectedCountry.cities" [value]="city.city">-->
+<!--                        {{city.city}}-->
+<!--                    </mat-option>-->
+<!--                </mat-autocomplete>-->
+
+
+
+            </mat-form-field>
+
+            <p class="mt-2">
+                <mat-checkbox  formControlName="businesses">{{"Businesses" | translate}}</mat-checkbox></p>
+            <p><mat-checkbox  formControlName="promotions">{{"Promos & Discounts" | translate}}</mat-checkbox></p>
+            <p><mat-checkbox  formControlName="loyalty_cards">{{"Loyalty Cards" | translate}}</mat-checkbox></p>
+
+            <div *ngIf="catSuggestionIsLoading" class="w-100 d-flex flex-column justify-content-center align-items-center gap-1 py-2">
+                <p class="mb-0 text-success">{{"We are generating some category suggestions based on your search" | translate}}</p>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <ng-container *ngIf="suggestedCategories.length">
+
+                <h2 class="mt-3 fw-bold mb-0">{{"Suggested for you" | translate}}</h2>
+
+                <mat-radio-group aria-label="Select an option" formControlName="cat_id">
+                    <ng-container *ngFor="let category of suggestedCategories">
+                        <div class="w-100 d-flex justify-content-between align-items-center" >
+                            <div class="accordion  py-2" >
+                                {{category.name}}
+                            </div>
+                            <mat-radio-button (click)="onSelectCategory(category)" value="{{category.id}}"></mat-radio-button>
+
+
+                        </div>
+                        <ng-container *ngIf="category.sub_cats && category.sub_cats.length">
+                            <ng-container *ngFor="let sub_category of category.sub_cats">
+                                <div class="w-100 d-flex justify-content-between align-items-center ps-3" >
+                                    <div class="accordion  py-2" >
+                                        {{sub_category.name}}
+                                    </div>
+                                    <mat-radio-button (click)="onSelectCategory(sub_category)" value="{{sub_category.id}}"></mat-radio-button>
+
+
+                                </div>
+                                <ng-container *ngIf="sub_category.sub_cats && sub_category.sub_cats.length">
+                                    <ng-container *ngFor="let sub_sub_category of sub_category.sub_cats">
+                                        <div class="w-100 d-flex justify-content-between align-items-center ps-5" >
+                                            <div class="accordion  py-2" >
+                                                {{sub_sub_category.name}}
+                                            </div>
+                                            <mat-radio-button (click)="onSelectCategory(sub_sub_category)" value="{{sub_sub_category.id}}"></mat-radio-button>
+
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+
+
+                </mat-radio-group>
+            </ng-container>
+
+            <h2 class="mt-5 fw-bold mb-0">{{"All Categories" | translate}}</h2>
+
+            <mat-radio-group aria-label="Select an option" formControlName="cat_id">
+                <div class="w-100 d-flex justify-content-between align-items-center">
+                    <div class="accordion  py-2" >
+                        {{"Any Category" | translate}}
+                    </div>
+                    <mat-radio-button (click)="onSelectCategory({id: null, name: null})" value=""></mat-radio-button>
+
+                </div>
+                <div class="w-100 d-flex justify-content-between align-items-center" *ngFor="let category of categories">
+                    <div class="accordion  py-2" >
+                        {{category.name}}
+                    </div>
+                    <mat-radio-button (click)="onSelectCategory(category)" value="{{category.id}}"></mat-radio-button>
+
+                </div>
+            </mat-radio-group>
+
+
+        </form>
+
+        <div class="py-2"  style="position: fixed; bottom: 0px;left: 15px;right: 15px;">
+            <button (click)="onSearch()" class="btn btn-theme-dark btn-block" style="border-radius: 20px;">
+                {{"Search" | translate}}
+            </button>
+        </div>
+
+
+
+    </div>
+</div>

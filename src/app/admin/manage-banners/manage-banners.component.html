@@ -1,0 +1,90 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Banners</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Banner Gallery</li>
+
+    <li *ngIf="category !== undefined" class="breadcrumb-item active">{{category.name}}</li>
+  </ol>
+
+  <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
+  <div *ngIf="isLoading === false" class="row">
+    <div class="col-md-12">
+      <h3 class="font-weight-bold h3 fw-bold"></h3>
+      <form>
+        <div class="row">
+
+          <div class="col-md-12 mt-2">
+
+            <div class="col-md-12">
+
+              <mat-label>Upload Banner Images to add in gallery</mat-label>
+              <div class="col-md-12 py-2">
+                <ngx-dropzone (change)="onSelect($event)">
+                  <ngx-dropzone-label>Drop file here or click to upload</ngx-dropzone-label>
+
+                  <ngx-dropzone-image-preview  [file]="f" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                  </ngx-dropzone-image-preview>
+
+                </ngx-dropzone>
+
+              </div>
+
+
+
+            </div>
+
+          </div>
+          <div class="col-md-12 my-2" *ngIf="saveProgress === true || fileProgress === true">
+
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            <br/>
+
+            <p class="text-center" *ngIf="fileProgress === true">
+              Saving Banner Images ..
+            </p>
+            <p class="text-center" *ngIf="saveProgress === true">
+              Updating Gallery..
+            </p>
+
+          </div>
+          <div class="col-md-12 mt-2" *ngIf="saveProgress === false && fileProgress === false">
+
+            <div class="form-group">
+              <button type="button" (click)="saveInGallery()" class="btn btn-primary">
+
+                <i class="fa fa-plus"></i>&nbsp;Add to Gallery
+
+              </button>&nbsp;
+
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-md-12 mt-5">
+      <h3 class="font-weight-bold h3 fw-bold">Gallery</h3>
+
+      <div class="row">
+
+        <div class="col-md-4 mb-4 text-center" *ngFor="let banner of banners">
+          <img src="{{banner.img_url}}" class="img-fluid rounded-3">
+          <button type="button" (click)="deleteBanner(banner)" class="btn btn-danger mt-2">
+           <i class="fa fa-trash"></i>&nbsp; Delete
+          </button>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+</div>

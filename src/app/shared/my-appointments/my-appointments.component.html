@@ -1,0 +1,127 @@
+<div class="container-fluid" style="min-height: 100vh !important;">
+    <app-mobile-header-with-back-button [heading]="'My appointment calendar'" [backUrl]="'/' + authService.getRole() + '/dashboard'"></app-mobile-header-with-back-button>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 mt-4" *ngIf="date_string" style="max-width: 600px !important;">
+            <div class="w-100 d-flex justify-content-between align-items-center gap-2">
+                <h4 class="mb-0 fw-bold">{{date_string}}</h4>
+                <span *ngIf="!isCurrentDate" (click)="setToday()" class="fw-bold cursor-pointer">{{"Back to Today" | translate}}</span>
+            </div>
+
+            <ng-container *ngIf="appointments.length; else noAppointments">
+                <div class="card mt-4" (click)="onAppointmentTap(appointment)" style="border-radius: 20px;"  *ngFor="let appointment of appointments">
+                    <div class="card-body px-2 py-2">
+                        <div class="col-12 mb-2 flex-column d-flex gap-1">
+                            <div class="w-100 d-flex justify-content-between align-items-center gap-2">
+                                <h4 class="mb-0 fw-bold"> {{appointment.service.service_name}} </h4>
+                                <div class="d-flex gap-1 align-items-center" *ngIf="appointment.status === 'pending'">
+                                 <span class="material-symbols-outlined text-active">
+pending
+</span>
+                                    <span class="text-muted">{{"Pending" | translate}}</span>
+                                </div>
+
+                                <div class="d-flex gap-1 align-items-center" *ngIf="appointment.status === 'confirmed'">
+                                 <span class="material-symbols-outlined text-active">
+check_circle
+</span>
+                                    <span class="text-muted">{{"Confirmed" | translate}}</span>
+                                </div>
+
+                            </div>
+                            <div class="w-100 d-flex gap-1 align-items-center">
+                    <span class="material-symbols-outlined" style="font-size: 16px">
+schedule
+</span>
+                                <span>{{appointment.start_time}}</span>
+                            </div>
+                            <div class="w-100 d-flex gap-1 align-items-center">
+
+                    <span class="material-symbols-outlined" style="font-size: 16px">
+store
+</span>
+
+                                <span>{{appointment.business.business_name}}</span>
+                            </div>
+                            <div class="w-100 d-flex gap-1 align-items-center">
+
+                    <span class="material-symbols-outlined" style="font-size: 16px">
+calendar_month
+</span>
+
+                                <span>{{appointment.date}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noAppointments>
+                <div class="card mt-4" *ngIf="status === 'confirmed'">
+                    <div class="card-body px-2 py-2">
+                        {{"No confirmed appointment found in this date" | translate}}
+                    </div>
+                </div>
+                <div class="card mt-4" *ngIf="status === 'pending'">
+                    <div class="card-body px-2 py-2">
+                        {{"No pending appointment found in this date" | translate}}
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+
+    </div>
+
+    <div  (click)="changeCalendarBottomSheetState('expanded')" class="bg-black calendar-collapse-btn shadow d-flex justify-content-center align-items-center"
+         style="width: 50px;height: 50px;border-radius: 50%;position: fixed;bottom: 15px;right: 15px;">
+        <span class="material-symbols-outlined text-white">
+calendar_month
+</span>
+    </div>
+
+    <div  (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" id="lc-live-preview" class="theme-bg-primary calendar-state-{{calendarBottomSheetState}}" style="padding-left: 2px; padding-right: 2px;z-index: 1000!important;position: fixed;left: 0; bottom: 0;width: 100vw !important;">
+        <div class="container-fluid" style="max-width: 500px !important;">
+            <div class="row">
+                <div   class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+                    <i (click)="changeCalendarBottomSheetState('collapsed')" class="fa fa-angle-down cursor-pointer"></i>
+
+                    <div  class="h-100 d-flex justify-content-center align-items-center">
+                        <h4 class="mb-0">{{"Calendar" | translate}}</h4>
+                    </div>
+
+
+                    <i (click)="changeCalendarBottomSheetState('hidden')" class="fa fa-times cursor-pointer"></i>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row">
+                <div class="col-12">
+                    <mat-calendar (selectedChange)="onDateChanged($event)" [(selected)]="selectedDate"></mat-calendar>
+
+                </div>
+                <div class="col-12 py-2 d-flex justify-content-between align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-1 cursor-pointer" (click)="onStatusChange('confirmed')">
+                        <span class="material-symbols-outlined text-active">
+check_circle
+</span>
+                        <span>Confirmo asistencia</span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1 cursor-pointer" (click)="onStatusChange('pending')">
+                      <span class="material-symbols-outlined">
+pending
+</span>
+                        <span>No Confirmo asistencia</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+<app-progress-bar *ngIf="progress"></app-progress-bar>

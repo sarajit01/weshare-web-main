@@ -1,0 +1,1209 @@
+<div class="d-block container dashboard-container p-0 mb-5" id="dashboard-wrapper">
+
+  <div class="row pt-4 pt-md-3 pb-md-3">
+
+    <div class="col-12 d-flex justify-content-between align-items-center d-md-none">
+      <div class="d-flex flex-column w-50">
+        <h4 class="fw-bold mb-0">
+          {{"My Dashboard"}}
+        </h4>
+        <p>{{"We present the analysis and results of your business very month."}}</p>
+      </div>
+      <div class="w-50 ms-1">
+        <button class="btn btn-outline-dark btn-block">
+          View Statistics
+        </button>
+      </div>
+    </div>
+      <div class="col-12 d-none d-md-flex justify-content-between align-items-center">
+          <div class="d-flex">
+              <h2 class="fw-bold mb-0">
+                  {{"Dashboard"}}
+              </h2>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+              <div class="d-flex gap-2">
+                  <div>
+                      <span class="material-symbols-outlined cursor-pointer" (click)="changeAppTheme('dark')">
+dark_mode
+</span>
+                  </div>
+                  <div>
+                     <span class="material-symbols-outlined cursor-pointer" (click)="changeAppTheme('light')">
+light_mode
+</span>
+                  </div>
+              </div>
+              <button (click)="toggleCreationPopup()" *ngIf="!displayCreationPopup" class="btn btn-theme-dark btn-block">
+                  {{ "Create" | translate }}
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Mobile version -->
+  <div class="w-100 d-flex d-md-none flex-column gap-2">
+    <div class="row d-flex">
+      <div class="col-6 dashboard-action-widget pe-1">
+        <div class="card h-100" [routerLink]="['/business/my-referral-network']">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+diversity_1
+</span>
+
+              <p class="mb-0">{{"My Network"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-6 dashboard-action-widget ps-1">
+        <div class="card h-100">
+          <div [routerLink]="['/business/my-appointments']" class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+calendar_month
+</span>
+
+              <p class="mb-0">{{"My Appoints"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="row d-flex">
+      <div class="col-6 dashboard-action-widget pe-1">
+        <div class="card h-100" [routerLink]="['/promotions/manage']">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+local_offer
+</span>
+
+              <p class="mb-0">{{"My Promos"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-6 dashboard-action-widget ps-1">
+        <div class="card h-100" [routerLink]="['/business/loyalty-cards/manage']">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+credit_card
+</span>
+
+              <p class="mb-0">{{"My LCs"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="row d-flex">
+      <div class="col-6 dashboard-action-widget pe-1">
+        <div class="card h-100" [routerLink]="['/discounts/manage']">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+local_offer
+</span>
+
+              <p class="mb-0">{{"My Discounts"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-6 dashboard-action-widget ps-1">
+        <div class="card h-100" >
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+notifications
+</span>
+
+              <p class="mb-0">{{"My Notifi..s"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="row d-flex">
+      <div class="col-6 dashboard-action-widget pe-1">
+        <div class="card h-100" [routerLink]="['/business/manage']">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+store
+</span>
+
+              <p class="mb-0">{{"My Business"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-6 dashboard-action-widget ps-1">
+        <div class="card h-100" [routerLink]="['/business-ads/manage']">
+          <div class="card-body d-flex align-items-center py-3">
+            <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+campaign
+</span>
+
+              <p class="mb-0">{{"My Ads"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="row">
+      <div class="col-12 dashboard-action-widget">
+        <div class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+chat_bubble
+</span>
+
+              <p class="mb-0">{{"Messages"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="row">
+          <div class="col-12 dashboard-action-widget">
+              <div class="card" [routerLink]="['/business/payments']">
+                  <div class="card-body py-3">
+                      <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+attach_money
+</span>
+
+                          <p class="mb-0">{{"My Payments"}}</p>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="row">
+      <div class="col-12 dashboard-action-widget">
+        <div class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+help
+</span>
+
+              <p class="mb-0">{{"Help & Support"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 dashboard-action-widget">
+        <div [routerLink]="['/business/settings']" class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+settings
+</span>
+
+              <p class="mb-0">{{"Settings"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 dashboard-action-widget" (click)="_authService.logoutWithRedirect()">
+        <div class="card">
+          <div class="card-body py-3">
+            <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+logout
+</span>
+
+              <p class="mb-0">{{"Logout"}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- End mobile version -->
+
+  <!-- Tablet & Desktop version -->
+  <div class="row d-none d-md-flex">
+      <div class="col-md-7 col-lg-8 left-content-wrapper">
+          <div class="w-100 d-none d-md-flex  flex-column gap-2">
+
+              <div class="row d-flex">
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="['/business/manage']">
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+store
+</span>
+
+                                  <p class="mb-0">{{"My Businesses"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="['/promotions/manage']">
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+local_offer
+</span>
+
+                                  <p class="mb-0">{{"My Promotions"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="['/business/loyalty-cards/manage']">
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+credit_card
+</span>
+
+                                  <p class="mb-0">{{"My LCs"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="['/business/my-referral-network']">
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+diversity_1
+</span>
+
+                                  <p class="mb-0">{{"My Network"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="'/business/messages'">
+                          <div class="card-body py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+chat_bubble
+</span>
+
+                                  <p class="mb-0">{{"My Messages"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100">
+                          <div [routerLink]="['/business/my-appointments']" class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+calendar_month
+</span>
+
+                                  <p class="mb-0">{{"My Appointments"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="['/discounts/manage']">
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+local_offer
+</span>
+
+                                  <p class="mb-0">{{"My Discounts"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100">
+                          <div class="card-body py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+help
+</span>
+
+                                  <p class="mb-0">{{"Help & Support"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="col-md-6 col-lg-4 dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="['/business-ads/manage']">
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+campaign
+</span>
+
+                                  <p class="mb-0">{{ "My Ads" }}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4 d-lg-none dashboard-action-widget">
+                      <div class="card h-100" [routerLink]="'/business/notifications'" >
+                          <div class="card-body d-flex align-items-center py-3">
+                              <div class="col-12 d-flex align-items-center gap-2">
+<span class="material-symbols-outlined text-primary">
+notifications
+</span>
+
+                                  <p class="mb-0">{{"My Notifications"}}</p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-12">
+                      <div class="card">
+                          <div class="card-body">
+                              <div class="w-100 d-flex flex-column gap-3">
+                                  <div class="w-100 d-flex justify-content-between align-items-center">
+                                      <p class="mb-0 fw-bold" style="font-size: 16px;">
+                                          {{"Recent Notifications" | translate}}
+                                      </p>
+
+                                      <span class="cursor-pointer fw-bold cursor-pointer" [routerLink]="'/business/notifications'">
+                                          {{"View all" | translate}}
+                                      </span>
+                                  </div>
+
+
+                                  <div class="w-100 d-flex flex-column gap-2">
+                                      <ng-container *ngFor="let user of recentNotifications">
+
+                                          <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">
+                                              <div>
+                                                  <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"
+                                                       style="width: 40px;height: 40px;border-radius: 40px;">
+                                              </div>
+                                              <div class=" d-flex flex-column gap-2">
+                    <span class="fw-bold" style="font-size: 16px;">
+                        {{ user.name }}
+                    </span>
+                                                  <span class="text-muted" style="font-size: 14px;">
+                        {{ user.email }}
+                    </span>
+                                              </div>
+                                          </div>
+
+                                      </ng-container>
+                                  </div>
+
+
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+              </div>
+
+
+<!--              <div class="row d-flex">-->
+
+
+
+<!--              </div>-->
+
+<!--              <div class="row d-flex">-->
+
+
+
+
+<!--              </div>-->
+
+<!--              <div class="row d-flex">-->
+
+
+<!--                 -->
+
+
+<!--              </div>-->
+
+
+<!--              <div class="row">-->
+<!--                  <div class="col-12 dashboard-action-widget">-->
+<!--                      <div class="card">-->
+<!--                          <div class="card-body py-3">-->
+<!--                              <div class="col-12 d-flex gap-3">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--chat_bubble-->
+<!--</span>-->
+
+<!--                                  <p class="mb-0">{{"Messages"}}</p>-->
+
+<!--                              </div>-->
+<!--                          </div>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+
+<!--              <div class="row">-->
+<!--                  <div class="col-12 dashboard-action-widget">-->
+<!--                      <div class="card" [routerLink]="['/business/payments']">-->
+<!--                          <div class="card-body py-3">-->
+<!--                              <div class="col-12 d-flex gap-3">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--attach_money-->
+<!--</span>-->
+
+<!--                                  <p class="mb-0">{{"My Payments"}}</p>-->
+
+<!--                              </div>-->
+<!--                          </div>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+
+
+<!--              <div class="row">-->
+
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                  <div class="col-12 dashboard-action-widget">-->
+<!--                      <div [routerLink]="['/business/settings']" class="card">-->
+<!--                          <div class="card-body py-3">-->
+<!--                              <div class="col-12 d-flex gap-3">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--settings-->
+<!--</span>-->
+
+<!--                                  <p class="mb-0">{{"Settings"}}</p>-->
+
+<!--                              </div>-->
+<!--                          </div>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                  <div class="col-12 dashboard-action-widget" (click)="_authService.logoutWithRedirect()">-->
+<!--                      <div class="card">-->
+<!--                          <div class="card-body py-3">-->
+<!--                              <div class="col-12 d-flex gap-3">-->
+<!--<span class="material-symbols-outlined text-primary">-->
+<!--logout-->
+<!--</span>-->
+
+<!--                                  <p class="mb-0">{{"Logout"}}</p>-->
+
+<!--                              </div>-->
+<!--                          </div>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+
+
+          </div>
+      </div>
+      <div class="col-md-5 col-lg-4 d-flex flex-column gap-3 pb-5 right-content-wrapper">
+          <div class="card">
+              <div class="card-body p-3 p-lg-4">
+                  <div class="row">
+                      <div class="col-12 d-flex flex-column gap-3">
+                          <p class="mb-0 fw-bold" style="font-size: 16px;">{{"My Account" | translate}}</p>
+                          <div class="d-flex gap-4">
+                              <div>
+                                  <img class="rounded-5" src="https://ui-avatars.com/api/?background=random&name={{_authService.getAuthUserData('first_name')}}+{{_authService.getAuthUserData('last_name')}}" style="width:60px;height: 60px;">
+                              </div>
+                              <div class="d-flex flex-column gap-1">
+                                  <span class="fw-bold">ID: {{_authService.getUserID()}}</span>
+                                  <span class="fw-bold">{{_authService.getAuthUserData('first_name')}} {{_authService.getAuthUserData('last_name')}}</span>
+                                  <span>{{_authService.getAuthUserData('email')}}</span>
+                                  <span>{{_authService.getAuthUserData('phone')}} {{_authService.getAuthUserData('role')}}</span>
+                              </div>
+                          </div>
+                          <div class="d-flex justify-content-end align-items-center">
+                              <a [routerLink]="'/business/settings'" class="btn btn-theme-dark">
+                                  {{"Go to Settings" | translate}}
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-body p-3 p-lg-4">
+                  <div class="row">
+                      <div class="col-12 d-flex flex-column gap-4">
+                          <p class="mb-0 fw-bold" style="font-size: 16px;">{{"Subscription & Payments" | translate}}</p>
+                          <div class="d-flex gap-4">
+                              <div>
+                                  <span class="material-symbols-outlined" style="font-size: 40px;">
+paid
+</span>
+                              </div>
+                              <div class="d-flex flex-column">
+                                  <span class="fw-bold">{{"Basic Membership" | translate}}</span>
+                                  <span class="fw-bold">{{"$10 / Month"}}</span>
+                                  <span>Will Expire in 23 days</span>
+
+                              </div>
+                          </div>
+                          <div class="d-flex gap-2 flex-wrap align-items-center">
+                              <div class="flex-grow-1">
+                                  <a [routerLink]="'/business/select-plan'" class="btn btn-theme-dark btn-block">
+                                      {{"Upgrade" | translate}}
+                                  </a>
+                              </div>
+                              <div class="flex-grow-1">
+                                  <a [routerLink]="'/business/payments'" class="btn btn-theme-dark btn-block">
+                                      {{"Payments" | translate}}
+                                  </a>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-body p-3 p-lg-4">
+                  <div class="w-100 d-flex flex-column gap-3">
+                      <p class="mb-0 fw-bold" style="font-size: 16px;">
+                          {{"Appointment Requests" | translate}}
+                      </p>
+
+                      <div class="w-100 d-flex flex-column gap-2">
+                          <ng-container *ngFor="let user of appointmentRequests">
+
+                              <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">
+                                  <div>
+                                      <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"
+                                           style="width: 40px;height: 40px;border-radius: 40px;">
+                                  </div>
+                                  <div class=" d-flex flex-column gap-2">
+                    <span class="fw-bold" style="font-size: 16px;">
+                        {{ user.name }}
+                    </span>
+                                      <span class="text-muted" style="font-size: 14px;">
+                        {{ user.email }}
+                    </span>
+                                  </div>
+                              </div>
+
+                          </ng-container>
+                      </div>
+
+                      <span class="w-100 text-center fw-bold cursor-pointer" [routerLink]="'/business/my-appointments'">
+        View all
+    </span>
+
+                  </div>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-body p-3 p-lg-4">
+                  <div class="w-100 d-flex flex-column gap-3">
+                      <p class="mb-0 fw-bold" style="font-size: 16px;">
+                          {{"Recent Messages" | translate}}
+                      </p>
+
+                      <div class="w-100 d-flex flex-column gap-2">
+                          <ng-container *ngFor="let user of recentMessages">
+
+                              <div class="w-100 d-flex gap-3 py-1 ps-1 contact-person-wrapper">
+                                  <div>
+                                      <img src="https://ui-avatars.com/api/?background=random&name={{user.name}}"
+                                           style="width: 40px;height: 40px;border-radius: 40px;">
+                                  </div>
+                                  <div class=" d-flex flex-column gap-2">
+                    <span class="fw-bold" style="font-size: 16px;">
+                        {{ user.name }}
+                    </span>
+                                      <span class="text-muted" style="font-size: 14px;">
+                        {{ user.email }}
+                    </span>
+                                  </div>
+                              </div>
+
+                          </ng-container>
+                      </div>
+
+                      <span class="w-100 text-center fw-bold cursor-pointer" [routerLink]="'/business/messages'">
+        View all
+    </span>
+
+                  </div>
+              </div>
+          </div>
+
+
+
+      </div>
+  </div>
+   <!-- End Tablet / Desktop -->
+
+    <div (click)="toggleCreationPopup()" *ngIf="!displayCreationPopup" class="btn-theme-dark d-flex d-md-none justify-content-center align-items-center" style="width: 40px;height: 40px;border-radius: 50%;position: fixed; right: 16px;bottom: 20px;">
+        <span class="material-symbols-outlined">
+add
+</span>
+    </div>
+
+    <ng-container *ngIf="displayCreationPopup">
+        <div class="w-100 h-100 theme-bg-primary"
+             style="position: fixed;opacity: 0.9;z-index: 100000;top:0;left:0;">
+
+        </div>
+
+        <div class="w-100 h-100 d-flex align-items-end justify-content-end pb-3 pe-3"
+             style="position: fixed;width: 100vw!important;height: 100vh !important;;background: transparent !important;left: 0 !important;top: 0 !important;z-index: 100001 !important;">
+
+
+            <div class="w-100 d-flex flex-column gap-3">
+
+
+                <div class="w-100 d-flex align-items-center justify-content-end gap-3 cursor-pointer">
+                    <p [routerLink]="['/business/create']" class="mb-0 fw-bold">{{"Create Business"}}</p>
+
+                    <div [routerLink]="['/business/create']" class="bg-white shadow d-flex justify-content-center align-items-center"
+                         style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-dark">
+store
+</span>
+                    </div>
+                </div>
+
+                <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+                    <p [routerLink]="['/business/create-promotion']" class="mb-0 fw-bold">{{"Create Promotion"}}</p>
+
+                    <div [routerLink]="['/business/create-promotion']" class="bg-white shadow d-flex justify-content-center align-items-center"
+                         style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-dark">
+local_offer
+</span>
+                    </div>
+                </div>
+
+                <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+                    <p [routerLink]="['/business/loyalty-card/create']" class="mb-0 fw-bold">{{"Create Loyalty Card"}}</p>
+
+                    <div [routerLink]="['/business/loyalty-card/create']" class="bg-white shadow d-flex justify-content-center align-items-center"
+                         style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-dark">
+credit_card
+</span>
+                    </div>
+                </div>
+
+                <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+                    <p [routerLink]="['/business/create-ad']" class="mb-0 fw-bold">{{"Create Business Ad"}}</p>
+
+                    <div [routerLink]="['/business/create-ad']" class="bg-white shadow d-flex justify-content-center align-items-center"
+                         style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-dark">
+campaign
+</span>
+                    </div>
+                </div>
+
+                <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+                    <p [routerLink]="['/business/create-notification']" class="mb-0 fw-bold">{{"Create Business Notification"}}</p>
+
+                    <div [routerLink]="['/business/create-notification']" class="bg-white shadow d-flex justify-content-center align-items-center"
+                         style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-dark ">
+notifications
+</span>
+                    </div>
+                </div>
+
+                <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+
+                    <div (click)="toggleCreationPopup()" class="bg-black shadow d-flex justify-content-center align-items-center"
+                         style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-white">
+close
+</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </ng-container>
+</div>
+
+<div class="d-none  container pt-3 pb-5" style="background: #eee;">
+
+  <div class="row d-flex justify-content-center">
+     <div class="col-md-12">
+
+         <div class="row mb-2">
+
+         <div class="col-md-12">
+           <h2 class="">
+             {{'Dashboard' | translate}}
+           </h2>
+         </div>
+
+       </div>
+
+         <div class="row d-flex justify-content-end mb-5">
+
+         <div class="col-md-3">
+
+
+           <mat-card class="dashboard-widget">
+
+             <mat-card-header>
+               <mat-card-title>
+                 {{'Businesses' | translate}}
+               </mat-card-title>
+             </mat-card-header>
+             <mat-divider></mat-divider>
+             <mat-card-content class="p-3">
+               <h1 class="dashboard-widget-title text-primary fw-bold">
+                 {{statistics.businesses}}
+               </h1>
+               <p class="dashboard-widget-subtitle text-black-50">
+                 <i class="fa fa-check"></i> {{'Business Listing' | translate}}
+               </p>
+             </mat-card-content>
+             <mat-divider></mat-divider>
+             <mat-card-actions class="text-center">
+               <button [routerLink]="'/'+routes.business.create" mat-raised-button color="accent">
+                 {{'Add' | translate}} &nbsp;<i class="fa fa-plus"></i>
+               </button>
+               <button [routerLink]="'/'+routes.business.manage"  mat-raised-button color="primary">
+                 {{'View all' | translate}} &nbsp;<i class="fa fa-angle-right"></i>
+               </button>
+
+             </mat-card-actions>
+
+
+           </mat-card>
+
+
+
+         </div>
+
+         <div class="col-md-3">
+
+
+           <mat-card class="dashboard-widget">
+
+             <mat-card-header>
+               <mat-card-title>
+                 {{'Promotions' | translate}}
+               </mat-card-title>
+             </mat-card-header>
+             <mat-divider></mat-divider>
+             <mat-card-content class="p-3">
+               <h1 class="dashboard-widget-title text-primary fw-bold">
+                 {{statistics.promotions}}
+               </h1>
+               <p class="dashboard-widget-subtitle text-black-50">
+                 <i class="fa fa-check"></i> {{'Active Promotions' | translate}}
+               </p>
+             </mat-card-content>
+             <mat-divider></mat-divider>
+             <mat-card-actions class="text-center">
+               <button  [routerLink]="'/'+routes.business.create_promotion"  mat-raised-button color="accent">
+                 {{'Add' | translate}} &nbsp;<i class="fa fa-plus"></i>
+               </button>
+               <button  [routerLink]="'/'+routes.business.manage_promotions"  mat-raised-button color="primary">
+                 {{'View all' | translate}} &nbsp;<i class="fa fa-angle-right"></i>
+               </button>
+
+             </mat-card-actions>
+
+
+           </mat-card>
+
+
+
+         </div>
+
+         <div class="col-md-3">
+
+
+           <mat-card class="dashboard-widget">
+
+             <mat-card-header>
+               <mat-card-title>
+                 {{'Discounts' | translate}}
+               </mat-card-title>
+             </mat-card-header>
+             <mat-divider></mat-divider>
+             <mat-card-content class="p-3">
+               <h1 class="dashboard-widget-title text-primary fw-bold">
+                 {{statistics.discounts}}
+               </h1>
+               <p class="dashboard-widget-subtitle text-black-50">
+                 <i class="fa fa-check"></i> {{'Active Discounts' | translate}}
+               </p>
+             </mat-card-content>
+             <mat-divider></mat-divider>
+             <mat-card-actions class="text-center">
+               <button  [routerLink]="'/'+routes.business.create_promotion"  mat-raised-button color="accent">
+                 {{'Add' | translate}} &nbsp;<i class="fa fa-plus"></i>
+               </button>
+               <button  [routerLink]="'/'+routes.business.manage_promotions"  mat-raised-button color="primary">
+                 {{'View all' | translate}} &nbsp;<i class="fa fa-angle-right"></i>
+               </button>
+
+             </mat-card-actions>
+
+
+           </mat-card>
+
+
+
+         </div>
+
+         <div class="col-md-3">
+
+
+           <mat-card class="dashboard-widget">
+
+             <mat-card-header>
+               <mat-card-title>
+                 {{'Ads' | translate}}
+               </mat-card-title>
+             </mat-card-header>
+             <mat-divider></mat-divider>
+             <mat-card-content class="p-3">
+               <h1 class="dashboard-widget-title text-primary fw-bold">
+                 {{statistics.ads}}
+               </h1>
+               <p class="dashboard-widget-subtitle text-black-50">
+                 <i class="fa fa-check"></i> {{'Business Ads' | translate}}
+               </p>
+             </mat-card-content>
+             <mat-divider></mat-divider>
+             <mat-card-actions class="text-center">
+
+               <button  [routerLink]="'/'+routes.business.create_ad"  mat-raised-button color="accent">
+                 {{'Add' | translate}} &nbsp;<i class="fa fa-plus"></i>
+               </button>
+               <button  [routerLink]="'/'+routes.business.manage_ads"  mat-raised-button color="primary">
+                 {{'View all' | translate}} &nbsp;<i class="fa fa-angle-right"></i>
+               </button>
+
+             </mat-card-actions>
+
+
+           </mat-card>
+
+
+
+         </div>
+
+       </div>
+
+         <div class="row mb-5">
+
+         <div class="col-md-12">
+
+           <mat-card>
+
+             <mat-card-header>
+               <mat-card-title>
+                 {{'Business Statistics  ( Last 1 month )' | translate}}
+               </mat-card-title>
+             </mat-card-header>
+             <mat-divider></mat-divider>
+             <mat-card-content class="p-3">
+
+               <div class="row">
+
+                 <div class="col-md-12">
+
+                   <mat-tab-group class="mb-2" backgroundColor="primary" >
+                     <mat-tab>
+
+                       <ng-template mat-tab-label>
+
+                    <span (click)="activateBusi()">
+
+
+                      {{'Business' | translate}}</span>
+                       </ng-template>
+
+
+                     </mat-tab>
+                     <!--  <mat-tab>
+
+                         <ng-template mat-tab-label>
+                           <span (click)="activatePromo()">
+
+                             Promotion</span>
+                         </ng-template>
+                       </mat-tab>
+                       <mat-tab label="Discount">
+
+
+
+                       </mat-tab> -->
+                   </mat-tab-group>
+
+
+                   <div *ngIf="activeC === 'business'">
+                     <div class="row mb-2">
+
+                       <div class="col-md-3">
+                         <mat-form-field appearance="outline">
+                           <mat-label>{{'Date from' | translate}}</mat-label>
+                           <input matInput [matDatepicker]="picker">
+                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                           <mat-datepicker #picker></mat-datepicker>
+                         </mat-form-field>
+                       </div>
+                       <div class="col-md-3">
+                         <mat-form-field appearance="outline">
+                           <mat-label>{{'Date to' | translate}}</mat-label>
+                           <input matInput [matDatepicker]="picker2">
+                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                           <mat-datepicker #picker2></mat-datepicker>
+                         </mat-form-field>
+                       </div>
+                       <div class="col-md-3">
+
+                         <button class="btn btn-lg btn-success" >
+
+                           {{'Filter' | translate}}
+                         </button>
+
+                       </div>
+
+
+
+                     </div>
+
+                     <div class="row mb-2">
+
+                       <div class="col-md-12">
+
+                         <canvas id="businessChart" ></canvas>
+
+
+                       </div>
+
+
+                     </div>
+
+
+                   </div>
+
+                   <div *ngIf="activeC === 'promo'">
+
+                     <div class="row mb-2">
+
+                       <div class="col-md-3">
+                         <mat-form-field appearance="outline">
+                           <mat-label>{{'Date from' | translate}}</mat-label>
+                           <input matInput [matDatepicker]="picker4">
+                           <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                           <mat-datepicker #picker4></mat-datepicker>
+                         </mat-form-field>
+                       </div>
+                       <div class="col-md-3">
+                         <mat-form-field appearance="outline">
+                           <mat-label>{{'Date to' | translate}}</mat-label>
+                           <input matInput [matDatepicker]="picker20">
+                           <mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
+                           <mat-datepicker #picker20></mat-datepicker>
+                         </mat-form-field>
+                       </div>
+                       <div class="col-md-3">
+
+                         <button class="btn btn-lg btn-success" >
+
+                           {{'Filter' | translate}}
+                         </button>
+
+                       </div>
+
+
+
+                     </div>
+
+                     <div class="row mb-2">
+
+                       <div class="col-md-12">
+
+                         <canvas id="promoChart" ></canvas>
+
+
+                       </div>
+
+                     </div>
+                   </div>
+
+
+
+
+                 </div>
+
+               </div>
+
+
+
+             </mat-card-content>
+
+
+
+           </mat-card>
+
+
+         </div>
+
+       </div>
+  </div>
+
+  </div>
+
+
+  <!--<div class="row mb-5">
+
+    <div class="col-md-12">
+
+      <mat-card>
+
+        <mat-card-header>
+          <mat-card-title>
+            <i class="fa fa-bell text-info"></i> &nbsp;Latest Notifications
+          </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-3">
+
+
+          <div class="col-md-12">
+
+            <div class="alert alert-info  fw-bold">
+              <i class="fa fa-check"></i> &nbsp;Your business plan has been upgraded successfully - 2 days ago
+            </div>
+
+          </div>
+          <div class="col-md-12">
+
+            <div class="alert alert-info  fw-bold">
+              <i class="fa fa-check"></i> &nbsp;Payment successful for purchasing plan - 3 days ago
+            </div>
+
+          </div>
+          <div class="col-md-12">
+
+            <div class="alert alert-info  fw-bold">
+              <i class="fa fa-comments"></i> &nbsp;John sent a new message for listing ( demo ) - 4 days ago
+            </div>
+
+          </div>
+          <div class="col-md-12">
+
+            <div class="alert alert-info fw-bold">
+              <i class="fa fa-comments"></i> &nbsp;Rana sent a new message for listing ( demo ) - 4 days ago
+            </div>
+
+          </div>
+
+
+        </mat-card-content>
+
+        <mat-card-actions class="text-center">
+
+          <button mat-raised-button color="primary">
+
+           View All   &nbsp; <i class="fa fa-angle-right"></i>
+
+          </button>
+
+        </mat-card-actions>
+
+
+
+      </mat-card>
+
+
+    </div>
+
+  </div> -->
+
+
+</div>
+

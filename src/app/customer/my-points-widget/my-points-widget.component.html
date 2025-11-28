@@ -1,0 +1,13 @@
+<div class="col-12 px-0 d-flex justify-content-between align-items-center mb-2" *ngIf="user">
+    <div class="d-flex gap-2 align-items-center">
+        <mat-card style="width: 40px;height: 40px;border-radius: 50%!important;">
+            <mat-card-content class="w-100 h-100 d-flex justify-content-center align-items-center">
+                <i class="fa fa-user text-primary"></i>
+            </mat-card-content>
+        </mat-card>
+        <h4 class="fw-bold mb-0">Hello {{user.first_name}}</h4>
+    </div>
+    <h4 class="mb-0 fw-bold text-primary">
+        {{user.points.toFixed(2)}} points
+    </h4>
+</div>

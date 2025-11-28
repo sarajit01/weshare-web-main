@@ -1,0 +1,139 @@
+<div class="container-fluid pt-3 pb-5">
+  <div class="row">
+
+    <div class="row mb-5">
+
+      <div class="col-md-12">
+
+        <mat-progress-bar *ngIf="progress === true" mode="indeterminate"></mat-progress-bar>
+        <mat-card *ngIf="messages">
+
+          <mat-card-header>
+
+            <div class="row mb-2">
+
+              <div class="col-md-12">
+                <h2 class="">
+                  Messages from business owners
+                </h2>
+
+
+              </div>
+
+            </div>
+
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="p-4">
+
+            <!--  <div class="row">
+
+                <div class="col-md-6 float-end">
+
+                  <mat-form-field style="width: 100%"  appearance="outline">
+                    <input matInput placeholder="Search Users .." >
+                  </mat-form-field>
+
+                </div>
+
+
+              </div> -->
+
+            <div class="row">
+
+
+              <div class="col-md-12">
+
+                <div class="table-responsive">
+
+                  <table class="table table-hover">
+
+                    <thead>
+
+                    <tr>
+
+                      <th>Listing ID#</th>
+                      <th>Listing</th>
+                      <th>Sent at</th>
+                      <th>View Message</th>
+                      <th>Reply</th>
+
+                    </tr>
+
+
+                    </thead>
+
+                    <tbody>
+
+                    <tr *ngFor="let message of messages">
+                      <td>{{message.listing_id}}</td>
+                      <td>{{message.listing_type}}<br/>
+                        <span *ngIf="message.listing_type === 'business'">
+
+                           {{message.business.business_name_prefix}} {{message.business.business_name}}
+                        </span>
+                        <span *ngIf="message.listing_type === 'promotion'">
+
+                           {{message.promotion.promotion_title}}
+                        </span>
+
+
+                      </td>
+
+                      <td>{{message.created_at | date}}</td>
+
+                      <td>
+
+                        <button (click)="viewMessage(message.message)" mat-raised-button color="accent">
+
+                          <i class="fa fa-comments"></i>
+
+                        </button>&nbsp;&nbsp;
+                      </td>
+                      <td>
+
+                        <button (click)="replyToMessage(message)" mat-raised-button color="primary">
+
+                          <i class="fa fa-comments-o"></i>
+
+                        </button>&nbsp;&nbsp;
+                      </td>
+
+
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                  </table>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+
+
+
+      </div>
+      <div class="col-md-12">
+
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+  </div>
+</div>

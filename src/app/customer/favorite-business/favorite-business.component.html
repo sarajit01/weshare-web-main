@@ -1,0 +1,22 @@
+<mat-card class="shadow-sm customer-favorite-item-card col-5 col-sm-4 col-md-3 col-lg-3" (click)="openBottomSheet()" style="margin: 0 !important;">
+
+    <div mat-card-image
+         style="height: 120px;background-position: center; background-size: cover; background: url('{{favorite.business.gallery[0].img}}')"></div>
+
+    <mat-card-content  style="position: absolute; top: 90px;width: 100%;left: 0 !important;">
+        <div class="w-100 d-flex justify-content-center">
+            <div class="customer-favorite-item-card-business-logo" style="background-image: url('{{favorite.business.logo}}')">
+
+            </div>
+        </div>
+        <div class="w-100 text-center mt-2">
+            <p class="fw-bold">
+                {{favorite.business.name}}
+            </p>
+
+        </div>
+    </mat-card-content>
+    <!--                      <mat-card-actions>-->
+    <!--                         -->
+    <!--                      </mat-card-actions>-->
+</mat-card>

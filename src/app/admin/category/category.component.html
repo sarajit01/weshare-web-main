@@ -1,0 +1,170 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Add Category</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Categories</li>
+
+    <li class="breadcrumb-item active">Add Category</li>
+  </ol>
+
+  <div class="row">
+
+    <form [formGroup]="formCat" (submit)="createCat()" class="col-md-12">
+
+
+
+      <div class="card mb-4">
+
+        <div class="card-header">
+
+          <p><span *ngIf="category !== undefined && category !== null"> Add sub category of {{category.name}}</span>
+
+            <span *ngIf="category === undefined || category === null"> Add New Category</span>
+          </p>
+
+        </div>
+        <div class="card-body">
+
+          <div class="col-md-7">
+
+            <div class="row">
+
+              <div class="col-md-12 mb-4" *ngIf="formCat.controls.icon.value">
+
+                Selected Icon : &nbsp;&nbsp;<img src="{{formCat.controls.icon.value}}" width="50px;">&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <button (click)="setIconVal('')" class="btn btn-sm btn-primary">
+                  <i class="fa fa-refresh"></i>&nbsp;Change Icon
+                </button>
+
+              </div>
+
+              <div class="col-md-12" *ngIf="! formCat.controls.icon.value">
+
+
+                  <mat-label>Please select icon</mat-label>
+                  <mat-form-field  appearance="outline">
+
+                    <input matInput formControlName="iconSearch"  (keyup)="getIcons()" type="text" name="iconSearch"  >
+                  </mat-form-field>
+                  <div class="row mb-5" style="height: 400px;overflow-y: scroll">
+
+                    <div (click)="setIconVal(icon)" class="" *ngFor="let icon of icons" style="background:#eee; width: 80px;margin: 5px;border: 1px solid #ccc; border-radius: 5px;padding: 4px">
+                      <img src="{{icon}}" class="img-fluid">
+                    </div>
+
+                  </div>
+
+              </div>
+
+              <div class="col-md-12 mb-4">
+
+                <mat-label>Category Name</mat-label>
+
+                <mat-form-field  appearance="outline">
+                  <mat-error>Category name is required</mat-error>
+                  <input matInput type="text" name="icon" formControlName="name" >
+                </mat-form-field>
+
+
+              </div>
+              <div class="col-md-12" *ngIf="! category || category === null">
+
+                <p>Select Parent Category</p>
+                <div class="col-md-12" *ngIf="categories">
+
+                  <mat-form-field appearance="outline" >
+                    <mat-label>Select Category</mat-label>
+                    <mat-select formControlName="parent_cat_id" >
+                      <mat-select-trigger>
+
+                    <span *ngIf="formCat.controls.parent_cat_id.value">
+                     <i class="fa fa-check-circle text-success"></i>&nbsp; Parent category ID : {{formCat.controls.parent_cat_id.value}}
+                    </span>
+
+                      </mat-select-trigger>
+                      <mat-option value="">Select</mat-option>
+                      <mat-option [value]="cat.id" *ngFor="let cat of categories">ID : {{cat.id}} ({{cat.name}})</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-12">
+
+                <div class="row mt-5">
+
+                  <div class="col-md-12">
+
+                    <mat-label>Banner</mat-label>
+                    <div class="col-md-12 py-2">
+                      <ngx-dropzone (change)="onSelect($event)">
+                        <ngx-dropzone-label>Drop file here or click to upload</ngx-dropzone-label>
+
+                        <ngx-dropzone-image-preview  [file]="f" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-image-preview>
+
+
+                      </ngx-dropzone>
+
+                    </div>
+
+
+
+                  </div>
+
+
+
+
+                </div>
+
+              </div>
+
+              <div class="col-md-12 my-2" *ngIf="saveProgress === true || fileProgress === true">
+
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                <br/>
+
+                <p class="text-center" *ngIf="fileProgress === true">
+                  Saving Banner Image ..
+                </p>
+                <p class="text-center" *ngIf="saveProgress === true">
+                  Saving Category Info ..
+                </p>
+
+              </div>
+
+              <div class="col-md-12">
+
+
+
+                <div class="form-group mt-3">
+
+
+                  <button type="submit" class="btn btn-primary next-btn">
+                    Add Category
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+
+
+    </form>
+
+  </div>
+
+</div>

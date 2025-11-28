@@ -1,0 +1,93 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Site Settings</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Translator</li>
+    <li class="breadcrumb-item active">{{ln.toUpperCase()}}</li>
+  </ol>
+
+  <div class="row d-flex justify-content-center">
+
+    <div class="col-md-12" *ngIf="translations && translations.length">
+      <div class="card">
+        <div class="card-header">
+          <p>Translations ({{translations.length}} definitions added)</p>
+        </div>
+        <div class="card-body">
+
+          <form (submit)="resetPass()" class="row mb-4" [formGroup]="form">
+
+
+            <table class="table table-hover">
+              <thead>
+
+              <tr>
+                <td>Original Text</td>
+                <td>Translation</td>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let sentence of translations">
+                <td width="30%">{{sentence.key}}</td>
+                <td width="70%">
+                  <input type="text" class="form-control" value="{{sentence.value}}">
+
+                </td>
+              </tr>
+              </tbody>
+
+            </table>
+
+
+            <form [formGroup]="form" (submit)="addSentence()" class="row mb-2" *ngIf="addMode">
+              <mat-progress-bar mode="indeterminate" *ngIf="progress === true"></mat-progress-bar>
+
+              <div class="col-md-6">
+                <input type="text" formControlName="key" class="form-control" placeholder="Original text" >
+              </div>
+              <div class="col-md-6">
+                <input type="text" formControlName="value" class="form-control" placeholder="Translated text in {{ln}}" >
+              </div>
+
+              <div class="col-12 mt-2 d-flex justify-content-end gap-2 align-items-center">
+
+                <button type="button" (click)="switchAdderMode(false)" class="btn btn-danger">
+                  <i class="fa fa-plus"></i>&nbsp;Close
+                </button>
+                <button [disabled]="form.invalid" type="submit" class="btn btn-primary">
+                  <i class="fa fa-plus"></i>&nbsp;Add
+                </button>
+
+              </div>
+            </form>
+
+
+            <div class="col-md-12">
+              <mat-progress-bar mode="indeterminate" *ngIf="progress === true"></mat-progress-bar>
+
+              <div class="form-group d-flex justify-content-end gap-2 align-items-center">
+
+
+                <button *ngIf="! addMode" (click)="switchAdderMode(true)" class="btn btn-primary">
+                  <i class="fa fa-plus"></i>&nbsp;Add Sentence
+                </button>
+                <button (click)="saveTranslations()" class="btn btn-primary">
+                  <i class="fa fa-check"></i>&nbsp;Update
+                </button>
+
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

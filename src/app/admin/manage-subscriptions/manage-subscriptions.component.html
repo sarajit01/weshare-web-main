@@ -1,0 +1,128 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Subscriptions</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage </li>
+
+  </ol>
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <p>User Subscriptions</p>
+
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="formFilter" (submit)="getSubscriptions()" class="row mb-4">
+
+            <div class="col-md-6">
+               <div class="form-group">
+                 <input formControlName="user_id" name="user_id" type="text" class="form-control" placeholder="Search by user id ..">
+               </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fa fa-search"></i>&nbsp;Search
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+          <div class="table-responsive" *ngIf="subscriptions">
+
+            <table class="table table-hover">
+
+              <thead>
+
+              <tr>
+                <th>User</th>
+                <th>Plan</th>
+                <th>Months</th>
+                <th>Started at</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+                <th>Renew</th>
+                <th>Action</th>
+              </tr>
+
+              </thead>
+
+              <tbody>
+
+              <tr *ngFor="let subs of subscriptions">
+
+                <td *ngIf="subs.user !== null">
+                  ID : {{subs.user.id}} <br/>
+                  Name : {{subs.user.first_name}} {{subs.user.last_name}}
+                </td>
+                <td *ngIf="subs.plan !== null">
+
+                  {{subs.plan.name}}
+
+                </td>
+                <td>{{subs.months}}</td>
+                <td>
+                  {{subs.started_at | date}}
+                </td>
+
+                <td>
+                  {{subs.expires_at | date}}
+                </td>
+
+                <td>
+                  {{subs.subscription_status}}
+                </td>
+                <td>
+
+                  <button (click)="renew(subs.id)" class="btn btn-primary btn-sm">
+                    <i class="fa fa-refresh"></i>&nbsp;Renew
+                  </button>
+
+
+                </td>
+                <td>
+
+                  <button *ngIf="subs.subscription_status !== 'Deactivated'" (click)="updateSubscriptionStat(subs.user_id , 'deactivated')" class="btn btn-danger btn-sm">
+                    <i class="fa fa-ban"></i>&nbsp;Deactivate
+                  </button>
+
+                  <button *ngIf="subs.subscription_status === 'Deactivated'" (click)="updateSubscriptionStat(subs.user_id , 'active')" class="btn btn-success btn-sm">
+                    <i class="fa fa-check"></i>&nbsp;Reactivate
+                  </button>
+
+
+                </td>
+
+              </tr>
+
+              </tbody>
+
+
+            </table>
+
+
+          </div>
+
+          <mat-progress-bar mode="indeterminate" *ngIf="progress === true"></mat-progress-bar>
+
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

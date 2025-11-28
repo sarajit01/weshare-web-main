@@ -1,0 +1,268 @@
+<div class="container listing-container">
+  <div class="row mt-4 mt-md-0 d-flex justify-content-center">
+    <div class="col-md-6 page-mid-section">
+      <div class="container">
+        <div class="row mb-4">
+          <app-categories-bar [domID]="'catBar1'"></app-categories-bar>
+        </div>
+
+        <div class="row listing-section" *ngIf="businesses">
+          <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let business of businesses | approved">
+            <app-business-classic-widget [business]="business"></app-business-classic-widget>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+
+<div class="container-fluid">
+
+  <app-categories-bar *ngIf="category" [parentCatID]="category.id"></app-categories-bar>
+  <div class="row">
+
+
+    <div class="col-md-12 mt-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+          <li class="breadcrumb-item" *ngIf="city" aria-current="page">{{city}}</li>
+          <li class="breadcrumb-item active" *ngIf="category" aria-current="page">{{category.name}}</li>
+          <li class="breadcrumb-item active" *ngIf="category_search" aria-current="page">{{category_search}}</li>
+          <li class="breadcrumb-item active" *ngIf="search" aria-current="page">{{search}}</li>
+
+
+        </ol>
+      </nav>
+    </div>
+
+  </div>
+  <div class="row d-flex">
+    <div class="col-md-12">
+
+      <div class="float-start d-flex align-items-center justify-content-start">
+        <h1 class="fw-bold " *ngIf="category">{{category.name}}</h1>
+        <p  *ngIf="businesses" class=" ml-3">{{businesses.length}} results</p>
+      </div>
+      <div class="float-end d-flex align-items-center justify-content-end">
+        <button (click)="toggleFilterOptions()" class="btn btn-filter btn-outline-success">
+          <i class="fa fa-angle-down"></i> Filter
+        </button>
+        <button (click)="toggleSortOptions()" class="btn btn-filter btn-outline-success ml-1">
+          <i class="fa fa-arrow-top"></i>&nbsp;
+          <i class="fa fa-arrow-down"></i>&nbsp; Sort
+        </button>
+        <button class="btn btn-filter btn-outline-success ml-1">
+         <i class="fa fa-map-marker"></i>&nbsp; Map
+        </button>
+      </div>
+
+
+
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-end align-items-center">
+
+        <div *ngIf="sort" class="">
+          <mat-form-field appearance="fill">
+            <mat-label>Sort By</mat-label>
+            <mat-select [(ngModel)]="sortBy" (change)="getBusinessListings()">
+              <mat-option value="latest">Newest first</mat-option>
+              <mat-option value="oldest">Oldest first</mat-option>
+              <mat-option value="price_min">Lowest price first</mat-option>
+              <mat-option value="price_max">Highest price first</mat-option>
+              <mat-option value="near">Near me</mat-option>
+              <mat-option value="open">Open now</mat-option>
+              <mat-option value="review">Most reviewed</mat-option>
+              <mat-option value="popularity">Popularity</mat-option>
+              <mat-option value="alphabet">Alphabet wise</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="filter" class="">
+          <mat-form-field appearance="fill">
+            <mat-label>Min price</mat-label>
+            <input [(ngModel)]="minPrice"  type="number"  matInput placeholder="Min" >
+          </mat-form-field>
+
+        </div>
+        <div *ngIf="filter" class="">
+          <mat-form-field appearance="fill">
+            <mat-label>Max price</mat-label>
+            <input [(ngModel)]="maxPrice" type="number"  matInput placeholder="Max" >
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="filter || sort" class="">
+          <button (click)="getBusinessListings()" class="btn btn-success">
+             Apply
+          </button>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-9">
+
+      <div class="container-fluid">
+        <div class="row mt-1">
+
+          <div class="col-md-12">
+
+            <h3 class="">
+              &nbsp;&nbsp;Negocios Destacados
+            </h3>
+
+          </div>
+        </div>
+
+        <div class="row listing-section" *ngIf="businesses">
+          <div class="col-12 " *ngFor="let business of businesses | approved">
+            <div class="container-fluid">
+              <app-business-horizontal [business]="business"></app-business-horizontal>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Ads_logo.svg/1641px-Google_Ads_logo.svg.png" class="img-fluid">
+      <img src="https://www.wordstream.com/wp-content/uploads/2021/12/ws-sidebar-offer-google-ads-performance-grader.png.webp" class="img-fluid">
+
+    </div>
+
+
+  </div>
+  <div class="row mt-2">
+
+    <div class="col-md-9">
+
+      <div class="container-fluid">
+
+        <div class="row mt-1">
+
+          <div class="col-md-12">
+
+            <h3 class="">
+              Mas resultados de su busqueda
+            </h3>
+
+          </div>
+          <div class="row listing-section" *ngIf="businesses">
+            <div class="col-md-12 " *ngFor="let business of businesses | approved">
+              <div class="container-fluid">
+                <app-business-horizontal [business]="business"></app-business-horizontal>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Ads_logo.svg/1641px-Google_Ads_logo.svg.png" class="img-fluid">
+      <img src="https://www.wordstream.com/wp-content/uploads/2021/12/ws-sidebar-offer-google-ads-performance-grader.png.webp" class="img-fluid">
+
+    </div>
+
+
+  </div>
+
+
+  <div class="row mt-5 mb-5">
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+
+</div> -->

@@ -1,0 +1,112 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Manage Users</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Manage Users</li>
+
+    <li class="breadcrumb-item active">{{role}}</li>
+  </ol>
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <p>All Users ({{role}})</p>
+        </div>
+        <div class="card-body" *ngIf="role">
+
+          <form (submit)="getUsers(role)" class="row mb-4" [formGroup]="searchForm">
+
+            <div class="col-md-9">
+               <div class="form-group">
+
+                 <input type="text" class="form-control" formControlName="search" placeholder="Search by ID or username or email">
+
+               </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+
+
+                <button class="btn btn-primary btn-block">
+                  <i class="fa fa-search"></i>&nbsp;Search
+                </button>
+
+              </div>
+            </div>
+
+          </form>
+
+          <div class="col-md-12" *ngIf="progress === false">
+
+            <div class="table-responsive" *ngIf="users && users.data">
+
+              <table class="table table-hover">
+
+                <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Username</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Created at</th>
+                  <th>Details</th>
+                  <th *ngIf="role !== 'admin'">Delete</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+               <tr *ngFor="let user of users.data">
+
+                  <td>{{user.id}}</td>
+                  <td>{{user.username}}</td>
+                  <td>{{user.first_name}} {{user.last_name}}</td>
+                 <td>{{user.email}}</td>
+                 <td>{{user.created_at}}</td>
+                  <td>
+
+                    <button [routerLink]="'/admin/users/details/'+user.id"  class="btn btn-primary btn-sm">
+
+                      <i class="fa fa-eye"></i>
+
+                    </button>
+
+                  </td>
+
+
+                 <td *ngIf="role !== 'admin'">
+
+                    <button (click)="deleteConfirmation(user.id)"  class="btn btn-danger btn-sm">
+
+                      <i class="fa fa-trash"></i>
+
+                    </button>
+
+                  </td>
+
+                </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+
+          </div>
+
+          <mat-progress-bar mode="indeterminate" *ngIf="progress === true"></mat-progress-bar>
+
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

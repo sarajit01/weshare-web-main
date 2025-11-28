@@ -1,0 +1,251 @@
+<!--<div class="container-fluid">-->
+
+<!--  <div class="row d-none d-md-block">-->
+
+<!--    <div class="col-md-12 bg-primary">-->
+
+<!--      <div class="row">-->
+
+<!--        <div class="col-md-8 " style="padding: 50px 100px 80px 100px">-->
+
+<!--          <h1 class="" style="color: white;font-size: 40px;line-height: 1.5">-->
+<!--            Empieza a usar herramientas gratuitas para tu pequeña empresa-->
+
+<!--          </h1>-->
+
+<!--          <p style="color: white">-->
+<!--            Ya sea que desees dar a conocer tu empresa o impulsar las ventas, descubre las herramientas gratuitas de marketing de Cupons que te ayudarán a conectarte con los clientes que buscas.-->
+
+<!--          </p>-->
+
+<!--        </div>-->
+<!--        <div class="col-md-4" style="background: url('https://images.unsplash.com/photo-1522198684868-88edd8463fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'); background-size: cover;background-position: center center; background-repeat: no-repeat;height: auto;">-->
+
+
+<!--        </div>-->
+
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--  <div class="row justify-content-center" style="margin-top : -50px !important;">-->
+
+<!--    <div class="d-none d-md-block col-12 col-md-10 col-sm-12 col-lg-9" *ngIf="statistics">-->
+<!--      <div class="alert alert-danger font-weight-bold">-->
+<!--        Your remaining promotion creation limit is <span *ngIf="statistics.promotion_limit === '-1' || statistics.promotion_limit === -1"> Unlimited</span> <span *ngIf="statistics.promotion_limit !== '-1' && statistics.promotion_limit !== -1"> {{statistics.promotion_limit}}</span>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--    &lt;!&ndash; promotion form to create the promotion &ndash;&gt;-->
+<!--    <app-promotion-form class="col-12 p-0 col-md-10 col-sm-12 col-lg-9 mt-5 mt-md-0"></app-promotion-form>-->
+
+<!--  </div>-->
+
+
+<!--  <app-mobile-header-with-back-button [heading]="'Create Promotion'" [backUrl]="'/business/dashboard'"></app-mobile-header-with-back-button>-->
+
+
+<!--</div>-->
+
+
+<!--<div class="container-fluid pt-md-5"  style="position: absolute !important;margin-top: 0 !important;top: 0 !important;">-->
+
+<!--    &lt;!&ndash;  <div class="row d-none d-md-block">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <div class="col-md-12 bg-primary">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;      <div class="row">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;        <div class="col-md-8 heading-wrapper" style="padding: 50px 100px 80px 100px">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;          <h1 class="" style="color: white;font-size: 40px;line-height: 1.5">&ndash;&gt;-->
+<!--    &lt;!&ndash;            Empieza a usar herramientas gratuitas para tu pequeña empresa&ndash;&gt;-->
+
+<!--    &lt;!&ndash;          </h1>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;          <p style="color: white">&ndash;&gt;-->
+<!--    &lt;!&ndash;            Ya sea que desees dar a conocer tu empresa o impulsar las ventas, descubre las herramientas gratuitas de marketing de Cupons que te ayudarán a conectarte con los clientes que buscas.&ndash;&gt;-->
+
+<!--    &lt;!&ndash;          </p>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <div class="col-md-4" style="background: url('https://images.unsplash.com/photo-1522198684868-88edd8463fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'); background-size: cover;background-position: center center; background-repeat: no-repeat;height: auto;">&ndash;&gt;-->
+
+
+<!--    &lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;  </div>&ndash;&gt;-->
+
+
+
+
+<!--    <div class="row d-flex align-items-start justify-content-center justify-content-md-end" style="min-height: 100vh !important;">-->
+<!--        &lt;!&ndash;    <div class="d-none d-md-block col-12 col-md-10 col-sm-12 col-lg-9" *ngIf="statistics">&ndash;&gt;-->
+<!--        &lt;!&ndash;      <div class="alert alert-danger font-weight-bold">&ndash;&gt;-->
+<!--        &lt;!&ndash;        Your remaining business creation limit is <span *ngIf="statistics.business_limit === '-1' || statistics.business_limit === -1"> Unlimited</span> <span *ngIf="statistics.business_limit !== '-1' && statistics.business_limit !== -1"> {{statistics.business_limit}}</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--        <div class="content-mid-section" style="max-width: unset !important;">-->
+
+<!--            <div class="col-12 mt-4 d-none d-md-flex flex-column mb-1">-->
+<!--                <h2 class="font-weight-bold"><strong>{{"Create Promotion" | translate}}</strong></h2>-->
+<!--                <p>-->
+<!--                    {{"We made it easy for you, just a few steps to list your promotion and get customers to grow your business" | translate}}-->
+<!--                </p>-->
+<!--            </div>-->
+
+<!--            <app-promotion-form></app-promotion-form>-->
+<!--        </div>-->
+
+<!--        <div class="content-right-section d-none d-md-block" style="max-width: unset !important;">-->
+
+<!--            <div class="w-100">-->
+
+<!--                <div class="col-12 mt-4 d-none d-md-flex flex-column  align-items-end  mb-1 ps-md-4 pe-md-5">-->
+<!--                    <h2 class="font-weight-bold"><strong>{{"Live Preview" | translate}}</strong></h2>-->
+<!--                    &lt;!&ndash;                  <p>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                      {{"See how it will look like in customers devices real time as you edit." | translate}}&ndash;&gt;-->
+<!--                    &lt;!&ndash;                  </p>&ndash;&gt;-->
+<!--                </div>-->
+
+<!--                <div class="position-relative w-100  d-flex justify-content-md-end">-->
+<!--                    &lt;!&ndash;                  border-left: 12px solid black;border-right: 12px solid black;border-top: 24px solid black;border-bottom: 22px solid black; border-radius: 40px !important;background-image: url('assets/img/simulator/iphone.png');background-size: cover;&ndash;&gt;-->
+<!--                    <div class="position-absolute pb-2 iphone-simulator" style="overflow-y: scroll !important;">-->
+<!--                        &lt;!&ndash;                      <iframe class=" h-100" style="width: 100%;" [src]="urlSafe">&ndash;&gt;-->
+
+<!--                        &lt;!&ndash;                      </iframe>&ndash;&gt;-->
+<!--                        <div class="w-100 iphone-simulator-contents">-->
+<!--&lt;!&ndash;                            <app-business-detail-simulate-preview *ngIf="business && business.id"  [businessDetails]="business" ></app-business-detail-simulate-preview>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash;                  <img src="assets/img/simulator/iphone.png" class="position-absolute img-fluid" >&ndash;&gt;-->
+
+<!--                </div>-->
+
+
+<!--            </div>-->
+
+
+
+<!--        </div>-->
+
+
+
+<!--    </div>-->
+
+
+<!--    <app-mobile-header-with-back-button class="d-md-none" [heading]="'Create Promotion'" [backUrl]="'/business/dashboard'"></app-mobile-header-with-back-button>-->
+
+<!--</div>-->
+
+<div class="container-fluid pt-md-5"  style="position: absolute !important;margin-top: 0 !important;top: 0 !important;">
+
+    <!--  <div class="row d-none d-md-block">-->
+
+    <!--    <div class="col-md-12 bg-primary">-->
+
+    <!--      <div class="row">-->
+
+    <!--        <div class="col-md-8 heading-wrapper" style="padding: 50px 100px 80px 100px">-->
+
+    <!--          <h1 class="" style="color: white;font-size: 40px;line-height: 1.5">-->
+    <!--            Empieza a usar herramientas gratuitas para tu pequeña empresa-->
+
+    <!--          </h1>-->
+
+    <!--          <p style="color: white">-->
+    <!--            Ya sea que desees dar a conocer tu empresa o impulsar las ventas, descubre las herramientas gratuitas de marketing de Cupons que te ayudarán a conectarte con los clientes que buscas.-->
+
+    <!--          </p>-->
+
+    <!--        </div>-->
+    <!--        <div class="col-md-4" style="background: url('https://images.unsplash.com/photo-1522198684868-88edd8463fc9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'); background-size: cover;background-position: center center; background-repeat: no-repeat;height: auto;">-->
+
+
+    <!--        </div>-->
+
+    <!--      </div>-->
+
+    <!--    </div>-->
+
+    <!--  </div>-->
+
+
+
+
+    <div class="row d-flex align-items-start justify-content-center justify-content-lg-start ps-lg-5" style="min-height: 100vh !important;">
+        <!--    <div class="d-none d-md-block col-12 col-md-10 col-sm-12 col-lg-9" *ngIf="statistics">-->
+        <!--      <div class="alert alert-danger font-weight-bold">-->
+        <!--        Your remaining business creation limit is <span *ngIf="statistics.business_limit === '-1' || statistics.business_limit === -1"> Unlimited</span> <span *ngIf="statistics.business_limit !== '-1' && statistics.business_limit !== -1"> {{statistics.business_limit}}</span>-->
+        <!--      </div>-->
+
+        <!--    </div>-->
+
+
+
+        <div class="col-12 col-md-8 col-lg-11  mt-4  mb-1" style="max-width: 700px !important;" >
+            <div class="w-100 d-none d-md-flex flex-column align-items-start justify-content-start">
+                <h2 class="font-weight-bold"><strong>{{"Create Promotion" | translate}}</strong></h2>
+                <p>
+                    {{"We made it easy for you, just a few steps to list your promotion and get customers to grow your business" | translate}}
+                </p>
+
+            </div>
+            <app-promotion-form></app-promotion-form>
+
+        </div>
+
+
+
+
+
+        <!--        <div class="content-right-section d-none d-md-block" style="max-width: unset !important;">-->
+
+        <!--            <div class="w-100">-->
+
+        <!--                <div class="col-12 mt-4 d-none d-md-flex flex-column  align-items-end  mb-1 ps-md-4 pe-md-5">-->
+        <!--                    <h2 class="font-weight-bold"><strong>{{"Live Preview" | translate}}</strong></h2>-->
+        <!--                    &lt;!&ndash;                  <p>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                      {{"See how it will look like in customers devices real time as you edit." | translate}}&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                  </p>&ndash;&gt;-->
+        <!--                </div>-->
+
+        <!--                <div class="position-relative w-100  d-flex justify-content-md-end">-->
+        <!--                    &lt;!&ndash;                  border-left: 12px solid black;border-right: 12px solid black;border-top: 24px solid black;border-bottom: 22px solid black; border-radius: 40px !important;background-image: url('assets/img/simulator/iphone.png');background-size: cover;&ndash;&gt;-->
+        <!--                    <div class="position-absolute pb-2 iphone-simulator" style="overflow-y: scroll !important;">-->
+        <!--                        &lt;!&ndash;                      <iframe class=" h-100" style="width: 100%;" [src]="urlSafe">&ndash;&gt;-->
+
+        <!--                        &lt;!&ndash;                      </iframe>&ndash;&gt;-->
+        <!--                        <div class="w-100 iphone-simulator-contents">-->
+        <!--                            &lt;!&ndash;                            <app-business-detail-simulate-preview *ngIf="business && business.id"  [businessDetails]="business" ></app-business-detail-simulate-preview>&ndash;&gt;-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+        <!--                    &lt;!&ndash;                  <img src="assets/img/simulator/iphone.png" class="position-absolute img-fluid" >&ndash;&gt;-->
+
+        <!--                </div>-->
+
+
+        <!--            </div>-->
+
+
+
+        <!--        </div>-->
+
+
+
+    </div>
+
+
+    <app-mobile-header-with-back-button class="d-md-none" [heading]="'Create Promotion'" [backUrl]="'/business/dashboard'"></app-mobile-header-with-back-button>
+
+</div>

@@ -1,0 +1,56 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" >
+
+
+        <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{"Filter Payments"}}</h4>
+
+
+            <i (click)="closePopup()" class="fa fa-times cursor-pointer"></i>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="col-12 py-3">
+
+            <form [formGroup]="form" (submit)="filterPayments()">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Date from" | translate}}</mat-label>
+                    <input formControlName="date_from" matInput type="date">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Date to" | translate}}</mat-label>
+                    <input formControlName="date_to" matInput type="date">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Payment Method" | translate}}</mat-label>
+                    <mat-select formControlName="payment_method">
+                        <mat-option value="">{{"All" | translate}}</mat-option>
+                        <mat-option value="pixelpay">{{"PixelPay" | translate}}</mat-option>
+                        <mat-option value="bank_transfer">{{"Bank Transfer" | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Status" | translate}}</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option value="">{{"All" | translate}}</mat-option>
+                        <mat-option value="paid">{{"Paid" | translate}}</mat-option>
+                        <mat-option value="pending">{{"Pending" | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+<!--                <mat-form-field appearance="outline">-->
+<!--                    <mat-label>{{"Payment ID" | translate}}</mat-label>-->
+<!--                    <input formControlName="payment_id" matInput type="text">-->
+<!--                </mat-form-field>-->
+                <button class="btn btn-theme-dark w-100">
+                    {{"Filter" | translate}}
+                </button>
+            </form>
+
+
+        </div>
+
+
+</div>

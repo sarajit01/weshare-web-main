@@ -1,0 +1,49 @@
+<div *ngIf="ad.logo" class="listing" style="background:  url('{{ad.logo.img}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+</div>
+
+<div class="card" style="border-top-left-radius: 20px; border-top-right-radius: 20px; top: -40px;">
+
+  <div class="card-header">
+
+    <div class="row mt-2">
+
+      <div class="col-md-12">
+
+        <h2 class="text-dark promotion-title-primary">
+          {{ad.title}}
+
+        </h2>
+        <h4>{{ad.business.business_name_prefix}} {{ad.business.business_name}}</h4>
+        <i class="fa fa-calendar text-info promo-location-icon"></i> <span class="promo-location-title">{{ad.date}}</span>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isOwner || isAdmin" class="float-end">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngIf="isAdmin !== true" [routerLink]="['/'+routes.business.edit_ad+'/'+ad.id]"  >
+            <i class="fa fa-pencil"></i>&nbsp; Edit
+          </button>
+
+          <button  mat-menu-item (click)="cloneBusinessAd()" *ngIf="cloneProgress === false && ( isAdmin || isOwner)" >
+            <i class="fa fa-copy"></i>&nbsp; Duplicate
+          </button>
+
+
+          <button  mat-menu-item  (click)="deleteConfirmation()" *ngIf="deletable === true && isAdmin !== true"  >
+            <i class="fa fa-trash"></i>&nbsp; Delete
+          </button>
+          <button  mat-menu-item  (click)="markAsCheapDeal()" *ngIf="deletable === true"  >
+            <i class="fa fa-usd"></i>&nbsp; Mark as Cheap Deal
+          </button>
+
+
+        </mat-menu>
+      </div>
+
+    </div>
+  </div>
+
+</div>

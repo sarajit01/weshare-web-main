@@ -1,0 +1,485 @@
+<div class=" container p-0 mb-5 mt-4" style="min-height: 100vh !important;">
+
+    <app-mobile-header-with-back-button [backUrl]="'/' + authService.getRole() + '/payments'" [heading]="userAction" *ngIf="userAction"></app-mobile-header-with-back-button>
+
+    <app-mobile-header-with-back-button [backUrl]="'/' + authService.getRole() + '/dashboard'"  [heading]="'My Payments'" *ngIf="!userAction"></app-mobile-header-with-back-button>
+
+    <!--    <div class="row pt-4" *ngIf="!userAction">-->
+
+    <!--        <div class="col-12 d-flex justify-content-between align-items-center">-->
+    <!--            <div class="d-flex flex-column w-100">-->
+    <!--                <h2 class="fw-bold mb-3">-->
+    <!--                    {{"Settings"}}-->
+    <!--                </h2>-->
+
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+    <div class="w-100 mt-5" *ngIf="userAction === 'Payment Methods'">
+        <div class="row">
+            <div class="col-12 dashboard-action-widget mb-3" *ngFor="let card of paymentMethods">
+                <div class="card">
+                    <div class="card-body py-3">
+                        <div class="col-12 d-flex justify-content-between align-items-center">
+
+                            <div class="d-flex gap-4">
+                                <div>
+                                    <img src="assets/img/brands/{{card.brand}}.png" style="width: 40px">
+                                </div>
+
+                                <div class="d-flex flex-column">
+                                    <p class="mb-0"> {{card.mask}}</p>
+                                    <span class="text-muted">{{card.exp_month}} / {{card.exp_year}}</span>
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                    <span (click)="deleteTokenizedCard(card.id)" class="material-symbols-outlined cursor-pointer text-danger">
+delete
+</span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<!--    <div class="w-100 mt-5" *ngIf="userAction === 'App Language'">-->
+<!--        <mat-radio-group-->
+<!--                aria-labelledby="example-radio-group-label"-->
+<!--                class="example-radio-group"-->
+<!--                [(ngModel)]="appLang">-->
+
+<!--            <div class="w-100 mb-2">-->
+<!--                <mat-radio-button class="example-radio-button" (click)="changeAppLang('en')" [value]="'en'">{{"English (EN)" | translate}}</mat-radio-button>-->
+<!--            </div>-->
+<!--            <div class="w-100">-->
+
+<!--                <mat-radio-button class="example-radio-button" (click)="changeAppLang('es')" [value]="'es'">{{"Spanish (ES)" | translate}}</mat-radio-button>-->
+
+<!--            </div>-->
+<!--        </mat-radio-group>-->
+<!--    </div>-->
+
+<!--    <div class="w-100 mt-5" *ngIf="userAction === 'Tutorials'">-->
+<!--        <div class="col-12">-->
+<!--            <div class="alert alert-dark">-->
+<!--                {{"Feature coming soon, we will let you know once it's available" | translate}}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="w-100 mt-5" *ngIf="userAction === 'Account Information'">-->
+<!--        <app-user-profile [userId]="authService.getUserID()"></app-user-profile>-->
+<!--    </div>-->
+    <div class="w-100 mt-3" *ngIf="userAction === 'Add Card'">
+        <div class="card-body">
+
+            <div class="col-12 d-flex pt-1 pb-2 justify-content-center">
+
+                <img src="https://dzo92l8g6opo1.cloudfront.net/58d20f92-18c2-4d87-9c06-7f176be32ff5/logo.svg" style="width: 200px;">
+
+            </div>
+            <div class="col-12 d-flex py-2 justify-content-center">
+
+                <div class="alert alert-dark">
+                    {{"We do not save your card data, your credit card data is secured with and processed by "}}
+                    <a href="https://pixelpay.com/" target="_blank">PixelPay</a>
+                </div>
+            </div>
+
+            <form id="promotion-form-mobile" (submit)="tokenizeCard()" class="w-100 mb-4" [formGroup]="formAddCard">
+
+                <div class="row">
+
+
+                <div class="col-md-12">
+
+                    <ng-container *ngIf="formAddCard.controls['card_number'].errors && addCardErrors.number">
+                        <mat-error *ngFor="let error of addCardErrors.number">{{error}}</mat-error>
+                    </ng-container>
+                    <mat-form-field class="example-full-width"  appearance="outline">
+                        <mat-label>{{"Card Number" | translate}}</mat-label>
+                        <input formControlName="card_number"  matInput type="number" >
+
+                        <img src="assets/img/brands/master.png" style="width: 40px" matSuffix>
+                    </mat-form-field>
+
+
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <ng-container *ngIf="formAddCard.controls['card_exp'].errors && addCardErrors.expire_month">
+                            <mat-error *ngFor="let error of addCardErrors.expire_month">{{error}}</mat-error>
+                        </ng-container>
+                        <ng-container *ngIf="formAddCard.controls['card_exp'].errors && addCardErrors.expire_year">
+                            <mat-error *ngFor="let error of addCardErrors.expire_year">{{error}}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width"  appearance="outline">
+                            <mat-label>{{"Expiry" | translate}}</mat-label>
+                            <input formControlName="card_exp" placeholder="MM/YY"  matInput type="text" >
+
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-6">
+                        <ng-container *ngIf="formAddCard.controls['card_cvv'].errors && addCardErrors.cvv2">
+                            <mat-error *ngFor="let error of addCardErrors.cvv2">{{error}}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width"  appearance="outline">
+                            <mat-label>{{"CVC" | translate}}</mat-label>
+                            <input formControlName="card_cvv"  matInput type="text" >
+
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                <div class="col-md-12">
+                    <ng-container *ngIf="formAddCard.controls['holder_name'].errors && addCardErrors.cardholder">
+                        <mat-error *ngFor="let error of addCardErrors.cardholder">{{error}}</mat-error>
+                    </ng-container>
+                    <mat-form-field class="example-full-width"  appearance="outline">
+                        <mat-label>{{"Card Holder Name" | translate}}</mat-label>
+                        <input formControlName="holder_name"  matInput type="text" >
+
+                    </mat-form-field>
+
+                </div>
+
+
+
+                    <div class="col-6">
+                        <ng-container *ngIf="formAddCard.controls['country'].errors && addCardErrors.country">
+                            <mat-error *ngFor="let error of addCardErrors.country">{{ error }}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>{{ "Country" | translate }}</mat-label>
+                            <select matNativeControl formControlName="country" (change)="filterStates()">
+                                <option value="" selected></option>
+                                <option *ngFor="let country of countries" [value]="country.iso2">
+                                    {{ country.name }}
+                                </option>
+                            </select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-6">
+                        <ng-container *ngIf="formAddCard.controls['state'].errors && addCardErrors.state">
+                            <mat-error *ngFor="let error of addCardErrors.state">{{ error }}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>{{ "State" | translate }}</mat-label>
+                            <select matNativeControl formControlName="state">
+                                <option value="" selected></option>
+                                <option *ngFor="let state of filteredStates"
+                                        value="{{state.country_code}}-{{state.iso2}}">
+                                    {{ state.name }}
+                                </option>
+                            </select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <ng-container *ngIf="formAddCard.controls['city'].errors && addCardErrors.city">
+                            <mat-error *ngFor="let error of addCardErrors.city">{{error}}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width"  appearance="outline">
+                            <mat-label>{{"City" | translate}}</mat-label>
+                            <input formControlName="city"  matInput type="text" >
+
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <ng-container *ngIf="formAddCard.controls['address'].errors && addCardErrors.address">
+                            <mat-error *ngFor="let error of addCardErrors.address">{{error}}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width"  appearance="outline">
+                            <mat-label>{{"Address" | translate}}</mat-label>
+                            <input formControlName="address"  matInput type="text" >
+
+                        </mat-form-field>
+
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <ng-container *ngIf="formAddCard.controls['phone'].errors && addCardErrors.phone">
+                            <mat-error *ngFor="let error of addCardErrors.cvv2">{{error}}</mat-error>
+                        </ng-container>
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>{{ "Phone" | translate }}</mat-label>
+                            <input formControlName="phone" matInput type="text">
+
+                        </mat-form-field>
+
+                    </div>
+
+<!--                    <div class="col-md-12">-->
+
+<!--                    <mat-form-field class="example-full-width"  appearance="outline">-->
+<!--                        <mat-label>{{"Country" | translate}}</mat-label>-->
+<!--                        <input formControlName="country"  matInput type="text" >-->
+
+<!--                    </mat-form-field>-->
+
+<!--                </div>-->
+
+
+
+
+                <div class="col-md-12">
+
+
+                    <div class="form-group d-flex justify-content-end align-items-center">
+
+
+                        <button   class="btn btn-theme-dark btn-block">
+                            Add Card
+                        </button>
+
+                    </div>
+
+<!--                    <div class="alert alert-dark py-2">-->
+<!--                        <small>By clicking on "Add card" below, you agree with our payments <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a> </small>-->
+<!--                    </div>-->
+                </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="w-100 mt-3" *ngIf="userAction === 'Payment History'">
+        <div class="card-body">
+
+<!--            <div class="col-12 d-flex pt-1 pb-2 justify-content-center">-->
+
+<!--                <img src="https://dzo92l8g6opo1.cloudfront.net/58d20f92-18c2-4d87-9c06-7f176be32ff5/logo.svg" style="width: 200px;">-->
+
+<!--            </div>-->
+
+            <div class="row">
+                <div class="col-12 mb-2 d-flex justify-content-between align-items-center">
+                    <p class="mb-0">{{"My Transactions"}}</p>
+
+                    <div class="cursor-pointer" (click)="showPaymentsFilter()">
+                        <span class="material-symbols-outlined">
+tune
+</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <ng-container *ngIf="transactions.data && transactions.data.length; else noRecord">
+                    <ng-container *ngFor="let transaction of transactions.data" >
+                        <div class="col-12 d-flex py-2">
+                            <div class="col-4 d-flex justify-content-start">
+                                <div class="d-flex flex-column gap-1">
+                                    <span>{{transaction.created_at | date}}</span>
+                                    <ng-container *ngIf="transaction.payment">
+                                        <ng-container *ngIf="transaction.payment.payment_mode === 'pixelpay'">
+                                            <span class="text-info">PixelPay</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="transaction.payment.payment_mode === 'bank_transfer'">
+                                            <span class="text-info">Bank Transfer</span>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+
+
+                            </div>
+                            <div class="col-4 d-flex justify-content-center">
+                                <div class="d-flex justify-content-center align-items-center">
+                     <span class="fw-bold text-danger" *ngIf="transaction.amount">
+                -{{transaction.amount}} {{transaction.currency}}
+            </span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-4 d-flex justify-content-end">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <ng-container *ngIf="transaction.status === 'paid'">
+                                        <span class="material-symbols-outlined text-success">check_circle</span>
+                                        <span class="text-success fw-bold">{{ "Paid" | translate }}</span>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="transaction.status === 'pending'">
+                                          <span class="material-symbols-outlined text-info">pending</span>
+                                        <span class="text-info fw-bold">{{"Pending" | translate}}</span>
+                                    </ng-container>
+
+
+
+                                    <i class="fa fa-angle-down" (click)="transaction.expanded = true" *ngIf="!transaction.expanded"></i>
+                                    <i class="fa fa-angle-up" (click)="transaction.expanded = false" *ngIf="transaction.expanded"></i>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <mat-divider *ngIf="transaction.expanded">
+                        </mat-divider>
+                        <div class="col-12 pb-2 d-flex flex-column gap-2  align-items-start" *ngIf="transaction.expanded">
+
+                            <span>{{transaction.name}}</span>
+                            <mat-divider></mat-divider>
+                            <span>
+                                {{transaction.description}}
+                            </span>
+                            <mat-divider></mat-divider>
+
+                            <!-- for pending payment -->
+                            <ng-container *ngIf="transaction.status === 'pending'">
+                                <div class="w-100 d-flex justify-content-center py-2">
+                                    <a [routerLink]="['/business/payment']" [queryParams]="{plan_id: transaction.plan_id}" class="btn btn-theme-dark">
+                                        {{"Pay now" | translate}}
+                                    </a>
+                                </div>
+                            </ng-container>
+
+
+                            <!-- for bank transfers -->
+                            <ng-container *ngIf="transaction.payment && transaction.payment.bank_transaction">
+                            <span>
+                                {{ "Bank Payment ID" | translate }}:
+                                <span class="text-success">{{ transaction.payment.bank_transaction.id }}</span>
+                            </span>
+                                <mat-divider></mat-divider>
+                                <span>
+                                {{ "Bank Name" | translate }}:
+                                <span class="text-info">{{ transaction.payment.bank_transaction.bank_name }}</span>
+                            </span>
+                                <mat-divider></mat-divider>
+                                <span>
+                                {{ "Reference" | translate }}:
+                                <span class="text-info">{{ transaction.payment.bank_transaction.reference_number }}</span>
+                            </span>
+
+                            </ng-container>
+
+                            <!-- for pixelpay transaction -->
+                            <ng-container *ngIf="transaction.payment && transaction.payment.pixelpay_transaction">
+                            <span>
+                                {{ "Payment ID" | translate }}:
+                                <span class="text-success">{{ transaction.payment.pixelpay_transaction.payment_uuid }}</span>
+                            </span>
+                                <mat-divider></mat-divider>
+                                <span>
+                                {{ "Transaction ID" | translate }}:
+                                <span class="text-info">{{ transaction.payment.pixelpay_transaction.transaction_id }}</span>
+                            </span>
+                                <mat-divider></mat-divider>
+                                <span>
+                                {{ "Payment Hash" | translate }}:
+                                <span class="text-info">{{ transaction.payment.pixelpay_transaction.payment_hash }}</span>
+                            </span>
+
+                            </ng-container>
+                        </div>
+
+                        <mat-divider></mat-divider>
+
+                    </ng-container>
+
+                </ng-container>
+
+                <ng-template #noRecord>
+                    <div class="col-12">
+                        <div class="alert alert-danger">
+                            {{"No transaction to show" | translate}}
+                        </div>
+                    </div>
+
+                </ng-template>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="w-100 d-flex flex-column gap-2" *ngIf="!userAction">
+
+        <div class="row">
+            <div [routerLink]="['/' + authService.getRole() + '/payments']" [queryParams]="{tab : 'Payment Methods'}"  class="col-12 dashboard-action-widget">
+                <div class="card">
+                    <div class="card-body py-3">
+                        <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+credit_card
+</span>
+
+                            <p class="mb-0">{{"My Payment Methods" | translate}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 dashboard-action-widget">
+                <div class="card"  [routerLink]="['/' + authService.getRole() + '/payments']" [queryParams]="{tab : 'Add Card'}">
+                    <div class="card-body py-3">
+                        <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+add
+</span>
+
+                            <p class="mb-0">{{"Add a new Card" | translate}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div  class="col-12 dashboard-action-widget">
+                <div class="card"  [routerLink]="['/' + authService.getRole() + '/payments']" [queryParams]="{tab : 'Payment History'}">
+                    <div class="card-body py-3">
+                        <div class="col-12 d-flex gap-3">
+<span class="material-symbols-outlined text-primary">
+payments
+</span>
+
+                            <p class="mb-0">{{"My Transactions" | translate}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<app-progress-bar *ngIf="progress"></app-progress-bar>
+

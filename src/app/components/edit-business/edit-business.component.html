@@ -1,0 +1,31 @@
+<div class="container-fluid pt-3 pb-5 d-none d-md-block" >
+
+  <div class="row mb-2">
+
+    <div class="col-md-12">
+      <h2 class="text-center">
+        Edit Business <span *ngIf="business">({{business.business_name_prefix}} {{business.business_name}})</span>
+      </h2>
+    </div>
+
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+
+    <div class="col-md-12 mb-4" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <app-business-form class="col-12 col-md-8 col-lg-6 col-xl-5" [business]="business" *ngIf="progress === false && business" style="max-width: 480px !important;"></app-business-form>
+  </div>
+
+</div>
+<div class="container px-0 d-md-none">
+
+  <app-mobile-header-with-back-button *ngIf="!progress && business" [heading]="business.name" [backUrl]="'/business/manage'"></app-mobile-header-with-back-button>
+
+  <div class="row">
+    <app-business-form class="col-12" [business]="business" *ngIf="!progress && business && business.id"></app-business-form>
+  </div>
+
+</div>

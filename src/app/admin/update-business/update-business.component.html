@@ -1,0 +1,27 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Manage Business Listings</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Edit</li>
+  </ol>
+
+  <div class="row mb-2">
+
+    <div class="col-md-12">
+      <h2 class="text-center">
+        Edit Business <span *ngIf="business">({{business.business_name_prefix}} {{business.business_name}})</span>
+      </h2>
+    </div>
+
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+
+    <div class="col-md-12 mb-4" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <app-business-form class="col-md-9" [business]="business" [isAdmin]="true"  *ngIf="progress === false && business"></app-business-form>
+  </div>
+
+
+</div>

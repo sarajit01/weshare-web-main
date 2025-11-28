@@ -1,0 +1,213 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="#top_nav" style="background-color: rgba(33, 37, 41) !important;">
+  <!-- Navbar Brand-->
+  <a class="navbar-brand ps-3" href="">Admin</a>
+  <!-- Sidebar Toggle-->
+  <button *ngIf="_authService.isAdmin() === true" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+  <!-- Navbar Search-->
+  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+
+  </form>
+  <!-- Navbar-->
+  <ul *ngIf="_authService.isAdmin() === true" class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" [routerLink]="['/admin/reset-password']">Reset Password</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item cursor-pointer" (click)="logout()">Logout</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<div id="layoutSidenav">
+  <div *ngIf="_authService.isAdmin() === true" id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+
+          <a class="nav-link" >
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+            Dashboard
+          </a>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+             Manage Users
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a routerLink="/admin/users/business" class="nav-link" >Business Users</a>
+              <a routerLink="/admin/users/customer" class="nav-link" >Customers</a>
+              <a routerLink="/admin/users/admin" class="nav-link" >Administrators</a>
+
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePlan" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-user-plus"></i></div>Manage Plans
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapsePlan" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link" routerLink="/admin/manage-plans"  >Plans</a>
+              <a class="nav-link" routerLink="/admin/add-plan" >Add New Plan</a>
+
+            </nav>
+          </div>
+
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSubs" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>Subscriptions
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseSubs" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link" routerLink="/admin/manage-subscriptions"  >Manage</a>
+
+                <a class="nav-link" routerLink="/admin/pixelpay-payments"  >Pixelpay Payments</a>
+
+
+            </nav>
+          </div>
+
+
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCat" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+            Manage Categories
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseCat" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a [routerLink]="['/admin/'+ROUTES.admin.category.root+'/'+ROUTES.admin.category.manage]"  class="nav-link" >All Categories</a>
+              <a [routerLink]="['/admin/'+ROUTES.admin.category.root+'/'+ROUTES.admin.category.add]" class="nav-link" >Add Category</a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBus" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
+            Manage Businesses
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseBus" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a routerLink="/admin/listings/business" class="nav-link" >All Business</a>
+              <a routerLink="/admin/listings/business/create" class="nav-link" >Add Business</a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePromo" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div>
+            Manage Promotions
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapsePromo" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a [routerLink]="['/'+ROUTES.admin.root+'/'+ROUTES.admin.listings.root+'/promotion']" class="nav-link" >All Promotions</a>
+              <a  routerLink="/admin/listings/promotion/create" class="nav-link" >Add New</a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAds" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
+            Manage Business Ads
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseAds" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a routerLink="/admin/listings/ad"  class="nav-link" >All Business Ads</a>
+              <a  routerLink="/admin/listings/business-ads/create" class="nav-link" >Add New</a>
+            </nav>
+          </div>
+
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseClaims" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-bars"></i></div>
+            Manage Business Claims
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseClaims" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a [routerLink]="'/admin/claims'"  class="nav-link" >All Business Claims</a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePay" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fa fa-money"></i></div>
+            Offline Payments
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapsePay" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a [routerLink]="['/admin/'+ROUTES.admin.payment.saveBank]" class="nav-link" >Bank Info</a>
+              <a [routerLink]="['/admin/'+ROUTES.admin.payment.payments]"  class="nav-link" >Manage Payments</a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+            CMS
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link" [routerLink]="'/admin/cms/pages'" >Pages</a>
+              <a class="nav-link" [routerLink]="'/admin/cms/create-page'" >Create New</a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSet" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+            Site Settings
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseSet" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a [routerLink]="['/admin/settings/'+ROUTES.admin.config.google]" class="nav-link" >Google</a>
+              <a [routerLink]="['/admin/settings/'+ROUTES.admin.config.api_keys]" class="nav-link" >API keys</a>
+                <a [routerLink]="['/admin/settings/'+ROUTES.admin.config.payment_gateways]" class="nav-link" >Payment Gateways</a>
+
+                <a [routerLink]="['/admin/settings/'+ROUTES.admin.config.smtp]" class="nav-link" >SMTP Configuration</a>
+
+              <a  [routerLink]="['/admin/settings/appearance/editor/logo']" class="nav-link" >Appearance</a>
+              <a class="nav-link" >General</a>
+              <a [routerLink]="['/admin/settings/'+ROUTES.admin.config.translator+'/en']"  class="nav-link" >Translation (EN)</a>
+              <a [routerLink]="['/admin/settings/'+ROUTES.admin.config.translator+'/es']"  class="nav-link" >Translation (ES)</a>
+
+
+              <a [routerLink]="['/admin/settings/countries']" class="nav-link" >Countries</a>
+
+
+            </nav>
+          </div>
+
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSecurity" aria-expanded="false" >
+            <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+            Security
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseSecurity" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a [routerLink]="['/admin/reset-password']" class="nav-link" >Change Password</a>
+            </nav>
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="sb-sidenav-footer">
+        <div class="small">Logged in as:</div>
+        Admin
+      </div>
+    </nav>
+  </div>
+  <div id="layoutSidenav_content">
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+      <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+          <div class="text-muted">Copyright &copy; Website 2022</div>
+          <div>
+            <a href="#">Privacy Policy</a>
+            &middot;
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

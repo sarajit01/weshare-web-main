@@ -1,0 +1,98 @@
+<form [formGroup]="form" class="row" *ngIf="business" (submit)="submitData()" >
+
+  <div class="col-md-12" style="max-height: 90vh !important;overflow-y: scroll !important;">
+
+
+    <p *ngIf="! data.debit">Reward customer by Scanning LC or Business or Promotion</p>
+    <p *ngIf="data.debit">Debit customer reward by Scanning LC or Business or Promotion</p>
+
+
+    <div class="col-12">
+      <div class="alert alert-dark">
+       <ng-container *ngIf="! data.debit">
+         {{"Please scan the QR using the scanner to credit reward" | translate}}
+       </ng-container>
+        <ng-container *ngIf="data.debit">
+          {{"Please scan the QR using the scanner to debit reward" | translate}}
+        </ng-container>
+
+      </div>
+    </div>
+    <div class="col-12">
+      <zxing-scanner (scanError)="onScanError($event)" (scanSuccess)="onSuccessScan($event)"></zxing-scanner>
+    </div>
+
+    <div class="col-12 mt-2 mb-2" *ngIf="scanOutput">
+      <p class="text-success fw-bold">{{"Scanned Result" | translate}}</p>
+      {{scanOutput}}
+    </div>
+
+
+    <!--<div class="col-12" >
+      <ngx-scanner-qrcode  (error)="onError($event)" [config]="config" #action="scanner"></ngx-scanner-qrcode>
+
+      <p *ngIf="action.isLoading">⌛ Loading...</p>
+
+      <button class="btn btn-primary w-100" type="button" (click)="action.isStart ? action.stop() : action.start()">{{action.isStart ? 'Stop Scanning' : 'Start Scanning'}}</button>
+
+
+      <span *ngIf="action.data && action.data.value && action.data.value[0] && action.data.value[0].value " [innerHtml]="action.data.value[0].value"></span>
+    </div> -->
+
+    <mat-form-field class="col-12" appearance="outline" >
+      <mat-label>{{'Enter Customer ID' | translate}}</mat-label>
+      <input [required]="true" type="number" matInput placeholder="{{'Enter customer id' | translate}}" formControlName="customer_id"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline" >
+      <mat-label>{{'Type' | translate}}</mat-label>
+      <input [required]="true" type="text" matInput placeholder="{{'Listing type' | translate}}" formControlName="listing_type"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline" >
+      <mat-label>{{'Listing ID' | translate}}</mat-label>
+      <input [required]="true" type="number" matInput placeholder="{{'Listing ID' | translate}}" formControlName="listing_id"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12" appearance="outline" *ngIf="! data.debit" >
+      <mat-label>{{'Referrer ID' | translate}}</mat-label>
+      <input type="number" matInput placeholder="{{'Referrer ID' | translate}}" formControlName="referrer_id"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field>
+
+     <mat-form-field appearance="outline" *ngIf="data.debit" >
+       <mat-error>{{'Reward type to use' | translate}}</mat-error>
+       <mat-label>{{'Select Reward type to use' | translate}}</mat-label>
+       <mat-select [required]="true" formControlName="reward_type">
+         <mat-option [value]="'points'">Points Reward</mat-option>
+         <mat-option [value]="'prize'">Price Reward</mat-option>
+       </mat-select>
+     </mat-form-field>
+
+    <mat-form-field class="col-12 mt-3" appearance="outline" >
+      <mat-label>{{'Enter Consumption Amount' | translate}}</mat-label>
+      <input [required]="true" type="number"  matInput placeholder="{{'Consumption Amount' | translate}}" formControlName="consumption_amount"/>
+      <mat-icon matSuffix>usd</mat-icon>
+    </mat-form-field>
+
+   <!-- <mat-form-field class="col-12" appearance="outline" *ngIf="form.controls['reward_type'].value && form.controls['reward_type'].value === 'points'" >
+      <mat-label>{{'Points to reward' | translate}}</mat-label>
+      <input [required]="true" type="number"  matInput placeholder="{{'Enter points rewarded to customer' | translate}}" formControlName="points_rewarded"/>
+      <mat-icon matSuffix>check</mat-icon>
+    </mat-form-field> -->
+
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <div class="col-12 d-flex justify-content-end align-items-center gap-2" >
+
+      <button type="submit" *ngIf="progress === false" mat-raised-button color="primary" class="mt-2">
+        {{'Submit' | translate}}
+      </button>
+      <button type="button" mat-dialog-close *ngIf="progress === false" mat-raised-button color="accent" class=" ml-2 mt-2">
+        {{'Cancel' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</form>

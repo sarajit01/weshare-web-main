@@ -1,0 +1,158 @@
+<div class="card"  >
+  <div  class="d-flex flex-column" (click)="viewDetails()" *ngIf="business && loyalty_card">
+    <div class="card-header  order-md-0 d-flex justify-content-between align-items-center px-2">
+
+      <div class="d-flex align-items-center justify-content-start gap-2 gap-md-3">
+
+       <!-- <img src="{{business.logo}}" class="business-header-logo" style="border-radius: 50%;"/> -->
+       <div class="business-header-logo" style=" border-radius: 50%;background-size: cover; background-position: center;background-image: url('{{business.logo}}');">
+
+        </div>
+
+        <div>
+        <span class=" business-title-header fw-bold" >
+          {{business.name}}
+        </span>
+          <p class=" business-city-header fw-bold" >
+            {{business.city}}
+          </p>
+        </div>
+
+
+      </div>
+
+      <div class="d-flex align-items-center gap-2 justify-content-end section-listing-type ">
+        <span class="material-symbols-outlined">
+credit_card
+</span>
+        <span  class=" fw-bold d-none d-md-flex">{{"TCF" | translate}}</span>
+      </div>
+
+    </div>
+    <div class="card-body order-md-1 px-2 d-none">
+      <p class="card-text" style="line-height: 1.5;" [innerHtml]="loyalty_card.description"></p>
+
+    </div>
+
+    <div id="lc{{loyalty_card.id}}" class="px-2 d-flex justify-content-center" >
+        <div class="w-100" style="max-width: 420px !important;">
+            <app-lccard [loyalty_card]="loyalty_card"></app-lccard>
+        </div>
+    </div>
+
+  </div>
+
+<!--  <div class="card-footer d-flex justify-content-end align-items-center gap-2">-->
+<!--    <app-business-call-button [business]="business"></app-business-call-button>-->
+<!--    <app-business-whatsapp-button  *ngIf="business.user && planService.featureEnabled(business.user, 'whatsapp')" [business]="business"></app-business-whatsapp-button>-->
+<!--  </div>-->
+
+<!--  <div class="card-footer d-flex justify-content-between align-items-center px-2">-->
+<!--    <div class="d-flex gap-2 align-items-center">-->
+
+<!--      <div class="d-flex justify-content-start align-items-center gap-1">-->
+<!--        <div class="react-icon bg-primary">-->
+<!--          <i class="fa fa-thumbs-up"></i>-->
+<!--        </div>-->
+<!--        <div (click)="saveToFavorites()" class="react-icon bg-danger">-->
+<!--          <i class="fa fa-heart-o"></i>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <div>-->
+<!--        <span>1k</span>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--    <div class="d-flex gap-2 align-items-center">-->
+
+<!--      <div class="d-flex justify-content-end align-items-center gap-1">-->
+<!--        <span>124 {{"Comments" | translate}}</span>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <span>0 {{"Shares" | translate}}</span>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+
+
+<!--  </div>-->
+
+
+  <div class="card-footer d-flex justify-content-between align-items-center px-2">
+
+    <div *ngIf="!displayOptionsOnly" class="w-100 d-flex justify-content-between align-items-center px-2">
+
+      <div (click)="saveToFavorites()" class="d-flex gap-2 justify-content-center align-items-center">
+
+     <span class="material-symbols-outlined">
+add_circle
+</span>
+        <span *ngIf="loyalty_card.likes_count">{{loyalty_card.likes_count}}</span>
+
+
+        <!--      <span class="footer-react-icon-title">-->
+        <!--        {{"Like" | translate}}-->
+        <!--      </span>-->
+
+      </div>
+
+      <div class="d-flex gap-2 justify-content-center align-items-center" (click)="openComments()">
+
+    <span class="material-symbols-outlined">
+mode_comment
+</span>
+
+        <span class="footer-react-icon-title">
+        {{"Comment" | translate}}
+      </span>
+
+        <span *ngIf="loyalty_card.comments_count">{{loyalty_card.comments_count}}</span>
+
+      </div>
+
+      <div (click)="openSharePopup()" class="d-flex gap-2 justify-content-center align-items-center">
+
+   <span class="material-symbols-outlined">
+share
+</span>
+
+        <span *ngIf="loyalty_card.shares_count">{{loyalty_card.shares_count}}</span>
+        <!--      <span class="footer-react-icon-title">-->
+        <!--        {{"Share" | translate}}-->
+        <!--      </span>-->
+
+      </div>
+    </div>
+
+      <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="displayOptionsOnly">
+       <span class="material-symbols-outlined cursor-pointer" (click)="openBottomSheet()">
+more_vert
+</span>
+      </div>
+
+  </div>
+  <!--
+  <div class="card-footer">
+      [include]="['copy', 'facebook', 'email', 'messenger', 'mix', 'line', 'linkedin', 'pinterest', 'print', 'reddit', 'sms', 'telegram', 'tumblr', 'twitter', 'viber', 'vk', 'xing', 'whatsapp']"
+ -->
+
+    <!-- only   Facebook, Instagram, Twitter, Whatsapp, By Email, and finally copy the Link
+    <share-buttons theme="circles-dark"
+                   [include]="['facebook', 'instagram', 'twitter', 'whatsapp', 'email', 'copy']"
+                   [showIcon]="true"
+                   [showText]="false"
+                   url="{{'https://guiderhn.com/business/loyalty-cards/17'}}"
+                   description="{{loyalty_card.description}}">
+    </share-buttons>
+
+
+  </div>-->
+
+
+
+</div>
+
+

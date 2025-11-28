@@ -1,0 +1,55 @@
+<!--<div class="container" *ngIf="categoriesChunks.length">
+  <div class="row">
+    <div class="col-md-12">
+       <div class="d-flex justify-content-center align-items-center">
+         <div class="cat-navigator" (click)="prevSlide()">
+           <i class="fa fa-angle-left"></i>
+         </div>
+         <div class="d-flex mt-1 mb-1" id="categoryBar" *ngIf="slider.items.length > 0" >
+           <div [routerLink]="routePrefix+c.id" class="shadow-sm  cat" [ngClass]="getSwipeClass()" *ngFor="let c of slider.items" style="padding: 8px;margin-right: 10px;border-radius: 0px;">
+             <span class="d-inline-flex text-center">{{c.name}}</span>
+           </div>
+         </div>
+         <div class="cat-navigator" (click)="nextSlide()">
+           <i class="fa fa-angle-right"></i>
+         </div>
+
+       </div>
+    </div>
+  </div>
+
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="cat-navigator" (click)="scrollLeft()">
+          <i class="fa fa-angle-left"></i>
+        </div>
+        <div class="d-flex mt-1 mb-1" id="categoryBar" *ngIf="categories" >
+          <div [routerLink]="routePrefix+c.id" class="shadow-sm  cat"  *ngFor="let c of categories" style="padding: 8px;margin-right: 10px;border-radius: 0px;">
+            <span class="d-inline-flex text-center">{{c.name}}</span>
+          </div>
+        </div>
+        <div class="cat-navigator" (click)="scrollRight()">
+          <i class="fa fa-angle-right"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+-->
+
+<app-swipper [hasNavigator]="false" [domID]="domID" *ngIf="categories">
+  <!--<div class="cat" style="border-radius: 0 !important;border: 0 !important;">
+    <span class="d-inline-flex text-center align-items-center">
+      <img src="https://cdn-icons-png.flaticon.com/512/223/223481.png" width="20px" height="20px">
+      &nbsp;Explore</span>
+  </div> -->
+  <div (click)="viewByCategory(c)" class="cat shadow-1"  *ngFor="let c of categories">
+    <span class="d-inline-flex text-center">{{c.name}}</span>
+  </div>
+
+</app-swipper>

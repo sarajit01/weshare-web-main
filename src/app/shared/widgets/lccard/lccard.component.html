@@ -1,0 +1,61 @@
+<div class="card-img-top order-0 order-md-2 loyalty-card-container my-2" *ngIf="loyalty_card" style="border-radius: 16px !important;background-size: cover; background-position: center; background-repeat: no-repeat;background-image: url('{{loyalty_card.custom_bg_img}}');background-color: {{loyalty_card.bg_color}};">
+    <div class="card-body lc-body px-md-3 py-md-3">
+
+        <div class="d-flex flex-column justify-content-between gap-2 " style="min-height: {{cardMinHeight}}px !important;">
+            <div class="w-100" [ngClass]="! loyalty_card.is_favorite ? '' : 'd-flex justify-content-between'">
+
+                <div class="loyalty-card-logo" *ngIf="loyalty_card.display_logo === 'yes'" style="background-image: url('{{loyalty_card.logo}}')">
+
+                </div>
+
+                <div class="loyalty-card-logo" *ngIf="loyalty_card.display_logo === 'no'">
+
+                </div>
+
+                <div class="d-flex justify-content-center gap-2 pt-5 " *ngIf="loyalty_card.card_type === 'prize'" style="position: relative; top: -20px !important;">
+                    <div class="d-flex flex-column gap-1 justify-content-center align-items-center" *ngFor="let n of visitArray; let i = index">
+                        <img src="{{loyalty_card.redemption_img}}"  class="redemption-img">
+
+                        <span class="redemp-counter" style="color: {{loyalty_card.font_color || '#FFFFFF'}}">{{i +1}}</span>
+                    </div>
+                </div>
+                <div>
+
+                    <!--                <img  [ngClass]="! loyalty_card.is_favorite ? 'd-none' : ''" width="70" height="70" class=" lc-qr-code d-none d-md-block" src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{getQRCodeData()}}">-->
+
+                </div>
+
+            </div>
+
+            <div class="d-flex flex-column gap-2 justify-content-center align-items-center">
+
+                <span  style="color: {{loyalty_card.heading_font_color}};font-size: {{loyalty_card.heading_font_size || 18}}px!important;font-weight: bold;">{{loyalty_card.card_title}}</span>
+                <span  style="font-size: {{loyalty_card.font_size}};color: {{loyalty_card.font_color}};" [innerHtml]="loyalty_card.card_description"></span>
+
+            </div>
+
+        </div>
+
+    </div>
+<!--    [ngClass]="! loyalty_card.is_favorite ? 'd-none' : ''"-->
+
+    <div class="card-footer d-none d-md-block" *ngIf="displayCustomerData"  >
+
+        <div class="d-flex flex-column justify-content-center align-items-center gap-1"  style="font-size: {{loyalty_card.font_size}};color: {{loyalty_card.font_color}};">
+
+            <ng-container >
+                <span>Your Name: {{authService.getAuthUserData('first_name')}} {{authService.getAuthUserData('last_name')}}</span>
+
+                <span>Your ID: {{authService.getUserID()}}</span>
+            </ng-container>
+            <!--  <template #creatorInfo>
+                <span>{{loyalty_card.user ? loyalty_card.user.first_name : ''}}</span>
+
+                <span>{{loyalty_card.user_id }}</span>
+              </template> -->
+
+
+        </div>
+
+    </div>
+</div>

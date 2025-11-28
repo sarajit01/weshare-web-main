@@ -1,0 +1,331 @@
+<div class="w-100 d-block d-md-none">
+
+  <app-mobile-header-with-back-button [heading]="'Business Users'" [backUrl]="'/business/manage'"></app-mobile-header-with-back-button>
+
+  <div class="row mt-3 py-3" *ngIf="business">
+    <ng-container *ngFor="let business_user of business.users">
+      <div class="col-12 mb-2">
+
+        <div class="card">
+            <div class="card-body px-2 py-2">
+                <div class="w-100 d-flex flex-column gap-1">
+                  <div class="d-flex justify-content-between flex-wrap align-items-center">
+                    <span>{{business_user.user?.first_name}} {{business_user.user.last_name}} - ID: {{business_user.user.id}}</span>
+                    <div>
+                      <span>{{business_user.business_role}}</span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <span>{{business_user.user.email}}</span>
+                  </div>
+                  <div class="d-flex">
+                    <span>{{business_user.user.phone}}</span>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span>{{business_user.service?.service_name ?? 'All Services' | translate}}</span>
+                    <div>
+                      <span class="material-symbols-outlined">
+more_vert
+</span>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+  </div>
+
+
+  <div (click)="toggleCreationPopup()" *ngIf="!displayCreationPopup" class="btn-theme-dark d-flex justify-content-center align-items-center" style="width: 40px;height: 40px;border-radius: 50%;position: fixed; right: 16px;bottom: 20px;">
+        <span class="material-symbols-outlined">
+add
+</span>
+  </div>
+
+  <ng-container *ngIf="displayCreationPopup">
+    <div class="w-100 h-100 theme-bg-primary"
+         style="position: fixed;opacity: 0.9;z-index: 100000;top:0;left:0;">
+
+    </div>
+
+    <div class="w-100 h-100 d-flex align-items-end justify-content-end pb-3 pe-3"
+         style="position: fixed;width: 100vw!important;height: 100vh !important;;background: transparent !important;left: 0 !important;top: 0 !important;z-index: 100001 !important;">
+
+
+      <div class="w-100 d-flex flex-column gap-3">
+        <div class="w-100 d-flex align-items-center justify-content-end gap-3 cursor-pointer">
+          <p [routerLink]="['/business/' + business_id + '/users/add']" [queryParams]="{register: 'new_user'}" class="mb-0 fw-bold">{{"Register New User"}}</p>
+
+          <div [routerLink]="['/business/' + business_id + '/users/add']" [queryParams]="{register: 'new_user'}" class="theme-bg-primary shadow d-flex justify-content-center align-items-center"
+               style="width: 40px;height: 40px;border-radius: 50%;">
+      <span class="material-symbols-outlined">
+person
+</span>
+          </div>
+        </div>
+
+        <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+          <p [routerLink]="['/business/' + business_id + '/users/add']" [queryParams]="{register: 'send_invite'}" class="mb-0 fw-bold">{{"Send Invite"}}</p>
+
+          <div [routerLink]="['/business/' + business_id + '/users/add']" [queryParams]="{register: 'send_invite'}" class="theme-bg-primary shadow d-flex justify-content-center align-items-center"
+               style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined">
+email
+</span>
+          </div>
+        </div>
+
+
+        <div class="w-100 d-flex align-items-center justify-content-end gap-3">
+
+          <div (click)="toggleCreationPopup()" class="bg-black shadow d-flex justify-content-center align-items-center"
+               style="width: 40px;height: 40px;border-radius: 50%;">
+        <span class="material-symbols-outlined text-white">
+close
+</span>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </ng-container>
+
+</div>
+
+<div class="container-fluid pt-3 pb-5 d-none d-md-block">
+
+  <div class="row mb-5">
+
+    <div class="col-md-12">
+
+      <mat-progress-bar *ngIf="progress.businessLoading === true" mode="indeterminate"></mat-progress-bar>
+      <mat-card *ngIf="business">
+
+        <mat-card-header>
+
+          <div class="row mb-2">
+
+            <div class="col-md-12">
+              <h2 class="">
+                Manage Business Users ( {{business.business_name_prefix}} {{business.business_name}} )
+              </h2>
+              <button [routerLink]="['/business/manage']" mat-raised-button color="accent">
+
+                <i class="fa fa-angle-left"></i> Back
+
+              </button>&nbsp;&nbsp;
+              <button [routerLink]="['/business/'+business.id+'/users/add']" mat-raised-button color="primary">
+
+                <i class="fa fa-plus"></i> &nbsp;Add New User
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-4">
+
+          <div class="row">
+
+            <div class="col-md-6 float-end">
+
+              <mat-form-field style="width: 100%"  appearance="outline">
+                <input matInput placeholder="Search Users .." >
+              </mat-form-field>
+
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+
+            <div class="col-md-12">
+
+              <div class="table-responsive">
+
+                <table class="table table-hover">
+
+                  <thead>
+
+                  <tr>
+
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact Phone</th>
+                    <th>Role</th>
+                    <th>Service</th>
+                    <th>Delete</th>
+
+                  </tr>
+
+
+                  </thead>
+
+                  <tbody>
+
+                  <tr *ngFor="let user of business.users">
+                    <td>{{user.user.id}}</td>
+                    <td>{{user.user.first_name}} {{user.user.last_name}}</td>
+                    <td>{{user.user.email}}</td>
+                    <td>{{user.business_phone}}</td>
+                    <td>
+                      {{ user.business_role}}
+                    </td>
+                    <td> {{user.service?.service_name}}</td>
+                   <!-- <td>
+
+                      <button mat-raised-button color="accent">
+
+                        <i class="fa fa-edit"></i>
+
+                      </button>&nbsp;&nbsp;
+                    </td>
+                    <td>
+
+                      <button mat-raised-button color="accent">
+
+                        <i class="fa fa-copy"></i>
+
+                      </button>&nbsp;&nbsp;
+                    </td> -->
+                    <td>
+
+                      <button (click)="deleteBusinessUser(user.user_id)" mat-raised-button color="primary" class="btn-danger">
+
+                        <i class="fa fa-times"></i> &nbsp;
+
+                      </button>&nbsp;&nbsp;
+
+                    </td>
+
+                  </tr>
+
+                  </tbody>
+
+
+                </table>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+</div>

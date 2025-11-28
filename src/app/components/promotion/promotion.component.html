@@ -1,0 +1,268 @@
+<div class="container listing-container">
+  <div class="row mt-4 mt-md-0 d-flex justify-content-center">
+    <div class="col-md-6 page-mid-section">
+
+      <div class="container">
+
+        <div class="row mb-4">
+          <app-categories-bar [domID]="'catBar1'"></app-categories-bar>
+        </div>
+
+        <!-- <div class="row mt-3 ">
+
+           <div class="col-md-12 align-items-center">
+
+             <h3 class="float-left font-weight-bold">Promos & Descuentos Destacados</h3>
+             <button class="btn btn-outline-success btn-sm float-right">See all</button>
+
+           </div>
+         </div> -->
+
+        <!-- <div class="row listing-section mb-2" *ngIf="promotions">
+          <div class="col-12" style="padding: 2px !important;" *ngFor="let promo of featured_promos">
+            <app-promotion-widget [promotion]="promo.promotion"></app-promotion-widget>
+          </div>
+
+
+        </div> -->
+
+        <div class="row listing-section" *ngIf="promotions && promotions.featured">
+          <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let promotion of promotions.featured">
+            <app-promotion-classic-widget [promotion]="promotion.promotion"></app-promotion-classic-widget>
+          </div>
+        </div>
+        <div class="row listing-section" *ngIf="promotions && promotions.trending">
+          <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let promotion of promotions.trending">
+            <app-promotion-classic-widget [promotion]="promotion.promotion"></app-promotion-classic-widget>
+          </div>
+        </div>
+        <div class="row listing-section" *ngIf="promotions && promotions.popular">
+          <div class="col-12 mb-3" style="padding: 2px !important;" *ngFor="let promotion of promotions.popular">
+            <app-promotion-classic-widget [promotion]="promotion.promotion"></app-promotion-classic-widget>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <app-recently-viewed-business></app-recently-viewed-business>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="container-fluid">
+
+  <app-categories-bar [listingType]="'promotion'"></app-categories-bar>
+
+  <div class="row mt-3">
+
+    <div class="col-md-12">
+      <div class="float-start d-flex justify-content-start align-items-center">
+        <h3 class="fw-bold">
+          Promos & Descuentos Destacados
+        </h3>
+      </div>
+      <div class="float-end d-flex justify-content-end align-items-center">
+
+        <button class="btn btn-outline-success btn-sm">
+          See all
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+    <div class="row listing-section" *ngIf="promotions">
+      <app-swipper [hasNavigator]="false">
+        <div class="col-9 col-sm-7 col-md-5 col-lg-3" style="padding: 2px !important;" *ngFor="let promo of promotions.featured">
+          <app-promotion-widget [promotion]="promo.promotion"></app-promotion-widget>
+        </div>
+      </app-swipper>
+
+    </div>
+
+
+
+
+  <div class="row mt-2">
+    <app-random-ads></app-random-ads>
+  </div>
+
+  <div class="row mt-2">
+
+    <div class="col-md-12">
+      <div class="float-start d-flex justify-content-start align-items-center">
+        <h3 class="fw-bold">
+          Trending
+        </h3>
+      </div>
+      <div class="float-end d-flex justify-content-end align-items-center">
+
+        <button class="btn btn-outline-success btn-sm">
+          See all
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+    <div class="row listing-section" *ngIf="promotions">
+      <app-swipper [hasNavigator]="false">
+        <div class="col-9 col-sm-7 col-md-5 col-lg-3" style="padding: 2px !important;" *ngFor="let promo of promotions.trending">
+          <app-promotion-widget [promotion]="promo.promotion"></app-promotion-widget>
+        </div>
+      </app-swipper>
+
+    </div>
+
+
+
+
+  <div class="row mb-2">
+    <div class="col-md-12">
+      <h3 class="fw-bold">
+        Deals Under $30
+      </h3>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-3">
+
+          <div class="listing-cat-sm text-center" style="background:  url('assets/img/slides/car 2.jpg');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+            <h2 class="mt-5" style="color: white">Car Deal</h2>
+
+          </div>
+
+
+        </div>
+        <div class="col-md-3">
+
+          <div class="listing-cat-sm text-center" style="background:  url('assets/img/slides/car 2.jpg');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+            <h2 class="mt-5" style="color: white">Car Deal</h2>
+
+          </div>
+
+
+        </div>
+        <div class="col-md-3">
+
+          <div class="listing-cat-sm text-center" style="background:  url('assets/img/slides/car 2.jpg');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+            <h2 class="mt-5" style="color: white">Car Deal</h2>
+
+          </div>
+
+
+        </div>
+        <div class="col-md-3">
+
+          <div class="listing-cat-sm text-center" style="background:  url('assets/img/slides/car 2.jpg');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+            <h2 class="mt-5" style="color: white">Car Deal</h2>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+
+</div> -->

@@ -1,0 +1,17 @@
+{
+  "short_name": "Weshare Lite",
+  "name": "Weshare Lite: the app for list businesses, promotions, loyalty cards",
+  "theme_color": "#0000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+   {
+        "src": "assets/icons/apple-touch-icon.png",
+        "sizes": "any",
+        "type": "image/png",
+        "purpose": "maskable any"
+   }
+  ]
+}

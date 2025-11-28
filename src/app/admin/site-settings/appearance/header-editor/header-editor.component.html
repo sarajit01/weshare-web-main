@@ -1,0 +1,101 @@
+<div class="row">
+
+  <form [formGroup]="form" (submit)="save()" class="col-md-5">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Header</h1>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Background</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_bg" type="color" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Text Color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_text_color"  type="color" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Font Size</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_font_size" type="text" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Padding</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_padding" type="text" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Margin</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_margin"  type="text" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Icon Background</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_icon_bg"  type="color" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Icon Color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_icon_color" type="color" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Button background color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_btn_bg" type="color" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Button text color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="header_btn_text_color"  type="color" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Button font size</mat-label>
+          <mat-error></mat-error>
+          <input formControlName="header_btn_font_size" matInput  type="text" >
+        </mat-form-field>
+      </div>
+
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <button class="btn btn-primary">
+            Save
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </form>
+
+
+</div>

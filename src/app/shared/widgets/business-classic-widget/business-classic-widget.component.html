@@ -1,0 +1,103 @@
+
+<div class="card" >
+  <div class="d-flex flex-column">
+    <div class="card-header order-md-0 d-flex justify-content-between align-items-center px-2">
+
+      <div class="d-flex align-items-center justify-content-start gap-2 gap-md-3" (click)="viewDetails()">
+
+        <div class="business-header-logo" style="border-radius: 50%;background-size: cover; background-position: center;background-image: url('{{business.logo}}');">
+
+        </div>
+
+        <div>
+        <span class=" business-title-header fw-bold" >
+          {{business.name}}
+        </span>
+          <p class="business-city-header" >
+            {{business.city}}
+          </p>
+        </div>
+
+
+      </div>
+
+      <div class="d-flex align-items-center gap-2 justify-content-end section-listing-type ">
+        <span class="material-symbols-outlined">
+store
+</span>
+        <span *ngIf="!displayOptionsOnly" class=" fw-bold d-none d-lg-flex">{{"Business" | translate}}</span>
+      </div>
+
+    </div>
+    <div class="card-body d-none   order-md-1 px-2">
+      <p class="card-text" style="line-height: 1.5;" [innerHtml]="business.description_short"></p>
+
+    </div>
+    <img  *ngIf="business.gallery[0]" src="{{business.gallery[0].img}}" (click)="viewDetails()" class="card-img-top order-0 order-md-2" style="border-radius: 0 !important;" />
+
+  </div>
+
+  <div *ngIf="isFavorite" class="card-footer d-flex justify-content-between align-items-center">
+
+    <div >
+
+        <img  width="70" height="70" class=" lc-qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{getQRCodeData()}}">
+
+
+    </div>
+    <div class="d-flex justify-content-end align-items-center gap-2">
+      <app-business-call-button [business]="business"></app-business-call-button>
+      <app-business-whatsapp-button  *ngIf="business.user && planService.featureEnabled(business.user, 'whatsapp')" [business]="business"></app-business-whatsapp-button>
+    </div>
+
+  </div>
+
+<!--  <div class="card-footer d-flex justify-content-between align-items-center px-2">-->
+<!--    <div class="d-flex gap-2 align-items-center">-->
+
+<!--      <div class="d-flex justify-content-start align-items-center gap-1">-->
+<!--        <div (click)="saveToFavorites()" class="react-icon bg-primary">-->
+<!--          <i class="fa fa-thumbs-up"></i>-->
+<!--        </div>-->
+<!--        <div (click)="saveToFavorites()" class="react-icon bg-danger">-->
+<!--          <i class="fa fa-heart-o"></i>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <div>-->
+<!--        <span>1k</span>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--    <div class="d-flex gap-2 align-items-center">-->
+
+<!--      <div class="d-flex justify-content-end align-items-center gap-1">-->
+<!--        <span>124 {{"Comments" | translate}}</span>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <span>0 {{"Shares" | translate}}</span>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+
+
+<!--  </div>-->
+
+
+  <div class="card-footer">
+
+      <app-listing-reaction (onShare)="onShare($event)" *ngIf="!displayOptionsOnly" class="w-100" [listingType]="'business'" [listing]="business"></app-listing-reaction>
+
+
+    <div  class="w-100 d-flex justify-content-end align-items-center" *ngIf="displayOptionsOnly">
+       <span class="material-symbols-outlined cursor-pointer" (click)="openBottomSheet()">
+more_vert
+</span>
+    </div>
+
+  </div>
+
+
+</div>

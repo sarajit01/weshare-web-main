@@ -1,0 +1,24 @@
+<div class="w-100 d-flex flex-column gap-3">
+    <p class="mb-0 fw-bold" style="font-size: 16px;">Sponsored</p>
+
+    <div class="w-100 d-flex flex-column gap-3">
+
+        <ng-container *ngFor="let ad of ads">
+            <div class="w-100 d-flex gap-3">
+                <div>
+                    <img src="{{ad.logo?.img}}" style="width: 112px;height: 105px;border-radius: 16px;">
+                </div>
+                <div class="pt-3 d-flex flex-column gap-2">
+                    <span class="fw-bold" style="font-size: 16px;">
+                        {{ad.title}}
+                    </span>
+                    <span  style="font-size: 14px;">
+                        {{ad.business?.name}}
+                    </span>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+
+</div>

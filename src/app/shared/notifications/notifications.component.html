@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <app-mobile-header-with-back-button [heading]="'Notifications'" [backUrl]="'/' + authService.getRole() + '/dashboard'"></app-mobile-header-with-back-button>
+
+    <div class="row">
+
+        <ng-container *ngIf="notifications.data.length; else noNotifications">
+            <div class="card mt-4" (click)="onNotificationTap(notification)" style="border-radius: 20px;"  *ngFor="let notification of notifications.data">
+                <div class="card-body px-2 py-2">
+                    <div class="w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div>
+                            <ng-container *ngIf="notification.business">
+                                <img class="notification-logo" src="{{notification.business.logo}}" >
+                            </ng-container>
+                            <ng-container *ngIf="notification.promotion && notification.promotion.business">
+                                <img class="notification-logo" src="{{notification.promotion.business.logo}}">
+                            </ng-container>
+                            <ng-container *ngIf="notification.lc">
+                                <img class="notification-logo" src="{{notification.lc.logo}}">
+                            </ng-container>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <p class="mb-1 fw-bold" [innerHTML]="notification.subject"></p>
+                            <p class="mb-0" [innerHTML]="notification.message"></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small>{{notification.human_date}}</small>
+                                </div>
+
+                                <div>
+
+                            <span class="material-symbols-outlined">
+more_horiz
+</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #noNotifications>
+            <div class="card mt-4">
+                <div class="card-body px-2 py-2">
+                    {{"No notifications found to display" | translate}}
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+</div>
+<app-progress-bar *ngIf="progress"></app-progress-bar>

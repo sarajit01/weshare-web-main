@@ -1,0 +1,77 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Payment methods</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Receive offline payments</li>
+
+    <li class="breadcrumb-item active">Bank details</li>
+  </ol>
+
+  <div class="row">
+     <div class="col-md-12">
+
+       <mat-progress-bar mode="indeterminate" *ngIf="dataProgress === true"></mat-progress-bar>
+       <form [formGroup]="formBank" *ngIf="dataProgress === false" (submit)="saveBank()" class="row">
+
+         <div class="col-md-12">
+
+           <div class="alert alert-success">
+             Users will see these bank details to send you payments offline . Make sure you enter correct details here
+           </div>
+
+         </div>
+
+         <div class="col-md-12">
+
+           <div class="form-group">
+             <mat-form-field  appearance="outline">
+               <mat-error></mat-error>
+               <mat-label>Bank Name</mat-label>
+
+               <input matInput type="text" formControlName="bank_name" placeholder="Enter bank name"  >
+             </mat-form-field>
+           </div>
+           <div class="form-group">
+             <mat-form-field  appearance="outline">
+               <mat-error></mat-error>
+               <mat-label>Branch</mat-label>
+
+               <input matInput type="text" formControlName="branch" placeholder="Enter branch"  >
+             </mat-form-field>
+           </div>
+           <div class="form-group">
+             <mat-form-field  appearance="outline">
+               <mat-error></mat-error>
+               <mat-label>Account number</mat-label>
+               <input matInput type="text" formControlName="account_no" placeholder="Enter Account Number"  >
+             </mat-form-field>
+           </div>
+           <div class="form-group">
+             <mat-form-field  appearance="outline">
+               <mat-error></mat-error>
+               <mat-label>Account Name</mat-label>
+
+               <input matInput type="text" formControlName="account_name" placeholder="Enter account name"  >
+             </mat-form-field>
+           </div>
+           <div class="form-group">
+             <mat-form-field  appearance="outline">
+               <mat-error></mat-error>
+               <mat-label>Routing</mat-label>
+
+               <input matInput type="text" formControlName="routing" placeholder="Enter routing"  >
+             </mat-form-field>
+           <div class="form-group">
+
+             <button class="btn btn-primary">
+               Save Info
+             </button>
+
+           </div>
+
+           </div>
+         </div>
+       </form>
+
+     </div>
+  </div>
+</div>

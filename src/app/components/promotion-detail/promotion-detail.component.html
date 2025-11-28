@@ -1,0 +1,1025 @@
+<app-mobile-header-with-back-button [urlAction]="false" *ngIf="fromListing" (onBackPressed)="onBackPressed()" [heading]="'Promotion Details'"></app-mobile-header-with-back-button>
+
+
+<div class="w-100 ms-0 me-0 " style="overflow-x: hidden; left: 0">
+
+<div class="{{getContainerClass()}} section-container mb-5" style="background: transparent"  *ngIf="promotion && promotion.business">
+  <!--<app-swipper class="row">
+    <div class="col-12"  style="background: linear-gradient(0deg, rgba(21,20,20,0.53), rgba(26,25,25,0.97)), url('{{media.img}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;height: 400px;" *ngFor="let media of promotion.business.gallery">
+      <h1>tEst</h1>
+    </div>
+  </app-swipper> -->
+  <div class="row px-3 mt-2">
+
+    <div class="card p-0">
+        <div class="card-body pt-0 px-0">
+
+
+    <app-slider class="d-none " [chunks]="business.gallery_chunks_lg"></app-slider>
+
+<!--    <app-simple-img-carousel *ngIf="business.gallery" [routerLink]="'/gallery/business/'+business.id" class="d-md-none" style="position: absolute; left: 0;padding: 0" [containerHeight]="250" [gallery]="business.gallery"></app-simple-img-carousel>-->
+
+            <div class="w-100 d-flex justify-content-center" style="border-top-left-radius: 24px;border-top-right-radius: 24px;">
+                <img src="{{promotion.gallery[0].img}}" style="max-height: 400px !important;" class="img-fluid" *ngIf="promotion.gallery && promotion.gallery.length" >
+            </div>
+
+<!--      <app-simple-img-carousel class="p-0" [containerHeight]="300" *ngIf="promotion.gallery && promotion.gallery.length" [activeSlideIndex]="0" [gallery]="promotion.gallery"></app-simple-img-carousel>-->
+
+            <app-simple-img-carousel class="p-0" [containerHeight]="300" *ngIf="!promotion.gallery || !promotion.gallery.length" [activeSlideIndex]="0" [gallery]="promotion.business.gallery"></app-simple-img-carousel>
+
+
+            <div class="d-flex mt-3 px-3 gap-3 ">
+
+      <div class="business-logo shadow-2" style="background: url('{{business.logo}}')">
+
+      </div>
+
+      <div class="d-flex flex-column">
+        <h2 class="mb-0">{{promotion.promotion_title}}</h2>
+        <small>{{business.name}}</small>
+        <small>{{business.city}}</small>
+      </div>
+
+
+
+<!--      <div  class="d-flex justify-content-between align-items-center py-1 ">-->
+
+<!--        <div class="cursor-pointer" (click)="likeService.saveToFavorites(this.promotion, 'promotion')">-->
+<!--            <span class="material-symbols-outlined">-->
+<!--add_circle-->
+<!--</span>-->
+<!--        </div>-->
+
+<!--        <div class="d-flex gap-1 cursor-pointer " (click)="commentService.openComments(this.promotion, 'promotion')" >-->
+
+<!--          <div>-->
+<!--            <span class="material-symbols-outlined">-->
+<!--mode_comment-->
+<!--</span>-->
+<!--          </div>-->
+
+<!--          <span>-->
+<!--            {{"Comment" | translate}}-->
+<!--          </span>-->
+
+<!--        </div>-->
+
+<!--        <div>-->
+<!--          <i class="fa fa-whatsapp" style="font-size: 24px" aria-hidden="true"></i>-->
+
+<!--        </div>-->
+
+<!--        <div>-->
+<!--          <span class="material-symbols-outlined cursor-pointer" (click)="openSharePopup()">-->
+<!--share-->
+<!--</span>-->
+<!--        </div>-->
+
+
+<!--      </div>-->
+
+    </div>
+
+
+            <div class="col-md-12 business-heading d-none  flex-column flex-md-row gap-3 justify-content-between align-items-center align-items-md-end px-md-5 pb-4 mb-2">
+
+      <div class="d-flex gap-2 gap-md-3 align-items-end">
+
+        <div class="business-logo shadow-2" style="background: url('{{promotion.business.logo}}')">
+
+        </div>
+
+        <div class="business-heading-wrapper">
+          <h1><strong>{{promotion.promotion_title}}</strong></h1>
+          <p><strong>{{promotion.business.name}}</strong></p>
+        </div>
+
+
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center gap-2">
+
+        <button  *ngIf="authService.isLoggedIn()" class="btn btn-success ">
+          <i class="fa fa-whatsapp"></i>&nbsp; {{'WhatsApp' | translate}}
+        </button>
+
+
+
+      </div>
+
+
+      <!-- <div class="float-start d-flex justify-content-start">
+        <span><a href="#">{{'Home' | translate}}</a> / {{business.business_name_prefix}} {{business.business_name}}</span>
+      </div> -->
+      <!--  <div class="float-end d-flex justify-content-end">
+          <div class="btn-icon">
+            <i class="fa fa-share"></i>
+
+
+          </div>
+          <div class="btn-icon">
+            <i class="fa fa-heart"></i>
+
+          </div>
+        </div> -->
+    </div>
+
+
+    <div class="col-md-12 p-3 d-none d-md-none" style="width: 90%; position: absolute; margin-top: 120px;">
+
+      <div class="float-start d-flex justify-content-center align-items-center">
+
+        <div class="ml-md-5">
+          <div class="mb-5">
+            <span class="heading-lg">{{promotion.business.business_name_prefix}} {{promotion.business.business_name}}</span>
+
+            <br/>
+          </div>
+          <div class="mb-3">
+            <span class="heading-lg">{{promotion.promotion_title}}</span>
+          </div>
+
+          <div>
+            <h4 class="heading-md ml-md-4">
+              <i class="fa fa-map-marker text-primary"></i>&nbsp; {{promotion.business.city}}  <span class="ml-3" *ngIf="promotion.business.contacts"><i class="fa fa-phone text-primary"></i>&nbsp; {{promotion.business.contacts.business_phone}}</span>
+            </h4>
+          </div>
+          <div>
+            <h4 class="text-white fw-bold" *ngIf="promotion.business.category">
+              {{promotion.business.category.name}}
+            </h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-md-12 d-none ">
+
+      <div class="row py-4">
+
+        <div class="col-12 px-md-5 col-md-12 business-navigation d-md-flex flex-column flex-md-row justify-content-between align-items-center">
+
+          <app-swipper [hasNavigator]="false">
+            <div class="nav-tab-btn" [ngClass]="isTabActive(tab)" *ngFor="let tab of tabs" (click)="activateTab(tab)">
+              <a [ngClass]="isLinkActive(tab)">
+                {{tab.name | translate}}
+              </a>
+
+            </div>
+          </app-swipper>
+
+          <div class="d-flex justify-content-center justify-content-md-end gap-2 my-1 my-md-0">
+
+            <span (click)="saveToFavorites()"  class="text-danger cursor-pointer">
+                <i class="fa fa-heart"></i> {{"Like" | translate}}
+            </span>
+            <span (click)="openSharePopup()"  class="text-primary cursor-pointer">
+              <i class="fa fa-share"></i> {{"Share" | translate}}
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+        </div>
+    </div>
+
+
+      <mat-card class="shadow mt-3" >
+
+
+          <mat-card-content>
+
+
+              <div class="col-12">
+                  <ul class="list-group list-group-light list-group-small">
+                      <li class="list-group-item">
+
+                          <div class="d-flex justify-content-start align-items-baseline gap-2">
+
+                              <i class="fa fa-info"></i>
+
+                              <div [innerHtml]="promotion.description"></div>
+
+                          </div>
+
+                      </li>
+
+
+
+                      <!--
+
+                         <p class="py-2 border-bottom text-black-50">
+
+                          <i class="fa fa-map-marker text-primary"></i>&nbsp; {{'Address' | translate}} :  {{business.address}}
+
+                        </p>
+                        <p class="py-2 border-bottom text-black-50" *ngIf="business.contacts">
+
+                          <i class="fa fa-phone text-primary"></i>&nbsp; {{'Phone' | translate}} :  {{business.contacts.business_phone}}
+
+                        </p>  <p class="py-2 border-bottom text-black-50"  *ngIf="business.contacts">
+
+                        <i class="fa fa-envelope-o text-primary"></i>&nbsp; {{'Email' | translate}} :  {{business.contacts.business_email}}
+
+                      </p>  <p class="py-2 border-bottom text-black-50" *ngIf="business.social_media">
+
+                        <i class="fa fa-globe text-primary"></i>&nbsp; {{'Website' | translate}} :  {{business.social_media.website}}
+
+                      </p>
+
+
+                      -->
+
+
+                      <!-- <li class="list-group-item px-3">
+                         <div class="d-flex justify-content-center align-items-center py-2 gap-2">
+                           <button (click)="claimPromo('promotion')" *ngIf="authService.isLoggedIn()" class="btn btn-primary  ">
+                             {{'Claim a promotion' | translate}}
+                           </button>
+                           <button (click)="claimPromo('discount')" *ngIf="authService.isLoggedIn()" class="btn btn-primary ">
+                             {{'Claim a discount' | translate}}
+                           </button>
+                         </div>
+                       </li> -->
+
+
+
+                  </ul>
+
+              </div>
+
+
+          </mat-card-content>
+
+          <mat-card-header class="row">
+              <div class="col-md-12 d-flex justify-content-between align-items-baseline">
+
+                  <mat-card-title>
+
+                      Sobre la {{promotion.promotion_type}}
+
+                  </mat-card-title>
+
+                  <button (click)="viewCode(promotion.code)" class="btn btn-sm btn-theme-dark">
+
+                      Ver Codigo
+
+                  </button>
+              </div>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content>
+
+
+              <div class="col-md-12 py-2">
+                  <div class="row">
+
+
+                      <div class="col d-flex justify-content-center">
+                          <div>
+                              <h3 class="text-center">NORMAL</h3>
+                              <p class="fw-bold text-black-50 text-center"  style="text-decoration: line-through;">L. {{promotion.price_original}}</p>
+
+                          </div>
+
+                      </div>
+                      <div class="col d-flex justify-content-center">
+                          <div>
+                              <h3 class="text-center">OFERTA </h3>
+                              <p class="fw-bold text-black-50 text-center" >L. {{promotion.price_offered}}</p>
+
+                          </div>
+
+                      </div>
+
+                      <div class="col d-flex justify-content-center">
+
+                          <div>
+                              <h3 class="text-center">AHORRO </h3>
+                              <p class="fw-bold text-black-50 text-center">L. {{promotion.price_discount}}</p>
+
+                          </div>
+
+                      </div>
+
+
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+              </div>
+
+              <ng-container *ngIf="promotion.discount_percentage && promotion.discount_percentage > 0">
+
+
+                  <div class="col-md-12 py-2">
+
+                      <h3 style="font-size: 45px;" class="fw-bold text-danger text-center">
+                          {{promotion.discount_percentage}}%
+                      </h3>
+                      <h3 class="fw-bold text-black-50 text-center">
+                          Descuento
+                      </h3>
+
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+              </ng-container>
+              <div class="row">
+                  <div class="col-md-12 mt-3 text-center" *ngIf="promotion.time_left">
+                      <h4 class="lh-1 text-center fw-bold text-black-50">
+                          <i class="fa fa-clock-o mr-1 text-danger"></i>   {{promotion.time_left.d}}D {{promotion.time_left.h}}H {{promotion.time_left.m}}M
+                      </h4>
+                  </div>
+                  <div class="col-md-12 mt-3 text-center" *ngIf="promotion.time_ended">
+                      <h4 class="lh-1 text-center fw-bold text-black-50">
+                          <i class="fa fa-clock-o mr-1 text-danger"></i>  Ended {{promotion.time_ended}}
+                      </h4>
+                  </div>
+              </div>
+
+          </mat-card-content>
+      </mat-card>
+
+
+  </div>
+
+
+
+
+  <div class="row d-flex flex-column flex-md-row mt-3" >
+
+<!--    <div class="col-12 ps-0  d-flex justify-content-between align-items-center d-md-none">-->
+<!--      <div class="d-flex gap-1">-->
+<!--        <ng-container *ngFor="let tab of tabs; let i= index" >-->
+<!--          <div *ngIf="i < 4" class="nav-tab-btn" [ngClass]="isTabActive(tab)" (click)="activateTab(tab)">-->
+<!--            <a [ngClass]="isLinkActive(tab)">-->
+<!--              {{tab.name | translate}}-->
+<!--            </a>-->
+
+<!--          </div>-->
+<!--        </ng-container>-->
+
+<!--      </div>-->
+
+<!--      <div>-->
+<!--          <span (click)="showMoreOptions()" class="material-symbols-outlined cursor-pointer">-->
+<!--more_vert-->
+<!--</span>-->
+<!--      </div>-->
+
+
+<!--    </div>-->
+
+    <ng-container *ngIf="viewMode === 'details'">
+
+    <div class="col-md-12 order-1 order-md-0 zero-padding" >
+
+      <div class="row px-3" >
+
+
+        <div class="col-md-12" *ngIf="activeTab === 'Information'">
+          <div class="card">
+            <div class="card-body px-0 py-0" style="overflow-x: hidden">
+<!--              <img *ngIf="promotion.gallery && promotion.gallery[0]" src="{{promotion.gallery[0].img}}"   class="order-0 order-md-2 card-img-top" style="border-radius: 0 !important;" />-->
+<!--              <img *ngIf="promotion.gallery && !promotion.gallery[0] && promotion.business.gallery[0]" src="{{promotion.business.gallery[0].img}}"  class="order-0 order-md-2 card-img-top" style="border-radius: 0 !important;" />-->
+
+
+                <app-simple-img-horiz-carousel  [radiusCorners]="24" (itemSelected)="onGalleryItemSelected($event)"  [itemHeight]="getDeviceWiseHeight()" [gallery]="business.gallery" ></app-simple-img-horiz-carousel>
+
+                <!--              <app-simple-img-carousel [containerHeight]="300" *ngIf="promotion.gallery && promotion.gallery.length" [activeSlideIndex]="0" [gallery]="promotion.gallery"></app-simple-img-carousel>-->
+
+
+                <ul class="list-group list-group-light list-group-small">
+
+                    <li class="list-group-item px-3">
+
+                        <div class="d-flex justify-content-start align-items-baseline gap-2">
+
+                            <i class="fa fa-info"></i>
+
+                            <div [innerHtml]="business.business_summary"></div>
+
+                        </div>
+
+
+                    </li>
+
+                    <!--
+
+                       <p class="py-2 border-bottom text-black-50">
+
+                        <i class="fa fa-map-marker text-primary"></i>&nbsp; {{'Address' | translate}} :  {{business.address}}
+
+                      </p>
+                      <p class="py-2 border-bottom text-black-50" *ngIf="business.contacts">
+
+                        <i class="fa fa-phone text-primary"></i>&nbsp; {{'Phone' | translate}} :  {{business.contacts.business_phone}}
+
+                      </p>  <p class="py-2 border-bottom text-black-50"  *ngIf="business.contacts">
+
+                      <i class="fa fa-envelope-o text-primary"></i>&nbsp; {{'Email' | translate}} :  {{business.contacts.business_email}}
+
+                    </p>  <p class="py-2 border-bottom text-black-50" *ngIf="business.social_media">
+
+                      <i class="fa fa-globe text-primary"></i>&nbsp; {{'Website' | translate}} :  {{business.social_media.website}}
+
+                    </p>
+
+
+                    -->
+
+                    <li class="list-group-item px-3" *ngIf="business.social_media && business.social_media.website">
+                        <div class="d-flex justify-content-start align-items-baseline gap-2">
+                            <i class="fa fa-globe"></i>
+                            {{business.social_media.website}}
+                        </div>
+                    </li>
+
+                    <li class="list-group-item px-3" *ngIf="business.contacts && business.contacts.business_phone">
+                        <div class="d-flex justify-content-start align-items-baseline gap-2">
+                            <i class="fa fa-phone"></i>
+                            {{business.contacts.business_phone}}
+                        </div>
+                    </li>
+
+                    <li class="list-group-item px-3" *ngIf="business.contacts && business.contacts.business_email">
+                        <div class="d-flex justify-content-start align-items-baseline gap-2">
+                            <i class="fa fa-envelope"></i>
+                            {{business.contacts.business_email}}
+                        </div>
+                    </li>
+
+                    <!-- <li class="list-group-item px-3">
+                       <div class="d-flex justify-content-center align-items-center py-2 gap-2">
+                         <button (click)="claimPromo('promotion')" *ngIf="authService.isLoggedIn()" class="btn btn-primary  ">
+                           {{'Claim a promotion' | translate}}
+                         </button>
+                         <button (click)="claimPromo('discount')" *ngIf="authService.isLoggedIn()" class="btn btn-primary ">
+                           {{'Claim a discount' | translate}}
+                         </button>
+                       </div>
+                     </li> -->
+
+
+
+                </ul>
+
+            </div>
+          </div>
+
+          <mat-card class="shadow" *ngIf="activeTab === ''">
+            <mat-card-header >
+              <div class="col-md-12 d-flex justify-content-between align-items-baseline">
+                <mat-card-title>{{'Description' | translate}}</mat-card-title>
+
+               <!-- <button *ngIf="authService.isLoggedIn() && authService.getRole() && authService.getRole() === 'business'" (click)="claimBusiness()" class="btn btn-primary">
+                  {{'Claim This Business' | translate}}
+                </button> -->
+
+              </div>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-3">
+
+              <!--<div class="col-12 d-flex justify-content-center py-1 align-items-center">
+                <button (click)="claimBusiness()" class="btn btn-sm btn-outline-dark mb-1 ">
+                  Reclamar Este  Negocio
+                </button>
+              </div> -->
+
+
+              <p class="lh-base text-black-50" [innerHtml]="promotion.description">
+
+
+              </p>
+
+              <br/>
+
+              <a target="_blank" href="{{business.social_media.website}}"  class="btn btn-sm btn-theme-dark">
+                {{'Visit Website' | translate}} &nbsp;<i class="fa fa-angle-right"></i>
+              </a>
+
+            </mat-card-content>
+
+          </mat-card>
+
+          <mat-card class="shadow mt-1" *ngIf="activeTab === 'Details' && business.business_summary" >
+            <mat-card-header >
+              <div class="col-md-12 d-flex justify-content-between align-items-baseline">
+                <mat-card-title>{{'More About the business' | translate}}</mat-card-title>
+              </div>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-3">
+
+              <!--<div class="col-12 d-flex justify-content-center py-1 align-items-center">
+                <button (click)="claimBusiness()" class="btn btn-sm btn-outline-dark mb-1 ">
+                  Reclamar Este  Negocio
+                </button>
+              </div> -->
+
+
+              <p class="lh-base text-black-50" [innerHtml]="business.business_summary">
+
+
+              </p>
+
+
+            </mat-card-content>
+
+          </mat-card>
+
+
+
+        </div>
+
+        <div class="col-md-12 mt-1" *ngIf="activeTab === 'About'">
+
+          <div class="row">
+
+            <div class="col-md-12 mt-1">
+
+              <mat-card class="shadow" >
+                <mat-card-header>
+                  <mat-card-title>Listing Tags</mat-card-title>
+                </mat-card-header>
+                <mat-divider></mat-divider>
+                <mat-card-content class="p-3">
+                  <mat-chip-list>
+                    <mat-chip
+                      *ngFor="let tag of promotion.business.tags">
+                      {{tag.tag}}
+                    </mat-chip>
+                  </mat-chip-list>
+                </mat-card-content>
+
+              </mat-card>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="col-md-12 mt-1" *ngIf="activeTab === 'Information' || activeTab === 'About'" >
+
+          <mat-card class="shadow" >
+            <mat-card-header >
+              <mat-card-title>Sobre el Negocio</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-3">
+
+
+              <p class="lh-base text-black-50" [innerHtml]="promotion.about">
+
+              </p>
+
+              <br/>
+
+              <a target="_blank" href="{{promotion.business.social_media.website}}"   class="btn btn-sm btn-theme-dark">
+                Visit Website &nbsp;<i class="fa fa-angle-right"></i>
+              </a>
+            </mat-card-content>
+
+          </mat-card>
+
+
+
+        </div>
+
+        <div class="col-md-12 mt-1" *ngIf="activeTab === 'Information' || activeTab === 'Conditions'" >
+
+          <mat-card class="shadow" >
+            <mat-card-header >
+              <mat-card-title>Condiciones</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-3">
+
+
+              <p class="lh-base text-black-50" [innerHtml]="promotion.terms">
+
+
+              </p>
+
+              <br/>
+
+<!--              <a target="_blank" href="/{{promotion.business.social_media.website}}"  mat-raised-button color="primary" class="btn btn-lg">-->
+<!--                Visit Website &nbsp;<i class="fa fa-angle-right"></i>-->
+<!--              </a>-->
+
+
+
+
+
+
+            </mat-card-content>
+
+          </mat-card>
+
+
+
+        </div>
+
+        <div class="col-md-12 mt-1" *ngIf="activeTab === 'Information' || activeTab === 'Conditions'" >
+
+          <mat-card class="shadow" >
+            <mat-card-header >
+              <mat-card-title>Restricciones</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-3">
+
+
+              <p class="lh-base text-black-50" [innerHtml]="promotion.restrictions">
+
+
+              </p>
+
+<!--              <br/>-->
+
+<!--              <a target="_blank" href="/{{promotion.business.social_media.website}}"  mat-raised-button color="primary" class="btn btn-lg">-->
+<!--                Visit Website &nbsp;<i class="fa fa-angle-right"></i>-->
+<!--              </a>-->
+
+
+            </mat-card-content>
+
+          </mat-card>
+
+
+
+        </div>
+
+
+        <div class="col-md-12 mt-1" *ngIf="activeTab === 'Reviews'">
+
+          <app-listing-reviews [business]="business"></app-listing-reviews>
+
+        </div>
+
+      </div>
+
+        <div class="w-100 my-3" *ngIf="business.promotions && business.promotions.length">
+            <app-featured-promotions-carousel (onPromotionSelected)="viewPromotionDetails($event)" class="px-0" *ngIf="activeTab === 'Promos' || activeTab === 'Information'" [business]="business" [promotions]="business.promotions"></app-featured-promotions-carousel>
+
+        </div>
+
+        <div class="w-100 my-3" *ngIf="business.loyalty_cards && business.loyalty_cards.length">
+
+        <app-featured-lccarousel (onLcSelected)="viewLCDetails($event)" class="px-0" *ngIf="activeTab === 'TCF' || activeTab === 'Information'" [business]="business" [lcs]="business.loyalty_cards"></app-featured-lccarousel>
+
+        </div>
+
+        <div class="row px-3">
+
+        <!-- <div class="col-md-12 mt-1" *ngIf="activeTab === 'Promotions & Discounts'">
+
+           <mat-card class="shadow" style="background: #fff">
+             <mat-card-header >
+               <div class="col-md-12">
+                 <div class="float-start justify-content-start align-items-center">
+                   <mat-card-title>{{'Promotions and Discounts' | translate}}</mat-card-title>
+                 </div>
+                 <div class="float-end justify-content-end align-items-center">
+                   {{business.promotions.length}} of  {{business.promotions.length}}
+                 </div>
+               </div>
+             </mat-card-header>
+             <mat-divider></mat-divider>
+             <mat-card-content class="py-1">
+
+               <div class="row">
+                 <app-swipper [hasNavigator]="false">
+                   <div class="col-9 col-sm-9 col-md-7 col-lg-7" style="padding: 2px !important;" *ngFor="let promo of business.promotions">
+                     <app-promotion-widget [business]="business" [promotion]="promo"></app-promotion-widget>
+                   </div>
+                 </app-swipper>
+               </div>
+
+
+             </mat-card-content>
+
+           </mat-card>
+
+
+
+         </div> -->
+
+        <div class="col-md-12 mt-1" >
+
+          <mat-card class="shadow" >
+            <mat-card-header >
+              <div class="col-md-12">
+                <div class="float-start justify-content-start align-items-center">
+                  <mat-card-title>{{'Notifications' | translate}}</mat-card-title>
+                </div>
+                <div class="float-end justify-content-end align-items-center">
+                </div>
+              </div>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="py-1">
+
+              <app-swipper [hasNavigator]="false">
+                <div class="col-9" *ngFor="let notify of business.notifications">
+                  <app-business-notification [displayMode]="'horizontal'" [businessNotification]="notify" ></app-business-notification>
+                </div>
+              </app-swipper>
+
+            </mat-card-content>
+
+          </mat-card>
+
+
+
+        </div>
+
+        <div class="col-md-12 mt-1" >
+
+          <mat-card class="shadow" >
+            <mat-card-header>
+              <mat-card-title>{{'Working Hours' | translate}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+              <div class="col-md-12">
+
+                <h4 class="p-2 text-info">
+
+                  <i class="fa fa-clock-o text-info"></i>&nbsp;{{'Now Closed' | translate}}
+
+                </h4>
+
+              </div>
+
+              <div class="col-md-12 table-responsive">
+
+
+
+
+                <table style="width: 100%" class="table table-hover timing-table">
+
+                  <tbody>
+
+                  <tr *ngFor="let d of business.working_hours">
+
+                    <td class="text-black-50" >
+                      {{d.day | translate}}
+                    </td>
+                    <td class="text-black-50">
+                      {{d.starts_at}} {{'to' | translate}} {{d.ends_at}}
+                    </td>
+
+                  </tr>
+
+                  </tbody>
+
+                </table>
+
+              </div>
+
+
+
+
+
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+
+        <div class="col-md-12 mt-1" id="location"  >
+
+          <mat-card class="shadow" >
+            <mat-card-header>
+              <mat-card-title>{{'Location / Contacts' | translate}}</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+
+            <mat-card-content>
+
+              <div class="col-md-12 text-center my-3">
+
+                <button mat-raised-button color="primary">
+                  {{'View Map' | translate}} <mat-icon>map</mat-icon>
+                </button>
+
+
+              </div>
+
+              <div class="col-md-12 p-3">
+
+
+                <p class="py-2 border-bottom text-black-50">
+
+                  <i class="fa fa-map-marker text-primary"></i>&nbsp; {{'Address' | translate}} :  {{business.address}}
+
+                </p>
+                <p class="py-2 border-bottom text-black-50" *ngIf="business.contacts">
+
+                  <i class="fa fa-phone text-primary"></i>&nbsp; {{'Phone' | translate}} :  {{business.contacts.business_phone}}
+
+                </p>  <p class="py-2 border-bottom text-black-50"  *ngIf="business.contacts">
+
+                <i class="fa fa-envelope-o text-primary"></i>&nbsp; {{'Email' | translate}} :  {{business.contacts.business_email}}
+
+              </p>  <p class="py-2 border-bottom text-black-50" *ngIf="business.social_media">
+
+                <i class="fa fa-globe text-primary"></i>&nbsp; {{'Website' | translate}} :  {{business.social_media.website}}
+
+              </p>
+
+
+                <br/>
+
+                <button mat-mini-fab color="primary" >
+                  <i class="fas fa-facebook"></i>
+                </button>&nbsp;
+                <button mat-mini-fab color="primary" >
+                  <i class="fas fa-twitter"></i>
+                </button>&nbsp;
+                <button mat-mini-fab color="primary" >
+                  <i class="fas fa-instagram"></i>
+                </button>&nbsp;
+                <button mat-mini-fab color="primary" >
+                  <i class="fas fa-whatsapp"></i>
+                </button>&nbsp;
+                <button mat-mini-fab color="primary" >
+                  <i class="fas fa-envelope"></i>
+                </button>&nbsp;
+
+
+
+
+              </div>
+
+
+
+
+
+
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+
+        <div class="col-md-12 mt-1" id="contact">
+
+          <mat-card class="shadow" >
+            <mat-card-header>
+              <mat-card-title>{{'Contact Us' | translate}}</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+
+              <app-listing-contact-form [listingType]="'business'" [listingId]="business.id"></app-listing-contact-form>
+
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+
+
+
+<!--        <div class="col-md-12 mt-1" >-->
+<!--          <app-booking-form [listingId]="business.id" [business]="business" [listingType]="'business'"></app-booking-form>-->
+<!--        </div>-->
+
+
+
+
+      </div>
+
+        <div class="w-100 my-3" *ngIf="similarListings.promotions.data && similarListings.promotions.data.length">
+            <app-featured-promotions-carousel class="px-0" (onPromotionSelected)="viewPromotionDetails($event)"  [promotions]="similarListings.promotions.data"></app-featured-promotions-carousel>
+        </div>
+
+
+        <div class="row" >
+
+<!--        <div class="col-md-12 mt-1">-->
+
+<!--          <mat-card class="shadow" style="background: #fff">-->
+<!--            <mat-card-header >-->
+<!--              <mat-card-title>{{'Listing features' | translate}}</mat-card-title>-->
+<!--            </mat-card-header>-->
+<!--            <mat-divider></mat-divider>-->
+<!--            <mat-card-content class="p-3">-->
+
+<!--              <button mat-button *ngFor="let attr of business.custom_attributes">-->
+<!--                &lt;!&ndash; <i class="fa fa-wifi text-info listing-feature-icon"></i> &ndash;&gt;<span class="listing-feature-text">-->
+<!--               {{attr.name | translate}}-->
+<!--               </span>-->
+<!--              </button>-->
+
+<!--            </mat-card-content>-->
+
+<!--          </mat-card>-->
+
+
+
+<!--        </div>-->
+        <div class="col-md-12 mt-1" *ngIf="activeTab === 'About Us'">
+
+          <mat-card class="shadow" >
+            <mat-card-header>
+              <mat-card-title>Listing Tags</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-3">
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="let tag of business.tags">
+                  {{tag.tag}}
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card-content>
+
+          </mat-card>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-7 order-0 order-md-1 no-sm-padding mb-2">
+
+      <ng-container *ngIf="activeTab === 'Promos' || activeTab === 'Discounts'">
+        <div class="w-100 d-none d-md-block" style="padding: 2px !important;" *ngFor="let promo of business.promotions">
+          <app-promotion-classic-widget [business]="business" [promotion]="promo"></app-promotion-classic-widget>
+        </div>
+      </ng-container>
+
+    </div>
+
+    </ng-container>
+
+  </div>
+
+
+  <!-- <div class="col-md-7 zero-padding" >
+
+      <div class="row">
+
+
+
+        <div class="col-md-12 mt-1"  *ngIf="activeTab === 'Promotions & Discounts'">
+
+          <mat-card class="shadow" style="background: #fff">
+            <mat-card-header >
+              <div class="col-md-12">
+                <div class="float-start justify-content-start align-items-center">
+                  <mat-card-title>Promotions and discounts</mat-card-title>
+                </div>
+                <div class="float-end justify-content-end align-items-center">
+                  {{promotion.business.promotions.length}} of  {{promotion.business.promotions.length}}
+                </div>
+              </div>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="py-1">
+              <div class="row">
+                <app-swipper>
+                  <app-promotion-widget class="col-12 col-sm-9 col-md-8 col-lg-7" [business]="promotion.business" [promotion]="promo" *ngFor="let promo of promotion.business.promotions"></app-promotion-widget>
+                </app-swipper>
+              </div>
+
+
+            </mat-card-content>
+
+          </mat-card>
+
+
+
+        </div>
+
+      </div>
+
+    </div> -->
+
+
+  </div>
+
+</div>
+
+<app-gallery-preview (closed)="onCloseGallery()" [gallery]="business.gallery" [clickedAt]="galleryOpenedAt" [previewState]="previewState" *ngIf="viewMode === 'gallery'" style="position: fixed;z-index: 100000 !important;bottom: 0;" class="theme-bg-primary"  [listing]="{listing_type: 'promotion', promotion: promotion}" ></app-gallery-preview>
+
+<app-business-bottom-toolbar *ngIf="!isPreviewMode" [listing]="promotion" [listingType]="'promotion'"></app-business-bottom-toolbar>

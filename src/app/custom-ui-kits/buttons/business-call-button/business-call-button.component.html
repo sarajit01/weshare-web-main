@@ -1,0 +1,5 @@
+<button *ngIf="business.contacts"   class="btn btn-primary btn-sm">
+  <a href="tel:{{business.contacts.business_phone}}" class="text-decoration-none text-white">
+    <small><i class="fa fa-phone"></i> {{business.contacts.business_phone}}</small>
+  </a>
+</button>

@@ -1,0 +1,15 @@
+/*.preview-state-hidden {*/
+/*    transform: translateY(100vh);*/
+/*    transition: ease-in 0.4s;*/
+/*}*/
+
+/*.preview-state-expanded {*/
+/*    transform: translateY(0px);*/
+/*    transition: ease-in 0.4s;*/
+/*}*/
+
+/*.preview-state-collapsed {*/
+/*    transform: translateY(40vh);*/
+/*    transition: ease-in 0.4s;*/
+/*}*/
+

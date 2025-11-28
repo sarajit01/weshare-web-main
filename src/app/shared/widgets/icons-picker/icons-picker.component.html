@@ -1,0 +1,33 @@
+<div class="w-100">
+    <p class="mb-0">{{label}}</p>
+    <div *ngIf="selectedIcon" class="w-100 d-flex justify-content-center align-items-center pt-3 pb-3">
+        <img src="{{selectedIcon}}" style="width: 60px;height: 60px">
+    </div>
+    <form [formGroup]="formSearch">
+        <mat-form-field  appearance="outline">
+            <mat-label>{{"Search Icons" | translate}}  </mat-label>
+            <input (keyup)="loadIcons()" type="text" formControlName="search" placeholder=""  matInput>
+        </mat-form-field>
+    </form>
+
+    <div class="w-100 mt-2" style="min-height: 250px !important;" >
+        <div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">
+
+            <ng-container *ngIf="slides && slides[activeSlideIndex]">
+                <div (click)="selectIcon(icon)" class="col-3 d-flex justify-content-center align-items-center mb-3" *ngFor="let icon of slides[activeSlideIndex].icons">
+                    <img src="{{icon}}" style="width: 36px;height: 36px">
+                </div>
+            </ng-container>
+
+
+
+
+        </div>
+    </div>
+
+    <div class="w-100 d-flex justify-content-center align-items-center gap-2 py-2" *ngIf="slides.length > 1">
+
+        <span  *ngFor="let slide of slides;let i = index" [ngClass]="{'indicator-active' : i == activeSlideIndex}" class="indicator"></span>
+    </div>
+
+</div>

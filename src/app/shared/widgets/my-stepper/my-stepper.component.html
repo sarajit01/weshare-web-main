@@ -1,0 +1,44 @@
+<div class="w-100 d-flex justify-content-between gap-1 align-items-center position-relative">
+    <div *ngFor="let step of steps;let i=index">
+
+        <div class="_step-container" (click)="onStepClicked(i)">
+            <div class="_step-label">
+                <div class="_step-counter" [ngClass]="{'_step-counter-active' : activeStep == i , '_step-counter-complete' : i < activeStep }">
+                    <ng-container *ngIf="i < activeStep">
+                       <i class="fa fa-check"></i>
+                    </ng-container>
+                    <ng-container *ngIf="i >= activeStep">
+                        {{i + 1}}
+                    </ng-container>
+
+                </div>
+                <div class="_step-floating-bar" *ngIf="steps.length > i + 1" style="position: absolute;margin-left: 30px;width: calc(100%/{{steps.length}} - 30px)">
+
+                </div>
+            </div>
+
+<!--            <div class="_step-name-container">-->
+<!--                <span class="_step-name">{{step.name}}</span>-->
+<!--            </div>-->
+        </div>
+
+    </div>
+</div>
+<div class="w-100 d-flex justify-content-between gap-1 align-items-center">
+    <div *ngFor="let step of steps;let i=index">
+
+        <div class="_step-container">
+<!--            <div class="_step-label">-->
+<!--                <div class="_step-counter" [ngClass]="{'_step-counter-active' : activeStep == i }">{{i + 1}}</div>-->
+<!--                <div class="_step-floating-bar" *ngIf="steps.length > i + 1" >-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="_step-name-container">
+                <span class="_step-name">{{step.name}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>

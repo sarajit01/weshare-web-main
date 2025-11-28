@@ -1,0 +1,198 @@
+<div class="w-100 d-block d-md-none">
+  <div class="shadow-sm d-flex theme-bg-primary justify-content-between align-items-center px-3" style="z-index: 100000000 !important;position: fixed;top: 0;left:0; width: 100% !important;height: 60px!important;" >
+    <!--    <i (click)="backPrev()" class="fa fa-angle-left fw-bold cursor-pointer" style="font-size: 24px!important;"></i>-->
+
+    <span (click)="backPrev()" class="material-symbols-outlined cursor-pointer">
+arrow_back_ios
+</span>
+
+    <h3 class="mb-0 mat-h3">
+
+      {{"My Ads"}}
+
+
+    </h3>
+
+    <h4>&nbsp;</h4>
+  </div>
+  <div class="row py-3" *ngIf="ads">
+    <ng-container *ngFor="let listing of ads">
+      <div class="col-12 p-0 mb-2">
+
+        <app-ad-classic-widget [displayOptionsOnly]="true" class="w-100 p-0"
+                                     [ad]="listing"></app-ad-classic-widget>
+
+
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div class="container-fluid d-none d-md-block pt-3 pb-5" style="background: #eee;">
+
+
+
+  <div class="row mb-5">
+
+    <div class="col-md-12">
+
+      <mat-card>
+
+        <mat-card-header>
+
+          <div class="row mb-2">
+
+            <div class="col-md-12">
+              <h2 class="">
+                Manage Business Ads &nbsp;&nbsp;&nbsp;
+
+                <button [routerLink]="['/'+routes.business.create_ad]" class="float-right" mat-raised-button color="primary">
+
+                  <i class="fa fa-plus"></i> &nbsp;Create New Ad
+
+                </button>
+
+              </h2>
+
+
+
+            </div>
+
+          </div>
+
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="p-4">
+
+
+          <form class="row mb-4" (submit)="getMyAdListings()">
+
+            <div class="col-md-6">
+              <input [(ngModel)]="search" name="search" type="text" class="form-control" placeholder="Search business ads by title">
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-primary">
+                <i class="fa fa-search"></i>&nbsp; Search
+              </button>
+            </div>
+          </form>
+
+          <div class="row" *ngIf="ads">
+
+            <div class="col-md-4" *ngFor="let ad of ads" >
+
+              <app-business-ad  [ad]="ad" [deletable]="true" [isOwner]="true"></app-business-ad>
+
+            </div>
+
+          </div>
+
+
+
+
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+    </div>
+    <div class="col-md-12">
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="row mt-5 mb-5">
+
+
+
+
+    <footer style="height: 300px;margin-top: 100px;margin-bottom: 50px;">
+
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <p class="text-center">Guia en tu dispositivo movil
+          </p>
+
+        </div>
+        <div class="col-md-12 mt-5 text-center">
+
+
+
+          <button mat-raised-button class="btn-lg" color="primary">
+
+            <i style="font-size: 25px;" class="fa fa-apple"></i>&nbsp; Get IOS App
+
+          </button>&nbsp;&nbsp;
+          <button mat-raised-button class="btn-lg" color="accent">
+
+            <i style="font-size: 25px;" class="fa fa-android"></i>&nbsp; Get Android App
+
+          </button>
+
+          <br/>
+
+
+
+
+        </div>
+        <div class="col-md-12 mt-4 text-center">
+
+
+          <hr/>
+          <br/>
+          <p>Sobre nosotros | Planes |  Para los negocios | Terminos del servicio | Politica de privacidad
+          </p>
+
+          <br/>
+          <hr/>
+
+          <mat-divider></mat-divider>
+
+          <i style="font-size: 25px;color: #888" class="fa fa-facebook "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-whatsapp"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-instagram"></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-youtube "></i>&nbsp;
+          <i style="font-size: 25px;color: #888" class="fa fa-twitter"></i>&nbsp;
+
+          <br/><br/>
+          <p>
+            Derechos reservados 2021, IDS,  y marcas relacionadas son marcas registradas de IDS
+
+          </p>
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+    </footer>
+
+
+  </div>
+
+
+</div>

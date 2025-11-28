@@ -1,0 +1,240 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" >
+
+    <ng-container *ngIf="!serviceToSelectCollaborator">
+
+
+        <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{"Schedule Appointment"}}</h4>
+
+
+            <i (click)="closePopup()" class="fa fa-times cursor-pointer"></i>
+        </div>
+        <mat-divider></mat-divider>
+
+
+        <div class="col-12 px-3 d-flex justify-content-between align-items-center mt-2 mb-2">
+
+            <app-my-stepper class="w-100" [steps]="steps" [activeStep]="activeStep"></app-my-stepper>
+
+        </div>
+
+        <ng-container *ngIf="activeStep === 0">
+
+            <ng-container *ngFor="let _service of data.business.services">
+                <div class="col-12 py-2 d-flex justify-content-between gap-1 align-items-center">
+
+                    <div class="d-flex flex-column gap-1">
+                        <span class="fw-bold">{{_service.service_name}} &nbsp;L{{_service.price}}</span>
+                        <span>{{_service.service_description}}</span>
+                    </div>
+
+                    <div>
+                <span (click)="toggleSelection(_service.id)" class="material-symbols-outlined" style="font-size: 32px">
+                    <ng-container *ngIf="servicesSelected.indexOf(_service.id) < 0">add_circle</ng-container>
+                    <ng-container *ngIf="servicesSelected.indexOf(_service.id) > -1">check_circle</ng-container>
+
+</span>
+                    </div>
+
+                </div>
+                <mat-divider></mat-divider>
+            </ng-container>
+
+        </ng-container>
+        <ng-container *ngIf="activeStep === 1">
+            <div class="w-100 py-2">
+                <p class="mb-0">{{"Select Date" | translate}}</p>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="w-100" id="appointment-booking-calendar">
+                <mat-calendar (selectedChange)="onDateChanged($event)" [(selected)]="selectedDate"></mat-calendar>
+            </div>
+            <div class="w-100 py-2">
+                <p class="mb-0">Seleccionar colaborador por servicio</p>
+            </div>
+            <mat-divider></mat-divider>
+
+            <ng-container *ngIf="services.length">
+                <ng-container *ngFor="let service of services">
+                    <div class="col-12 my-2" *ngIf="service.service" (click)="onServiceAssignable(service)">
+                        <div class="w-100 px-2 py-2 shadow rounded-5 d-flex justify-content-between align-items-center gap-1">
+                            <div class="d-flex flex-column gap-1">
+                                <p class="fw-bold mb-0">{{service.service.service_name}}</p>
+                                <p class="mb-0" *ngIf="service.available_users.length ">
+                                    <ng-container *ngIf="!service.selected_user">
+                                        {{"No collaborator assigned" | translate}}
+                                    </ng-container>
+                                    <ng-container *ngIf="service.selected_user && service.selected_time">
+                                        {{service.selected_user.business_user.user.fullname}} &nbsp; | &nbsp; at {{service.selected_time}}
+                                    </ng-container>
+                                </p>
+                                <p class="mb-0"
+                                   *ngIf="!service.available_users.length ">{{"No collaborator available in the selected date" | translate}}</p>
+
+                            </div>
+                            <div>
+                            <span class="material-symbols-outlined" style="font-size: 24px">
+arrow_forward_ios
+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-container>
+            </ng-container>
+
+        </ng-container>
+
+        <ng-container *ngIf="activeStep === 2">
+            <div class="w-100 py-2">
+                <p class="mb-0">{{"Productos y Servicios" | translate}}</p>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *ngIf="services.length">
+                <ng-container *ngFor="let service of services">
+                    <ng-container *ngIf="service.selected_user">
+                        <div class="col-12 my-2" *ngIf="service.service" (click)="onServiceAssignable(service)">
+                            <div class="w-100 px-2 py-2 shadow rounded-5 d-flex justify-content-between align-items-center gap-1">
+                                <div class="d-flex flex-column gap-1">
+                                    <p class="fw-bold mb-0">{{service.service.service_name}}</p>
+                                    <p class="mb-0" *ngIf="service.available_users.length ">
+                                        <ng-container *ngIf="!service.selected_user">
+                                            {{"No collaborator assigned" | translate}}
+                                        </ng-container>
+                                        <ng-container *ngIf="service.selected_user && service.selected_time">
+                                            {{service.selected_user.business_user.user.fullname}} &nbsp; | &nbsp; at {{service.selected_time}}
+                                        </ng-container>
+                                    </p>
+                                    <p class="mb-0"
+                                       *ngIf="!service.available_users.length ">{{"No collaborator available in the selected date" | translate}}</p>
+
+                                </div>
+                                <div>
+                            <span class="material-symbols-outlined" style="font-size: 24px">
+arrow_forward_ios
+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+
+            <div class="w-100 py-2">
+                <p class="mb-0">{{"Contact Information" | translate}}</p>
+            </div>
+
+            <form [formGroup]="formCustomerInfo" id="promotion-form-mobile">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Your Name" | translate}}</mat-label>
+                    <input formControlName="customer_name" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Your Email Address" | translate}}</mat-label>
+                    <input formControlName="customer_email" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Your Phone number" | translate}}</mat-label>
+                    <input formControlName="customer_phone" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Notes ..." | translate}}</mat-label>
+                    <input formControlName="customer_notes" matInput type="text">
+                </mat-form-field>
+
+            </form>
+
+            <mat-divider></mat-divider>
+
+        </ng-container>
+
+
+        <div class="container">
+            <div class="row d-flex gap-1 mt-2 px-1">
+                <button *ngIf="activeStep > 0" (click)="prevStep()" class="btn btn-theme-dark col">
+                    {{"Back" | translate}}
+                </button>
+                <button (click)="nextStep()" class="btn btn-theme-dark col">
+                    {{"Schedule" | translate}}
+                </button>
+            </div>
+        </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="serviceToSelectCollaborator && serviceToSelectCollaborator.service">
+
+
+        <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{serviceToSelectCollaborator.service.service_name}}</h4>
+
+
+            <i (click)="closeAssignable()" class="fa fa-times cursor-pointer"></i>
+        </div>
+        <mat-divider></mat-divider>
+
+        <ng-container *ngIf="serviceToSelectCollaborator.available_users.length">
+
+            <div class="d-flex w-100 justify-content-between align-items-center py-3">
+                <div>
+                    <span (click)="prevCollab()" class="material-symbols-outlined cursor-pointer" style="font-size: 24px">
+arrow_back_ios
+</span>
+                </div>
+                <div *ngIf="serviceToSelectCollaborator.available_users[collaboratorInViewIndex] && serviceToSelectCollaborator.available_users[collaboratorInViewIndex].business_user && serviceToSelectCollaborator.available_users[collaboratorInViewIndex].business_user.user" class="d-flex gap-1 flex-column align-items-center justify-content-center">
+                    <div>
+                        <img style="width: 100px;height: 100px;border-radius: 50%;"
+                             src="{{serviceToSelectCollaborator.available_users[collaboratorInViewIndex].business_user.user.default_avatar}}">
+                    </div>
+                    <div>
+                        <h3 class="mb-0 fw-bold">{{serviceToSelectCollaborator.available_users[collaboratorInViewIndex].business_user.user.fullname}}</h3>
+                    </div>
+                </div>
+                <div>
+<span class="material-symbols-outlined cursor-pointer" (click)="nextCollab()" style="font-size: 24px;">
+arrow_forward_ios
+</span>
+                </div>
+            </div>
+
+            <ng-container *ngIf="serviceToSelectCollaborator.available_users[collaboratorInViewIndex] && serviceToSelectCollaborator.available_users[collaboratorInViewIndex].available_for_appointment && serviceToSelectCollaborator.available_users[collaboratorInViewIndex].available_for_appointment.length ; else noTimeAvail">
+                <div class="w-100 py-2">
+                    <p class="mb-0" *ngIf="!serviceToSelectCollaborator.selected_time">{{"Select time" | translate}}</p>
+                    <p class="mb-0" *ngIf="serviceToSelectCollaborator.selected_time">{{"Selected time"}}: {{serviceToSelectCollaborator.selected_time}} </p>
+
+                </div>
+                <mat-divider></mat-divider>
+                <div class="w-100 py-3 d-flex flex-wrap">
+                    <mat-chip (click)="selectTime(time)" class="m-1" *ngFor="let time of serviceToSelectCollaborator.available_users[collaboratorInViewIndex].available_for_appointment">
+                        {{time}}
+                    </mat-chip>
+                </div>
+
+                <button (click)="acceptCollaborator()" class="btn btn-theme-dark btn-block mt-2">
+                    {{"Accept" | translate}}
+                </button>
+            </ng-container>
+            <ng-template #noTimeAvail>
+                <div class="w-100 py-2">
+                    <div class="alert alert-dark">
+                        {{"Sorry, no time available in the selected date for this collaborator" | translate}}
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+
+        </ng-container>
+
+    </ng-container>
+
+</div>

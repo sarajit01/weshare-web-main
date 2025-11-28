@@ -1,0 +1,58 @@
+<div class="container-fluid px-4">
+    <h4 class="mt-4">Settings</h4>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item">Payment Gateway Configuration</li>
+    </ol>
+
+    <div class="row" >
+
+        <ng-container *ngFor="let gateway of paymentGateways">
+            <form class="col-md-6 mb-3" (submit)="save(gateway)">
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <p>{{gateway.provider}} Configuration</p>
+
+                    </div>
+                    <div class="card-body d-flex flex-column gap-3">
+
+                        <div class="form-group">
+                            <label>API Key</label>
+                            <input [(ngModel)]="gateway.api_key" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="API key from PixelPay"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Secret Key</label>
+                            <input [(ngModel)]="gateway.secret" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Secret from PixelPay"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Endpoint</label>
+                            <input [(ngModel)]="gateway.endpoint" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="PixelPay API Endpoint"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Environment</label>
+                            <select [(ngModel)]="gateway.environment"  [ngModelOptions]="{standalone: true}"  class="form-control">
+                                <option value="sandbox">Sandbox</option>
+                                <option value="production">Production</option>
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer d-flex justify-content-end align-items-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </ng-container>
+
+
+    </div>
+
+</div>

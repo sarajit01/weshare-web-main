@@ -1,0 +1,121 @@
+<div  class="container listing-container section-container " >
+
+    <app-search-filter-bottom-sheet [searchParams]="formSearch.value" (search)="onSearchInput($event)" (onClosed)="filterPopupStatus = !$event" [class]="{'d-none' : !filterPopupStatus , 'd-block' : filterPopupStatus}"></app-search-filter-bottom-sheet>
+
+    <app-mobile-header-with-back-button id="searchTopBar" (onTopButtonPressed)="openFilterPopup()" [backUrl]="'/'" [topBtnLabel]="'Filter'" [topBtnIcon]="'menu'" >
+        <ng-container>
+            <div id="category-header-bar" [@TopBarAnim]="topBarStatus" class="theme-bg-primary" style="position: fixed;left: 0;z-index: 10000; width: 100vw !important;">
+                <div class="col-12 pt-2 pb-2 d-flex flex-column gap-1 px-2">
+
+                    <div class="w-100 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <h1 class="fw-bold mb-0" *ngIf="cat_name">
+                            {{cat_name}}
+                        </h1>
+
+                        <div *ngIf="formSearch.controls.country.value || formSearch.controls.city.value">
+                            <i class="fa fa-map-marker"></i>
+                            <small *ngIf="formSearch.controls.city.value">
+                                {{formSearch.controls.city.value}},
+                            </small>
+                            <small *ngIf="formSearch.controls.country.value">
+                                {{formSearch.controls.country.value}}
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <app-categories-bar [customActionOnSelect]="true" (selected)="viewByCategory($event)" [parentCatID]="cat_id"></app-categories-bar>
+                    <p class="mb-0 mt-1">
+                        {{random_listings.length}} {{"Results found" | translate}}
+                        <ng-container *ngIf="formSearch.controls.keyword.value">
+                            {{"matching" | translate}} "{{formSearch.controls.keyword.value}}"
+                        </ng-container>
+                    </p>
+
+                </div>
+            </div>
+
+        </ng-container>
+
+    </app-mobile-header-with-back-button>
+
+
+    <div appMovableOnDragDrop (onSwipeUp)="onSwipeUp()" (onSwipeDown)="onSwipeDown()" class="row  d-flex justify-content-center" style="margin-top: {{topBarHeight}}px;">
+        <div class="col-md-6 page-mid-section">
+
+            <div class="container  mt-md-3" appScrollDetector (scrolledToBottom)="onScrolledToBottom()" (scrolledToTop)="onScrolledToTop()" style="overflow-x: hidden !important;">
+
+
+                <mat-progress-spinner *ngIf="progress" diameter="30"></mat-progress-spinner>
+
+
+                <div class="row listing-section py-1"  *ngIf="random_listings">
+
+
+
+
+                    <ng-container>
+                        <ng-container *ngFor="let listing of random_listings">
+                            <div class="col-12 mb-3" style="padding: 0px !important;">
+                                <app-business-classic-widget *ngIf="listing.listing_type === 'business' && listing.business"
+                                                             [business]="listing.business"></app-business-classic-widget>
+                                <app-promotion-classic-widget
+                                        *ngIf="listing.listing_type === 'promotion' && listing.promotion && listing.promotion.business"
+                                        [business]="listing.promotion.business"
+                                        [promotion]="listing.promotion"></app-promotion-classic-widget>
+                                <app-ad-classic-widget *ngIf="listing.listing_type === 'ad' && listing.ad && listing.ad.business"
+                                                       [ad]="listing.ad"></app-ad-classic-widget>
+
+                                <app-loyalty-card-widget *ngIf="listing.listing_type === 'loyalty_card'"
+                                                         [loyalty_card]="listing.loyalty_card"></app-loyalty-card-widget>
+
+                                <app-featured-businesses-carousel class="mb-3" [businesses]="listing.businesses"
+                                                                  *ngIf="listing.listing_type === 'featured_businesses'"></app-featured-businesses-carousel>
+
+                                <app-featured-promotions-carousel class="mb-3" [business]="listing.business"
+                                                                  [promotions]="listing.promotions"
+                                                                  *ngIf="listing.listing_type === 'featured_promotions'"></app-featured-promotions-carousel>
+
+                                <app-featured-lccarousel class="mb-3" [business]="listing.business" [lcs]="listing.lcs"
+                                                         *ngIf="listing.listing_type === 'featured_lcs'"></app-featured-lccarousel>
+
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                    <!--          <ng-container *ngIf="listing_type === 'business'">-->
+                    <!--            <ng-container *ngFor="let listing of random_listings">-->
+                    <!--              <div class="col-12 mb-3" style="padding: 0px !important;"  *ngIf="listing.listing_type === 'business'"  >-->
+                    <!--                <app-business-classic-widget *ngIf="listing.listing_type === 'business' && listing.business" [business]="listing.business"></app-business-classic-widget>-->
+                    <!--              </div>-->
+                    <!--            </ng-container>-->
+                    <!--          </ng-container>-->
+
+                    <!--          <ng-container *ngIf="listing_type === 'promotion'">-->
+                    <!--            <ng-container *ngFor="let listing of random_listings">-->
+                    <!--              <div class="col-12 mb-3" style="padding: 0px !important;"  *ngIf="listing.listing_type === 'promotion'" >-->
+                    <!--                <app-promotion-classic-widget *ngIf="listing.listing_type === 'promotion' && listing.promotion && listing.promotion.business" [business]="listing.promotion.business" [promotion]="listing.promotion"></app-promotion-classic-widget>-->
+                    <!--              </div>-->
+                    <!--            </ng-container>-->
+                    <!--          </ng-container>-->
+
+                    <!--          <ng-container *ngIf="listing_type === 'TCF'">-->
+                    <!--            <ng-container *ngFor="let listing of random_listings">-->
+                    <!--              <div class="col-12 mb-3" style="padding: 0px !important;" *ngIf="listing.card_type">-->
+                    <!--                <app-loyalty-card-widget *ngIf="listing.card_type" [loyalty_card]="listing"></app-loyalty-card-widget>-->
+                    <!--              </div>-->
+                    <!--            </ng-container>-->
+                    <!--          </ng-container>-->
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

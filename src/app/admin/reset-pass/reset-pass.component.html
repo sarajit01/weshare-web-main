@@ -1,0 +1,65 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Security</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Settings</li>
+    <li class="breadcrumb-item active">Reset Password</li>
+  </ol>
+
+  <div class="row d-flex justify-content-center">
+
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header">
+          <p>Reset Password</p>
+        </div>
+        <div class="card-body">
+
+          <form (submit)="resetPass()" class="row mb-4" [formGroup]="form">
+
+            <div class="col-md-12">
+              <div class="form-group">
+
+                <input type="password" class="form-control" formControlName="current_password" placeholder="Enter current password">
+
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+
+                <input type="password" class="form-control" formControlName="new_password" placeholder="Enter new password">
+
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+
+                <input type="password" class="form-control" formControlName="confirm_password" placeholder="Confirm new password">
+
+              </div>
+            </div>
+            <div class="col-md-12">
+              <mat-progress-bar mode="indeterminate" *ngIf="progress === true"></mat-progress-bar>
+
+              <div class="form-group d-flex justify-content-end align-items-center">
+
+
+                <button [disabled]="form.invalid" class="btn btn-primary btn-block">
+                  <i class="fa fa-check"></i>&nbsp;Change Password
+                </button>
+
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

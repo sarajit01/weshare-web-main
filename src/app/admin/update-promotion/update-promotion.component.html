@@ -1,0 +1,27 @@
+<div class="container-fluid px-4">
+  <h4 class="mt-4">Manage Promotions</h4>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">Edit</li>
+  </ol>
+
+  <div class="row mb-2">
+
+    <div class="col-md-12">
+      <h2 class="text-center">
+        Edit Promotion <span *ngIf="promotion">({{promotion.promotion_title}})</span>
+      </h2>
+    </div>
+
+  </div>
+
+  <div class="row mb-5 justify-content-center">
+
+    <div class="col-md-12 mb-4" *ngIf="progress === true">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <app-promotion-form *ngIf="promotion && promotion.business" [isAdmin]="true" [promotion]="promotion" [userId]="promotion.user_id"></app-promotion-form>
+
+  </div>
+
+
+</div>

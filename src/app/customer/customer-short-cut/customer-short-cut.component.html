@@ -1,0 +1,9 @@
+<div [routerLink]="'/business-details/' + listingViewed.business.id" class="d-flex flex-column gap-1" *ngIf="listingViewed && listingViewed.business && listingViewed.business.gallery_first">
+    <mat-card class="shadow-sm customer-favorite-item-card col-5 col-sm-4 col-md-3 col-lg-3"  style="height: 150px !important;margin: 0 !important;background-size: cover;
+background-position:center center;background: url('{{listingViewed.business.gallery_first.img}}')">
+
+    </mat-card>
+
+    <span>{{listingViewed.business.name}}</span>
+    <span class="text-primary fw-bold">{{listingViewed.business.points.toFixed(2)}} Points</span>
+</div>

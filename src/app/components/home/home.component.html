@@ -1,0 +1,298 @@
+
+
+
+<div class="container  mt-5" appScrollDetector (scrolledToBottom)="onScrolledToBottom()" (scrolledToTop)="onScrolledToTop()" style="overflow-x: hidden !important;">
+
+    <!--        <div class="row mb-1">-->
+
+    <!--          <app-categories-bar [domID]="'catBar1'"></app-categories-bar>-->
+
+    <!--        </div>-->
+
+    <!-- <div class="row mt-3 ">
+
+       <div class="col-md-12 align-items-center">
+
+         <h3 class="float-left font-weight-bold">Promos & Descuentos Destacados</h3>
+         <button class="btn btn-outline-success btn-sm float-right">See all</button>
+
+       </div>
+     </div> -->
+
+    <!-- <div class="row listing-section mb-2" *ngIf="promotions">
+      <div class="col-12" style="padding: 2px !important;" *ngFor="let promo of featured_promos">
+        <app-promotion-widget [promotion]="promo.promotion"></app-promotion-widget>
+      </div>
+
+
+    </div> -->
+
+
+    <div class="row listing-section  mt-md-5 py-md-3" *ngIf="random_listings">
+
+        <ng-container>
+            <ng-container *ngFor="let listing of random_listings">
+                <div class="col-12 mb-3" style="padding: 0px !important;">
+
+                    <!--                    (itemClicked)="setBusinessInPreview($event)"-->
+                    <app-business-classic-widget (shareBtnPressed)="onSharePressed($event)"  [quickPreview]="true" (itemClicked)="setBusinessInPreview($event)"  *ngIf="listing.listing_type === 'business' && listing.business"
+                                                 [business]="listing.business"></app-business-classic-widget>
+                    <app-promotion-classic-widget
+                            [quickPreview]="true" (itemClicked)="setPromoInPreview($event)"
+                            *ngIf="listing.listing_type === 'promotion' && listing.promotion && listing.promotion.business"
+                            [business]="listing.promotion.business"
+                            [promotion]="listing.promotion"></app-promotion-classic-widget>
+                    <app-ad-classic-widget [quickPreview]="true" (itemClicked)="setBusinessInPreview($event)"  *ngIf="listing.listing_type === 'ad' && listing.ad && listing.ad.business"
+                                           [ad]="listing.ad"></app-ad-classic-widget>
+
+                    <app-loyalty-card-widget  [quickPreview]="true" (itemClicked)="setLCInPreview($event)" *ngIf="listing.listing_type === 'loyalty_card'"
+                                             [loyalty_card]="listing.loyalty_card"></app-loyalty-card-widget>
+
+                    <app-featured-businesses-carousel (onBusinessSelected)="setBusinessInPreview($event)" class="mb-3" [businesses]="listing.businesses"
+                                                      *ngIf="listing.listing_type === 'featured_businesses'"></app-featured-businesses-carousel>
+
+                    <app-featured-promotions-carousel (onPromotionSelected)="setPromoInPreview($event)" class="mb-3" [business]="listing.business"
+                                                      [promotions]="listing.promotions"
+                                                      *ngIf="listing.listing_type === 'featured_promotions'"></app-featured-promotions-carousel>
+
+                    <app-featured-lccarousel (onLcSelected)="setLCInPreview($event)" class="mb-3" [business]="listing.business" [lcs]="listing.lcs"
+                                             *ngIf="listing.listing_type === 'featured_lcs'"></app-featured-lccarousel>
+
+                </div>
+            </ng-container>
+        </ng-container>
+
+
+
+        <!--          <ng-container *ngIf="listing_type === 'business'">-->
+        <!--            <ng-container *ngFor="let listing of random_listings">-->
+        <!--              <div class="col-12 mb-3" style="padding: 0px !important;"  *ngIf="listing.listing_type === 'business'"  >-->
+        <!--                <app-business-classic-widget *ngIf="listing.listing_type === 'business' && listing.business" [business]="listing.business"></app-business-classic-widget>-->
+        <!--              </div>-->
+        <!--            </ng-container>-->
+        <!--          </ng-container>-->
+
+        <!--          <ng-container *ngIf="listing_type === 'promotion'">-->
+        <!--            <ng-container *ngFor="let listing of random_listings">-->
+        <!--              <div class="col-12 mb-3" style="padding: 0px !important;"  *ngIf="listing.listing_type === 'promotion'" >-->
+        <!--                <app-promotion-classic-widget *ngIf="listing.listing_type === 'promotion' && listing.promotion && listing.promotion.business" [business]="listing.promotion.business" [promotion]="listing.promotion"></app-promotion-classic-widget>-->
+        <!--              </div>-->
+        <!--            </ng-container>-->
+        <!--          </ng-container>-->
+
+        <!--          <ng-container *ngIf="listing_type === 'TCF'">-->
+        <!--            <ng-container *ngFor="let listing of random_listings">-->
+        <!--              <div class="col-12 mb-3" style="padding: 0px !important;" *ngIf="listing.card_type">-->
+        <!--                <app-loyalty-card-widget *ngIf="listing.card_type" [loyalty_card]="listing"></app-loyalty-card-widget>-->
+        <!--              </div>-->
+        <!--            </ng-container>-->
+        <!--          </ng-container>-->
+
+
+
+    </div>
+    <div class="w-100 d-flex justify-content-center py-2">
+        <mat-progress-spinner mode="indeterminate" *ngIf="progress" diameter="30"></mat-progress-spinner>
+    </div>
+
+    <!-- <div class="row">
+
+       <div class="col-md-12">
+
+         <h3 class="fw-bold">
+           Featured Businesses
+         </h3>
+
+       </div>
+
+     </div>
+     <div class="row listing-section" *ngIf="businesses">
+       <app-swipper  [hasNavigator]="false" [swipeDistance]="400">
+         <div class="col-9 col-sm-7 col-md-5 col-lg-3" style="padding: 2px !important;" *ngFor="let business of featured_businesses">
+           <app-business-featured-widget [business]="business.business"></app-business-featured-widget>
+         </div>
+       </app-swipper>
+
+     </div>
+
+     -->
+
+    <!--  <div class="row mb-2">
+        <app-deals-under-price></app-deals-under-price>
+      </div> -->
+
+
+    <!-- <div class="row mb-2">
+       <app-recently-viewed-business></app-recently-viewed-business>
+     </div> -->
+
+
+    <div class="row mb-5">
+
+        <!-- <div class="col-md-12">
+
+          <h1 class="fw-bold text-center"><mat-icon color="accent">check</mat-icon>
+            &nbsp;&nbsp;Most Popular Places</h1>
+
+          <mat-tab-group align="center" >
+            <mat-tab>
+              <ng-template mat-tab-label >
+                <mat-icon color="primary"> hotel</mat-icon>&nbsp;&nbsp;
+                Hoteles
+              </ng-template>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label >
+                <mat-icon color="primary"> streetview</mat-icon>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Salud
+              </ng-template> </mat-tab>
+
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon color="primary"> restaurant_menu</mat-icon>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Restaurantes
+              </ng-template> </mat-tab>
+            <mat-tab>
+
+
+              <ng-template mat-tab-label>
+                <mat-icon color="primary"><i class="fa fa-trophy"></i></mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+                De Copas
+              </ng-template>
+
+            </mat-tab>
+
+          </mat-tab-group>
+
+        </div>
+
+        <div class="row listing-section" *ngIf="businesses">
+
+          <div class="col-md-4" *ngFor="let business of businesses | approved">
+
+
+            <app-business-featured-widget [business]="business"></app-business-featured-widget>
+
+
+          </div>
+
+
+
+        </div> -->
+
+
+    </div>
+
+</div>
+
+
+<ng-container *ngIf="listingInPreview">
+    <div class="w-100 preview-container"  style="position: fixed; z-index: 154 !important;">
+
+
+    <app-business-bottom-toolbar *ngIf="bottomToolbarState !== 'hidden'" [listingType]="listingInPreview.listing_type" [listing]="listingInPreview.listing"></app-business-bottom-toolbar>
+
+        <app-listing-full-screen-preview (stateChanged)="toggleBottomToolbar($event)" [listing]="listingInPreview">
+            <ng-container *ngIf="listingInPreview.listing_type === 'business'" >
+                <app-business-detail [isPreviewMode]="true" (fetched)="onListingFetched($event)" [id]="listingInPreview.listing_id"></app-business-detail>
+            </ng-container>
+
+            <app-promotion-detail [isPreviewMode]="true" (fetched)="onListingFetched($event)" *ngIf="listingInPreview.listing_type === 'promotion'"   [_id]="listingInPreview.listing_id"></app-promotion-detail>
+            <app-loyalty-card-details [isPreviewMode]="true" (fetched)="onListingFetched($event)" *ngIf="listingInPreview.listing_type === 'loyalty_card'"   [id]="listingInPreview.listing_id"></app-loyalty-card-details>
+
+<!--            <p>There from home you go</p>-->
+
+        </app-listing-full-screen-preview>
+
+    </div>
+
+
+</ng-container>
+
+<!--<ng-container *ngIf="listingInPreview">-->
+<!--    <div class="theme-bg-primary preview-state-{{previewState}}" style="position: fixed;width: 100vw !important;z-index: 150 !important;left: 0;bottom: 0;overflow-y: scroll;height: 100vh !important;top: 0 !important;" >-->
+
+<!--        <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center" (onSwipeUp)="changePreviewState('expanded')" (onSwipeDown)="onSwipeDown()" appDraggable>-->
+<!--            <div>-->
+<!--                    <span class="material-symbols-outlined cursor-pointer" (click)="changePreviewState('collapsed')" style="font-size: 24px;">-->
+<!--keyboard_arrow_down-->
+<!--</span>-->
+<!--            </div>-->
+
+<!--            <h4 class="mb-0">-->
+<!--                <ng-container *ngIf="listingInPreview.listing_type === 'business'">-->
+<!--                    {{"Business Details" | translate}}-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="listingInPreview.listing_type === 'promotion'">-->
+<!--                    {{"Promotion Details" | translate}}-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="listingInPreview.listing_type === 'loyalty_card'">-->
+<!--                    {{"Loyalty Card Details" | translate}}-->
+<!--                </ng-container>-->
+<!--            </h4>-->
+
+<!--            <div (click)="closePopup()">-->
+<!--                  <span class="material-symbols-outlined" style="font-size: 24px" >-->
+<!--close-->
+<!--</span>-->
+<!--            </div>-->
+
+
+<!--        </div>-->
+
+<!--        <ng-container *ngIf="listingInPreview.listing_type === 'business'" >-->
+<!--            <app-business-detail [id]="listingInPreview.listing_id"></app-business-detail>-->
+<!--        </ng-container>-->
+
+<!--        <app-promotion-detail *ngIf="listingInPreview.listing_type === 'promotion'"   [_id]="listingInPreview.listing_id"></app-promotion-detail>-->
+<!--        <app-loyalty-card-details *ngIf="listingInPreview.listing_type === 'loyalty_card'"   [id]="listingInPreview.listing_id"></app-loyalty-card-details>-->
+
+
+<!--    </div>-->
+<!--</ng-container>-->
+
+
+<!--<ng-container *ngIf="listingInPreview">-->
+<!--    <div class="theme-bg-primary preview-state-{{previewState}}" style="position: fixed;width: 100vw !important;z-index: 150 !important;left: 0;bottom: 0;overflow-y: scroll;height: 100vh !important;top: 0 !important;" >-->
+
+<!--        <div class="col-12 px-2 py-2 d-flex justify-content-between align-items-center" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">-->
+<!--            <div>-->
+<!--                    <span class="material-symbols-outlined cursor-pointer" (click)="changePreviewState('collapsed')" style="font-size: 24px;">-->
+<!--keyboard_arrow_down-->
+<!--</span>-->
+<!--            </div>-->
+
+<!--            <h4 class="mb-0">-->
+<!--                <ng-container *ngIf="listingInPreview.listing_type === 'business'">-->
+<!--                    {{"Business Details" | translate}}-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="listingInPreview.listing_type === 'promotion'">-->
+<!--                    {{"Promotion Details" | translate}}-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngIf="listingInPreview.listing_type === 'loyalty_card'">-->
+<!--                    {{"Loyalty Card Details" | translate}}-->
+<!--                </ng-container>-->
+<!--            </h4>-->
+
+<!--            <div (click)="closePopup()">-->
+<!--                  <span class="material-symbols-outlined" style="font-size: 24px" >-->
+<!--close-->
+<!--</span>-->
+<!--            </div>-->
+
+
+<!--        </div>-->
+
+<!--        <ng-container *ngIf="listingInPreview.listing_type === 'business'" >-->
+<!--            <app-business-detail [id]="listingInPreview.listing_id"></app-business-detail>-->
+<!--        </ng-container>-->
+
+<!--        <app-promotion-detail *ngIf="listingInPreview.listing_type === 'promotion'"   [_id]="listingInPreview.listing_id"></app-promotion-detail>-->
+<!--        <app-loyalty-card-details *ngIf="listingInPreview.listing_type === 'loyalty_card'"   [id]="listingInPreview.listing_id"></app-loyalty-card-details>-->
+
+
+<!--    </div>-->
+<!--</ng-container>-->

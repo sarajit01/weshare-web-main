@@ -1,0 +1,614 @@
+<!--<div class="listing" style="background: linear-gradient(0deg, rgba(21,20,20,0.53), rgba(26,25,25,0.97)), url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;margin-bottom: 20px;">
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div (click)="saveToFavorites()" class="shadow" style="border: 1px solid white ;width:30px;height: 30px;background: #b528a7;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <mat-icon style="color: white;font-size: 20px;cursor: pointer;">favorite</mat-icon>
+      </div>
+
+    </div>
+    <div class="col-md-6 justify-content-end">
+      <div class="float-end shadow" style="border: 1px solid white ;width:100px;height: 30px;background: #10575f;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">Abierto </span>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row mt-3">
+
+
+    <div class="col-md-6 justify-content-end">
+      <div class="float-start shadow" style="width:100px;height: 30px;background: #cc32d7;border-radius: 5px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">Destacado</span>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div class="row mt-5">
+
+
+    <div class="col-md-7 mt-4" style="padding-left: 10px;  !important;">
+
+      <p class="" ><span style="color: white;font-size: 15px;">{{business.business_name_prefix}} {{business.business_name}}</span> <br/>
+        <i style="color: #0dcaf0" class="fa fa-map-marker"></i>&nbsp;
+        <span style="font-size: 10px;color: white">{{business.city}} , {{business.country}}
+</span>
+
+      </p>
+
+    </div>
+    <div class="col-md-5 mt-4" style="padding-right: 10px !important;">
+      <p class="float-end">
+
+        <span style="color: white;font-size: 10px;">5.0</span>&nbsp;
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+
+
+        <br/>
+        <span style="color: white;font-size: 10px;">4 Comments</span>
+
+
+
+
+      </p>
+
+
+
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-6">
+      <i *ngIf="business.main_cat !== null" class="{{business.main_cat.icon}}" style="font-size: 17px;color: #2cffe9;"></i>&nbsp;
+
+      <span *ngIf="business.main_cat !== null" style="color: white;font-size: 10px;">{{business.main_cat.name}}</span>
+
+
+    </div>
+    <div class="col-md-6 float-end">
+
+      <i class="fa fa-whatsapp shadow" style="font-size: 20px;color: #82dd6d;"></i>&nbsp;
+
+      <div  [routerLink]="['/business-details/'+business.id]" class="float-end shadow" style="cursor:pointer;border: 1px solid white ;width:70px;height: 30px;background: #1aab93;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">More </span>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+
+</div>
+-->
+
+<div class="listing" [routerLink]="'/business-details/'+business.id" style="background: url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="row">
+
+
+        <div class="col-12 mt-2">
+          <div class="float-start shadow" style="background: white;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 8px;">
+            <span style="color: black;font-size: 10px;">Destacado</span>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-md-6 ">
+      <div class="row mt-2">
+        <div class="col-12 d-flex justify-content-end">
+          <div  style="background: orange;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding: 3px 10px;">
+            <span style="color: white;font-size: 10px;">Abierto </span>
+          </div>
+          <div (click)="saveToFavorites()" class="shadow float-end d-flex ml-2" style="cursor:pointer; border: 1px solid white ;width:30px;height: 30px;background: #1f2023;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+
+            <mat-icon style="color: white;font-size: 20px;">favorite</mat-icon>
+          </div>
+
+           <div *ngIf="isFavoriteRemovable === true" (click)="favoriteService.delete('business' , business.id)" class="shadow" style="cursor:pointer ;height: 30px;background: transparent;border-radius: 10px;color: white;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+             <i class="fa fa-times-circle" style="color: white;font-size: 20px;"></i>
+           </div>
+
+
+        </div>
+
+        <div class="col-md-12 mt-3 justify-content-end ">
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <!--<div class="row mt-5">
+
+
+    <div class="col-md-6 mt-3" style="padding-left: 15px;  !important;">
+
+      <p class="float-start">
+
+        <span style="color: white;font-size: 15px;">5.0</span>&nbsp;&nbsp;
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+
+
+
+        <br/>
+        <span style="color: white;font-size: 15px;">4 Comments</span>
+
+
+
+
+      </p>
+
+
+    </div>
+    <div class="col-md-6 mt-3" style="padding-right: 10px !important;">
+
+
+      <div  [routerLink]="['/promotion-details' , promotion.id]" class="float-end shadow" style="cursor: pointer !important;border: 1px solid white ;width:70px;height: 30px;background: #1aab93;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">More </span>
+      </div>
+
+
+
+    </div>
+
+  </div> -->
+
+
+
+</div>
+
+<div class="card" style="top: -05px;">
+  <div class="card-body" style="padding: 10px !important;">
+    <div class="row">
+      <div class="col-12">
+        <div class="float-start">
+          <div class="d-inline-block d-flex justify-content-start">
+            <span class="font-weight-bold float-start">  {{business.name}}</span>
+
+          </div>
+        </div>
+        <div class="float-end d-flex justify-content-end">
+          <div class="d-inline-block float-end">
+            <span class="font-weight-bold float-end">  {{business.city}} </span>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-12">
+
+        <div class="float-start">
+          <div class="d-inline-block">
+            <small>{{business.address}}</small>
+          </div>
+
+
+
+          <div class="d-flex mt-1">
+
+            <div style="color: white;font-size: 12px;padding: 10px;border-radius: 5px;" class="bg-primary">5.0</div>&nbsp;&nbsp;
+            <div>
+              <div class="col-12" style="padding: 0 !important;">
+                <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+                <i class="fa fa-star" style="color: #f8e844;font-size: 10px;"></i>
+              </div>
+              <div class="col-12" style="padding: 0 !important;">
+                <span style="font-size: 10px;">4 Comments</span>
+
+              </div>
+
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+
+        <div class="float-end d-flex justify-content-end align-items-center">
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="float-end">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="(isAdmin !== true && isOwner === true) || getDelegateAccess('business_assistant')" [routerLink]="['/'+routes.business.edit+'/'+business.id]"  >
+              <i class="fa fa-pencil"></i>&nbsp; Edit
+            </button>
+
+            <button  mat-menu-item *ngIf="isAdmin === true" [routerLink]="['/'+routes.admin.root+'/'+routes.admin.listings.root+'/'+routes.admin.listings.business.edit+'/'+business.id]"  >
+              <i class="fa fa-pencil"></i>&nbsp; Edit
+            </button>
+
+            <button (click)="updateBusinessStatus('approved')"  mat-menu-item *ngIf="isAdmin === true && business.status !== 'approved'"   >
+              <i class="fa fa-check"></i>&nbsp; Approve
+            </button>
+
+            <button (click)="updateBusinessStatus('denied')"  mat-menu-item *ngIf="isAdmin === true && business.status !== 'denied'"   >
+              <i class="fa fa-times"></i>&nbsp; Deny
+            </button>
+
+            <button  mat-menu-item *ngIf="isOwner && !isAdmin" [routerLink]="['/business/'+business.id+'/users']"  >
+              <i class="fa fa-cog"></i>&nbsp; Manage Business Users/Assistants
+            </button>
+
+            <button  mat-menu-item *ngIf="(isOwner || isAdmin)" [routerLink]="['/business/rewards-table/'+business.id]"  >
+              <i class="fa fa-gift"></i>&nbsp; Referral Rewards Table
+            </button>
+
+
+            <button  mat-menu-item *ngIf="(isOwner && !isAdmin) || getDelegateAccess('appointments')" [routerLink]="['/business/appointment-settings/'+business.id]"  >
+              <i class="fa fa-cog"></i>&nbsp; Appointment Settings
+            </button>
+
+            <button  mat-menu-item *ngIf="(isOwner && !isAdmin) || getDelegateAccess('booking')" [routerLink]="['/business/booking-requests']"  >
+              <i class="fa fa-check"></i>&nbsp; Manage Booking requests
+            </button>
+
+            <button  mat-menu-item *ngIf="(isOwner && !isAdmin)" [routerLink]="['/employees/'+business.id]"  >
+              <i class="fa fa-sign-out"></i>&nbsp; {{"Employee Area" | translate}}
+            </button>
+
+
+            <button  mat-menu-item (click)="cloneBusiness()" *ngIf="cloneProgress === false && ( isAdmin || isOwner)" >
+              <i class="fa fa-copy"></i>&nbsp; Duplicate
+            </button>
+
+
+            <button  mat-menu-item (click)="deleteConfirmation()" *ngIf="deletable === true && isAdmin !== true" >
+              <i class="fa fa-trash"></i>&nbsp; Delete
+            </button>
+
+            <button  mat-menu-item (click)="markAsFeatured()" *ngIf="! business.featured && isAdmin === true" >
+              <i class="fa fa-check"></i>&nbsp; Mark as Featured
+            </button>
+            <button  mat-menu-item (click)="removeFromFeatured(business.featured)" *ngIf="business.featured && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; Remove from Featured
+            </button>
+
+            <button  mat-menu-item (click)="markAsTrending()" *ngIf="! business.trending && isAdmin === true" >
+              <i class="fa fa-check"></i>&nbsp; Mark as Trending
+            </button>
+
+            <button  mat-menu-item (click)="removeFromFeatured(business.trending)"  *ngIf="business.trending && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; Remove from Trending
+            </button>
+
+
+            <button  mat-menu-item (click)="markAsPopular()" *ngIf="! business.popular && isAdmin === true" >
+              <i class="fa fa-user-plus"></i>&nbsp; Mark as Popular
+            </button>
+
+            <button  mat-menu-item (click)="removeFromFeatured(business.popular)"  *ngIf="business.popular && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; Remove from popular
+            </button>
+
+
+
+            <button  mat-menu-item (click)="markAsSponsored()" *ngIf="! business.sponsored && isAdmin === true" >
+              <i class="fa fa-check-circle"></i>&nbsp; Mark as Sponsored
+            </button>
+
+            <button  mat-menu-item (click)="removeFromFeatured(business.sponsored)"  *ngIf="business.sponsored && isAdmin === true" >
+              <i class="fa fa-times-circle"></i>&nbsp; Remove from Sponsored
+            </button>
+
+
+          </mat-menu>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card-footer">
+
+    <div class="row d-flex align-items-center">
+      <div class="col" style="padding: 2px !important;">
+        <app-business-call-button [business]="business"></app-business-call-button>
+      </div>
+      <div class="col" *ngIf="planService.featureEnabled(business.user, 'whatsapp')" style="padding: 2px !important;">
+        <app-business-whatsapp-button [business]="business"></app-business-whatsapp-button>
+      </div>
+
+    </div>
+    <div *ngIf="cloneProgress === true" class="col-md-12 py-2 text-center">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar> <br/>
+      Creating copy ...
+    </div>
+
+
+
+
+  </div>
+</div>
+
+
+<!--
+<div class="listing" style="background: linear-gradient(0deg, rgba(21,20,20,0.53), rgba(26,25,25,0.97)), url('{{business.logo}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="row">
+
+        <div class="col-12">
+          <div  *ngIf="isFavoriteRemovable !== true" class="shadow" (click)="saveToFavorites()" style="cursor: pointer; border: 1px solid white ;width:30px;height: 30px;background: #b528a7;border-radius: 50%;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+            <mat-icon style="color: white;font-size: 20px;">favorite</mat-icon>
+          </div>
+
+
+          <div *ngIf="isFavoriteRemovable === true" (click)="favoriteService.delete('business' , business.id )" class="shadow" style="cursor:pointer; border: 1px solid white ;height: 30px;background: #dc1a1a;border-radius: 10px;color: white;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+            <i class="fa fa-times-circle" style="color: white;font-size: 20px;"></i>&nbsp; Remove
+          </div>
+
+        </div>
+        <div class="col-12 mt-3">
+          <div class="float-start shadow" style="width:100px;height: 30px;background: #cc32d7;border-radius: 5px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+            <span style="color: white;font-size: 10px;">Destacado</span>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-md-6 ">
+      <div class="row">
+
+        <div class="col-md-12 mt-3 justify-content-end ">
+          <div class="float-end shadow" style="border: 1px solid white ;width:100px;height: 30px;background: #10575f;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+            <span style="color: white;font-size: 10px;">Abierto </span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="row mt-5">
+
+
+    <div class="col-md-6 mt-3" style="padding-left: 15px;  !important;">
+
+      <p class="float-start">
+
+        <span style="color: white;font-size: 15px;">5.0</span>&nbsp;&nbsp;
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+        <i class="fa fa-star" style="color: #f8e844;font-size: 15px;"></i>
+
+
+
+        <br/>
+        <span style="color: white;font-size: 15px;">4 Comments</span>
+
+
+
+
+      </p>
+
+
+
+    </div>
+    <div class="col-md-6 mt-3" style="padding-right: 10px !important;">
+
+
+      <div [routerLink]="['/business-details/'+business.id]" class="float-end shadow" style="cursor:pointer;border: 1px solid white ;width:70px;height: 30px;background: #1aab93;border-radius: 15px;display: flex;justify-content: center;text-align: center;padding-top: 5px;">
+        <span style="color: white;font-size: 10px;">More </span>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+</div>
+
+<div class="card" style="border-top-left-radius: 20px; border-top-right-radius: 20px; top: -40px;">
+
+  <div class="card-header">
+
+    <div class="row mt-2">
+
+      <div class="col-md-12">
+
+        <h2 class="text-dark promotion-title-primary">
+          <span class="float-start">{{business.business_name_prefix}} {{business.business_name}}</span>
+
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="float-end">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="(isAdmin !== true && isOwner === true) || getDelegateAccess('business_assistant')" [routerLink]="['/'+routes.business.edit+'/'+business.id]"  >
+              <i class="fa fa-pencil"></i>&nbsp; Edit
+            </button>
+
+            <button  mat-menu-item *ngIf="isAdmin === true" [routerLink]="['/'+routes.admin.root+'/'+routes.admin.listings.root+'/'+routes.admin.listings.business.edit+'/'+business.id]"  >
+              <i class="fa fa-pencil"></i>&nbsp; Edit
+            </button>
+
+            <button (click)="updateBusinessStatus('approved')"  mat-menu-item *ngIf="isAdmin === true && business.status !== 'approved'"   >
+              <i class="fa fa-check"></i>&nbsp; Approve
+            </button>
+
+            <button (click)="updateBusinessStatus('denied')"  mat-menu-item *ngIf="isAdmin === true && business.status !== 'denied'"   >
+              <i class="fa fa-times"></i>&nbsp; Deny
+            </button>
+
+            <button  mat-menu-item *ngIf="isOwner && !isAdmin" [routerLink]="['/business/'+business.id+'/users']"  >
+              <i class="fa fa-cog"></i>&nbsp; Manage Business Users/Assistants
+            </button>
+
+            <button  mat-menu-item *ngIf="(isOwner && !isAdmin) || getDelegateAccess('appointments')" [routerLink]="['/business/appointment-settings/'+business.id]"  >
+              <i class="fa fa-cog"></i>&nbsp; Appointment Settings
+            </button>
+
+            <button  mat-menu-item *ngIf="(isOwner && !isAdmin) || getDelegateAccess('booking')" [routerLink]="['/business/booking-requests']"  >
+              <i class="fa fa-check"></i>&nbsp; Manage Booking requests
+            </button>
+
+
+            <button  mat-menu-item (click)="cloneBusiness()" *ngIf="cloneProgress === false && ( isAdmin || isOwner)" >
+              <i class="fa fa-copy"></i>&nbsp; Duplicate
+            </button>
+
+
+            <button  mat-menu-item (click)="deleteConfirmation()" *ngIf="deletable === true" >
+              <i class="fa fa-trash"></i>&nbsp; Delete
+            </button>
+
+          </mat-menu>
+
+        </h2>
+      </div>
+      <div class="col-md-12">
+        <i class="fa fa-map-marker text-info promo-location-icon"></i> <span class="promo-location-title">{{business.city}} {{business.country}}</span>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+
+      <div class="col-md-12 mb-1">
+
+        <p class="">
+          {{business.slogan}}
+        </p>
+
+
+      </div>
+      <div class="col-md-12 mb-1">
+
+                <span class=" fw-bold text-black-50" >
+                  Facilidades
+                </span> &nbsp;&nbsp;<i class="fa fa-wifi text-info" style="font-size: 20px"></i>
+        <i class="fa fa-wifi text-info" style="font-size: 20px"></i>
+
+
+      </div>
+      <div class="col-md-12 mb-1 ">
+
+
+        <p class="text-black-50 ">
+
+          <span class="fw-bold">Precio</span> : Lps. {{business.price_from}} - Lps. {{business.price_to}}
+
+
+        </p>
+
+
+
+      </div>
+      <div class="col-md-12 mb-1 text-center" *ngIf="! isOwner">
+        <button class="btn btn-success rounded-3">Whatsapp</button>
+
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+  <div class="card-footer">
+
+    <div class="row">
+
+      <div class="col-md-6 d-flex justify-content-center align-content-center mt-1">
+
+        <h3 class="text-center  text-black-50" *ngIf="business.main_cat">
+
+          <i class="{{business.main_cat.icon}} text-success"></i>&nbsp;&nbsp;{{business.main_cat.name}}
+
+        </h3>
+
+      </div>
+
+      <div class="col-md-6 text-center promo-timeline-area" *ngIf="business.contacts">
+
+        <a href="mailto:{{business.contacts.business_email}}"><i class="fa fa-envelope text-success" style="font-size: 20px;"></i></a>
+
+      </div>
+
+
+
+    </div>
+
+    <div class="row" *ngIf="isOwner === true">
+
+      <div class="col-md-12 text-center">
+
+
+
+
+      </div>
+      <div *ngIf="cloneProgress === true" class="col-md-12 py-2 text-center">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar> <br/>
+        Creating copy ...
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+</div> -->

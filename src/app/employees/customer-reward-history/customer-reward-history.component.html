@@ -1,0 +1,80 @@
+<div class="row">
+
+  <div class="col-12">
+    Rewards records for {{data.customer.first_name}}
+  </div>
+
+  <div class="col-md-12" style="max-height: 90vh !important;overflow-y: scroll !important;">
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Debit</th>
+          <th>Credit</th>
+          <th>
+            <span *ngIf="data.reward_type === 'points'">Points</span>
+            <span *ngIf="data.reward_type === 'prize'">Prize</span>
+          </th>
+          <th>Details</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+         <ng-container *ngFor="let trans of rewards_history">
+           <ng-container *ngIf="trans.debit > 0 || trans.credit > 0">
+             <tr>
+               <td><span class="text-nowrap">{{trans.created_at | date}}</span></td>
+               <td>
+               <span *ngIf="trans.debit" class="text-danger">
+                 {{trans.debit}}
+               </span>
+               </td>
+               <td>
+               <span *ngIf="trans.credit" class="text-success ">
+                 {{trans.credit}}
+               </span>
+               </td>
+               <td>
+
+               </td>
+               <td>
+               <span class="text-nowrap">
+                 {{trans.details}}
+               </span>
+
+               </td>
+             </tr>
+             <tr>
+               <td></td>
+               <td> </td>
+               <td>Balance: </td>
+               <td>
+                 {{trans.balance}}
+               </td>
+               <td></td>
+             </tr>
+           </ng-container>
+
+         </ng-container>
+
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <mat-progress-bar *ngIf="progress === true"></mat-progress-bar>
+
+    <div class="col-12 d-flex justify-content-end align-items-center gap-2" >
+      <button type="button" mat-dialog-close *ngIf="progress === false" mat-raised-button color="accent" class=" ml-2 mt-2">
+        {{'Close' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+</div>

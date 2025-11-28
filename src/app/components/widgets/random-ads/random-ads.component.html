@@ -1,0 +1,39 @@
+<div class="col-md-12 mb-2" *ngFor="let ad of chunk">
+  <app-ad-classic-widget [ad]="ad" *ngIf="ad.business"  [routerLink]="'/business-details/'+ad.business_id">
+
+  </app-ad-classic-widget>
+  <!-- <div class="row">
+    <div class="col-md-5">
+      <div class="row">
+        <div class="col-6 col-md-6 no-md-padding" style="padding: 3px !important;" >
+
+          <div class="listing-cat-sm text-center" *ngIf="ad.logo" style="background:  url('{{ad.logo.img}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+            <h2 class="mt-5" style="color: white">{{ad.title}}</h2>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+    <div class="col-md-7" *ngIf="single" style="padding: 3px !important;">
+
+      <div class="listing-cat-lg text-center" *ngIf="single.logo" style="background:  url('{{single.logo.img}}');  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;">
+
+        <h2 class="mt-5" style="color: white">{{single.title}}</h2>
+
+        <button [routerLink]="'/business-details/'+single.business_id" class="btn btn-success">Shop Now !</button>
+      </div>
+
+
+    </div>
+  </div> -->
+</div>

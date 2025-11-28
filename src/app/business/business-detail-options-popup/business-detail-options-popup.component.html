@@ -1,0 +1,120 @@
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'business'">
+
+        <div (click)="activateTab('Promos')"  class="w-100 d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+edit
+</span>
+
+            <span> {{"Promotions & Discounts"}}</span>
+        </div>
+
+
+        <div (click)="activateTab('Notifications')"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+           <span class="material-symbols-outlined">
+group
+</span>
+
+            <span> {{"Notifications"}}</span>
+        </div>
+
+        <div (click)="scheduleAppointment()"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+           <span class="material-symbols-outlined">
+settings
+</span>
+
+            <span> {{"Book an Appointment"}}</span>
+        </div>
+
+        <div (click)="activateTab('TCF')"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+          <span class="material-symbols-outlined">
+trophy
+</span>
+
+            <span> {{"TCF"}}</span>
+        </div>
+
+        <div (click)="activateTab('Review')"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+       <span class="material-symbols-outlined">
+content_copy
+</span>
+
+            <span> {{"Submit Feedback"}}</span>
+        </div>
+
+    </div>
+
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'loyalty_card'">
+
+        <div (click)="activateTab('Promos')"  class="w-100 d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+local_offer
+</span>
+
+            <span> {{"Promotions & Discounts from the business"}}</span>
+        </div>
+
+
+
+        <div (click)="activateTab('TCF')"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+          <span class="material-symbols-outlined">
+credit_card
+</span>
+
+            <span> {{"LCs from same business"}}</span>
+        </div>
+
+    </div>
+
+
+    <div class="px-2 py-2 d-flex flex-column" *ngIf="data.listing_type === 'promotion'">
+
+        <div (click)="activateTab('Promos')"  class="w-100 d-flex align-items-center gap-2 py-2">
+<span class="material-symbols-outlined">
+edit
+</span>
+
+            <span> {{"Promotions from this business"}}</span>
+        </div>
+
+
+
+
+        <div (click)="activateTab('TCF')"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+          <span class="material-symbols-outlined">
+trophy
+</span>
+
+            <span> {{"LCs from this business"}}</span>
+        </div>
+
+        <div (click)="scheduleAppointment()"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+           <span class="material-symbols-outlined">
+settings
+</span>
+
+            <span> {{"Book an Appointment"}}</span>
+        </div>
+
+        <div (click)="activateTab('Review')"  class="w-100 d-flex align-items-center gap-2 py-2 cursor-pointer">
+
+       <span class="material-symbols-outlined">
+content_copy
+</span>
+
+            <span> {{"Submit Feedback"}}</span>
+        </div>
+
+    </div>
+
+
+</div>

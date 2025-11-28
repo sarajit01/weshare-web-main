@@ -1,0 +1,1096 @@
+<app-mobile-header-with-back-button  [zIndex]="100003" (onBackPressed)="backToPreviousStep()" *ngIf="activeStep !== -1 && loyalty_card && loyalty_card.id" [heading]="heading" [urlAction]="false" [topIcon]="'visibility'" (onTopIconPressed)="openLCPreview()"></app-mobile-header-with-back-button>
+<app-mobile-header-with-back-button id="preview-header"  [heading]="'Create Loyalty Card'" [backUrl]="'/business/dashboard'" *ngIf="!loyalty_card || !loyalty_card.id" [topIcon]="'visibility'"  (onTopIconPressed)="openLCPreview()"></app-mobile-header-with-back-button>
+
+<div class="w-100  pt-4" id="lc-mobile-form">
+
+    <div class="w-100 mb-3"  *ngIf="!loyalty_card || !loyalty_card.id">
+        <app-my-stepper *ngIf="!loyalty_card || !loyalty_card.id" class=" mt-5 mb-3" [steps]="steps" [activeStep]="activeStep"></app-my-stepper>
+
+    </div>
+
+  <div class="col-md-12 d-flex flex-column justify-content-center align-items-center p-0  pb-3" *ngIf="activeStep === -1">
+
+
+
+    <div class="w-100 d-flex justify-content-center align-items-center" style="max-width: 440px !important;">
+            <app-lccard class="w-100" [loyalty_card]="loyalty_card"></app-lccard>
+    </div>
+
+
+    <div class="w-100 py-3">
+
+      <ng-container *ngFor="let accordian of accordians">
+        <ng-container *ngIf="accordian.visible">
+          <div matRipple (click)="goStep(accordian.step)" class="my-accordion w-100 px-2 py-2 d-flex justify-content-between align-items-center">
+            <span>{{accordian.name | translate}}</span>
+            <span class="material-symbols-outlined">
+arrow_forward_ios
+</span>
+          </div>
+          <mat-divider></mat-divider>
+        </ng-container>
+
+      </ng-container>
+    </div>
+
+  </div>
+
+  <form [formGroup]="formGeneralInfo" (change)="onGeneralInfoChange()" (keyup)="onGeneralInfoChange()" class="col-12" *ngIf="activeStep === 0">
+    <mat-error
+            *ngIf="formGeneralInfo.controls.business_id.touched && formGeneralInfo.controls.business_id.invalid">{{'Please select a business' | translate}}</mat-error>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'Select Business' | translate}}</mat-label>
+      <mat-select formControlName="business_id">
+        <mat-select-trigger>
+
+                    <span *ngIf="formGeneralInfo.controls.business_id.value">
+                     <i class="fa fa-check-circle text-success"></i>&nbsp;{{formGeneralInfo.controls.business_id.value.business_name_prefix}} {{formGeneralInfo.controls.business_id.value.business_name}}
+                    </span>
+
+        </mat-select-trigger>
+        <mat-option>
+          <ngx-mat-select-search formControlName="search_business"
+                                 placeholderLabel="{{'Search' | translate}} ..."
+                                 noEntriesFoundLabel="'no match found'"></ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option [value]="business"
+                    *ngFor="let business of businesses | searchBusiness : formGeneralInfo.controls.search_business.value">{{business.business_name_prefix}} {{business.business_name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="!businesses || !businesses.length" class="w-100 d-flex justify-content-end align-items-center">
+      <a class="text-primary text-right mb-2"
+         [routerLink]="['/'+routes.business.create]"><i>{{"Don't have a business listed yet ? Create business" | translate}}</i></a>
+
+    </div>
+
+
+      <div class="w-100">
+        <mat-label>{{"Card type" | translate}}</mat-label>
+
+        <div class="col-md-12 mt-2 mb-3">
+          <mat-error
+                  *ngIf="formGeneralInfo.controls['card_type'].touched && formGeneralInfo.controls['card_type'].invalid ">
+            Please select any one
+          </mat-error>
+          <mat-radio-group (change)="onGeneralInfoChange()" aria-label="Select an option" formControlName="card_type">
+            <mat-radio-button value="prize">{{"Prizes (Per visit)" | translate}} &nbsp;&nbsp;</mat-radio-button>
+            <mat-radio-button value="points">{{"Points (Accumulate points)" | translate}}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+      </div>
+
+
+
+    <mat-error *ngIf="formGeneralInfo.controls.card_name.touched && formGeneralInfo.controls.card_name.invalid">What is card name</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Card Name (Only for business use)" | translate}}  </mat-label>
+      <input formControlName="card_name"   matInput>
+
+    </mat-form-field>
+
+    <mat-error  *ngIf="formGeneralInfo.controls.card_title.touched && formGeneralInfo.controls.card_title.invalid">What is card title</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Card Title" | translate}}  </mat-label>
+
+      <input formControlName="card_title" (change)="setCardTitle()" (keyup)="setCardTitle()" (keydown)="setCardTitle()"   matInput>
+
+    </mat-form-field>
+    <mat-error  *ngIf="formGeneralInfo.controls.visits_for_cash.touched && formGeneralInfo.controls.visits_for_cash.invalid">Specify Number of visits required for prize</mat-error>
+    <mat-form-field  appearance="outline" *ngIf="formGeneralInfo.controls['card_type'].value && formGeneralInfo.controls['card_type'].value === 'prize' ">
+      <mat-label>{{"Visits for Cash" | translate}}  </mat-label>
+      <input type="number" [max]="15" [min]="0" formControlName="visits_for_cash" placeholder="3, 6, 9, 12 etc" [required]="true"  matInput>
+
+    </mat-form-field>
+
+    <mat-error  *ngIf="formGeneralInfo.controls.prize_value.touched && formGeneralInfo.controls.prize_value.invalid">What is monetary value of the prize</mat-error>
+    <mat-form-field  appearance="outline" *ngIf="formGeneralInfo.controls['card_type'].value && formGeneralInfo.controls['card_type'].value === 'prize' ">
+      <mat-label>{{"Prize Monetary Value in business currency " | translate}}
+<!--        <ng-container *ngIf="formGeneralInfo.controls.business_id.value">{{formGeneralInfo.controls.business_id.value.currency}} </ng-container>-->
+      </mat-label>
+      <input type="number"  [min]="0" formControlName="prize_value" placeholder="Ex: 100" [required]="true"  matInput>
+
+    </mat-form-field>
+
+
+    <mat-error  *ngIf="formGeneralInfo.controls.max_redemption.touched && formGeneralInfo.controls.max_redemption.invalid">What is maximum redemption</mat-error>
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Maximum Redemption" | translate}}  </mat-label>
+      <input type="number" [max]="15" [min]="0" formControlName="max_redemption" placeholder="3, 6, 9, 12 etc"  matInput>
+
+    </mat-form-field>
+
+
+
+
+
+  </form>
+
+  <form [formGroup]="formDescription" class="col-12" *ngIf="activeStep === 1">
+    <mat-error *ngIf="formDescription.controls.description.touched && formDescription.controls.description.invalid ">Description is required</mat-error>
+    <mat-form-field appearance="outline">
+      <mat-label>{{"Description (only for business use)" | translate}}</mat-label>
+      <textarea
+              formControlName="description"
+              matInput
+              rows="5"
+          ></textarea>
+
+
+    </mat-form-field>
+
+    <mat-error *ngIf="formDescription.controls.card_description.touched && formDescription.controls.card_description.invalid ">Card Description is required</mat-error>
+    <mat-form-field appearance="outline">
+      <mat-label>{{"Description on the card" | translate}}</mat-label>
+      <textarea
+              (keyup)="setCardDescription()"
+              (keydown)="setCardDescription()"
+              (change)="setCardDescription()"
+              (drop)="setCardDescription()"
+              (paste)="setCardDescription()"
+              formControlName="card_description"
+              rows="5"
+              matInput
+           ></textarea>
+
+
+    </mat-form-field>
+
+    <mat-error *ngIf="formDescription.controls.terms.touched && formDescription.controls.terms.invalid ">Terms of use is required</mat-error>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{"Terms of Use" | translate}}</mat-label>
+      <textarea
+              formControlName="terms"
+              matInput
+              rows="5"
+            ></textarea>
+
+
+    </mat-form-field>
+    <mat-error *ngIf="formDescription.controls.restrictions.touched && formDescription.controls.restrictions.invalid ">Restrictions is required</mat-error>
+    <mat-form-field appearance="outline">
+      <mat-label>{{"Restrictions" | translate}}</mat-label>
+      <textarea
+              formControlName="restrictions"
+              matInput
+              rows="5"
+             ></textarea>
+
+
+    </mat-form-field>
+    <mat-error *ngIf="formDescription.controls.client_url.touched && formDescription.controls.client_url.invalid">What is client url</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"URL for Clients (Only for business use)" | translate}}  </mat-label>
+      <input formControlName="client_url" type="url"   matInput>
+
+    </mat-form-field>
+    <mat-error *ngIf="formDescription.controls.redemption_url.touched && formDescription.controls.redemption_url.invalid">What is Redemption url</mat-error>
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Redemption URL (Only for business use)" | translate}}  </mat-label>
+      <input formControlName="redemption_url" type="url"   matInput>
+    </mat-form-field>
+  </form>
+
+
+  <div class="row my-2 d-flex justify-content-center align-items-center flex-column gap-2"
+       *ngIf="activeStep === 3 && activeSubStep === 0">
+
+    <mat-label>{{"Choose if you want to display logo or not?" | translate}}</mat-label>
+
+    <div class="col-md-12 mt-1 mb-3">
+      <mat-radio-group  aria-label="Select an option" (change)="setLogoDisplayMode()" [(ngModel)]="displayLogo" [ngModelOptions]="{standalone: true}">
+        <mat-radio-button value="yes">{{"Yes" | translate}} &nbsp;&nbsp;</mat-radio-button>
+        <mat-radio-button value="no">{{"No" | translate}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <app-file-uploader *ngIf="displayLogo === 'yes'" (dataChanged)="setLogo($event)" (uploading)="buttonsDisabled = $event" [label]="'Upload Logo'"
+                       [img]="loyalty_card.logo"></app-file-uploader>
+
+
+  </div>
+
+  <div class="row my-2 d-flex justify-content-center align-items-center flex-column gap-2" *ngIf="((activeStep === 3 && activeSubStep === 1) || activeStep === 5) && this.loyalty_card.card_type === 'prize'">
+
+<!--    -->
+
+    <div class="w-100">
+      <mat-label>{{"Choose if you want to upload your own custom redemption png or jpg image or you want to pick from our icons library?" | translate}}</mat-label>
+
+      <div class="col-md-12 mt-2 mb-3">
+        <mat-radio-group  aria-label="Select an option" [(ngModel)]="redemption_img_type" [ngModelOptions]="{standalone: true}">
+          <mat-radio-button value="custom">{{"Upload Custom Photo" | translate}} &nbsp;&nbsp;</mat-radio-button>
+          <mat-radio-button value="pick">{{"Pick from Library" | translate}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+    </div>
+
+    <app-file-uploader *ngIf="redemption_img_type === 'custom'" (dataChanged)="setRedemptionImg($event)" (uploading)="buttonsDisabled = $event"
+                       [label]="'Upload Redemption Image'" [img]="loyalty_card.redemption_img"></app-file-uploader>
+
+
+    <app-icons-picker *ngIf="redemption_img_type === 'pick'" class="w-100" (onSelected)="setRedemptionImgFromIcon($event)" [selectedIcon]="loyalty_card.redemption_img" [label]="'Select an icon to show as redemption image'"></app-icons-picker>
+
+
+  </div>
+
+  <form [formGroup]="formAppearanceInfo" (keyup)="setAppearance()" (change)="setAppearance()" class="col-12" *ngIf="activeStep === 2">
+
+    <mat-label>{{"Card Background type" | translate}}</mat-label>
+
+    <div class="col-md-12 mt-2 mb-3">
+      <mat-radio-group class="d-flex flex-column gap-2" aria-label="Select an option" [(ngModel)]="bg_type" [ngModelOptions]="{standalone: true}" >
+        <mat-radio-button value="color">{{"Select Background Color" | translate}}</mat-radio-button>
+
+        <mat-radio-button value="img">{{"Upload Custom Background" | translate}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+
+    <mat-form-field  appearance="outline" *ngIf="bg_type === 'color'">
+      <mat-label>{{"Card Background Color" | translate}}  </mat-label>
+      <input type="color" formControlName="bg_color"   matInput>
+      <mat-error>Please select background color</mat-error>
+
+    </mat-form-field>
+
+    <div class="row mt-2 mb-3" *ngIf="bg_type === 'img'">
+
+      <app-file-uploader [label]="'Upload Background Image'"  (uploading)="buttonsDisabled = $event" (dataChanged)="setBackgroundImg($event)" [img]="loyalty_card.bg_img"></app-file-uploader>
+
+
+    </div>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{'Font family' | translate}}</mat-label>
+
+      <input formControlName="font_family"  type="text"
+             placeholder="{{'Select' | translate}}"
+             matInput
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let font of font_families" [value]="font">
+          {{font}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+    <mat-error *ngIf="formAppearanceInfo.controls.heading_font_size.touched && formAppearanceInfo.controls.heading_font_size.invalid">Please enter Heading font size</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Card Title Font size" | translate}}  </mat-label>
+
+      <input type="number" formControlName="heading_font_size" value="11"   matInput>
+
+    </mat-form-field>
+    <mat-error *ngIf="formAppearanceInfo.controls.heading_font_color.touched && formAppearanceInfo.controls.heading_font_color.invalid">Please select Heading color</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Card Title Color" | translate}}  </mat-label>
+
+      <input type="color" formControlName="heading_font_color"   matInput>
+
+    </mat-form-field>
+
+    <mat-error  *ngIf="formAppearanceInfo.controls.font_size.touched && formAppearanceInfo.controls.font_size.invalid">Please enter font size</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Card text Font size" | translate}}  </mat-label>
+
+      <input type="number" formControlName="font_size" value="11"   matInput>
+
+    </mat-form-field>
+
+    <mat-error *ngIf="formAppearanceInfo.controls.font_color.touched && formAppearanceInfo.controls.font_color.invalid">Please select letter color</mat-error>
+
+    <mat-form-field  appearance="outline">
+      <mat-label>{{"Card text Letter Color" | translate}}  </mat-label>
+
+      <input type="color" formControlName="font_color"   matInput>
+
+    </mat-form-field>
+
+  </form>
+
+  <form [formGroup]="formRewards" class="col-12" *ngIf="activeStep === 4">
+
+    <mat-label>{{"At the end of filling out the card. Start again?\n" | translate}}</mat-label>
+
+    <mat-error *ngIf="formRewards.controls['filling_start_on_end'].touched && formRewards.controls['filling_start_on_end'].invalid ">Please select any one</mat-error>
+
+    <div class="col-12 mt-2 p-0 mb-4">
+      <mat-radio-group aria-label="Select an option" class="d-flex gap-2"  formControlName="filling_start_on_end">
+        <mat-radio-button value="yes">Yes  &nbsp;&nbsp;</mat-radio-button>
+        <mat-radio-button value="no">No</mat-radio-button>
+
+      </mat-radio-group>
+    </div>
+
+
+    <mat-error *ngIf="formRewards.controls.message_on_complete.touched && formRewards.controls.message_on_complete.invalid ">{{'Give a Message when customer complete the loyalty card' | translate}}</mat-error>
+    <mat-form-field appearance="outline">
+      <mat-label>{{"Message when customer complete the loyalty card" | translate}}  </mat-label>
+
+      <textarea
+              formControlName="message_on_complete"
+              matInput
+              rows="5"
+            ></textarea>
+    </mat-form-field>
+
+
+    <mat-error *ngIf="formRewards.controls.message_on_exchange.touched && formRewards.controls.message_on_exchange.invalid ">{{'Give a Message for successful exchange' | translate}}</mat-error>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{"Message for successful exchange" | translate}}  </mat-label>
+
+      <textarea
+              formControlName="message_on_exchange"
+              matInput
+              rows="5"
+             ></textarea>
+    </mat-form-field>
+
+  </form>
+
+  <form [formGroup]="formRewards" *ngIf="activeStep === 5"  class="col-md-12">
+
+    <div class="row" >
+
+      <div class="col-md-12">
+
+        <h4 class="fw-bold">Point -> Value Conversion Configuration</h4>
+
+      </div>
+
+      <div class="col-md-12">
+
+        <mat-form-field  appearance="outline">
+          <mat-label>{{"Each point value in $" | translate}} (for ex: 10 , then 10$ = 1 point) </mat-label>
+
+          <input formControlName="point_value" type="number"   matInput>
+          <mat-error>Each point value in $</mat-error>
+
+        </mat-form-field>
+
+      </div>
+
+
+      <div class="col-md-12">
+
+        <h4 class="fw-bold">Customer Rewards Configuration</h4>
+
+      </div>
+
+      <div class="col-md-12">
+
+
+        <mat-form-field  appearance="outline" *ngIf="formGeneralInfo.controls.card_type.value && formGeneralInfo.controls.card_type.value === 'points'">
+          <mat-label>{{"How much % of the consumption customer will receive as reward?" | translate}}  </mat-label>
+          <input type="number" formControlName="customer_reward_percent" [required]="true"   matInput>
+          <mat-error>Customer reward percentange</mat-error>
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+
+    <div class="row mt-2" >
+      <div class="col-md-12 d-flex justify-content-between flex-wrap align-items-center">
+
+        <span class="fw-bold">Rewards Messages</span>
+
+        <button type="button" class="btn btn-theme-dark btn-sm" (click)="addReward()" >
+          Add
+        </button>
+
+      </div>
+    </div>
+
+    <ng-container >
+
+
+        <div class="card mt-3" *ngFor="let reward of rewards; let i=index">
+            <div class="card-header px-2 ">
+                <div class="w-100 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="fw-bold">
+                            Reward #{{i + 1}}
+                        </h5>
+                    </div>
+                    <div>
+<span class="material-symbols-outlined text-danger cursor-pointer" (click)="removeReward(reward)">
+delete
+</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-2 py-1">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{"#Points" | translate}}</mat-label>
+                        <input matInput type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="reward.points" placeholder="3000">
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-9">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{"Reward name" | translate}}</mat-label>
+                        <input matInput type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="reward.reward_name" placeholder="Bono">
+                    </mat-form-field>
+
+                </div>
+                <div class="col-md-12 d-flex flex-column gap-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{"Message your client receives" | translate}}</mat-label>
+                        <input matInput type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="reward.notes">
+                    </mat-form-field>
+
+                </div>
+            </div>
+        </div>
+
+    </ng-container>
+
+<!--    <div class="row">-->
+<!--      <div class="col-12 py-2 d-flex justify-content-end">-->
+<!--        <button mat-raised-button color="primary">Save</button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+  </form>
+
+
+
+  <div class="col-12 d-flex mt-4 mb-5 pb-5" *ngIf="activeStep !== -1 && !fileProgress">
+
+    <ng-container *ngIf="!loyalty_card || !loyalty_card.id">
+      <div *ngIf="activeStep > 0" class="w-50 pe-1">
+        <button type="button" (click)="stepPrev()" class="btn btn-theme-dark btn-block">
+          {{"BACK"}}
+        </button>
+      </div>
+      <div [ngClass]="{'w-100' : activeStep < 1 , 'w-50 ps-1' : activeStep > 0}">
+        <button [disabled]="buttonsDisabled" (click)="stepForward()" type="button"  class="btn btn-theme-dark btn-block">
+          <ng-container *ngIf="activeStep < steps.length"> {{"NEXT"}} </ng-container>
+          <ng-container *ngIf="activeStep >= steps.length"> {{"SUBMIT"}} </ng-container>
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="loyalty_card && loyalty_card.id && loyalty_card.id !== 0">
+      <div *ngIf="activeStep !== -1" class="w-100">
+        <button [disabled]="buttonsDisabled" (click)="save()" type="button"  class="btn btn-theme-dark btn-block">
+          {{"Save"}}
+        </button>
+      </div>
+    </ng-container>
+
+  </div>
+
+  <app-progress-bar *ngIf="progress"></app-progress-bar>
+
+
+  <div *ngIf="activeStep > -1" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)" id="lc-live-preview" class="preview-state-{{previewState}}" style="padding-left: 2px; padding-right: 2px; background: transparent;z-index: 1000!important;position: fixed;left: 0; bottom: 0;width: 100vw !important;max-width: 480px !important;">
+    <app-lccard [loyalty_card]="loyalty_card"></app-lccard>
+  </div>
+
+
+</div>
+
+<div class="w-100 d-none">
+  <form [formGroup]="formGeneralInfo" (submit)="submitForm()" *ngIf="step === 1"  class="col-12" >
+
+    <mat-card >
+      <mat-card-header>
+        <mat-card-title>{{"General Information" | translate}}</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="p-3">
+
+        <div class="row">
+
+          <p>{{'Select a business for which you are creating the Loyalty Card' | translate}}</p>
+          <div class="col-md-12">
+
+            <mat-form-field appearance="outline" >
+              <mat-error>{{'Please select a business' | translate}}</mat-error>
+              <mat-label>{{'Select Business' | translate}}</mat-label>
+              <mat-select formControlName="business_id" >
+                <mat-select-trigger>
+
+                    <span *ngIf="formGeneralInfo.controls.business_id.value">
+                     <i class="fa fa-check-circle text-success"></i>&nbsp;{{formGeneralInfo.controls.business_id.value.business_name_prefix}} {{formGeneralInfo.controls.business_id.value.business_name}}
+                    </span>
+
+                </mat-select-trigger>
+                <mat-option>
+                  <ngx-mat-select-search formControlName="search_business"
+                                         placeholderLabel="{{'Search' | translate}} ..."
+                                         noEntriesFoundLabel="'no match found'"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option [value]="business" *ngFor="let business of businesses | searchBusiness : formGeneralInfo.controls.search_business.value">{{business.business_name_prefix}} {{business.business_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+          <a class="text-primary text-right" [routerLink]="['/'+routes.business.create]"><i>{{"Don't have a business listed yet ? Create business" | translate}}</i></a>
+
+        </div>
+
+
+        <div class="row mt-2">
+          <mat-label>{{"Card type" | translate}}</mat-label>
+
+          <div class="col-md-12 mt-2 mb-2">
+            <mat-error *ngIf="formGeneralInfo.controls['card_type'].touched && formGeneralInfo.controls['card_type'].invalid ">Please select any one</mat-error>
+            <mat-radio-group aria-label="Select an option"  formControlName="card_type">
+              <mat-radio-button value="prize">Prizes (Per visit)  &nbsp;&nbsp;</mat-radio-button>
+              <mat-radio-button value="points">Points (Accumulate points)</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+
+          <div class="col-md-12">
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"Card Name (Only for business use)" | translate}}  </mat-label>
+              <input formControlName="card_name"   matInput>
+              <mat-error>What is card name</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-3">
+
+
+
+
+          <div class="col-md-12">
+
+            <mat-label>{{"Description (Only for business use)" | translate}}  </mat-label>
+
+
+            <mat-error *ngIf="formGeneralInfo.controls.description.touched && formGeneralInfo.controls.description.invalid ">{{'Description is required' | translate}}</mat-error>
+
+            <ckeditor formControlName="description"  [editor]="Editor"  data=""></ckeditor>
+
+
+          </div>
+
+        </div>
+
+        <div class="row mt-2" >
+
+
+          <div class="col-md-6" *ngIf="formGeneralInfo.controls['card_type'].value && formGeneralInfo.controls['card_type'].value === 'prize'">
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"Visits for Cash" | translate}}  </mat-label>
+              <input type="number" [max]="15" [min]="0" formControlName="visits_for_cash" placeholder="3, 6, 9, 12 etc" [required]="true"  matInput>
+              <mat-error>What is amount for cash</mat-error>
+
+            </mat-form-field>
+
+          </div>
+          <div class="col-md-6">
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"Maximum Redemption" | translate}}  </mat-label>
+              <input type="number" [max]="15" [min]="0" formControlName="max_redemption" placeholder="3, 6, 9, 12 etc"  matInput>
+              <mat-error>What is maximum redemption</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+
+
+          <div class="col-md-12">
+
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"Card Title" | translate}}  </mat-label>
+
+              <input formControlName="card_title"   matInput>
+              <mat-error>What is card title</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+
+        <div class="row mt-3">
+
+          <div class="col-md-12">
+            <mat-label>Description on the card</mat-label>
+
+            <mat-error *ngIf="formGeneralInfo.controls.card_description.touched && formGeneralInfo.controls.card_description.invalid ">Card Description is required</mat-error>
+
+            <ckeditor formControlName="card_description" name="card_description" [editor]="Editor"  data=""></ckeditor>
+
+
+          </div>
+
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <mat-label>Terms of Use</mat-label>
+
+            <mat-error *ngIf="formGeneralInfo.controls.terms.touched && formGeneralInfo.controls.terms.invalid ">Terms of use is required</mat-error>
+
+            <ckeditor formControlName="terms" name="terms" [editor]="Editor"  data=""></ckeditor>
+
+
+          </div>
+
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <mat-label>Restrictions</mat-label>
+
+            <mat-error *ngIf="formGeneralInfo.controls.restrictions.touched && formGeneralInfo.controls.restrictions.invalid ">Restrictions is required</mat-error>
+
+            <ckeditor formControlName="restrictions" name="restriction" [editor]="Editor"  data=""></ckeditor>
+
+
+          </div>
+
+        </div>
+
+        <div class="row mt-2" >
+
+
+          <div class="col-md-12">
+
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"URL for Clients (Only for business use)" | translate}}  </mat-label>
+
+              <input formControlName="client_url" type="url"   matInput>
+              <mat-error>What is client url</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+
+
+          <div class="col-md-12">
+
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"Redemption URL (Only for business use)" | translate}}  </mat-label>
+
+              <input formControlName="redemption_url" type="url"   matInput>
+              <mat-error>What is Redemption url</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions class="px-3">
+
+        <div class="row mt-2">
+
+          <div class="col-md-12 d-flex justify-content-end gap-2">
+            <button [disabled]="formGeneralInfo.invalid" type="submit" mat-raised-button color="primary">
+              Submit
+            </button>
+          </div>
+
+        </div>
+
+
+
+
+      </mat-card-actions>
+
+
+    </mat-card>
+
+  </form>
+  <form [formGroup]="formAppearanceInfo" (submit)="submitForm()" *ngIf="step === 2"  class="col-12" >
+
+    <mat-card >
+
+      <mat-card-header>
+
+        <mat-card-title>{{"Design Content" | translate}}</mat-card-title>
+
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="p-3">
+
+        <div class="row mt-2">
+          <div class="col-md-12">
+
+          </div>
+          <a *ngIf="! isAdmin" class="text-primary text-right" [routerLink]="['/'+routes.business.create]"><i>Don't have a business listed yet ? Create business</i></a>
+
+        </div>
+
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"Card Background Color" | translate}}  </mat-label>
+              <input type="color" formControlName="bg_color"   matInput>
+              <mat-error>Please select background color</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+
+            <mat-label>{{'Font family' | translate}}</mat-label>
+
+            <mat-form-field appearance="outline">
+
+              <input formControlName="font_family"  type="text"
+                     placeholder="{{'Select' | translate}}"
+                     matInput
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let font of font_families" [value]="font">
+                  {{font}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+            <mat-label>{{"Card Title Font size" | translate}}  </mat-label>
+
+            <mat-form-field  appearance="outline">
+              <input type="number" formControlName="heading_font_size" value="11"   matInput>
+              <mat-error>Please enter Heading font size</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+            <mat-label>{{"Card Title Color" | translate}}  </mat-label>
+
+            <mat-form-field  appearance="outline">
+              <input type="color" formControlName="heading_font_color"   matInput>
+              <mat-error>Please select Heading color</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+            <mat-label>{{"Card text Font size" | translate}}  </mat-label>
+
+            <mat-form-field  appearance="outline">
+              <input type="number" formControlName="font_size" value="11"   matInput>
+              <mat-error>Please enter font size</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+            <mat-label>{{"Card text Letter Color" | translate}}  </mat-label>
+
+            <mat-form-field  appearance="outline">
+              <input type="color" formControlName="font_color"   matInput>
+              <mat-error>Please select letter color</mat-error>
+
+            </mat-form-field>
+
+          </div>
+        </div>
+
+
+        <!-- <div class="row mt-2" >
+           <div class="col-md-12">
+             <mat-label>{{"Redemption Image Color" | translate}}  </mat-label>
+
+             <mat-form-field  appearance="outline">
+               <input type="color" formControlName="redemption_img_color"   matInput>
+               <mat-error>Please select redemption image color</mat-error>
+
+             </mat-form-field>
+
+           </div>
+         </div> -->
+
+
+        <div class="row mt-2">
+
+          <div class="row mt-2" *ngIf="bg_images.length > 0">
+
+            <mat-label>Saved Custom Background Image</mat-label>
+            <div class="col-md-3 mb-4 text-center" *ngFor="let img of bg_images">
+
+              <div style="width: 100%;height: 100px;background: url('{{img}}');background-position: center center; background-size:cover;border-radius:10px;margin-bottom:15px;">
+
+              </div>
+
+              <button class="btn btn-danger btn-block btn-sm" type="button" (click)="deleteBgImage(img)">
+                <i class="fa fa-trash"></i>
+              </button>
+
+            </div>
+
+          </div>
+          <div class="row mt-2">
+
+            <mat-label>Upload Custom Background Image (optional)</mat-label>
+            <div class="col-md-12">
+              <ngx-dropzone (change)="onSelectBg($event , 'images')">
+                <ngx-dropzone-label>Drop files here or click to upload</ngx-dropzone-label>
+
+                <ngx-dropzone-image-preview  [file]="f" *ngFor="let f of bg_files" [removable]="true" (removed)="onBgRemove(f , 'images')">
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+
+
+              </ngx-dropzone>
+
+            </div>
+
+
+
+          </div>
+
+          <div class="row mt-2" *ngIf="images.length > 0">
+
+            <mat-label>Saved Redemption Image</mat-label>
+            <div class="col-md-3 mb-4 text-center" *ngFor="let img of images">
+
+              <div style="width: 100%;height: 100px;background: url('{{img}}');background-position: center center; background-size:cover;border-radius:10px;margin-bottom:15px;">
+
+              </div>
+
+              <button class="btn btn-danger btn-block btn-sm" type="button" (click)="deleteImage(img)">
+                <i class="fa fa-trash"></i>
+              </button>
+
+            </div>
+
+          </div>
+          <div class="row mt-2">
+
+            <mat-label>Upload Redemption Image</mat-label>
+            <div class="col-md-12">
+              <ngx-dropzone (change)="onSelect($event , 'images')">
+                <ngx-dropzone-label>Drop files here or click to upload</ngx-dropzone-label>
+
+                <ngx-dropzone-image-preview  [file]="f" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f , 'images')">
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+
+
+              </ngx-dropzone>
+
+            </div>
+
+
+
+          </div>
+          <div class="row mt-2" *ngIf="logo">
+
+            <mat-label>Saved Logo</mat-label>
+            <div class="col-md-4 mb-4" >
+
+              <img src="{{logo}}" class="img-fluid"> <br/>
+            </div>
+
+          </div>
+          <div class="row mt-3">
+
+            <mat-label>Upload Logo</mat-label>
+            <div class="col-md-12">
+              <ngx-dropzone [multiple]="false"   (change)="onSelectLogo($event , 'logo')">
+                <ngx-dropzone-label>Drop your logo here or click to upload</ngx-dropzone-label>
+                <ngx-dropzone-image-preview  [file]="f"  *ngFor="let f of logoFiles" [removable]="true" (removed)="onRemove(f , 'logo')">
+                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+              </ngx-dropzone>
+            </div>
+
+          </div>
+          <div class="row mt-3" *ngIf="fileProgress === true">
+
+            <p class="text-primary">Images uploading on progress ...</p>
+            <mat-divider></mat-divider>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+          </div>
+        </div>
+
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions class="px-3">
+
+        <div class="row mt-2">
+          <div class="col-md-12 d-flex justify-content-end gap-2">
+            <button type="button" (click)="back()" mat-raised-button color="accent">
+              Back
+            </button>
+            <button [disabled]="fileProgress || formAppearanceInfo.invalid" type="submit"  class="" mat-raised-button color="primary">
+              Submit
+            </button>
+          </div>
+        </div>
+
+      </mat-card-actions>
+
+
+    </mat-card>
+
+  </form>
+  <form [formGroup]="formRewards" (submit)="submitForm()" *ngIf="step === 3"  class="col-12" >
+
+    <mat-card >
+
+      <mat-card-header>
+
+        <mat-card-title>{{"Rewards" | translate}}</mat-card-title>
+
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="p-3">
+
+        <div class="row mt-2" >
+          <div class="col-md-12">
+
+            <mat-form-field  appearance="outline">
+              <mat-label>{{"How much % of the consumption customer will receive as reward?" | translate}}  </mat-label>
+              <input type="number" formControlName="customer_reward_percent" [required]="true"   matInput>
+              <mat-error>Customer reward percentange</mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-12 mt-2 mb-2">
+            <mat-label>{{"At the end of filling out the card. Start again?\n" | translate}}</mat-label>
+
+            <mat-error *ngIf="formRewards.controls['filling_start_on_end'].touched && formRewards.controls['filling_start_on_end'].invalid ">Please select any one</mat-error>
+
+            <mat-radio-group aria-label="Select an option"  formControlName="filling_start_on_end">
+              <mat-radio-button value="yes">Yes  &nbsp;&nbsp;</mat-radio-button>
+              <mat-radio-button value="no">No</mat-radio-button>
+
+            </mat-radio-group>
+
+
+          </div>
+
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <mat-label>{{"Message when customer complete the loyalty card" | translate}}  </mat-label>
+            <mat-error *ngIf="formRewards.controls.message_on_complete.touched && formRewards.controls.message_on_complete.invalid ">{{'Give a Message when customer complete the loyalty card' | translate}}</mat-error>
+
+            <ckeditor formControlName="message_on_complete"  [editor]="Editor"  data=""></ckeditor>
+
+          </div>
+
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <mat-label>{{"Message for successful exchange" | translate}}  </mat-label>
+            <mat-error *ngIf="formRewards.controls.message_on_exchange.touched && formRewards.controls.message_on_exchange.invalid ">{{'Give a Message for successful exchange' | translate}}</mat-error>
+            <ckeditor formControlName="message_on_exchange"  [editor]="Editor"  data=""></ckeditor>
+          </div>
+        </div>
+
+
+
+
+        <!-- <div class="row mt-2" *ngIf="formGeneralInfo.controls.card_type.value && formGeneralInfo.controls.card_type.value === 'points'">
+           <div class="col-md-12 d-flex justify-content-between align-items-center">
+
+             <span class="fw-bold">Rewards Info</span>
+
+             <button type="button" (click)="addReward()" mat-raised-button color="primary">
+               Add Reward
+             </button>
+
+           </div>
+         </div>
+
+         <ng-container *ngIf="formGeneralInfo.controls.card_type.value && formGeneralInfo.controls.card_type.value === 'points'">
+
+           <div class="row mt-2" *ngFor="let reward of rewards">
+             <div class="col-md-3">
+               <label>#Points</label>
+               <input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="reward.points" placeholder="3000" class="form-control">
+
+             </div>
+             <div class="col-md-9 d-flex flex-column gap-2">
+               <div>
+                 <label>Message your client receives</label>
+                 <textarea [ngModelOptions]="{standalone: true}" class="form-control" [(ngModel)]="reward.message_for_customer"></textarea>
+               </div>
+
+             </div>
+           </div>
+
+         </ng-container> -->
+
+
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions class="px-3">
+        <div class="row mt-2">
+          <div class="col-md-12 d-flex justify-content-end gap-2">
+            <button type="button" (click)="back()" mat-raised-button color="accent">
+              Back
+            </button>
+            <button [disabled]="formRewards.invalid" type="submit"  class="" mat-raised-button color="primary">
+              Submit
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+
+
+    </mat-card>
+
+  </form>
+</div>

@@ -1,0 +1,70 @@
+<div class="w-100 d-flex flex-column justify-content-center align-items-center gap-1">
+
+    <p>{{label}}</p>
+
+    <div (click)="onAttempt()" class="d-flex justify-content-center align-items-center" style="width: 72px;height: 72px;border-radius: 10px;border: 1px solid #cccccc">
+        <span class="material-symbols-outlined" style="font-size: 64px;">
+add
+</span>
+    </div>
+
+    <input (change)="fileChanged($event)" style="display: none" type="file" accept="image/*" id="_upload-img">
+
+    <div class="w-100 d-flex flex-wrap gap-2">
+
+        <ng-container>
+            <ng-container *ngFor="let file of files">
+                <div style="width: 85px;height: 100px;border-radius: 10px;position: relative">
+                    <div style="position: absolute;z-index: 100;right: 0;top: 0;width: 20px;height: 20px;border-radius: 100%;background: red;color: white; display: flex; justify-content: center; align-items: center">
+                        <span class="material-symbols-outlined" style="font-size: 12px;color: white;font-weight: bold">
+remove
+</span>
+                    </div>
+                    <img class="cursor-pointer" [src]="file.url" id="selected-img-{{file.id}}"
+                         style="position: absolute;width: 80px;height: 80px;border-radius: 10px;top:10px">
+
+                    <div *ngIf="file.status === 'uploading'" class="d-flex justify-content-center align-items-center" style="position: absolute;width: 80px;height: 80px;border-radius: 10px;top:10px; z-index: 90">
+                        <div style="position: absolute;width: 80px;height: 80px;border-radius: 10px;z-index: 90; background: black; opacity: 0.5">
+
+                        </div>
+                        <mat-progress-spinner color="primary" mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+
+
+                    </div>
+
+                    <div *ngIf="file.status === 'failed'" class="d-flex justify-content-center align-items-center" style="position: absolute;width: 80px;height: 80px;border-radius: 10px;top:10px; z-index: 90">
+                        <div style="position: absolute;width: 80px;height: 80px;border-radius: 10px;z-index: 90; background: black; opacity: 0.5">
+
+                        </div>
+                        <div style="z-index: 92" class="d-flex gap-1 flex-column align-items-center justify-content-center p-1 bg-warning rounded-2">
+                                <span class="material-symbols-outlined text-white fw-bold">
+warning
+</span>
+                            <small class="fw-bold text-white">{{"Failed" | translate}}</small>
+                        </div>
+
+
+
+                    </div>
+
+<!--                    <div *ngIf="file.status === 'uploaded'" class="d-flex justify-content-center align-items-center" style="position: absolute;width: 80px;height: 80px;border-radius: 10px;top:10px; z-index: 90">-->
+
+<!--                        <div class="d-flex gap-1 flex-column align-items-center justify-content-center">-->
+<!--                              <span class="material-symbols-outlined text-success">-->
+<!--check-->
+<!--</span>-->
+<!--                        </div>-->
+
+
+
+<!--                    </div>-->
+
+
+
+                </div>
+            </ng-container>
+        </ng-container>
+
+    </div>
+
+</div>

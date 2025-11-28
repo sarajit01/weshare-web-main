@@ -1,0 +1,53 @@
+<div class="row" *ngIf="businessNotification">
+  <div *ngIf="displayMode === 'horizontal'" class="col-md-12" style="padding: 3px !important;">
+    <div class="card">
+      <div class="card-header text-center bg-white" style="padding-left: 2px !important;padding-right: 2px !important;" >
+       <span style="font-size: 18px;">{{businessNotification.name}}</span>
+      </div>
+      <div class="card-body" style="padding: 2px !important;" >
+        <app-swipper [hasNavigator]="false">
+          <div class="col-12" *ngFor="let img of businessNotification.gallery">
+            <img src="{{img.img}}" class="img-fluid">
+          </div>
+        </app-swipper>
+        <div class="col-md-12 pl-2 pr-2 pt-3 pb-2" [innerHtml]="businessNotification.description">
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-end align-items-center" *ngIf="isOwner === true">
+        <button [routerLink]="'/'+routes.business.edit_business_notification+'/'+businessNotification.id" class="btn btn-primary">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button (click)="deleteConfirmation()" class="btn btn-danger ml-1">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div  *ngIf="displayMode === 'vertical'" class="col-md-12 shadow-sm mb-1">
+    <div class="row">
+      <div class="col-4 col-md-3 col-lg-2 no-md-padding">
+        <app-swipper>
+          <div class="col-12" *ngFor="let img of businessNotification.gallery">
+            <img src="{{img.img}}" class="img-fluid">
+          </div>
+        </app-swipper>
+      </div>
+      <div class="col-8 col-md-9 col-lg-10 pb-1">
+        <div class="row">
+          <div class="col-12 ">
+            <h2 class="float-start text-dark">{{businessNotification.name}}</h2>
+          </div>
+
+          <div class="col-12 text-muted"  [innerHtml]="businessNotification.description">
+          </div>
+
+          <div class="col-12 text-muted">
+            {{businessNotification.created_at | date}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

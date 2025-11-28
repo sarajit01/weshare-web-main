@@ -1,0 +1,15 @@
+<div class="col-md-12">
+
+  <h3 class="fw-bold">Tus negocios vistos recientemente</h3>
+
+</div>
+
+<div class="row listing-section" *ngIf="businesses">
+  <app-swipper [hasNavigator]="false">
+    <div class="col-9 col-sm-7 col-md-5 col-lg-4" style="padding: 2px !important;" *ngFor="let business of businesses | approved">
+      <app-business-featured-widget [business]="business"></app-business-featured-widget>
+    </div>
+  </app-swipper>
+
+</div>
+

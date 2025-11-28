@@ -1,0 +1,42 @@
+<div class="container-fluid pt-3 pb-5">
+  <div class="row d-flex justify-content-center align-items-center">
+
+     <div class="col-md-7">
+
+       <mat-card>
+
+         <mat-card-header>
+
+           <div class="row mb-2">
+
+             <div class="col-md-12">
+               <h2 class="">
+                 {{'My Profile' | translate}}
+               </h2>
+             </div>
+
+           </div>
+
+         </mat-card-header>
+         <mat-divider></mat-divider>
+         <mat-card-content class="p-4">
+
+           <div class="row">
+
+             <div class="col-md-12">
+
+               <app-user-profile [userId]="_authService.getUserID()"></app-user-profile>
+
+             </div>
+
+           </div>
+
+         </mat-card-content>
+
+       </mat-card>
+
+
+     </div>
+
+  </div>
+</div>

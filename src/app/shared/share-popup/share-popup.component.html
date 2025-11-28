@@ -1,0 +1,395 @@
+<!--<form class="row">-->
+<!--  <ng-container *ngIf="progress">-->
+<!--    <div class="col-12" >-->
+<!--      <p class="text-center">{{"Generating referral link for you" | translate}}</p>-->
+<!--    </div>-->
+<!--    <div class="col-12 d-flex justify-content-center" >-->
+
+<!--      <mat-progress-spinner mode="indeterminate" diameter="40" ></mat-progress-spinner>-->
+
+<!--    </div>-->
+<!--  </ng-container>-->
+
+<!--  <div class="col-md-12" *ngIf="listing && link">-->
+
+<!--      <h2 class="text-center mb-3 fw-bold card-title"><i class="fa fa-share me-1"></i>-->
+
+<!--        <ng-container [ngSwitch]="listingType">-->
+<!--          <ng-container *ngSwitchCase="'lc'">{{"Share Loyalty Card" | translate}}</ng-container>-->
+<!--          <ng-container *ngSwitchCase="'business'">{{"Share Business" | translate}}</ng-container>-->
+<!--          <ng-container *ngSwitchCase="'promotion'">-->
+<!--            <ng-container [ngSwitch]="listing.promotion_type">-->
+<!--               <ng-container *ngSwitchCase="'Promotion'">{{"Share Promotion" | translate}}</ng-container>-->
+<!--               <ng-container *ngSwitchCase="'Discount'">{{"Share Discount" | translate}}</ng-container>-->
+<!--            </ng-container>-->
+<!--          </ng-container>-->
+<!--        </ng-container>-->
+
+<!--      </h2>-->
+
+<!--      <h4 class="text-center">{{"Share with other users and get rewards everytime you share" | translate}}</h4>-->
+<!--      <div class="mb-5 overflow-auto d-md-flex justify-content-center">-->
+<!--        <share-buttons theme="circles-dark"-->
+<!--                       [include]="['facebook', 'twitter', 'whatsapp', 'email', 'sms',  'copy']"-->
+<!--                       [showIcon]="true"-->
+<!--                       [showText]="false"-->
+<!--                       [url]="link"-->
+<!--                       description="{{listing.description}}">-->
+<!--        </share-buttons>-->
+<!--      </div>-->
+
+<!--    <div class="col-12 d-flex justify-content-center align-items-center" >-->
+<!--      <button type="button" (click)="cancel()"  mat-raised-button color="accent">-->
+<!--        {{'Close' | translate}}-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
+
+<div class="row" (touchstart)="handleTouchStart($event)" (touchmove)="handleTouchMove($event)">
+
+    <div   class="col-12 px-2 py-2 d-flex justify-content-between align-items-center">
+<!--        <i (click)="closePopup()" class="fa fa-angle-down cursor-pointer"></i>-->
+
+        <div  class="h-100 d-flex justify-content-center align-items-center">
+
+            <h4 class="mb-0">
+
+                <ng-container [ngSwitch]="listingType">
+                    <ng-container *ngSwitchCase="'lc'">{{"Share Loyalty Card" | translate}}</ng-container>
+                    <ng-container *ngSwitchCase="'business'">{{"Share Business" | translate}}</ng-container>
+                    <ng-container *ngSwitchCase="'business_ad'">{{"Share Business Ad" | translate}}</ng-container>
+                    <ng-container *ngSwitchCase="'ad'">{{"Share Business Ad" | translate}}</ng-container>
+                    <ng-container *ngSwitchCase="'promotion'">
+                        <ng-container [ngSwitch]="listing.promotion_type">
+                            <ng-container *ngSwitchCase="'Promotion'">{{"Share Promotion" | translate}}</ng-container>
+                            <ng-container *ngSwitchCase="'Discount'">{{"Share Discount" | translate}}</ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </h4>
+        </div>
+
+
+        <i (click)="closePopup()" class="fa fa-times cursor-pointer"></i>
+    </div>
+    <mat-divider></mat-divider>
+
+
+
+    <ng-container *ngIf="step === 1">
+
+
+        <div #sharableCanvas id="sharableCanvas"
+             class="w-100 mt-2  sharable-content-container sharable-content-container-{{selectedNetwork}} d-flex align-items-center justify-content-center"
+             style="background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url('/assets/img/share-bgs/{{bgSelected}}.webp');height: {{sharableImgDimensions.height}}px">
+
+            <div
+                    class="col-12 my-1 p-0 rounded-6  d-flex justify-content-center align-items-center">
+                <div class="sharable-content  d-flex flex-column gap-2" style="width: 90% !important;">
+
+                    <div class="w-100 sharable-content-frame px-3 py-3 d-flex flex-column gap-1 shadow-lg"
+                         style="border-radius: 16px;background-position: center; background-size: cover; background-repeat: no-repeat; background-image: url('/assets/img/share-frame-bgs/{{frameSelected}}.webp');">
+                        <!-- If listing type business -->
+                        <ng-container *ngIf="listing && listingType === 'business' && listing.gallery">
+                            <img src="{{listing.gallery[0].img}}" class="img-fluid rounded-5 ">
+                            <div>
+                                <h4 class="text-white mb-0">{{ listing.name }}</h4>
+                                <p class="text-white">
+                                    {{ listing.slogan }}
+                                </p>
+
+                                <div class="w-100 d-flex justify-content-between align-items-start pe-2 pb-2">
+                                    <div class="d-flex flex-column">
+                                        <small class="text-white">{{ listing.city }}</small>
+                                        <small class="text-white">{{ listing.country }}</small>
+                                    </div>
+                                    <!--                                    <div class="bg-white d-flex justify-content-center align-items-center"-->
+                                    <!--                                         style="width: 80px;height: 80px;border-radius: 24px;">-->
+                                    <!--                                        <img width="60" height="60" class=" "-->
+                                    <!--                                             src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{getQRCodeDataForBusiness()}}">-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+                        </ng-container>
+                        <!-- If listing type promotion -->
+                        <ng-container *ngIf="listing && listingType === 'promotion'">
+                            <ng-container>
+                                <!-- if the promotion has gallery with images -->
+                                <ng-container *ngIf="listing.gallery && listing.gallery.length">
+                                    <img src="{{listing.gallery[0].img}}" class="img-fluid rounded-5 ">
+                                </ng-container>
+                                <!-- if the promotion has no gallery or no gallery images -->
+                                <ng-container
+                                        *ngIf="(!listing.gallery || !listing.gallery.length) && listing.business && listing.business.gallery">
+                                    <img src="{{listing.business.gallery[0].img}}" class="img-fluid rounded-5 ">
+                                </ng-container>
+                                <div>
+                                    <h4 class="text-white mb-0">{{ listing.promotion_title }}</h4>
+                                    <p class="text-white">
+                                        {{ listing.business?.name }}
+                                    </p>
+
+                                    <div class="w-100 d-flex justify-content-between align-items-start pe-2 pb-2">
+                                        <div class="d-flex flex-column">
+                                            <small class="text-white">{{ listing.business?.city }}</small>
+                                            <small class="text-white">{{ listing.business?.country }}</small>
+                                        </div>
+                                        <!--                                        <div class="bg-white d-flex justify-content-center align-items-center"-->
+                                        <!--                                             style="width: 80px;height: 80px;border-radius: 24px;">-->
+                                        <!--                                            <img width="60" height="60" class=" "-->
+                                        <!--                                                 src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{getQRCodeDataPromo()}}">-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="listing && (listingType === 'loyalty_card' || listingType === 'lc')">
+                            <ng-container>
+                                <!-- if the promotion has gallery with images -->
+
+                                <!-- if the promotion has no gallery or no gallery images -->
+
+                                <app-lc-card-sharable-preview [loyalty_card]="listing"></app-lc-card-sharable-preview>
+
+
+                                <div>
+                                    <h4 class="text-white mb-0">{{ listing.promotion_title }}</h4>
+                                    <p class="text-white">
+                                        {{ listing.business?.name }}
+                                    </p>
+
+                                    <div class="w-100 d-flex justify-content-between align-items-start pe-2 pb-2">
+                                        <div class="d-flex flex-column">
+                                            <small class="text-white">{{ listing.business?.city }}</small>
+                                            <small class="text-white">{{ listing.business?.country }}</small>
+                                        </div>
+                                        <!--                                        <div class="bg-white d-flex justify-content-center align-items-center"-->
+                                        <!--                                             style="width: 80px;height: 80px;border-radius: 24px;">-->
+                                        <!--                                            <img width="60" height="60" class=" "-->
+                                        <!--                                                 src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{getQRCodeDataPromo()}}">-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- end -->
+
+            <!--                <div class="w-100 h-100 d-flex flex-column justify-content-end align-items-start px-2 py-2">-->
+            <!--                    <div style="width: 60px;height: 60px;border-radius: 8px;border: 0px solid black"-->
+            <!--                         class="bg-white d-flex justify-content-center align-items-center">-->
+            <!--                        <img width="50" height="50" class=" "-->
+            <!--                             src="https://api.qrserver.com/v1/create-qr-code/?size=50x50&data={{getQRCodeDataForBusiness()}}">-->
+            <!--                    </div>-->
+
+            <!--                </div>-->
+
+
+        </div>
+
+        <div class="w-100 d-flex mt-2 justify-content-start gap-3 mb-1">
+
+            <p class="share-tab" [class]="{'active-share-tab' : activeTab === 'bg'}" (click)="setActiveTab('bg')">{{ "Customize background" }}</p>
+
+            <p class="share-tab" [class]="{'active-share-tab' : activeTab === 'frame'}" (click)="setActiveTab('frame')">{{ "Customize Frame" }}</p>
+
+
+        </div>
+        <div class="w-100 d-flex justify-content-center gap-2" *ngIf="activeTab === 'bg'">
+            <ng-container *ngFor="let option of bgSelectOptions">
+                <div [class]="{'selected-gradient' : bgSelected === option}" (click)="onBgChange(option)"
+                     style="width: 40px;height: 40px;border-radius: 50%;background-size: cover;background-position: center;background-repeat: no-repeat;background-image: url('assets/img/share-bgs/{{option}}.webp')">
+
+                </div>
+            </ng-container>
+
+        </div>
+
+        <div class="w-100 d-flex justify-content-center gap-2" *ngIf="activeTab === 'frame'">
+            <ng-container *ngFor="let option of frameSelectOptions">
+                <div [class]="{'selected-gradient' : frameSelected === option}" (click)="onFrameChange(option)"
+                     style="width: 40px;height: 40px;border-radius: 50%;background-size: cover;background-position: center;background-repeat: no-repeat;background-image: url('assets/img/share-frame-bgs/{{option}}.webp')">
+
+                </div>
+            </ng-container>
+
+        </div>
+    </ng-container>
+    <ng-container *ngIf="step === 0">
+
+        <div class="w-100">
+
+            <h4 class="mt-5">{{"Please select network to share" | translate}}</h4>
+
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="alert alert-dark">
+                        {{"WeShare will generate and resize image for you based on your selection" | translate}}
+                    </div>
+                </div>
+
+                <ng-container *ngFor="let x of selectableNetworks">
+                    <div class="col-6 px-2 py-2 d-flex justify-content-center align-items-center cursor-pointer" (click)="onNetworkSelected(x)" >
+                        <div class="w-100 d-flex justify-content-center align-items-center network-widget"
+                             style="height: 100px;">
+                            <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
+
+
+                                <ng-container *ngIf="x === 'Facebook'">
+                                    <svg role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" class="svg-inline--fa fa-facebook-f fa-fw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path></svg>
+                                </ng-container>
+                                <ng-container *ngIf="x === 'Twitter'">
+                                    <svg role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-fw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+                                </ng-container>
+                                <ng-container *ngIf="x === 'WhatsApp'">
+                                    <svg role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="whatsapp" class="svg-inline--fa fa-whatsapp fa-fw" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+                                </ng-container>
+                                <ng-container *ngIf="x === 'Other'">
+                                    <span class="material-symbols-outlined">
+more_horiz
+</span>
+                                </ng-container>
+
+                                <h3 class="mb-0">
+                                    {{ x | translate }}
+                                </h3>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </ng-container>
+
+                <div class="col-12 mt-5">
+                    <div class="alert">
+                        <h4 class="text-center">{{ "Share with other users and get rewards everytime you share" | translate }}</h4>
+
+                    </div>
+                    <button class="btn btn-theme-dark w-100">
+                        {{"Continue" | translate}}
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+    </ng-container>
+
+
+    <ng-container *ngIf="step > 0">
+        <ng-container *ngIf="screenshotProgress">
+            <div class="col-12 py-3" >
+                <p class="text-center">{{"Saving image to share for you, please wait ..." | translate}}</p>
+            </div>
+            <div class="col-12 d-flex justify-content-center pb-3" >
+
+                <img src="https://media.tenor.com/CrhrU7ebGucAAAAi/unless-you-include-this.gif" style="width: 50px;">
+<!--                <mat-progress-spinner mode="indeterminate" diameter="40" ></mat-progress-spinner>-->
+
+            </div>
+        </ng-container>
+
+
+        <ng-container *ngIf="progress">
+            <div class="col-12 py-3" >
+                <p class="text-center">{{"Generating referral link for you" | translate}}</p>
+            </div>
+            <div class="col-12 d-flex justify-content-center" >
+
+                <mat-progress-spinner mode="indeterminate" diameter="40" ></mat-progress-spinner>
+
+            </div>
+        </ng-container>
+
+        <div class="col-md-12 mt-4 pb-1" *ngIf="listing && link">
+
+
+            <ng-container *ngIf="!selectedNetwork || selectedNetwork === 'Other'">
+
+
+                <h4 class="text-center mb-0">{{ "Share with other users and get rewards everytime you share" | translate }}</h4>
+                <div class="mb-5 overflow-auto d-flex justify-content-center align-items-center gap-2">
+                    <share-buttons theme="circles-dark"
+                                   [include]="[
+                                   'email', 'sms',  'copy']"
+                                   [showIcon]="true"
+                                   [showText]="false"
+                                   [url]="link"
+                                   description="{{listing.description}}">
+                    </share-buttons>
+                    <button (click)="shareViaApps()"
+                            class="btn btn-theme-dark d-flex justify-content-center align-items-center"
+                            style="height: 45px;width:35px;border-radius: 50%">
+                   <span class="material-symbols-outlined">
+more_horiz
+</span>
+                    </button>
+
+                </div>
+            </ng-container>
+            <ng-container *ngIf="selectedNetwork && selectedNetwork !== 'Other'">
+                <mat-divider></mat-divider>
+
+
+                <div class="w-100 d-flex justify-content-between align-items-center py-2 flex-wrap">
+
+                    <p (click)="goBack()" class="mb-0">
+                        {{"Selected network" | translate}}
+                    </p>
+
+                    <div (click)="goBack()"  class="mb-0 text-active cursor-pointer d-flex align-items-center gap-3">
+                        <p class="mb-0 fw-bold">
+                            {{selectedNetwork}}
+                        </p>
+
+                        <a (click)="goBack()" >
+                            <i class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+
+
+            </ng-container>
+
+<!--            <div class="col-12 d-flex justify-content-center align-items-center" *ngIf="!selectedNetwork || selectedNetwork === 'Other'" >-->
+
+<!--                <button type="button" (click)="cancel()"  mat-raised-button color="accent">-->
+<!--                    {{'Close' | translate}}-->
+<!--                </button>-->
+<!--            </div>-->
+            <div class="col-12 mt-1 d-flex justify-content-center gap-2 align-items-center" >
+
+                <button type="button" (click)="cancel()" class="btn btn-theme-dark d-flex align-items-center">
+                   {{'Close' | translate}}
+                </button>
+                <button type="button" (click)="goBack()" *ngIf="!selectedNetwork || selectedNetwork === 'Other'" class="btn btn-theme-dark d-flex align-items-center">
+                    {{'Select Another Network' | translate}}
+                </button>
+                <button [matTooltip]="link"  *ngIf="selectedNetwork && selectedNetwork !== 'Other'" type="button" (click)="confirmShare()"  class="btn btn-theme-dark d-flex align-items-center">
+                  <span class="material-symbols-outlined">
+share
+</span> &nbsp;  {{'Share now!' | translate}}
+                </button>
+            </div>
+        </div>
+
+
+    </ng-container>
+
+</div>
+
+

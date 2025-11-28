@@ -1,0 +1,11 @@
+.indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background: black;
+}
+
+.indicator-active {
+    width: 10px;
+    height: 10px;
+}

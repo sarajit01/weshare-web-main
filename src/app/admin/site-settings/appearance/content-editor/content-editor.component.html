@@ -1,0 +1,86 @@
+<div class="row">
+
+  <form [formGroup]="form" (submit)="save()" class="col-md-5">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Content</h1>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Background</mat-label>
+          <mat-error></mat-error>
+          <input formControlName="content_bg" matInput  type="color" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Heading Text Color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_heading_text_color"  type="color" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Heading Text Size</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_heading_font_size"  type="number" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Content Padding</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_padding"  type="number" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Content Margin</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_margin" type="number" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Button background color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_btn_bg"  type="color" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Button text color</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_btn_text_color"  type="color" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field  appearance="outline">
+          <mat-label>Button font size</mat-label>
+          <mat-error></mat-error>
+          <input matInput formControlName="content_btn_font_size"  type="text" >
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <button class="btn btn-primary">
+            Save
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </form>
+
+
+</div>

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+
+
+  <div class="row" *ngIf="media">
+
+    <div class="img-frame col-12"  style="background-image: url('{{media.img}}');" >
+
+
+    </div>
+    <div class="img-frame-back col-12" style="background-image: url('{{media.img}}'); ">
+
+
+    </div>
+
+
+  </div>
+
+  <div class="w-100 d-flex justify-content-between align-items-center h-100" style="position: fixed;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1000000 !important;
+    top: 0 !important;
+    left: 0 !important;">
+
+    <app-menu-icon (click)="prev()" img="https://img.icons8.com/material-outlined/48/888888/back--v1.png"></app-menu-icon>
+
+    <app-menu-icon (click)="next()" img="https://img.icons8.com/ios-filled/50/888888/more-than.png"></app-menu-icon>
+
+  </div>
+
+  <div class="w-100 d-flex justify-content-between align-items-center" style="position: fixed;
+    width: 100vw !important;
+    z-index: 1000000 !important;
+    top: 15px !important;
+    left: 15px !important;">
+
+    <app-menu-icon [routerLink]="'/'+listing_type+'-details/'+listing_id" img="https://img.icons8.com/ios/50/888888/delete-sign--v1.png"></app-menu-icon>
+
+  </div>
+
+</div>
